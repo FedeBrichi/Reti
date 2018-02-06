@@ -12,10 +12,10 @@ Go back-n e il selective repeat hanno diverse conseguenze in termini di uso di b
 ALOHA è un protocollo di rette per garantire le funzionalità di accesso multiplo al mezzo di trasmissione dati condiviso tra più utenti. Esistono due tipi di reti: quelle che utilizzano le connessioni punto-punto e quelle che usa canali broadcast, questo protocollo viene utilizzato per le seconde.
 Inventato negli anni ’70 nelle Hawaii, l’idea di fondo è di consentire agli utenti di trasmettere ogni volta che hanno dati da inviare. Questo naturalmente genera collisioni, tuttavia poiché i canali broadcast danno la possibilità di verificare se il frame trasmesso è stato ricevuto correttamente o no, la stazione trasmittente ascolta il canale e determina il successo o insuccesso della trasmissione.
 Le stazioni attendono un tempo variabile prima di provare a ritrasmettere un frame non andato a buon fine.
-Il successo dell’ALOHA puro è di circa 18%.
+Il successo dell’ALOHA puro è di circa 18\%.
 Il protocollo Slotted ALOHA aggiunge al protocollo sopracitato la divisione del tempo in intervalli discreti, chiamati slot. Ogni stazione viene vincolata a cominciare la propria trasmissione solo all’inizio di uno slot temporale, se una stazione è pronta ad un certo istante, dovrà necessariamente attendere l’inizio dello slot successivo.
 Lo svantaggio di questo protocollo è la necessità di un meccanismo di sincronizzazione che indichi alle varie stazioni quando possono cominciare la trasmissione.
-Questa divisione in slot migliora il grado di successo del doppio rispetto all’ALOHA puro, circa 36%.
+Questa divisione in slot migliora il grado di successo del doppio rispetto all’ALOHA puro, circa 36\%.
 Questi risultati non dovrebbero sorprendere, in quanto con stazioni che trasmettono a piacimento è molto facile incorrere in collisioni.
 Subito dopo l’invenzione, questi protocolli caddero in disuso, fino a quando non si presentò il problema di allocare un canale condiviso da più utenti in competizione, di conseguenza slotted ALOHA tornò ad essere utilizzato.
   
@@ -53,7 +53,7 @@ Il collision free binary countdown o conteggio binario migliora il basic bitmap,
 Una stazione che desidera utilizzare il canale deve comunicare a tutti il proprio indirizzo sotto forma di stringa binaria, hanno tutti la stessa lunghezza.
 I conflitti si evitano grazie ad una regola di arbitraggio: la stazione rinuncia ad inviare non appena si accorge che un’altra stazione con un “1” in una posizione di bit di ordine elevato che nel proprio indirizzo vale “0”.
 Esempio: 0010, 0100, 1001, 1010, queste stazioni vogliono inviare, vengono inviati i primi bit: 0 (0010), 0 (0100), 1 (1001), 1 (1010), le stazioni con “0” più a sinistra capiscono che ci sono stazioni con numero più grande che stanno concorrendo e si fanno da parte, le altre due continuano: 0 (1001), 0 (1010); sono uguali quindi continuano, il terzo bit è “1” quindi la stazione 1001 si arrende, vince 1010 che può trasmettere.
-L’efficienza è pari a (d/d*log2N) (con d numero di bit) ma può raggiungere anche il 100% se l’indirizzo del mittente costituisce l’intestazione del frame.
+L’efficienza è pari a (d/d*log2N) (con d numero di bit) ma può raggiungere anche il 100\% se l’indirizzo del mittente costituisce l’intestazione del frame.
 Si possono notare uno sbilanciamento notevole in quanto le stazioni con numero maggiore risultano avere sempre la precedenza, questo può essere ovviato facendo ruotare i valori delle stazioni ad ogni step, cosi quando una stazione riesce ad inviare viene spostata alla fine della coda, cosi da permettere in egual modo a tutte le stazioni la possibilità di inviare.
 Questo algoritmo è semplice, elegante ed efficiente, tuttavia attualmente non è utilizzato.
 
