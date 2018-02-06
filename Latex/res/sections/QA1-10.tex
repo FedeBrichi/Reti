@@ -1,4 +1,4 @@
-1.	Cosa si intende per serie di Fourier?
+\section{Cosa si intende per serie di Fourier?}
 Un segnale che ha una durata finita può essere gestito immaginando semplicemente che esso ripeta infinite volte l’intero schema (intervallo T e 2T è identico all’intervallo 0 a T).
 È possibile quindi rappresentare i segnali tramite funzioni, le quali permettono un’analisi e una modellazione più efficace.
 La Serie di Fourier non è altro che la scomposizione di un segnale in componenti sinusoidali (possibilmente infiniti).
@@ -7,20 +7,20 @@ f=1/T rappresenta la frequenza fondamentale, an  bn  sono rispettivamente le amp
 	Su questo teorema si basano le reti e il passaggio dei dati tramite i mezzi di trasmissione, purtroppo 	nella pratica i mezzi di trasmissione attenuano in modo non uniforme i componenti della serie di 	Fourier, generando così una distorsione. Per ovviare a questa distorsione, le ampiezze fino ad una 	certa frequenza vengono trasmesse senza modifiche, da quella frequenza in poi vengono attenuate.
 	L’intervallo di frequenze trasmesse senza una forte attenuazione è chiamato Banda Passante.
 Generalmente nella realtà viene indicata la banda passante compresa tra 0 e la frequenza dove la potenza è attenuata del 50%.
-2.	Bitrate e Baudrate.
+\section{Bitrate e Baudrate}
 
 Il Bitrate è la quantità di informazioni digitali che è trasferita o registrata nell’unita di tempo.
 Stiamo parlando quindi di velocità di trasmissione, espressa in bit/s. La velocità di trasmissione è anche detta Banda. La velocità di trasmissione dipende dal tipo di mezzo trasmissivo utilizzato e dalle sue condizioni fisiche al momento dell’uso.
 Il Baudrate invece rappresenta il numero di simboli che viene trasmesso in un secondo. Non va confusa con il sopracitato bitrate in quanto misurano unità differenti, infatti ad un simbolo corrisponde un numero di bit differente in base alle tecniche di modulazione utilizzate.
 
-3.	Descrivere i vari tipi di cavo e confrontarli.
+\section{Descrivere i vari tipi di cavo e confrontarli}
 
 I principali tipi di cavo utilizzato nelle telecomunicazioni sono : il doppino, il cavo coassiale e la fibra ottica.
 •	Il doppino:
 -Cos’è: è un cavo composto da due conduttori di rame isolati, spessi circa 1mm e avvolti uno intorno all’altro in una forma elicoidale. L’intreccio è utile per annullare i campi elettromagnetici generati dai due conduttori, i quali si annullano a vicenda. Esistono diverse varietà di doppini, i più importanti per le telecomunicazioni sono gli UTP3 e UTP5, (UTP= Unshielded Twisted Pair, doppini non schermati), Le differenze tra i doppini di categoria 3 e categoria 5 sta nel numero di spire per centimetro, minor numero di spire per cm negli UTP3 e maggiore negli UTP5, un maggior numero di spire permette di migliorare la qualità del segnale trasmesso su lunghe distanze, a scapito però della quantità di materiale necessario. Esistono anche categorie superiori, i quali gestiscono segnali con banda più ampia.  
 -Applicazione: Il sistema di applicazione più diffuso per il doppino è il sistema telefonico. I doppini si 	possono utilizzare per trasmettere segnali analogici e digitali, l’ampiezza di banda dipende dal diametro del cavo e dalla distanza percorsa. Sono molto utilizzati grazie al basso costo e al discreto livello di prestazioni.
 •	Il cavo coassiale:
--Cos’è: è un cavo composto da un nucleo conduttore coperto da un rivestimento isolante, a sua volta circondato da un conduttore cilindrico, solitamente realizzato con una calza di conduttori sottili, che infine è avvolto da una guaina protettiva di plastica. La costruzione e la schermatura del cavo coassiale forniscono ampiezza di banda ed eccellente immunità al rumore. Ne esistono di due tipi, a 50Ω per le trasmissioni digitali e a 75Ω per quelle analogiche, non c’è una motivazione tecnica per questa distinzione.
+-Cos’è: è un cavo composto da un nucleo conduttore coperto da un rivestimento isolante, a sua volta circondato da un conduttore cilindrico, solitamente realizzato con una calza di conduttori sottili, che infine è avvolto da una guaina protettiva di plastica. La costruzione e la schermatura del cavo coassiale forniscono ampiezza di banda ed eccellente immunità al rumore. Ne esistono di due tipi, a 50$\Omega$ per le trasmissioni digitali e a 75$\Omega$ per quelle analogiche, non c’è una motivazione tecnica per questa distinzione.
 -Applicazione: Il cavo coassiale è molto utilizzato per le reti metropolitane e le televisioni via cavo, la banda disponibile dipende dalla qualità, dalla lunghezza del cavo e dal rapporto segnale-rumore del segnale dati. Per molti ambiti il cavo coassiale è stato sostituito dalla fibra ottica per i tratti più lunghi
  
 D: nucleo, C: rivestimento isolante, B: conduttore cilindrico, A: guaina protettiva.
@@ -46,7 +46,7 @@ Presenta tuttavia dei svantaggi, che nonostante tutto non limitano troppo questa
 •	Le interfacce per la fibra ottica costano di più di quelle elettriche.
 
 
-4.	Caratteristiche e confronto tra i vari tipi di satellite: GEO, MEO e LEO.
+\section{Caratteristiche e confronto tra i vari tipi di satellite: GEO, MEO e LEO}
 
 Un satellite di comunicazioni può essere immaginato come un grande ripetitore di microonde posto nel cielo. Questo dispositivo contiene diversi trasponder, ossia ricetrasmettitori satellitari, i quali ascoltano una parte dello spettro, amplificano il segnale e lo ritrasmettono su altre frequenze per evitare interferenze.
 La collocazione dei satelliti è importante, e determinata da alcuni fattori:
@@ -55,7 +55,7 @@ La collocazione dei satelliti è importante, e determinata da alcuni fattori:
 Esistono quindi 3 zone in cui i satelliti possono essere collocati LEO: sotto la fascia di Van Allen inferiore, MEO: tra la fascia VA inferiore e quella superiore, e i GEO: molto al di sopra della fascia VA superiore.
  
 GEO:
--GEO (Geostationary Earth Orbit), sono collocati nella fascia più alta, disposti con un intervallo di 2° nel piano equatoriale, così da evitare interferenze, di conseguenza c’è posto per “solo” 180 satelliti di questo tipo, la loro dimensione è importante e la gestione dell’allocazione degli slot orbitali è motivo di disputa tra paesi, stazioni televisive e militari.
+-GEO (Geostationary Earth Orbit), sono collocati nella fascia più alta, disposti con un intervallo di $2^{\circ}$ nel piano equatoriale, così da evitare interferenze, di conseguenza c’è posto per “solo” 180 satelliti di questo tipo, la loro dimensione è importante e la gestione dell’allocazione degli slot orbitali è motivo di disputa tra paesi, stazioni televisive e militari.
 MEO:
 -Tra le due fasce di Van Allen troviamo i satelliti MEO (Medium Earth Orbit), questi satelliti si spostano lentamente lungo la longitudine, impiegando 6 ore per compiere un giro attorno al pianeta, attualmente non sono utilizzati per le telecomunicazioni. Rispetto al GEO, il MEO permette un ritardo di propagazione inferiore, tuttavia si perde la comodità del “punto fisso” garantito dal GEO, questo perché il MEO si sposta più velocemente.
 LEO:
@@ -68,7 +68,7 @@ Non esiste una risposta ben definita, la fibra grazie alla sua comodità sembrav
 •	Comunicazione broadcast, un messaggio inviato da un satellite può essere ricevuto contemporaneamente da migliaia di stazioni terrestri.
 •	Comunicazione in luoghi con terreni inospitali o scarsamente dotati di infrastrutture.
 Il sistema di comunicazione principale del futuro sarà quello terrestre basato su fibre ottiche, combinato con la rete radio cellulare, tuttavia per alcune applicazioni specifiche i satelliti sono migliori.
-5.	Cos’è la modulazione in frequenza?
+\section{Cos’è la modulazione in frequenza?}
 
 Durante l’invio di informazioni, il segnale può subire attenuazione, distorsione o venir disturbata dal rumore, questo porta ad evitare l’uso di un largo intervallo di frequenze, sfortunatamente le onde quadre utilizzate nei segnali digitali utilizzano un ampio spettro di frequenza, e perciò sono soggette ad una forte attenuazione e alla distorsione.
 Questi effetti portano adatta la trasmissione in banda base (DC) solo a velocità basse e distanze brevi.
@@ -77,14 +77,14 @@ Per aggirare questi problemi viene usata la trasmissione AC, un tono continuo(po
 La modulazione in frequenza non è altro che una tecnica di trasmissione utilizzata per trasmettere informazioni usando la variazione di frequenza dell’onda portante. Rispetto alla modulazione in ampiezza ha il vantaggio di essere molto meno sensibile ai disturbi e permette una trasmissione di miglior qualità. Ha inoltre un’efficienza energetica molto maggiore dato che la potenza del segnale modulato FM è esclusivamente quello della portante.
 Il difetto principale è la necessità di circuiti più complessi, sia per la generazione del segnale sia per la ricezione. L’attuale tecnologia ha permesso di superare queste problematiche, rendendo la modulazione in frequenza molto più usata rispetto a quella in ampiezza, soprattutto in ambito di broadcasting commerciale.
 
-6.	Cos’è la modulazione delta (delta modulation)?
+\section{Cos’è la modulazione delta (delta modulation)?}
 
 La delta modulation è un metodo di digitalizzazione e compressione di un segnale analogico.
 Si basa sul fatto che il segnale cambia in modo relativamente lento rispetto alla frequenza di campionamento, ciò rende gran parte dell’informazione ridondante.
 Questo metodo prevede che ogni valore campionato differisca dal precedente di +1 o -1, sotto queste condizioni è possibile trasmettere un singolo bit che dice se il nuovo campione è maggiore o minore del precedente.
 Un problema si ha se il segnale cambia troppo rapidamente, in quel caso si perdono informazioni.
  
-7.	Descrivere in dettaglio il GSM (Global System for Mobile connection).
+\section{Descrivere in dettaglio il GSM (Global System for Mobile connection)}
 
 Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da una diversa tecnologia:
 •	Voce analogica
@@ -99,7 +99,7 @@ Un sistema GSM ha 124 coppie di canali simplex e supporta otto connessioni separ
 A ogni stazione attiva è assegnato uno slot temporale su una coppia di canali.
 Trasmissione e ricezione non avvengono nello stesso intervallo temporale perché GSM non è in grado di trasmettere e ricevere contemporaneamente.
 Il GSM introduce anche l’utilizzo della SIM card, in cui vengono memorizzati i dati descrittivi dell’abbonato e ha la funzione principale di fornire autenticazione ed autorizzazione all’utilizzo della rete.
-8.	Si descriva la tecnica CDMA(Code Division Multiple Access), possibilmente con esempio.
+\section{Si descriva la tecnica CDMA(Code Division Multiple Access), possibilmente con esempio}
 
 Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da una diversa tecnologia:
 •	Voce analogica
@@ -117,7 +117,7 @@ Ad esempio, A,B,C trasmettono, A e C 1, B 0. Il ricevitore vede la somma S=A+!B+
 S*C=(A+!B+C)*C=A*C+B*C+C*C=0+0+1=1
 I primi due termini spariscono perché le sequenze di chip sono state scelte per essere ortogonali.
 
-9.	Il GPRS: Cos’è? Pregi e difetti.
+\section{Il GPRS: Cos’è? Pregi e difetti}
 
 Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da una diversa tecnologia:
 •	Voce analogica
@@ -128,7 +128,7 @@ Gli slot disponibili sono divisi in canali logici, la stazione base determina l�
 Per inviare un pacchetto IP, una stazione mobile chiede uno o più slot inviando una richiesta alla stazione base. Se la richiesta arriva senza problemi, la stazione comunica all’apparecchio mobile la frequenza e gli slot che dovrà utilizzare per trasmettere il pacchetto. Una volta arrivato alla stazione base, il pacchetto è trasferito su Internet attraverso una connessione via cavo.
 I vantaggi rispetto ai suoi predecessori stanno nel fatto che lo spreco di banda inesistente e viene utilizzata una tariffa a traffico e non a tempo. GPRS aggiunge il supporto a PPP e IP.
 
-10.	Handoff cos’è e vari tipi.
+\section{Handoff cos’è e vari tipi}
 
 Nell’ambito della telefonia mobile, con “Handoff” si intende la procedura per la quale un terminale cambia il canale (frequenza e slot di tempo) che sta utilizzando durante una comunicazione.
 Un’area geografica è divisa in celle, al centro di ogni cella si trova una stazione base che comunica con tutti i telefoni che si trovano nella cella.

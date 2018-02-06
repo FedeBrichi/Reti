@@ -1,4 +1,4 @@
-11.	FDM, TDM, CDM: Algoritmi per la selezione della banda.
+\section{FDM, TDM, CDM: Algoritmi per la selezione della banda}
 
 FDM (Frequency Division Multiplexing) è una tecnica di condivisione delle risorse trasmissive di un canale di comunicazione. L’intero canale trasmissivo disponibile è diviso in sotto canali, ognuno costituito da una banda di frequenza e separato da un altro grazie ad un piccolo intervallo di guardia.
 Questo permette la condivisione dello stesso canale da parte di dispositivi che utilizzano diverse regioni di frequenze e utenti che possono cosi comunicare contemporaneamente senza interferirsi tra loro.
@@ -14,19 +14,17 @@ In ricezione il segnale ricevuto sarà costituito dalla somma vettoriale di tutt
 La miglior efficienza rispetto alle precedenti forme di multiplazione è dovuta al fatto che ciascun canale utilizza l’intera banda di frequenza assegnata al servizio per tutto il tempo che desidera, e la non-interferenza è assicurata grazie all’uso di codici ortogonali.
 
  
-
-12.	QAM e QAM16
+\section{QAM e QAM16}
 
 QAM è un sistema di modulazione numerica di ampiezza in quadratura, sia digitale che analogica. 
-Le portanti sono sinusoidi. Il termine quadratura indica che differiscono di 90°.
+Le portanti sono sinusoidi. Il termine quadratura indica che differiscono di $90^{\circ}$.
 Il segnale in ingresso viene suddiviso e modulato per l’ampiezza. Nel caso di segnali digitali si sommano i segnali modulati e si ottiene una forma d’onda che risulta una combinazione della modulazione di fase e quella d’ampiezza.
 Ciascun tipo di modulazione QAM è caratterizzato da un diagramma (costellazione) su cui sono rappresentati tutti gli stati della portante.
 La QAM, rispetto alla PSK (Phase shift keying), migliora l’immunità al rumore.
 QAM16 non è altro che un tipo di costellazione del QAM, utilizzando quattro ampiezze e quattro fasi, per un totale di 16 diverse combinazioni. Ogni modem ad alta velocità ha un suo schema di costellazione e può comunicare solo con altri modem che adottano lo stesso schema (anche se generalmente un modem riesce a emulare anche quelli più lenti).
 
  
-
-13.	Cos’è il byte stuffing?
+\section{Cos’è il byte stuffing?}
 
 Lo strato data link deve servire lo stato network, per farlo necessita di usare a sua volta le informazioni fornite dallo strato fisico il cui scopo è quello di prendere un flusso di bit e cercare di portarli a destinazione.
 Non esiste nessuna garanzia per la correttezza dei dati, i bit potrebbero essere maggiori, minori, modificati ecc. Uno dei compiti dello strato data link è quello di rilevare ed eventualmente correggere questi errori.
@@ -37,12 +35,7 @@ Questo metodo di framing presenta notevoli svantaggi, in primis quello di essere
 Il byte stuffing è usato in PPP (Point-to-Point Protocol).
  
 
-
-
-
-
-
-14.	Cos’è il bit stuffing?
+\section{Cos’è il bit stuffing?}
 
 Lo strato data link deve servire lo stato network, per farlo necessita di usare a sua volta le informazioni fornite dallo strato fisico il cui scopo è quello di prendere un flusso di bit e cercare di portarli a destinazione.
 Non esiste nessuna garanzia per la correttezza dei dati, i bit potrebbero essere maggiori, minori, modificati ecc. Uno dei compiti dello strato data link è quello di rilevare ed eventualmente correggere questi errori.
@@ -51,7 +44,7 @@ Ogni frame comincia e finisce con un gruppo speciale di bit “0111110” (flag 
 Con il bit stuffing il confine fra i due frame viene riconosciuto in modo inequivocabile tramite l’uso della sequenza flag.
  
 
-15.	Numero di bit necessari per riconoscimento(correzione) degli errori di trasmissione?
+\section{Numero di bit necessari per riconoscimento(correzione) degli errori di trasmissione?}
 
 I dati trasmessi nei collegamenti locali sono spesso soggetti ad errori, per la loro gestione sono state sviluppate due strategie di base: la prima si basa su una codifica a correzione d’errore mentre la seconda è una codifica a rilevazione d’errore.
 La prima introduce una ridondanza (in ciascun blocco trasmesso) tale da riuscire a ricostruire il messaggio in caso di anomalie. La seconda invece introduce ridondanza sufficiente solo a capire che c’è stato un errore, ma non di correggerlo.
@@ -64,10 +57,10 @@ Nelle reti wireless, in cui è presente molto rumore, conviene utilizzare una co
 Sui canali affidabili invece è più economico usare codifiche a rilevazione, ed eventualmente farsi ritrasmettere il blocco.
 Questo perché, anche come visto dalla formula, per correggere gli errori abbiamo bisogno di molti più bit rispetto ad accorgersene solamente.
 
-16.	Si descriva cos'è il CRC (Cycle Redundancy check). Si calcoli inoltre il CRC di 10011101 usando il polinomio generatore di x4+x+1.
+\section{Si descriva cos'è il CRC (Cycle Redundancy check). Si calcoli inoltre il CRC di 10011101 usando il polinomio generatore di x4+x+1}
 
 Il CRC o Cycle Redundancy Check, è un metodo per il calcolo di somme di controllo, serve a individuare errori casuali nella trasmissione di dati (causati da interferenze, rumori di linea o distorsione). Non è utile invece nel caso di tentativi intenzionali di manomissione.
-Il CRC tratta le sequenze di bit come dei polinomi a coefficienti che possono assumere solo valori “0” o “1”. Un frame di k bit è visto come una lista di coefficienti per un polinomio con k termini che variano da xk-1 a x0. Questo polinomio è detto di grado k-1 e il coefficiente più alto è quello più a sinistra del polinomio (es 110001 ha 6 bit, quindi rappresenta un polinomio di 5° grado con coefficienti 1,1,0,0,0 e 1: x5+x4 +x0.
+Il CRC tratta le sequenze di bit come dei polinomi a coefficienti che possono assumere solo valori “0” o “1”. Un frame di k bit è visto come una lista di coefficienti per un polinomio con k termini che variano da xk-1 a x0. Questo polinomio è detto di grado k-1 e il coefficiente più alto è quello più a sinistra del polinomio (es 110001 ha 6 bit, quindi rappresenta un polinomio di $5^{\circ}$ grado con coefficienti 1,1,0,0,0 e 1: x5+x4 +x0.
 
 Quando si utilizza una codifica di questo tipo, sorgente e destinazione devono mettersi d’accordo in anticipo su un polinomio generatore G(x). Che deve avere i bit di ordine più alto e più basso a “1”.
 Per poter calcolare il checksum di un frame di m bit, quest’ultimo dev’essere più lungo del polinomio generatore. L’idea è quella di aggiungere un checksum alla fine del frame in modo che il polinomio rappresentato dal frame con checksum sia divisibile per G(x). Quando la destinazione riceve il frame con il checksum e prova a dividerlo per G(x). Se c’è un resto vuol dire che c’è stato un errore di trasmissione.
@@ -80,7 +73,7 @@ Effettuo la divisione:
              
 1 1 1 1 è il resto di conseguenza, il frame trasmesso è 1 0 0 1  1 1 0 1  1 1 1 1.
 
-17.	Descrivere il protocollo stop-and-wait, pregi e difetti.
+\section{Descrivere il protocollo stop-and-wait, pregi e difetti}
 
 Durante la ricezione dei dati, il frame viene controllato, e a seconda se è integro o meno, si segue uno dei tre diversi protocolli più comuni: 
 Stop-and-wait è il più semplice tra questi.
@@ -92,7 +85,7 @@ Concludendo lo stop-and-wait è parecchio inefficiente rispetto agli altri proto
  
 
 	     
-18.	Cos’è il piggybacking?
+\section{Cos’è il piggybacking?}
 
 Molti protocolli di comunicazione necessitano di inviare l’ACK come segnale di avvenuta ricezione del frame.
 Fatto per ogni singolo frame, questo invio rischia di intasare inutilmente il canale di comunicazione, allungando i tempi e incorrendo in molteplici errori.
@@ -101,7 +94,7 @@ Questo avviene quando arriva un frame di dati, la destinazione non invia subito 
 Un problema può sorgere in caso di attesa molto lunga del pacchetto, poiché si rischia di far scattare il timer del mittente che re-invia il frame nell’attesa dell’ACK, in questo caso si decide un timeout in modo tale da fare piggybacking nel caso in cui il pacchetto da inviare è pronto in tempi celeri, altrimenti si invia l’ACK in modo indipendente.
 Il vantaggio principale sta nel miglior uso della banda disponibile, inoltre un minor numero di frame inviati significa anche un minor numero di interrupt “frame in arrivo”, con conseguente minor necessità di buffer.
 
-19.	Si descriva la tecnica dello Sliding window.
+\section{Si descriva la tecnica dello Sliding window}
 
 Sliding window è una classe di protocolli di controllo di flusso di dati, usato in particolare dal TCP.
 Una sliding window è formata da una finestra di invio e da una finestra di ricezione. La prima indica i frame che è autorizzata ad inviare, la seconda invece corrisponde all’insieme dei frame che può accettare.
@@ -111,7 +104,7 @@ Le finestre di mittente e destinatario non devono avere necessariamente uguali d
  
 Si noti che nel caso in cui abbiamo una finestra di dimensione massima uguale a 1 ci troviamo nel caso stop-and-wait, ovvero, dopo aver inviato un frame si attende l’ack corrispondente prima di inviarne ulteriori. In questo caso si mantiene l’ordine, con finestre più larghe questo non è più vero.
 
-20.	Si descriva l'idea dei protocolli "go back N", indicandone pregi e difetti.
+\section{Si descriva l'idea dei protocolli "go back N", indicandone pregi e difetti}
 
 Il problema di ricezione dell’ack per ogni frame inviato, limitava di molto l’utilizzo della banda e rallentava le comunicazioni, per ovviare a questo problema viene usata la tecnica di pipelining. Si decide quindi di inviare più frame prima di ricevere i vari ack aumentando di parecchio l’utilizzo della linea. Tuttavia, sorge un problema, cosa succede nel caso in cui si perdano dei frames? Per il ripristino degli errori in presenza di pipelining sono disponibili due approcci base.
 

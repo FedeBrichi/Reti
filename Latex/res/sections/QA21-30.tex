@@ -1,4 +1,4 @@
-21.	Si descriva cos'è la tecnica del selective repeat.
+\section{Si descriva cos'è la tecnica del selective repeat}
 
 Il problema di ricezione dell’ack per ogni frame inviato, limitava di molto l’utilizzo della banda e rallentava le comunicazioni, per ovviare a questo problema viene usata la tecnica di pipelining. Si decide quindi di inviare più frame prima di ricevere i vari ack aumentando di parecchio l’utilizzo della linea. Tuttavia, sorge un problema, cosa succede nel caso in cui si perdano dei frames? Per il ripristino degli errori in presenza di pipelining sono disponibili due approcci base.
 
@@ -7,7 +7,7 @@ La ripetizione selettiva può inviare dei NACK (Not acknowledgement) quando trov
 La ripetizione selettiva corrisponde ad avere una finestra di ricezione maggiore di 1.
 Go back-n e il selective repeat hanno diverse conseguenze in termini di uso di banda e di spazio di buffer nello strato data link, si può utilizzare un approccio oppure un altro in base a quale risorsa è più scarsa.
  
-22.	Descrivere la differenza tra ALOHA e ALOHA-SLOTTED.
+\section{Descrivere la differenza tra ALOHA e ALOHA-SLOTTED}
 
 ALOHA è un protocollo di rette per garantire le funzionalità di accesso multiplo al mezzo di trasmissione dati condiviso tra più utenti. Esistono due tipi di reti: quelle che utilizzano le connessioni punto-punto e quelle che usa canali broadcast, questo protocollo viene utilizzato per le seconde.
 Inventato negli anni ’70 nelle Hawaii, l’idea di fondo è di consentire agli utenti di trasmettere ogni volta che hanno dati da inviare. Questo naturalmente genera collisioni, tuttavia poiché i canali broadcast danno la possibilità di verificare se il frame trasmesso è stato ricevuto correttamente o no, la stazione trasmittente ascolta il canale e determina il successo o insuccesso della trasmissione.
@@ -21,7 +21,7 @@ Subito dopo l’invenzione, questi protocolli caddero in disuso, fino a quando n
   
 
 
-23.	Si illustri il CSMA (Carrier Sense Multiple Access), indicandone pregi e difetti.
+\section{Si illustri il CSMA (Carrier Sense Multiple Access), indicandone pregi e difetti}
 
 I protocolli ALOHA e le sue varianti permettevano di inviare dati ogniqualvolta si voleva, limitando però le percentuali di successo. Per migliorare i risultati di accesso multiplo ad un mezzo di trasmissione condiviso, vengono implementati protocolli in cui le stazioni rimangono in ascolto di una portante e si comportano di conseguenza, questi protocolli sono chiamati protocolli con rilevamento della portante.
 Il CSMA è una tecnica di trasmissione dati che si basa su questi principi. Ogni dispositivo prima di avviare la trasmissione dei dati deve verificare se sul canale, altri nodi stanno trasmettendo, rilevando la portante. Se il canale è libero iniziano a trasmettere, altrimenti attendono un tempo arbitrario prima di riprovare.
@@ -35,16 +35,16 @@ Un ulteriore miglioramento si ottiene consentendo ad ogni stazione di annullare 
  
 
 
-24.	Basic Bitmap.
+\section{Basic Bitmap}
 
 Nella gestione di accesso multiplo ad un mezzo di trasmissione condiviso, esistono diversi protocolli che gestiscono l’accesso gestendo le collisioni e garantendo l’accesso (ALOHA, slotted ALOHA, CSMA), tuttavia le collisioni sono sfavorevoli alle prestazioni del sistema, specialmente quando il cavo è lungo e i frame corti.
-Esistono però protocolli che garantiscono la gestione degli accessi senza collisione, uno tra questi è il basic Bitmap (metodo a mappa di bit elementare). In questo protocollo ogni periodo di contesa è composto esattamente da N intervalli (N=# stazioni). Ogni stazione è numerata, e se ha un frame da inviare deve inviare un “1” nell’intervallo corrispondente al suo numero. A nessun’altra stazione è concesso di trasmettere durante questo intervallo. Cosi facendo ogni stazione si “prenota” l’intervallo di trasmissione. Una volta trascorsi gli N intervalli, ogni stazione sa quali sono le stazioni che vogliono trasmettere, di conseguenza non ci sarà mai alcuna collisione.
+Esistono però protocolli che garantiscono la gestione degli accessi senza collisione, uno tra questi è il basic Bitmap (metodo a mappa di bit elementare). In questo protocollo ogni periodo di contesa è composto esattamente da N intervalli (N=\# stazioni). Ogni stazione è numerata, e se ha un frame da inviare deve inviare un “1” nell’intervallo corrispondente al suo numero. A nessun’altra stazione è concesso di trasmettere durante questo intervallo. Cosi facendo ogni stazione si “prenota” l’intervallo di trasmissione. Una volta trascorsi gli N intervalli, ogni stazione sa quali sono le stazioni che vogliono trasmettere, di conseguenza non ci sarà mai alcuna collisione.
 Questo è anche chiamato protocollo a prenotazione.
 Questo protocollo non è ben bilanciato, da priorità alle stazioni con un numero basso, se una stazione “i” e una “j” vogliono trasmettere e i<j allora i si aggiudica la posizione.
 Contemporaneamente però le stazioni numerate con numeri bassi dovranno attendere di più rispetto a quelle con numeri più alti.
 Il basic bitmap ha bisogno di 1 bit di controllo a stazione, perciò non si adatta molto bene alle reti composte da migliaia di stazioni.
 
-25.	spiegare in cosa consiste il protocollo collision free binary countdown, pregi e difetti.
+\section{spiegare in cosa consiste il protocollo collision free binary countdown, pregi e difetti}
 
 I dati vengono trasportati tramite un impulso elettrico. Ci possono essere molti dispositivi collegati allo stesso cavo con il rischio di collisioni e danneggiamento dei dati.
 Per evitare la collisione una stazione deve controllare se ci sono altre stazioni collegate allo stesso mezzo, esistono diversi protocolli che effettuano questo controllo evitando le collisioni.
@@ -59,13 +59,13 @@ Questo algoritmo è semplice, elegante ed efficiente, tuttavia attualmente non �
 
  
 
-26.	Spiegare cos’è l’adaptive tree walk protocol?
+\section{Spiegare cos’è l’adaptive tree walk protocol?}
 
 Per gestire la contesa di accesso ad un canale condiviso esistono protocolli con controllo della portante, con metodo della contesa tipo il CSMA o il metodo senza collisioni. Nelle situazioni di carico leggero la contesa è preferibile per il suo basso ritardo, tuttavia a carichi elevati diventa sempre più inefficiente. Il contrario avviene con i protocolli senza collisioni, a basso carico hanno un ritardo elevato ma al crescere del carico l’efficienza migliora.
 Adaptive tree walk protocol è un protocollo a contesa limitata che migliora ulteriormente le prestazioni dei protocolli sopracitati.
 Si può immaginare questo metodo come un albero binario, in cui le stazioni sono le foglie e sono divise nei vari rami. Inizialmente si prova a inviare ad altezza 0 se non vi è collisione si procede all’invio, in caso contrario ci si sposta sul sottoalbero sinistro e si ritenta, se il conflitto non c’è più si fa inviare la stazione che lo desidera (se non c’è conflitto vuol dire che nel sottoalbero sinistro c’è solo una stazione che vuole inviare). Dopo aver inviato si torna al nodo padre e si analizza il sottoalbero destro, ripetendo i test e scendendo nei sottoalberi in caso di conflitto.
  
-27.	Ethernet e i vari tipi di cavo.
+\section{Ethernet e i vari tipi di cavo}
 
 Ethernet è il sistema LAN più diffuso al mondo, è economico e facile da usare e la diffusione delle componenti hardware ne ha facilitato l’adozione, è adeguata all’utilizzo con TCP/IP.
 Nasce con l’intento di ottenere una trasmissione affidabile su cavo coassiale in condizioni di traffico contenuto, ma in grado di tollerare possibili picchi di carico. Per regolamentare l’accesso al mezzo trasmissivo era stato adottato un protocollo di accesso multiplo del tipo CSMA/CD.
@@ -80,7 +80,7 @@ Questo sistema di cablaggio utilizza hub di controllo tramite doppini telefonici
 Il quarto tipo di cavi per Ethernet si chiama 10Base-F e utilizza le fibre ottiche. È un’alternativa costosa a causa del prezzo dei connettori e dei terminatori, ma offre un’eccellente immunità alle interferenze e consente di collegare edifici o hub molto lontani. 10Base-F nonostante il costo consente inoltre una buona sicurezza in quanto i dati trasmessi sulla fibra sono difficili da intercettare.
  
 
-28.	Codifica Manchester.
+\section{Codifica Manchester}
 
 Nel sistema Ethernet la codifica binaria del segnale è “0” viene indicato con 0 volt mentre “1” utilizzando 5 volt, questo fa sorgere numerosi problemi, in quanto altre stazioni potrebbero interpretare erroneamente il segnale (a causa degli 0 volt, una stazione potrebbe confondere l’assenza del segnale con uno “0”). Si può passare a +1 volt per “1” e -1 volt per “0”, ma rimane il problema dei ricevitori che possono campionare il segnale in maniera diversa.
 Per risolvere questo problema sono state inventate due tecniche codifica Manchester e codifica Manchester differenziale.
@@ -90,7 +90,7 @@ Cosi facendo anche in caso di dissincronia, i dati in questo formato permettono 
 La codifica Manchester differenziale invece differisce da quella originale nella rappresentazione dei bit: questa infatti si basa sulla verifica di transizioni all’inizio di un intervallo. La presenza di una di queste infatti (che siano alto-basso o basso-alto) identifica un valore, la mancanza di transizione invece indica il valore opposto. Per convenzione il bit 1 viene rappresentato dalla mancanza di transizione all’inizio del suo intervallo, mentre lo 0 è indicato con un cambiamento di segnale nello stesso periodo.
 Tutti i sistemi Ethernet adottano la codifica Manchester perché è più semplice, mentre la Manchester differenziale è utilizzata da altre LAN.
  
-29.	Cos’è il binary exponential backoff?
+\section{Cos’è il binary exponential backoff?}
 
 Nel protocollo di accesso multiplo CSMA/CD viene utilizzato l’algoritmo di backoff esponenziale, il quale serve a decidere il tempo di entrata di una stazione nel canale dopo aver riscontrato una collisione.
 La caratteristica principale del CSMA/CD (algoritmo che controlla il canale prima di trasmettere ed evita le collisioni analizzando la portante) è che una volta rilevata una collisione, si attende un intervallo prima di ritrasmettere, questo intervallo viene calcolato ogni volta tramite l’algoritmo di backoff esponenziale.
@@ -101,7 +101,7 @@ Questo algoritmo è stato scelto perché si adatta dinamicamente al numero di st
 
 
 
-30.	Stazione nascosta e stazione esposta: cosa sono e cosa fanno?
+\section{Stazione nascosta e stazione esposta: cosa sono e cosa fanno?}
 
 Al crescere del numero di computer e dispositivi mobili aumenta anche la domanda di collegare tali apparecchi al mondo esterno.
 Nascono così le LAN wireless, le quali permettono la connessione dei dispositivi senza bisogno di cavi.

@@ -1,4 +1,4 @@
-41.	Leaky bucket, pregi e difetti. ( magari riguardo, l’ho fatta di notte)
+\section{Leaky bucket, pregi e difetti. ( magari riguardo, l’ho fatta di notte)}
 
 
 Quando ci si scambia pacchetti nella rete, serve un modo per controllare il flusso, per delimitare banda e velocità di trasmissione si può utilizzare l’algoritmo leaky bucket, sistema di accodamento a singolo server con tempo di servizio costante.
@@ -10,7 +10,7 @@ Cosi facendo si gestiscono burst di dati che altrimenti congestionerebbero la re
 
  
 
-42.	Descrivere il token bucket, pregi e difetti. (magari riguardo, l’ho fatta di notte)
+\section{Descrivere il token bucket, pregi e difetti. (magari riguardo, l’ho fatta di notte)}
 
 Per gestire il flusso di pacchetti su una rete è necessario utilizzare algoritmi che permettano un controllo della congestione e che sfruttino al meglio le risorse di rete. L’algoritmo leaky bucket (secchio che perde) gestiva le congestioni, ma purtroppo imponeva un modello di output troppo rigido, che non seguiva la variabilità del traffico.
 Per molte applicazioni è meglio permettere all’output di accelerare un po’ quando ci sono burst di dati, perciò serve un algoritmo più flessibile e che non perda mai dati.
@@ -19,8 +19,7 @@ Un pacchetto per passare deve distruggere un token, se non c’è attende finch�
 Se non arrivano pacchetti da inviare, il token bucket accumula i token fino ad un massimo n. cosi facendo si prepara a gestire dei possibili burst di massimo n pacchetti (pari al numero di token), bruciando i token in rapida successione e dando una risposta più veloce a picchi improvvisi.
 Per implementare questo algoritmo è necessaria solo una variabile che tenga conto del numero di token, e li diminuisca quando un pacchetto viene inviato.
  
-
-43.	Descrivere l’ARP.
+\section{Descrivere l’ARP.}
 
 Ogni macchina di Internet ha uno o più indirizzi IP, tuttavia questi non possono essere utilizzati per inviare pacchetti, in quanto l’hardware che opera sullo strato data link non comprende gli indirizzi Internet.
 Bisogna trovare un modo per associare l’indirizzo Ethernet a 48 bit (indirizzo MAC) con l’indirizzo IP associato.
@@ -31,8 +30,8 @@ La scheda Ethernet del destinatario rileva il frame, si accorge di essere la sta
 Per migliorare le prestazioni, dopo aver associato degli indirizzi, questi vengono memorizzati nella cache, cosi, in caso di nuove trasmissioni verso la stessa stazione, si ha già l’indirizzo pronto.
 Questo protocollo viene usato tutte le volte che un host collegato ad una LAN deve inviare un messaggio ad un host nella stessa LAN di cui conosce esclusivamente l’indirizzo di rete (IP).
 Questo protocollo non prevede metodi per autenticare le risposte ricevute, il che lo rende molto vulnerabile a possibili attacchi.
- 
-44.	Si descriva DHCP e il suo funzionamento.
+
+\section{Si descriva DHCP e il suo funzionamento.}
 
 Con ARP è possibile associare (in una sottorete) l’indirizzo MAC di una macchina conoscendo il suo indirizzo IP.
 A volte è necessario risolvere il problema inverso: dato un indirizzo Ethernet, qual è il corrispondente indirizzo IP?
@@ -48,8 +47,7 @@ Per evitare questa eventualità, gli indirizzi IP sono assegnati secondo una tec
 DHCP base non include nessun meccanismo di autenticazione, per questo motivo è vulnerabile a vari attacchi.
 
  
-
-45.	IPV6.
+\section{IPV6.}
 
 Un indirizzo IP, è un’etichetta numerica che identifica univocamente un dispositivo (host) collegato ad una rete informatica che utilizza l’internet Protocol come protocollo di rete.
 IPv4 (Internet Protocol version 4) è attualmente il protocollo più usato a livello di rete, la sua tecnologia però supporta al massimo 232 indirizzi univoci.
@@ -58,7 +56,7 @@ IPv6 è un upgrade dell’IPv4 e conta di risolvere i problemi di numero, in qua
 IPv6 oltre a colmare il problema della quantità di indirizzi migliora e semplifica l’intestazione, infatti prevede solo 8 campi rispetto ai 13 dell IPv4. Questo consente al router di elaborare i pacchetti più velocemente. Sempre riguardo l’elaborazione dei pacchetti, IPv6 migliora il supporto per le opzioni, rendendo campi che prima erano obbligatori, opzionali. Un altro grande passo avanti riguarda la sicurezza.
 IPv6 e IPv4 non sono compatibili tra loro, è facile trasformare un indirizzo di versione 4 a uno di versione 6, tuttavia la rete ormai è basata sull’IPv4 e il passaggio alla versione successiva è lenta e impegnativa, si stanno facendo passi avanti, però rimane la necessità di mantenere entrambi i protocolli almeno per decenni prima di passare alla nuova versione.
 
-46.	Elencare e descrivere brevemente i secondi (primi) 32b dell'header IPv4 (IPv6)
+\section{Elencare e descrivere brevemente i secondi (primi) 32b dell'header IPv4 (IPv6)}
 (sinceramente sta domanda non la capisco… faccio entrambe le versioni, poi nella risposta va scelta quella che viene richiesta. inizio con un’intro comune, poi un’intro per IPv4 e una IPv6 (da scegliere), successivamente descrivo in blocco i primi 32b dell’IPv4, seguiti dai secondi 32, poi faccio lo stesso per IPv6, Enjoy).
 
 Un indirizzo IP, è un’etichetta numerica che identifica univocamente un dispositivo (host) collegato ad una rete informatica che utilizza l’internet Protocol come protocollo di rete.
@@ -92,7 +90,7 @@ I secondi 32b dell’IPv6 sono cosi formati:
 
  
 Ripeto che questa domanda alla fine contiene 4(?) domande possibili, bisogna utilizzare i pezzi che vengono richiesti al momento, letta tutta d’un fiato non ha senso, è divisa e si dovrebbe capire il suo contenuto, se non lo capite cambiate esame :***.
-47.	Frame Ethernet.
+\section{Frame Ethernet.}
 
 Un frame Ethernet è l’unità trasportata nel livello Data Link.
 Esistono diverse versioni di questo frame, ora analizziamo la versione IEEE 802.3. 
@@ -107,8 +105,7 @@ Un frame Ethernet ha una grandezza compresa tra 64 e 1518 byte, ed è formato da
 •	Checksum [4 byte]: Contiene codice CRC per il rilevamento degli errori (senza correzione).
 
  
-
-48.	Si descriva l’header UDP.
+\section{Si descriva l’header UDP.}
 Lo stato di trasporto è il cuore dell’intera gerarchia dei protocolli. Il suo compito è fornire il trasporto dei dati, affidabile ed efficiente in termini di costi, dal computer di origine a quello di destinazione, indipendentemente dalla rete o dalle reti fisiche effettivamente utilizzate.
 Nello strato di trasporto ci sono due protocolli principali, che si distinguono dal fatto che uno è orientato alla connessione l’altro è senza connessione (TCP e UDP).
 Senza connessione= lo scambio di dati a pacchetto tra mittente e destinatario non richiede l’operazione preliminare di creazione di un circuito su cui instradare l’intero flusso.
@@ -123,7 +120,7 @@ Infine sono presenti i dati del messaggio.
 UDP viene utilizzato dalle applicazioni di rete che sono elastiche riguardo alla perdita dei dati e strettamente dipendenti dal tempo, si usa inoltre per comunicazioni in broadcast (tutti i terminali in una rete) e multicast (tutti i terminali iscritti ad un servizio).
  
 
-49.	Descrivere l’header TCP/IP e commentarlo.
+\section{Descrivere l’header TCP/IP e commentarlo.}
 
 Lo stato di trasporto è il cuore dell’intera gerarchia dei protocolli. Il suo compito è fornire il trasporto dei dati, affidabile ed efficiente in termini di costi, dal computer di origine a quello di destinazione, indipendentemente dalla rete o dalle reti fisiche effettivamente utilizzate.
 Nello strato di trasporto ci sono due protocolli principali, che si distinguono dal fatto che uno è orientato alla connessione l’altro è senza connessione (TCP e UDP).
@@ -155,8 +152,7 @@ o	FIN: Se impostato a “1” indica che l’host mittente del segmento vuole ch
 •	Options: opzioni facoltative per usi del protocollo avanzati.
 •	Data: Rappresenta il carico utile (payload) da trasmettere.
  
-
-50.	Cos’è il DNS.
+\section{Cos’è il DNS.}
 
 Protocollo dello strato applicativo, DNS (Domain Name System) è un sistema per la risoluzione di nomi degli host in indirizzi IP. 
 L’essenza di DNS è l’invenzione di uno schema di denominazione gerarchico basato su dominio, e di un sistema di database distribuito per l’implementazione di questo schema di denominazione.

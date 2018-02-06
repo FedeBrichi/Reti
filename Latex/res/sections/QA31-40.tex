@@ -1,4 +1,4 @@
-31.	Bluetooth. (sta domanda è un po’ uno schifo, dovrei scrivere 20 pagine)
+\section{Bluetooth. (sta domanda è un po’ uno schifo, dovrei scrivere 20 pagine)}
 
 Bluetooth è uno standard wireless che permette il collegamento di dispositivi di calcolo, di comunicazione e accessori vari mediante un sistema radio wireless a basso costo, bassa potenza e portata ridotta.
 L’unità di base di un sistema Bluetooth è la piconet, composta da un nodo master e da diversi (non più di 7) nodi slave, situati nel raggio di 10 metri. Più piconet possono trovarsi nella stessa stanza e possono essere collegate tramite un nodo ponte, un insieme di piconet è chiamato scatternet.
@@ -11,7 +11,7 @@ Supporta connessioni a commutazione di pacchetto, connessioni punto-multipunto (
 SCO invece è un collegamento che supporta connessioni con un traffico di tipo real-time e multimediali, prevede connessioni a commutazione di circuito, connessioni punto-punto e connessioni simmetriche.
 Bluetooth ha protocolli raggruppati in strati, che non seguono ne modello OSI né TCP/IP.
 
-32.	Si descriva l’algoritmo statico Flooding.
+\section{Si descriva l’algoritmo statico Flooding.}
 
 La funzione principale dello strato network è quella d’instradare i pacchetti dal computer sorgente al computer di destinazione.
 Lo strato network sfrutta particolari algoritmi detti algoritmi di routing per instradare correttamente i pacchetti nei vari percorsi. Esistono diversi modi di instradare i pacchetti in quanto ci sono molti fattori da tenere in considerazione, però possiamo suddividerli in due grandi tipi: algoritmi non adattivi e algoritmi adattivi.
@@ -23,7 +23,7 @@ Nella maggior parte delle applicazioni questo algoritmo non è molto utilizzato,
 Questo algoritmo viene utilizzato anche come metrica di confronto per altri algoritmi di routing, in quanto sceglie sempre il percorso più breve (scegliendoli tutti LOL), di conseguenza nessun algoritmo può produrre un ritardo più breve (ignorando il tempo di elaborazione dati generato dal processo di flooding).
  
 
-33.	Descrivere il distance vector routing.
+\section{Descrivere il distance vector routing.}
 
 La funzione principale dello strato network è quella d’instradare i pacchetti dal computer sorgente al computer di destinazione. Per fare questo vengono utilizzati diversi algoritmi che si possono raggruppare in due grandi gruppo: algoritmi adattivi e non adattivi. Gli algoritmi non adattivi sono anche detti statici, in quanto basano i loro calcoli sulla rete “a freddo” senza tener conto del carico istantaneo o dei problemi di linea, un esempio è l’algoritmo di Flooding.
 Generalmente le moderne reti di computer utilizzano algoritmi adattivi, o dinamici se vogliamo. Tra i più popolari ci sono il distance vector routing e il linkstate routing.
@@ -36,7 +36,7 @@ Viene sostituito dal linkstate routing, in quanto l’algoritmo basato sul vetto
 
  
 
-34.	Descrivere Linkstate routing.
+\section{Descrivere Linkstate routing.}
 
 La funzione principale dello strato network è quella d’instradare i pacchetti dal computer sorgente al computer di destinazione. Per fare questo vengono utilizzati diversi algoritmi che si possono raggruppare in due grandi gruppo: algoritmi adattivi e non adattivi. Gli algoritmi non adattivi sono anche detti statici, in quanto basano i loro calcoli sulla rete “a freddo” senza tener conto del carico istantaneo o dei problemi di linea, un esempio è l’algoritmo di Flooding.
 Generalmente le moderne reti di computer utilizzano algoritmi adattivi, o dinamici se vogliamo. Tra i più popolari ci sono il distance vector routing e il linkstate routing.
@@ -56,14 +56,14 @@ La parte più delicata dell’algoritmo è la distribuzione affidabile dei pacch
 Esistono diversi miglioramenti per questo metodo di distribuzione di pacchetti, ma sarebbe troppo lunga da elencare.
 Dopo aver accumulato una serie completa di pacchetti sullo stato della connessione, il router può costruire l’intero grafo della sottorete, lo fa utilizzando localmente l’algoritmo di Dijkstra (algoritmo per la costruzione di grafi, simile a quello di Bellman-Ford, non può essere però utilizzato in caso di cammini negativi (RO insegna pt.2)).
 Questo algoritmo è molto utilizzato nelle reti reali in quanto può gestire reti composte da molti nodi, converge rapidamente al cammino minimo, difficilmente genera cicli ed è facile da comprendere in quanto ogni nodo ha la mappa completa della rete. Il principale svantaggio è la complessità di realizzazione, anche dovuta alla notevole capacità di memoria ed elaborazione richiesti dai router.
-35.	Choke packet.
+\section{Choke packet.}
 
 La funzione principale dello strato network è quella d’instradare i pacchetti dal computer sorgente al computer di destinazione. La decisione del miglior percorso viene effettuato dagli algoritmi di routing (flooding, linkstate o distance vector). Purtroppo, per molteplici motivi, le reti potrebbero congestionarsi, più computer vogliono inviare pacchetti alla stessa destinazione che, non riuscendo ad elaborarli tutti ne perde, questo causa la ritrasmissione che causa ulteriori ingorghi. Questo problema è la congestione ed è un punto critico che va regolamentato.
 Il choke packet è uno speciale pacchetto utilizzato per il controllo di flusso in una rete. Un router che rileva una congestione, invia all’host originale del pacchetto che un choke packet per avvertirlo di diminuire il flusso. Quando l’host sorgente riceve il pacchetto speciale diminuisce il flusso (tipicamente lo dimezza) e ignora i successivi choke packet (generalmente ne arrivano in rapida successione), passato un tempo prefissato l’host si rimette all’ascolto, se arrivano altri choke packet in quel frangente diminuisce ulteriormente il flusso, altrimenti riprende gradualmente la velocità normale.
 Un problema di questa tecnica è la lentezza di reazione, perché l’host che produce i pacchetti ci mette un certo tempo a ricevere il choke packet e prendere provvedimenti, un miglioramento è dato da hop-by-hop choke packet che diminuisce il flusso per ogni router sul percorso in modo immediato.
  
 
-36.	Choke packet hop-by-hop.
+\section{Choke packet hop-by-hop.}
 
 La funzione principale dello strato network è quella d’instradare i pacchetti dal computer sorgente al computer di destinazione. La decisione del miglior percorso viene effettuato dagli algoritmi di routing (flooding, linkstate o distance vector). Purtroppo, per molteplici motivi, le reti potrebbero congestionarsi, più computer vogliono inviare pacchetti alla stessa destinazione che, non riuscendo ad elaborarli tutti ne perde, questo causa la ritrasmissione che causa ulteriori ingorghi. Questo problema è la congestione ed è un punto critico che va regolamentato.
 Il hop-by-hop choke packet è un miglioramento della sua versione precedente (choke packet).
@@ -71,11 +71,7 @@ Choke packet aveva il problema di aver un tempo di reazione a prendere provvedim
 Hop-by-hop choke packet risolve questo problema limitando tutte le stazioni che attraversa in maniera immediata, senza dover attendere di arrivare all’host sorgente.
 Questa tecnica rende più veloce il sollievo del router destinatario, ma richiede spazio di buffer nei router “in mezzo” (tra mittente e destinatario).
  
-
-
-
-
-37.	Load shedding.
+\section{Load shedding.}
 
 La funzione principale dello strato network è quella d’instradare i pacchetti dal computer sorgente al computer di destinazione. La decisione del miglior percorso viene effettuato dagli algoritmi di routing (flooding, linkstate o distance vector). Purtroppo, per molteplici motivi, le reti potrebbero congestionarsi, più computer vogliono inviare pacchetti alla stessa destinazione che, non riuscendo ad elaborarli tutti ne perde, questo causa la ritrasmissione che causa ulteriori ingorghi. Questo problema è la congestione ed è un punto critico che va regolamentato.
 Quando gli algoritmi di choke packet (puro e hop-by-hop) non bastano per gestire la congestione, i router possono utilizzare la tecnica load shedding che, molto banalmente elimina dei pacchetti casuali in caso di sovraffollamento.
@@ -83,13 +79,13 @@ Lo scartare pacchetti casuali non è sempre la scelta migliore, per migliorare l
 Wine da più importanza ai pacchetti vecchi, scarta di conseguenza quelli nuovi (vecchio è meglio del nuovo), milk invece al contrario da importanza maggiore ai pacchetti nuovi (nuovo è migliore del vecchio).
 Questa tecnica permette numerose applicazioni e metodi per implementarla (oltre a wine e milk) questo permette di tenere sotto controllo possibili momenti di congestione.
 
-38.	Red (Random Early Detection).
+\section{Red (Random Early Detection)}
 
 Nello strato network esistono numerosi algoritmi di instradamento per portare un pacchetto da una destinazione ad un mittente (flooding, distance vector, linkstate), quando questa linea si congestiona esistono algoritmi che permettono di gestire la congestione e risolvere il problema (choke packet e load shedding). Risulta tuttavia più semplice gestire la congestione appena viene rilevata, non cercare di porvi rimedio dopo averle dato il tempo di bloccare tutta la linea.
 Questa osservazione conduce all’idea di scartare i pacchetti prima che il buffer sia completamente pieno, da qui nasce un celebre algoritmo usato per mettere in pratica questo schema: RED (Random Early Detection).
 Red in pratica fa in modo che i router scartino i pacchetti prima che la situazione diventi senza speranza (early). Per stabilire quando è il momento giusto per iniziare a scartare i pacchetti, i router mantengono una media mobile delle lunghezze delle code. Quando la lunghezza media su una linea supera una soglia di guardia allora quella determinata linea è considerata congestionata e prende le dovute azioni di correzione. Il massimo che può fare purtroppo è scegliere un pacchetto a caso dalla coda che ha attivato “l’azione difensiva”. Per segnalare il rischio di congestione il router potrebbe inviare un choke packet per chiedere la diminuzione di flusso, tuttavia questo congestionerebbe ulteriormente le linee. La strategia migliore è scartare banalmente il pacchetto e attendere che la sorgente lo re-invii a causa del mancato acknowledgement. Questa ultima strategia funziona solo quando le sorgenti rispondono ai pacchetti perduti rallentando il flusso. Nelle reti wireless, dove la maggior parte dei pacchetti persi è a causa del rumore, questo non avviene, è infatti impossibile usarla in quei casi.
 
-39.	Reverse Path Forwarding.
+\section{Reverse Path Forwarding.}
 
 I router spesso necessitano di inviare messaggi a molti o a tutti gli altri host. Questi tipi di trasmissioni sono dette trasmissioni broadcast.
 L’algoritmo di routing più quotato per questo genere di trasmissioni è sicuramente quello di flooding, in quanto invia i pacchetti a tutte le stazioni vicine (tranne quella da cui ha ricevuto il pacchetto). Un problema di questa tecnica è sicuramente lo spreco di banda e la creazione di troppi pacchetti.
@@ -98,7 +94,7 @@ Con il Reverse path forwarding il router che riceve un pacchetto controlla se gl
 Questo algoritmo previene il problema dell’IP spoofing (falsificazione dell’indirizzo del mittente).
 La sua implementazione è efficiente e non richiede di conoscere la mappa della sottorete, liste di destinazione o mappe di bit per ogni pacchetto broadcast, il che lo rende anche di facile implementazione.
 
-40.	Quality of Service (QoS)
+\section{Quality of Service (QoS)}
 
 Un flusso di pacchetti da una sorgente a una destinazione è chiamato, appunto, flusso.
 Ogni flusso viene regolamentato per il percorso da effettuare e quando effettuarlo, i metodi di gestione della congestione e così via.
