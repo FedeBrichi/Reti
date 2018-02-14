@@ -8,6 +8,12 @@ Allo stesso modo il leaky bucket è formato da una coda finita. Al suo arrivo, s
 
 Così facendo si gestiscono burst di dati che altrimenti congestionerebbero la rete; un contro però può essere che, siccome trasmette pacchetti solo ad intervalli prefissati, ci saranno parecchi casi in cui il volume del traffico sarà molto basso e ampie porzioni di risorse di rete non verranno utilizzate.
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/41_LeakyBucket.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
+
 \section{Descrivere il token bucket, pregi e difetti}
 
 Per gestire il flusso di pacchetti su una rete è necessario utilizzare algoritmi che permettano un controllo della congestione e che sfruttino al meglio le risorse di rete. L’algoritmo leaky bucket (secchio che perde) gestiva le congestioni, ma purtroppo imponeva un modello di output troppo rigido, che non seguiva la variabilità del traffico.
@@ -20,6 +26,12 @@ Un pacchetto per passare deve distruggere un token, se non c’è attende finch�
 Se non arrivano pacchetti da inviare, il token bucket accumula i token fino ad un massimo di n. Così facendo si prepara a gestire dei possibili burst di massimo n pacchetti (pari al numero di token), bruciando i token in rapida successione e dando una risposta più veloce a picchi improvvisi.
 
 Per implementare questo algoritmo è necessaria solo una variabile che tenga conto del numero di token, e li diminuisca quando un pacchetto viene inviato.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/42_TokenBucket.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
  
 \section{Descrivere l’ARP}
 Ogni macchina di Internet ha uno o più indirizzi IP, tuttavia questi non possono essere utilizzati per inviare pacchetti, in quanto l’hardware che opera sullo strato data link non comprende gli indirizzi Internet.
@@ -33,6 +45,12 @@ La scheda Ethernet del destinatario rileva il frame, si accorge di essere la sta
 Per migliorare le prestazioni, dopo aver associato degli indirizzi, questi vengono memorizzati nella cache, cosi, in caso di nuove trasmissioni verso la stessa stazione, si ha già l’indirizzo pronto.
 
 Questo protocollo viene usato tutte le volte che un host collegato ad una LAN deve inviare un messaggio ad un host nella stessa LAN di cui conosce esclusivamente l’indirizzo di rete (IP). Inoltre, non prevede metodi per autenticare le risposte ricevute, il che lo rende molto vulnerabile a possibili attacchi.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/43_ARP.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
 
 \section{Si descriva DHCP e il suo funzionamento}
 
@@ -53,6 +71,12 @@ L’indirizzo assegnato proviene da una pool di indirizzi IP comuni, un problema
 Per evitare questa eventualità, gli indirizzi IP sono assegnati secondo una tecnica chiamata di leasing, ovvero a scadenza di tempo. Prima che questo scada l’host deve fare richiesta di rinnovo dell’indirizzo, se non riesce a farla o se viene rifiutata, l’host non può più utilizzare quell’indirizzo IP.
 DHCP base non include nessun meccanismo di autenticazione, per questo motivo è vulnerabile a vari attacchi.
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/44_DHCP.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
+
 \section{IPV6}
 
 Un indirizzo IP, è un’etichetta numerica che identifica univocamente un dispositivo (host) collegato ad una rete informatica che utilizza l’internet Protocol come protocollo di rete.
@@ -65,6 +89,12 @@ IPv6 oltre a colmare il problema della quantità di indirizzi migliora e semplif
 
 IPv6 e IPv4 non sono compatibili tra loro, è facile trasformare un indirizzo di versione 4 a uno di versione 6, tuttavia la rete ormai è basata sull’IPv4 e il passaggio alla versione successiva è lenta e impegnativa, si stanno facendo passi avanti, però rimane la necessità di mantenere entrambi i protocolli almeno per decenni prima di passare alla nuova versione.
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/6_modulazioneDelta.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
+
 \section{Elencare e descrivere brevemente i secondi (primi) 32b dell'header IPv4 (IPv6)}
 (sinceramente sta domanda non la capisco… faccio entrambe le versioni, poi nella risposta va scelta quella che viene richiesta. inizio con un’intro comune, poi un’intro per IPv4 e una IPv6 (da scegliere), successivamente descrivo in blocco i primi 32b dell’IPv4, seguiti dai secondi 32, poi faccio lo stesso per IPv6, Enjoy).\\
 
@@ -73,7 +103,7 @@ Un indirizzo IP, è un’etichetta numerica che identifica univocamente un dispo
 Un datagramma IP di questa versione è costituito da una parte di intestazione e una parte di testo, L’intestazione è di 20B fissi e una parte opzionale di lunghezza variabile, consiste in 13 campi.\\
 \textbf{IPv6} è l’evoluzione dell’IPv4 e conta di risolvere molti dei suoi problemi, può supportare al massimo 2128 indirizzi univoci.
 Un datagramma IP di questa versione è costituito da una parte di intestazione e una parte di carico utile. L’header è costituito dai primi 40 byte e contiene 8 campi, il carico utile invece va da un minimo di 1280 byte e arriva fino a 65535 byte (in modalità standard).
- 
+
 I primi 32b dell’IPv4 sono cosi formati:
 \begin{itemize}
 \item	Version [4 bit]: indica la versione del pacchetto IP; per IPv4, ha valore 4 (simpy).
@@ -81,11 +111,19 @@ I primi 32b dell’IPv4 sono cosi formati:
 \item	Type of Service (TOS) [8 bit]: Nelle specifiche iniziali, questo campo avrebbe dovuto specificare il modo e la precedenza con cui l’host ricevente doveva trattare il datagramma;
 Ad esempio, un host poteva scegliere una bassa latenza, mentre un altro preferire un’alta affidabilità. Nella pratica questo uso del campo TOS non ha preso piede.
 \item	Total Length [16 bit]: Indica la dimensione (in byte) dell’intero pacchetto, comprendendo header e dati.
+
 I secondi 32b dell’IPv4 sono cosi formati:
 \item	Identification[16 bit]: Inizialmente sarebbe dovuto essere utilizzato per identificare in modo univoco i vari frammenti in cui può essere spezzato un pacchetto IP. Sperimentazioni successive però hanno suggerito di utilizzarlo per aggiungere la funzionalità di tracciamento dei pacchetti. Serve per determinare quale datagramma appartiene al frammento appena arrivato (tutti i frammenti di un datagramma hanno lo stesso campo identification).
 \item	Flags [3 bit]: Bit utilizzati per il controllo del protocollo e della frammentazione dei datagrammi. Il primo è Reserved sempre settato a “0” (bit inutilizzato in poche parole), successivamente troviamo DF (Don’t Fragment) se settato a “1” indica che il pacchetto non deve essere frammentato, se non è possibile inviarlo senza frammentazione, il pacchetto viene scartato. L’ultimo bit di flag è MF (More Fragments) se settato a “0” indica che il pacchetto è l’ultimo frammento (o il solo frammento del pacchetto originario), perciò tutti gli altri frammenti dello stesso pacchetto avranno MF settato a “1”. 
 \item	Fragment Offset [13 bit]: Indica l’offset (misurato in blocchi di 8 byte) di un particolare frammento relativamente all’inizio del pacchetto IP originale: il primo frammento ha offset 0, i successivi avranno valore multiplo di 8byte e indica la posizione del frammento nel datagramma. Il valore massimo è pari a 65536 byte.
 \end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/46_IPv4.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
+
 I primi 32b dell’IPv6 sono cosi formati:
 \begin{itemize}
 \item	Version [4 bit]: Indica la versione del datagramma IP: per IPv6, ha valore 6 (lel).
@@ -96,6 +134,12 @@ I secondi 32b dell’IPv6 sono cosi formati:
 \item	Next Header [8 bit]: Indica quale tipo di processo di trasporto è in attesa di quei dati (UDP, TCP o altri). Simile al campo protocol dell’IPv4 con cui condivide i valori.
 \item	Hop Limit [8 bit]: Indica il tempo di vita del pacchetto, il suo valore viene decrementato di 1 ogni volta che il pacchetto passa da un router, quando arriva a 0 viene scartato. Simile al campo Time to live presente nell’IPv4.
 \end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/46_IPv6.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
 
 \textbf{NOTA:} Ripeto che questa domanda alla fine contiene 4(?) domande possibili, bisogna utilizzare i pezzi che vengono richiesti al momento, letta tutta d’un fiato non ha senso, è divisa e si dovrebbe capire il suo contenuto, se non lo capite cambiate esame :P.
 
@@ -116,6 +160,12 @@ Un frame Ethernet ha una grandezza compresa tra 64 e 1518 byte, ed è formato da
 \item	Checksum [4 byte]: Contiene codice CRC per il rilevamento degli errori (senza correzione).
 \end{itemize}
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/47_FrameEthernet.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
+
 \section{Si descriva l’header UDP}
 Lo stato di trasporto è il cuore dell’intera gerarchia dei protocolli. Il suo compito è fornire il trasporto dei dati, affidabile ed efficiente in termini di costi, dal computer di origine a quello di destinazione, indipendentemente dalla rete o dalle reti fisiche effettivamente utilizzate.
 Nello strato di trasporto ci sono due protocolli principali, che si distinguono dal fatto che uno è orientato alla connessione l’altro è senza connessione (TCP e UDP).\\
@@ -133,6 +183,12 @@ L’header dell’UDP è cosi formato:
 \end{itemize}
 Infine sono presenti i dati del messaggio.
 UDP viene utilizzato dalle applicazioni di rete che sono elastiche riguardo alla perdita dei dati e strettamente dipendenti dal tempo, si usa inoltre per comunicazioni in broadcast (tutti i terminali in una rete) e multicast (tutti i terminali iscritti ad un servizio).
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/48_HeaderUDP.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
  
 \section{Descrivere l’header TCP/IP e commentarlo}
 Lo stato di trasporto è il cuore dell’intera gerarchia dei protocolli. Il suo compito è fornire il trasporto dei dati, affidabile ed efficiente in termini di costi, dal computer di origine a quello di destinazione, indipendentemente dalla rete o dalle reti fisiche effettivamente utilizzate.
@@ -172,6 +228,12 @@ QUESTA è NUOVA, NON CREDO SERVA
 \item	Data: Rappresenta il carico utile (payload) da trasmettere.
 \end{itemize}
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/49_HeaderTCP.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
+
 \section{Cos’è il DNS?}
 
 Protocollo dello strato applicativo, \textbf{DNS} (Domain Name System) è un sistema per la risoluzione di nomi degli host in indirizzi IP. 
@@ -189,3 +251,9 @@ Una stringa come www.ciaofede.it indica un host a cui ti sei connesso e a sua vo
 \item	www è il dominio di terzo livello ed identifica un particolare host all’interno del dominio ciaofede.it.
 \end{itemize}
 Così facendo grazie al DNS è possibile visitare quell’host remoto senza dover scrivere l’indirizzo IP del server, ma scrivendo l’indirizzo testuale e facile da ricordare.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/50_DNS.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}

@@ -102,7 +102,7 @@ Esistono quindi 3 zone in cui i satelliti possono essere collocati LEO: sotto la
 GEO (Geostationary Earth Orbit), sono collocati nella fascia più alta, disposti con un intervallo di $2^{\circ}$ nel piano equatoriale, così da evitare interferenze, di conseguenza c’è posto per “solo” 180 satelliti di questo tipo, la loro dimensione è importante e la gestione dell’allocazione degli slot orbitali è motivo di disputa tra paesi, stazioni televisive e militari.
 \paragraph{MEO}
 Tra le due fasce di Van Allen troviamo i satelliti MEO (Medium Earth Orbit), questi satelliti si spostano lentamente lungo la longitudine, impiegando 6 ore per compiere un giro attorno al pianeta, attualmente non sono utilizzati per le telecomunicazioni. Rispetto al GEO, il MEO permette un ritardo di propagazione inferiore, tuttavia si perde la comodità del “punto fisso” garantito dal GEO, questo perché il MEO si sposta più velocemente.
-\paragraph{LEO}:
+\paragraph{LEO}
 I LEO (Low Earth Orbit) sono I più bassi tra i tre tipi, si spostano molto velocemente, di conseguenza un sistema completo richiede l’utilizzo di molti satelliti di questo tipo. D’altra parte, le stazioni terrestri non hanno bisogno di molta energia per la comunicazione e i ritardi sono di pochi millisecondi.
 Questo tipo di satellite tratta prevalentemente trasmissione voce e servizi internet/GPS. \\
 
@@ -169,7 +169,7 @@ Trasmissione e ricezione non avvengono nello stesso intervallo temporale perché
 
 Il GSM introduce anche l’utilizzo della SIM card, in cui vengono memorizzati i dati descrittivi dell’abbonato e ha la funzione principale di fornire autenticazione ed autorizzazione all’utilizzo della rete.
 
-\section{Si descriva la tecnica CDMA(Code Division Multiple Access), possibilmente con esempio}
+\section{Si descriva la tecnica CDMA (Code Division Multiple Access), possibilmente con esempio}
 Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da una diversa tecnologia:
 \begin{itemize}
 \item	Voce analogica
@@ -179,14 +179,16 @@ Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da
 Il CDMA tratta dei telefoni della seconda generazione: voce digitale.
 
 D-AMPS e GSM sono sistemi che utilizzano FDM e TDM per dividere lo spettro in canali e i canali in slot temporali. CDMA invece di dividere l’intero intervallo di frequenze assegnate in poche centinaia di canali a banda stretta, permette ad ogni stazione di trasmettere per tutto il tempo attraverso l’intero spettro di frequenza. Trasmissioni multiple simultanee sono separate usando la teoria della codifica. La capacita del CDMA è di riuscire a estrarre il segnale desiderato scartando tutto il resto.
+
 In CDMA, ogni tempo bit è suddiviso in m intervalli chiamati chip. In genere ci sono 64 o 128 chip per ogni bit. Ad ogni stazione è assegnato un codice di m-bit univoco chiamato sequenza di chip.
 Per trasmettere un bit 1, una stazione invia la sua sequenza di chip; per trasmettere un bit 0 la stazione invia il complemento a uno della propria sequenza di chip.
 Ogni stazione adotta una sequenza di chip univoca.
+
 CDMA rispetto a GSM e D-AMPS opera in una banda di 1,25MHz, permettendo agli utenti di avere un’ampiezza di banda considerevole.
 Una sequenza di chip e il suo contrario sono a due a due ortogonali (il prodotto interno normalizzato è 0). Per generare queste sequenze di frammento ortogonali si utilizza un metodo noto come codici Walsh. 
-Se la sequenza di chip ricevuta è S e il ricevitore sta cercando di ascoltare una stazione la cui sequenza di chip è C, il prodotto interno normalizzato da calcolare è S*C , facendo i calcoli si possono eliminare i termini superflui grazie all’ortogonalità dei valori, estraendo correttamente il valore trasmesso da C. 
-Ad esempio, A,B,C trasmettono, A e C 1, B 0. Il ricevitore vede la somma S=A+!B+C e calcola:
-S*C=(A+!B+C)*C=A*C+B*C+C*C=0+0+1=1
+Se la sequenza di chip ricevuta è S e il ricevitore sta cercando di ascoltare una stazione la cui sequenza di chip è C, il prodotto interno normalizzato da calcolare è S*C; facendo i calcoli si possono eliminare i termini superflui grazie all’ortogonalità dei valori, estraendo correttamente il valore trasmesso da C. 
+Ad esempio, A e C trasmettono 1, B trasmette 0. Il ricevitore vede la somma S=A+!B+C e calcola:\\
+$S*C=(A+!B+C)*C=A*C+B*C+C*C=0+0+1=1$ \\
 I primi due termini spariscono perché le sequenze di chip sono state scelte per essere ortogonali.
 
 \section{Il GPRS: Cos’è? Pregi e difetti}
