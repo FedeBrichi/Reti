@@ -6,6 +6,12 @@ Tra questi troviamo il selective repeat, usando questo metodo quando viene ricev
 La ripetizione selettiva può inviare dei NACK (Not acknowledgement) quando trova un errore, cosi da stimolare la ritrasmissione prima dello scadere del timer.
 La ripetizione selettiva corrisponde ad avere una finestra di ricezione maggiore di 1.
 Go back-n e il selective repeat hanno diverse conseguenze in termini di uso di banda e di spazio di buffer nello strato data link, si può utilizzare un approccio oppure un altro in base a quale risorsa è più scarsa.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{res/img/21_SelectiveRepeat.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
  
 \section{Descrivere la differenza tra ALOHA e ALOHA-SLOTTED}
 
@@ -19,7 +25,16 @@ Questa divisione in slot migliora il grado di successo del doppio rispetto all�
 Questi risultati non dovrebbero sorprendere, in quanto con stazioni che trasmettono a piacimento è molto facile incorrere in collisioni.
 Subito dopo l’invenzione, questi protocolli caddero in disuso, fino a quando non si presentò il problema di allocare un canale condiviso da più utenti in competizione, di conseguenza slotted ALOHA tornò ad essere utilizzato.
   
-
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{res/img/22_ALOHA.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{res/img/22_ALOHASLOTTED.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
 
 \section{Si illustri il CSMA (Carrier Sense Multiple Access), indicandone pregi e difetti}
 
@@ -32,8 +47,11 @@ Esistono diverse versioni di CSMA:
 Queste varianti migliorano enormemente il tasso di successo rispetto ad ALOHA e ALOHA-slotted.
 Un ulteriore miglioramento si ottiene consentendo ad ogni stazione di annullare la propria trasmissione in caso di collisione. Se due stazioni iniziano a trasmettere contemporaneamente, invece di completare la trasmissione dei relativi frame, ormai danneggiati, terminano bruscamente la trasmissione. La terminazione rapida dei frame danneggiati risparmia tempo e banda, questa variante è chiamata CSMA/CD ed è ampiamente utilizzata nelle LAN Ethernet.
 
- 
-
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{res/img/23_CSMA.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
 
 \section{Basic Bitmap}
 
@@ -44,7 +62,7 @@ Questo protocollo non è ben bilanciato, da priorità alle stazioni con un numer
 Contemporaneamente però le stazioni numerate con numeri bassi dovranno attendere di più rispetto a quelle con numeri più alti.
 Il basic bitmap ha bisogno di 1 bit di controllo a stazione, perciò non si adatta molto bene alle reti composte da migliaia di stazioni.
 
-\section{spiegare in cosa consiste il protocollo collision free binary countdown, pregi e difetti}
+\section{Spiegare in cosa consiste il protocollo collision free binary countdown, pregi e difetti}
 
 I dati vengono trasportati tramite un impulso elettrico. Ci possono essere molti dispositivi collegati allo stesso cavo con il rischio di collisioni e danneggiamento dei dati.
 Per evitare la collisione una stazione deve controllare se ci sono altre stazioni collegate allo stesso mezzo, esistono diversi protocolli che effettuano questo controllo evitando le collisioni.
@@ -57,13 +75,23 @@ L’efficienza è pari a (d/d*log2N) (con d numero di bit) ma può raggiungere a
 Si possono notare uno sbilanciamento notevole in quanto le stazioni con numero maggiore risultano avere sempre la precedenza, questo può essere ovviato facendo ruotare i valori delle stazioni ad ogni step, cosi quando una stazione riesce ad inviare viene spostata alla fine della coda, cosi da permettere in egual modo a tutte le stazioni la possibilità di inviare.
 Questo algoritmo è semplice, elegante ed efficiente, tuttavia attualmente non è utilizzato.
 
- 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/25_FreeBinaryCountdown.png}
+%\caption{Didascalia dellimmagine}
+\end{figure} 
 
 \section{Spiegare cos’è l’adaptive tree walk protocol?}
 
 Per gestire la contesa di accesso ad un canale condiviso esistono protocolli con controllo della portante, con metodo della contesa tipo il CSMA o il metodo senza collisioni. Nelle situazioni di carico leggero la contesa è preferibile per il suo basso ritardo, tuttavia a carichi elevati diventa sempre più inefficiente. Il contrario avviene con i protocolli senza collisioni, a basso carico hanno un ritardo elevato ma al crescere del carico l’efficienza migliora.
 Adaptive tree walk protocol è un protocollo a contesa limitata che migliora ulteriormente le prestazioni dei protocolli sopracitati.
 Si può immaginare questo metodo come un albero binario, in cui le stazioni sono le foglie e sono divise nei vari rami. Inizialmente si prova a inviare ad altezza 0 se non vi è collisione si procede all’invio, in caso contrario ci si sposta sul sottoalbero sinistro e si ritenta, se il conflitto non c’è più si fa inviare la stazione che lo desidera (se non c’è conflitto vuol dire che nel sottoalbero sinistro c’è solo una stazione che vuole inviare). Dopo aver inviato si torna al nodo padre e si analizza il sottoalbero destro, ripetendo i test e scendendo nei sottoalberi in caso di conflitto.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{res/img/26_AdaptiveTreeProtocol.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
  
 \section{Ethernet e i vari tipi di cavo}
 
@@ -79,6 +107,11 @@ La tecnica TDR per la ricerca di guasti è difficile e onerosa da utilizzare, ci
 Questo sistema di cablaggio utilizza hub di controllo tramite doppini telefonici, che sono largamente usati e semplici da gestire, ogni macchina si interfaccia con l’hub tramite cavo dedicato; rendendo cosi semplice aggiungere o rimuovere una stazione e individuare le interruzioni. Il suo svantaggio è rappresentato dalla lunghezza massima dei cavi che partono dall’hub: 100 metri. Esiste una versione più veloce del 10Base-T chiamata 100Base-T.
 Il quarto tipo di cavi per Ethernet si chiama 10Base-F e utilizza le fibre ottiche. È un’alternativa costosa a causa del prezzo dei connettori e dei terminatori, ma offre un’eccellente immunità alle interferenze e consente di collegare edifici o hub molto lontani. 10Base-F nonostante il costo consente inoltre una buona sicurezza in quanto i dati trasmessi sulla fibra sono difficili da intercettare.
  
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/27_CaviEthernet.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
 
 \section{Codifica Manchester}
 
@@ -89,6 +122,12 @@ Queste codifiche suddividono ogni bit codificato in due, nella codifica Manchest
 Cosi facendo anche in caso di dissincronia, i dati in questo formato permettono un flusso auto-sincronizzante.
 La codifica Manchester differenziale invece differisce da quella originale nella rappresentazione dei bit: questa infatti si basa sulla verifica di transizioni all’inizio di un intervallo. La presenza di una di queste infatti (che siano alto-basso o basso-alto) identifica un valore, la mancanza di transizione invece indica il valore opposto. Per convenzione il bit 1 viene rappresentato dalla mancanza di transizione all’inizio del suo intervallo, mentre lo 0 è indicato con un cambiamento di segnale nello stesso periodo.
 Tutti i sistemi Ethernet adottano la codifica Manchester perché è più semplice, mentre la Manchester differenziale è utilizzata da altre LAN.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{res/img/28_CodificaManchester.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
  
 \section{Cos’è il binary exponential backoff?}
 
@@ -109,6 +148,17 @@ Tuttavia, questo porta a dei problemi di conflitto in caso di scambio di dati.
 Utilizzando banalmente il sistema CSMA per evitare le collisioni, porterebbe ad ascoltare le altre trasmissioni, e trasmettere in caso di nessun’altra connessione attiva.
 Questo però può portare a due diversi problemi: problema della stazione nascosta e stazione esposta.
 La stazione nascosta non è altro che una stazione che vuole inviare, non riesce a ricevere i segnali dei concorrenti a causa della sua distanza eccessiva. Supponiamo di avere A, B e C. A vuole inviare a B, prima di farlo ascolta se ci sono altre connessioni, non ne sente e procede all’invio. Tuttavia, C, è troppo distante perché A lo senta, ma abbastanza vicino a B per inviargli dati, cosi lo fa e va in conflitto con l’invio di A.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/30_StazioneEsposta.png}
+%\caption{Didascalia dellimmagine}
+\end{figure} 
  
 Il problema della stazione esposta invece è l’inverso, B trasmette ad A, C vuole inviare a D e controlla la presenza di portante sul mezzo di trasmissione e rileva B che sta inviando, cosi attende per evitare conflitti, tuttavia B non intralcerebbe la trasmissione di C, ma questo non lo può sapere, di conseguenza si genera uno stallo inutile. Questo è il problema della stazione esposta.
  
+ \begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/30_StazioneNascosta.png}
+%\caption{Didascalia dellimmagine}
+\end{figure} 

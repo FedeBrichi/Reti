@@ -26,6 +26,11 @@ Se il messaggio in entrata ha m bit, l’output è da n. Ad esempio si ha un inp
 Singolarmente questi metodi di cifratura non sono molto affidabili, la S-box infatti è molto vulnerabile agli attacchi basati sul tempo.
 La vera forza di queste tecniche sta nella loro combinazioni, combinando S-box e P-box infatti è possibile creare un output estremamente complicato da decrittare senza l’opportuna chiave. 
  
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/52_P-boxS-box.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
 
 \section{Si descriva l’algoritmo DES e triplo DES}
 
@@ -43,6 +48,11 @@ Per migliorare la complessità dell’algoritmo viene implementato un nuovo meto
 Usando questi metodi crittografici un problema è il fatto che se si prende un testo in chiaro e si cifra, il testo cifrato sarà sempre uguale, anche se si prova 100 volte. 
 AES (Advanced Encryption Standard) sostituisce triplo DES (quindi anche DES).
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{res/img/53_DES.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
 
 \section{Counter Mode Cipher}
 
@@ -50,6 +60,12 @@ La maggior parte delle tecniche di cifratura hanno il problema di rendere imposs
 Per questo motivo è stata creata la modalità contatore. In questo caso il testo in chiaro non viene cifrato direttamente; si cifra invece un vettore d’inizializzazione (IV) con una costante (K), successivamente il risultato viene messo in XOR con il testo in chiaro. Si incrementa di 1 il vettore d’inizializzazione ad ogni blocco, diventa facile riuscire a decifrare un blocco in qualunque posizione esso si trovi, senza decifrare prima i suoi predecessori.
 Questa tecnica ha una debolezza abbastanza notevole, se si utilizza la stessa chiave e lo stesso IV per due messaggi diversi, se un malintenzionato riesce a reperire i due testi cifrati, facendo un semplice XOR fra i due riesce a sopprimere tutta la protezione crittografica.
 Nonostante ciò, questa tecnica è sicuramente utile.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/54_CMC.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
  
 \section{Cipher block chaining}
 
@@ -59,6 +75,11 @@ In questo metodo, ogni blocco di testo in chiaro è messo in XOR con il preceden
 Così facendo a blocchi di testo in chiaro uguali non corrispondono più blocchi di testo cifrato identici. Per il primo blocco di questa catena lo XOR viene calcolato con un blocco di dati casuali (vettore di inizializzazione IV), che è trasmesso (in chiaro) insieme al testo cifrato. 
 Questo metodo rende la criptoanalisi più difficile, con un grande incremento di sicurezza. Un problema è il fatto di rendere impossibile la decrittazione di un blocco in maniera casuale senza prima aver decrittato tutti i blocchi precedenti. Problema risolto dal counter mode cipher.
  
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{res/img/55_CBC.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
 
 \section{Stream cipher}
 
@@ -68,6 +89,11 @@ Per la decrittazione viene eseguita generando lo stesso keystream dal lato del r
 Questa tecnica permette un’alta elasticità agli errori, in quanto la keystream non dipende dai dati e su di essa si basa la cifratura di ogni blocco, di conseguenza un errore nel testo in chiaro vale come un errore nel testo cifrato (problema che riguardava il cipher block chaining).
 Tuttavia, per utilizzare al meglio questa tecnica, IV e chiave non devono mai essere riutilizzati, altrimenti si genererebbe più volte lo stesso keystream, stessa cosa vale per la cifratura, non va mai utilizzato lo stesso keystream per cifrare un testo, altrimenti si viene esposti al problema del tipo keystream riutilizzato.
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/56_StreamCipher.png}
+%\caption{Didascalia dellimmagine}
+\end{figure} 
  
 \section{RSA}
 
@@ -188,6 +214,12 @@ Un esempio del suo funzionamento è il seguente:
 \end{itemize}
 Una delle possibili difese da questo tipo di attacco è quella di creare un canale di comunicazione secondario, aggiuntivo e sicuro tra i due interlocutori.
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{res/img/64_MITM.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
+
 \section{DNS spoofing}
 
 DNS spoofing è una tipologia di attacco crittografico, fa parte di una categoria più vasta denominata man-in-the-middle. Gli attacchi di questo tipo consistono nel deviare i pacchetti di una comunicazione tra due host verso un attaccante. Questo attaccante finge di essere il mittente o il destinatario reale e può leggere, inserire o modificare i dati presenti nella conversazione.
@@ -200,3 +232,8 @@ Il DNS Spoofing si svolge quindi nel modo seguente:
 Lo scopo dello spoofing è modificare la corrispondenza tra indirizzo IP e nome del sito contenuti nelle risposte.
 Una possibile soluzione per rendersi conto di essere sotto attacco è di individuare possibili risposte multiple. Ci sono altri protocolli utilizzabili per evitare questo tipo di manomissione.
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{res/img/65_DNSSpoofing.png}
+%\caption{Didascalia dellimmagine}
+\end{figure}
