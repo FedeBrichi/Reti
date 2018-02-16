@@ -2,12 +2,11 @@
 
 \paragraph{FDM (Frequency Division Multiplexing)} è una tecnica di condivisione delle risorse trasmissive di un canale di comunicazione. L’intero canale trasmissivo disponibile è diviso in sotto canali, ognuno costituito da una banda di frequenza e separato da un altro grazie ad un piccolo intervallo di guardia.
 Questo permette la condivisione dello stesso canale da parte di dispositivi che utilizzano diverse regioni di frequenze e utenti che possono cosi comunicare contemporaneamente senza interferirsi tra loro.
-Questa tecnica è comunemente utilizzata nelle trasmissioni televisive, radiofoniche, telefoniche o di dati. Anche le reti cellulari utilizzano in parte questo tipo di multiplazione per suddividere e assegnare l’intera capacità trasmissiva o banda radio disponibile alle varie celle di copertura servite da stazion0.8i radio base.
+Questa tecnica è comunemente utilizzata nelle trasmissioni televisive, radiofoniche, telefoniche o di dati. Anche le reti cellulari utilizzano in parte questo tipo di multiplazione per suddividere e assegnare l’intera capacità trasmissiva o banda radio disponibile alle varie celle di copertura servite da stazioni radio base.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.45]{res/img/11_FDM.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
  
 \paragraph{TDM (Time Division Multiplexing)} è una tecnica di condivisione di un canale di comunicazione secondo la quale ogni dispositivo ricetrasmittente ottiene a turno l’uso esclusivo dello stesso per un breve lasso di tempo. Il tempo di utilizzo del canale è diviso in frame tutti della stessa durata, questi frame sono ulteriormente divisi in slot.
@@ -16,7 +15,6 @@ Confrontato all’FDM il TDM risulta essere più efficiente in quanto elimina la
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{res/img/11_TDM.png}
-%\caption{Didascalia dellimmagine}
 \end{figure} 
 
 \paragraph{CDM (Code Division Multiplexing)} o conosciuta anche come CDMA è il protocollo di accesso multiplo a canale condiviso. Offre una maggiore velocità di trasmissione di dati rispetto a TDM e FDM.
@@ -27,7 +25,6 @@ La miglior efficienza rispetto alle precedenti forme di multiplazione è dovuta 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{res/img/11_CDM.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
  
 \section{QAM e QAM16}
@@ -42,7 +39,6 @@ QAM16 non è altro che un tipo di costellazione del QAM, utilizzando quattro amp
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{res/img/12_QAM16.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
  
 \section{Cos’è il byte stuffing?}
@@ -58,7 +54,6 @@ Il byte stuffing è usato in PPP (Point-to-Point Protocol).
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.8]{res/img/13_ByteStuffing.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
 
 \section{Cos’è il bit stuffing?}
@@ -72,7 +67,6 @@ Con il bit stuffing il confine fra i due frame viene riconosciuto in modo inequi
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.8]{res/img/14_BitStuffing.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
 
 \section{Numero di bit necessari per riconoscimento (correzione) degli errori di trasmissione?}
@@ -146,7 +140,6 @@ Le finestre di mittente e destinatario non devono avere necessariamente uguali d
 \begin{figure}[H]
 \centering
 \includegraphics[scale=1]{res/img/19_SlidingWindow.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
  
 Si noti che nel caso in cui abbiamo una finestra di dimensione massima uguale a 1 ci troviamo nel caso stop-and-wait, ovvero, dopo aver inviato un frame si attende l’ack corrispondente prima di inviarne ulteriori. In questo caso si mantiene l’ordine, con finestre più larghe questo non è più vero.
@@ -164,5 +157,4 @@ Go back-n e il selective repeat hanno diverse conseguenze in termini di uso di b
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.9]{res/img/20_GoBackN.png}
-%\caption{Didascalia dellimmagine}
 \end{figure} 
