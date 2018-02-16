@@ -73,7 +73,7 @@ Il collision free binary countdown o conteggio binario migliora il basic bitmap,
 Una stazione che desidera utilizzare il canale deve comunicare a tutti il proprio indirizzo sotto forma di stringa binaria, hanno tutti la stessa lunghezza.
 I conflitti si evitano grazie ad una regola di arbitraggio: la stazione rinuncia ad inviare non appena si accorge che un’altra stazione con un “1” in una posizione di bit di ordine elevato che nel proprio indirizzo vale “0”.
 Esempio: 0010, 0100, 1001, 1010, queste stazioni vogliono inviare, vengono inviati i primi bit: 0 (0010), 0 (0100), 1 (1001), 1 (1010), le stazioni con “0” più a sinistra capiscono che ci sono stazioni con numero più grande che stanno concorrendo e si fanno da parte, le altre due continuano: 0 (1001), 0 (1010); sono uguali quindi continuano, il terzo bit è “1” quindi la stazione 1001 si arrende, vince 1010 che può trasmettere.
-L’efficienza è pari a (d/d*log2N) (con d numero di bit) ma può raggiungere anche il 100\% se l’indirizzo del mittente costituisce l’intestazione del frame.
+L’efficienza è pari a ($d/d*log_2N$) (con d numero di bit) ma può raggiungere anche il 100\% se l’indirizzo del mittente costituisce l’intestazione del frame.
 Si possono notare uno sbilanciamento notevole in quanto le stazioni con numero maggiore risultano avere sempre la precedenza, questo può essere ovviato facendo ruotare i valori delle stazioni ad ogni step, cosi quando una stazione riesce ad inviare viene spostata alla fine della coda, cosi da permettere in egual modo a tutte le stazioni la possibilità di inviare.
 Questo algoritmo è semplice, elegante ed efficiente, tuttavia attualmente non è utilizzato.
 

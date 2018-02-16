@@ -88,14 +88,14 @@ Nelle reti wireless, in cui è presente molto rumore, conviene utilizzare una co
 Sui canali affidabili invece è più economico usare codifiche a rilevazione, ed eventualmente farsi ritrasmettere il blocco.
 Questo perché, anche come visto dalla formula, per correggere gli errori abbiamo bisogno di molti più bit rispetto ad accorgersene solamente.
 
-\section{Si descriva cos'è il CRC (Cycle Redundancy check). Si calcoli inoltre il CRC di 10011101 usando il polinomio generatore di x4+x+1}
+\section{Si descriva cos'è il CRC (Cycle Redundancy check). Si calcoli inoltre il CRC di 10011101 usando il polinomio generatore di $x^4+x+1$}
 
 Il CRC o Cycle Redundancy Check, è un metodo per il calcolo di somme di controllo, serve a individuare errori casuali nella trasmissione di dati (causati da interferenze, rumori di linea o distorsione). Non è utile invece nel caso di tentativi intenzionali di manomissione.
-Il CRC tratta le sequenze di bit come dei polinomi a coefficienti che possono assumere solo valori “0” o “1”. Un frame di k bit è visto come una lista di coefficienti per un polinomio con k termini che variano da xk-1 a x0. Questo polinomio è detto di grado k-1 e il coefficiente più alto è quello più a sinistra del polinomio (es 110001 ha 6 bit, quindi rappresenta un polinomio di $5^{\circ}$ grado con coefficienti 1,1,0,0,0 e 1: x5+x4 +x0.
+Il CRC tratta le sequenze di bit come dei polinomi a coefficienti che possono assumere solo valori “0” o “1”. Un frame di k bit è visto come una lista di coefficienti per un polinomio con k termini che variano da $x^k-1$ a $x^0$. Questo polinomio è detto di grado k-1 e il coefficiente più alto è quello più a sinistra del polinomio (es 110001 ha 6 bit, quindi rappresenta un polinomio di $5^{\circ}$ grado con coefficienti 1,1,0,0,0 e 1: $x^5+x^4+x^0$.
 
 Quando si utilizza una codifica di questo tipo, sorgente e destinazione devono mettersi d’accordo in anticipo su un polinomio generatore G(x). Che deve avere i bit di ordine più alto e più basso a “1”.
 Per poter calcolare il checksum di un frame di m bit, quest’ultimo dev’essere più lungo del polinomio generatore. L’idea è quella di aggiungere un checksum alla fine del frame in modo che il polinomio rappresentato dal frame con checksum sia divisibile per G(x). Quando la destinazione riceve il frame con il checksum e prova a dividerlo per G(x). Se c’è un resto vuol dire che c’è stato un errore di trasmissione.
-Ora proviamo con l’esempio di un frame 10011101 con polinomio generatore x4+x+1:
+Ora proviamo con l’esempio di un frame 10011101 con polinomio generatore $x^4+x+1$:
 Frame: 1 0 0 1 1 1 0 1 
 Generatore G(x): 1 0 0 1 1
 Il grado di G(x) è 4, aggiungo 4 “0” al frame (ottenendo un nuovo frame M(x)) in modo da poter dividere le due parti ottenendo il resto da sottrarre al M(x).
