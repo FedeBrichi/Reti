@@ -81,10 +81,10 @@ DHCP base non include nessun meccanismo di autenticazione, per questo motivo è 
 
 Un indirizzo IP, è un’etichetta numerica che identifica univocamente un dispositivo (host) collegato ad una rete informatica che utilizza l’internet Protocol come protocollo di rete.
 
-IPv4 (Internet Protocol version 4) è attualmente il protocollo più usato a livello di rete, la sua tecnologia però supporta al massimo 232 indirizzi univoci.
+IPv4 (Internet Protocol version 4) è attualmente il protocollo più usato a livello di rete, la sua tecnologia però supporta al massimo $2^32$ indirizzi univoci.
 Inizialmente poteva andare bene, ma con la crescita esponenziale della rete questi iniziano a scarseggiare. Esistono protocolli tipo CIDR e NAT che permettono di sfruttare gli indirizzi IP restanti in modo variabile, cosi da resistere ancora un po’, tuttavia IPv4 ha i giorni contati.
 
-IPv6 è un upgrade dell’IPv4 e conta di risolvere i problemi di numero, in quanto riuscirebbe a gestire 2128 indirizzi diversi.
+IPv6 è un upgrade dell’IPv4 e conta di risolvere i problemi di numero, in quanto riuscirebbe a gestire $2^128$ indirizzi diversi.
 IPv6 oltre a colmare il problema della quantità di indirizzi migliora e semplifica l’intestazione, infatti prevede solo 8 campi rispetto ai 13 dell IPv4. Questo consente al router di elaborare i pacchetti più velocemente. Sempre riguardo l’elaborazione dei pacchetti, IPv6 migliora il supporto per le opzioni, rendendo campi che prima erano obbligatori, opzionali. Un altro grande passo avanti riguarda la sicurezza.
 
 IPv6 e IPv4 non sono compatibili tra loro, è facile trasformare un indirizzo di versione 4 a uno di versione 6, tuttavia la rete ormai è basata sull’IPv4 e il passaggio alla versione successiva è lenta e impegnativa, si stanno facendo passi avanti, però rimane la necessità di mantenere entrambi i protocolli almeno per decenni prima di passare alla nuova versione.
@@ -99,9 +99,9 @@ IPv6 e IPv4 non sono compatibili tra loro, è facile trasformare un indirizzo di
 (sinceramente sta domanda non la capisco… faccio entrambe le versioni, poi nella risposta va scelta quella che viene richiesta. inizio con un’intro comune, poi un’intro per IPv4 e una IPv6 (da scegliere), successivamente descrivo in blocco i primi 32b dell’IPv4, seguiti dai secondi 32, poi faccio lo stesso per IPv6, Enjoy).\\
 
 Un indirizzo IP, è un’etichetta numerica che identifica univocamente un dispositivo (host) collegato ad una rete informatica che utilizza l’internet Protocol come protocollo di rete.\\
-\textbf{IPv4} è il protocollo più usato e la sua tecnologia può supportare al massimo 232 indirizzi univoci, numero che sta iniziando a diventare stretto.
+\textbf{IPv4} è il protocollo più usato e la sua tecnologia può supportare al massimo $2^32$ indirizzi univoci, numero che sta iniziando a diventare stretto.
 Un datagramma IP di questa versione è costituito da una parte di intestazione e una parte di testo, L’intestazione è di 20B fissi e una parte opzionale di lunghezza variabile, consiste in 13 campi.\\
-\textbf{IPv6} è l’evoluzione dell’IPv4 e conta di risolvere molti dei suoi problemi, può supportare al massimo 2128 indirizzi univoci.
+\textbf{IPv6} è l’evoluzione dell’IPv4 e conta di risolvere molti dei suoi problemi, può supportare al massimo $2^128$ indirizzi univoci.
 Un datagramma IP di questa versione è costituito da una parte di intestazione e una parte di carico utile. L’header è costituito dai primi 40 byte e contiene 8 campi, il carico utile invece va da un minimo di 1280 byte e arriva fino a 65535 byte (in modalità standard).
 
 I primi 32b dell’IPv4 sono cosi formati:
