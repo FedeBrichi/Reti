@@ -11,7 +11,6 @@ Così facendo si gestiscono burst di dati che altrimenti congestionerebbero la r
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{res/img/41_LeakyBucket.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
 
 \section{Descrivere il token bucket, pregi e difetti}
@@ -30,26 +29,24 @@ Per implementare questo algoritmo è necessaria solo una variabile che tenga con
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{res/img/42_TokenBucket.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
  
 \section{Descrivere l’ARP}
 Ogni macchina di Internet ha uno o più indirizzi IP, tuttavia questi non possono essere utilizzati per inviare pacchetti, in quanto l’hardware che opera sullo strato data link non comprende gli indirizzi Internet.
 Bisogna trovare un modo per associare l’indirizzo Ethernet a 48 bit (indirizzo MAC) con l’indirizzo IP associato.
 
-ARP è un protocollo che permette di associare ad un indirizzo IP all’indirizzo Ethernet in una sottorete (o anche tra più sottoreti utilizzando Arp-proxy).
+ARP è un protocollo che permette di associare un indirizzo IP all’indirizzo Ethernet in una sottorete (o anche tra più sottoreti utilizzando Arp-proxy).
 Viene trasmesso un pacchetto broadcast a tutte le stazioni nella sottorete che chiede chi è il proprietario di un determinato indirizzo IP. Le stazioni controllano il proprio indirizzo IP e solo il proprietario di tale indirizzo risponde inviando il proprio indirizzo Ethernet. In questo modo la stazione che cercava un determinato indirizzo riesce a collegare l’IP con il MAC.
 
 A questo punto, il software IP costruisce un frame Ethernet indirizzato al destinatario appena scoperto e inserisce il pacchetto IP nel campo carico utile, dopodiché scarica tutto sulla Ethernet. 
 La scheda Ethernet del destinatario rileva il frame, si accorge di essere la stazione designata della comunicazione, preleva i dati ed estrae il pacchetto IP dal carico utile per passarlo al software IP, il quale verifica la correttezza dell’indirizzo ed elabora i dati.
-Per migliorare le prestazioni, dopo aver associato degli indirizzi, questi vengono memorizzati nella cache, cosi, in caso di nuove trasmissioni verso la stessa stazione, si ha già l’indirizzo pronto.
+Per migliorare le prestazioni, dopo aver associato degli indirizzi, questi vengono memorizzati nella cache, così, in caso di nuove trasmissioni verso la stessa stazione, si ha già l’indirizzo pronto.
 
 Questo protocollo viene usato tutte le volte che un host collegato ad una LAN deve inviare un messaggio ad un host nella stessa LAN di cui conosce esclusivamente l’indirizzo di rete (IP). Inoltre, non prevede metodi per autenticare le risposte ricevute, il che lo rende molto vulnerabile a possibili attacchi.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{res/img/43_ARP.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
 
 \section{Si descriva DHCP e il suo funzionamento}
@@ -57,14 +54,15 @@ Questo protocollo viene usato tutte le volte che un host collegato ad una LAN de
 Con ARP è possibile associare (in una sottorete) l’indirizzo MAC di una macchina conoscendo il suo indirizzo IP.
 A volte è necessario risolvere il problema inverso: dato un indirizzo Ethernet, qual è il corrispondente indirizzo IP?
 
-È stato creato una possibile soluzione RARP che permette di risolvere il problema, tuttavia necessita di installare su ogni router dei server RARP. Per aggirare questo problema si è passati ad un protocollo alternativo BOOTP, che a differenza di RARP utilizza messaggi UDP inoltrati attraverso i router. Purtroppo, questo protocollo necessita una configurazione manuale delle tabelle che associano indirizzi IP e agli indirizzi Ethernet (non è possibile utilizzare BOOTP fino a quando l’amministratore non assegna alla macchina un indirizzo IP e non inserisce manualmente l’associazione del tipo nelle tabelle di configurazione di BOOTP).
+È stato creato una possibile soluzione, RARP, che permette di risolvere il problema, tuttavia necessita di installare su ogni router dei server RARP. Per aggirare questo problema si è passati ad un protocollo alternativo BOOTP, che a differenza di RARP utilizza messaggi UDP inoltrati attraverso i router. Purtroppo, questo protocollo necessita una configurazione manuale delle tabelle che associano indirizzi IP e agli indirizzi Ethernet (non è possibile utilizzare BOOTP fino a quando l’amministratore non assegna alla macchina un indirizzo IP e non inserisce manualmente l’associazione del tipo nelle tabelle di configurazione di BOOTP).
 
-Per risolvere questo problema BOOTP viene esteso e chiamato in modo diverso DHCP (Dynamic Host Configuration Protocol), che permette un’assegnazione manuale o automatica degli indirizzi IP.
+Per risolvere questo problema BOOTP viene esteso e chiamato in modo diverso, cioè DHCP (Dynamic Host Configuration Protocol), che permette un’assegnazione manuale o automatica degli indirizzi IP.
 Questo protocollo ha ampiamente sostituito RARP e BOOTP.
-DHCP si basa sull’idea di un server speciale che assegna gli indirizzi IP agli host che ne richiedono uno.
-Questo server non deve trovarsi sulla stessa LAN, questo comporta che potrebbe non essere raggiunto dalle trasmissioni broadcast, perciò è necessario installare in ogni LAN un agente di inoltro DHCP.
 
-Una macchina appena accesa invia in modalità broadcast un pacchetto DHCP DISCOVER, questo pacchetto viene intercettato dall’agente di inoltro presente nella LAN che provvede ad inoltrarlo al server DHCP che assegna un indirizzo IP alla macchina tramite un pacchetto DHCPOFFER, questa risponde con un pacchetto DHCPREQUEST che viene accettata dal server tramite ACK.
+DHCP si basa sull’idea di un server speciale che assegna gli indirizzi IP agli host che ne richiedono uno.
+Questo server non deve trovarsi sulla stessa LAN, il che comporta che potrebbe non essere raggiunto dalle trasmissioni broadcast, perciò è necessario installare in ogni LAN un agente di inoltro DHCP.
+
+Una macchina appena accesa invia in modalità broadcast un pacchetto DHCP DISCOVER; questo pacchetto viene intercettato dall’agente di inoltro presente nella LAN che provvede ad inoltrarlo al server DHCP che assegna un indirizzo IP alla macchina tramite un pacchetto DHCPOFFER, questa risponde con un pacchetto DHCPREQUEST che viene accettata dal server tramite ACK.
 Questo avviene nel caso di un singolo server DHCP, potrebbero essercene multipli, in questo caso l’host che necessita di un indirizzo IP valuta le varie proposte, ed invia un pacchetto DHCPREQUEST indicando il server selezionato.
 L’indirizzo assegnato proviene da una pool di indirizzi IP comuni, un problema causato da questo potrebbe essere la durata di allocazione: se un host abbandona la rete senza restituire l’indirizzo IP questo viene perso per sempre.
 
@@ -74,25 +72,23 @@ DHCP base non include nessun meccanismo di autenticazione, per questo motivo è 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{res/img/44_DHCP.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
 
 \section{IPV6}
 
-Un indirizzo IP, è un’etichetta numerica che identifica univocamente un dispositivo (host) collegato ad una rete informatica che utilizza l’internet Protocol come protocollo di rete.
+Un indirizzo IP, è un’etichetta numerica che identifica univocamente un dispositivo (host) collegato ad una rete informatica che utilizza l’Internet Protocol come protocollo di rete.
 
 IPv4 (Internet Protocol version 4) è attualmente il protocollo più usato a livello di rete, la sua tecnologia però supporta al massimo $2^32$ indirizzi univoci.
-Inizialmente poteva andare bene, ma con la crescita esponenziale della rete questi iniziano a scarseggiare. Esistono protocolli tipo CIDR e NAT che permettono di sfruttare gli indirizzi IP restanti in modo variabile, cosi da resistere ancora un po’, tuttavia IPv4 ha i giorni contati.
+Inizialmente poteva andare bene, ma con la crescita esponenziale della rete questi iniziano a scarseggiare. Esistono protocolli tipo CIDR e NAT che permettono di sfruttare gli indirizzi IP restanti in modo variabile, così da resistere ancora un po’, tuttavia IPv4 ha i giorni contati.
 
 IPv6 è un upgrade dell’IPv4 e conta di risolvere i problemi di numero, in quanto riuscirebbe a gestire $2^128$ indirizzi diversi.
-IPv6 oltre a colmare il problema della quantità di indirizzi migliora e semplifica l’intestazione, infatti prevede solo 8 campi rispetto ai 13 dell IPv4. Questo consente al router di elaborare i pacchetti più velocemente. Sempre riguardo l’elaborazione dei pacchetti, IPv6 migliora il supporto per le opzioni, rendendo campi che prima erano obbligatori, opzionali. Un altro grande passo avanti riguarda la sicurezza.
+IPv6 oltre a colmare il problema della quantità di indirizzi migliora e semplifica l’intestazione: infatti prevede solo 8 campi rispetto ai 13 dell'IPv4. Questo consente al router di elaborare i pacchetti più velocemente. Sempre riguardo l’elaborazione dei pacchetti, IPv6 migliora il supporto per le opzioni, rendendo campi che prima erano obbligatori, opzionali. Un altro grande passo avanti riguarda la sicurezza.
 
 IPv6 e IPv4 non sono compatibili tra loro, è facile trasformare un indirizzo di versione 4 a uno di versione 6, tuttavia la rete ormai è basata sull’IPv4 e il passaggio alla versione successiva è lenta e impegnativa, si stanno facendo passi avanti, però rimane la necessità di mantenere entrambi i protocolli almeno per decenni prima di passare alla nuova versione.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{res/img/6_modulazioneDelta.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
 
 \section{Elencare e descrivere brevemente i secondi (primi) 32b dell'header IPv4 (IPv6)}
@@ -100,20 +96,20 @@ IPv6 e IPv4 non sono compatibili tra loro, è facile trasformare un indirizzo di
 
 Un indirizzo IP, è un’etichetta numerica che identifica univocamente un dispositivo (host) collegato ad una rete informatica che utilizza l’internet Protocol come protocollo di rete.\\
 \textbf{IPv4} è il protocollo più usato e la sua tecnologia può supportare al massimo $2^32$ indirizzi univoci, numero che sta iniziando a diventare stretto.
-Un datagramma IP di questa versione è costituito da una parte di intestazione e una parte di testo, L’intestazione è di 20B fissi e una parte opzionale di lunghezza variabile, consiste in 13 campi.\\
+Un datagramma IP di questa versione è costituito da una parte di intestazione e una parte di testo. L’intestazione è di 20B fissi e una parte opzionale di lunghezza variabile, consiste in 13 campi.\\
 \textbf{IPv6} è l’evoluzione dell’IPv4 e conta di risolvere molti dei suoi problemi, può supportare al massimo $2^128$ indirizzi univoci.
 Un datagramma IP di questa versione è costituito da una parte di intestazione e una parte di carico utile. L’header è costituito dai primi 40 byte e contiene 8 campi, il carico utile invece va da un minimo di 1280 byte e arriva fino a 65535 byte (in modalità standard).
 
-I primi 32b dell’IPv4 sono cosi formati:
+I primi 32b dell’IPv4 sono così formati:
 \begin{itemize}
-\item	Version [4 bit]: indica la versione del pacchetto IP; per IPv4, ha valore 4 (simpy).
+\item	Version [4 bit]: indica la versione del pacchetto IP; per IPv4, ha valore 4.
 \item	Internet Header Lenght (IHL) [4bit]: indica la lunghezza (in word da 32 bit) dell’header del pacchetto IP; tale lunghezza può variare da 5 word (20 byte) a 15 word (60 byte) a seconda della presenza e della lunghezza del campo facoltativo.
 \item	Type of Service (TOS) [8 bit]: Nelle specifiche iniziali, questo campo avrebbe dovuto specificare il modo e la precedenza con cui l’host ricevente doveva trattare il datagramma;
 Ad esempio, un host poteva scegliere una bassa latenza, mentre un altro preferire un’alta affidabilità. Nella pratica questo uso del campo TOS non ha preso piede.
 \item	Total Length [16 bit]: Indica la dimensione (in byte) dell’intero pacchetto, comprendendo header e dati.
 
 I secondi 32b dell’IPv4 sono cosi formati:
-\item	Identification[16 bit]: Inizialmente sarebbe dovuto essere utilizzato per identificare in modo univoco i vari frammenti in cui può essere spezzato un pacchetto IP. Sperimentazioni successive però hanno suggerito di utilizzarlo per aggiungere la funzionalità di tracciamento dei pacchetti. Serve per determinare quale datagramma appartiene al frammento appena arrivato (tutti i frammenti di un datagramma hanno lo stesso campo identification).
+\item	Identification [16 bit]: Inizialmente sarebbe dovuto essere utilizzato per identificare in modo univoco i vari frammenti in cui può essere spezzato un pacchetto IP. Sperimentazioni successive però hanno suggerito di utilizzarlo per aggiungere la funzionalità di tracciamento dei pacchetti. Serve per determinare quale datagramma appartiene al frammento appena arrivato (tutti i frammenti di un datagramma hanno lo stesso campo identification).
 \item	Flags [3 bit]: Bit utilizzati per il controllo del protocollo e della frammentazione dei datagrammi. Il primo è Reserved sempre settato a “0” (bit inutilizzato in poche parole), successivamente troviamo DF (Don’t Fragment) se settato a “1” indica che il pacchetto non deve essere frammentato, se non è possibile inviarlo senza frammentazione, il pacchetto viene scartato. L’ultimo bit di flag è MF (More Fragments) se settato a “0” indica che il pacchetto è l’ultimo frammento (o il solo frammento del pacchetto originario), perciò tutti gli altri frammenti dello stesso pacchetto avranno MF settato a “1”. 
 \item	Fragment Offset [13 bit]: Indica l’offset (misurato in blocchi di 8 byte) di un particolare frammento relativamente all’inizio del pacchetto IP originale: il primo frammento ha offset 0, i successivi avranno valore multiplo di 8byte e indica la posizione del frammento nel datagramma. Il valore massimo è pari a 65536 byte.
 \end{itemize}
@@ -121,7 +117,6 @@ I secondi 32b dell’IPv4 sono cosi formati:
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{res/img/46_IPv4.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
 
 I primi 32b dell’IPv6 sono cosi formati:
@@ -138,10 +133,9 @@ I secondi 32b dell’IPv6 sono cosi formati:
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{res/img/46_IPv6.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
 
-\textbf{NOTA:} Ripeto che questa domanda alla fine contiene 4(?) domande possibili, bisogna utilizzare i pezzi che vengono richiesti al momento, letta tutta d’un fiato non ha senso, è divisa e si dovrebbe capire il suo contenuto, se non lo capite cambiate esame :P.
+\textbf{NOTA:} Ripeto che questa domanda alla fine contiene 4(?) domande possibili, bisogna utilizzare i pezzi che vengono richiesti al momento, letta tutta d’un fiato non ha senso, è divisa e si dovrebbe capire il suo contenuto, se non lo capite cambiate esame :P
 
 \section{Frame Ethernet}
 
@@ -163,7 +157,6 @@ Un frame Ethernet ha una grandezza compresa tra 64 e 1518 byte, ed è formato da
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{res/img/47_FrameEthernet.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
 
 \section{Si descriva l’header UDP}
@@ -187,7 +180,6 @@ UDP viene utilizzato dalle applicazioni di rete che sono elastiche riguardo alla
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.8]{res/img/48_HeaderUDP.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
  
 \section{Descrivere l’header TCP/IP e commentarlo}
@@ -231,7 +223,6 @@ QUESTA è NUOVA, NON CREDO SERVA
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{res/img/49_HeaderTCP.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
 
 \section{Cos’è il DNS?}
@@ -239,7 +230,7 @@ QUESTA è NUOVA, NON CREDO SERVA
 Protocollo dello strato applicativo, \textbf{DNS} (Domain Name System) è un sistema per la risoluzione di nomi degli host in indirizzi IP. 
 L’essenza del DNS è l’invenzione di uno schema di denominazione gerarchico basato su dominio, e di un sistema di database distribuito per l’implementazione di questo schema di denominazione.
 
-Per associare un nome ad un indirizzo IP, un programma applicativo chiama una procedura di libreria chiamata risolutore, passando il nome come parametro. Il risolutore invia un pacchetto UDP ad un server DNS locale, che quindi cerca il nome e restituisci l’indirizzo IP al risolutore, che a sua volta lo restituisce al chiamante. Ora il programma, conoscendo l’indirizzo IP, può stabilire una connessione TCP con la destinazione oppure inviarle i pacchetti UDP.
+Per associare un nome ad un indirizzo IP, un programma applicativo chiama una procedura di libreria chiamata risolutore, passando il nome come parametro. Il risolutore invia un pacchetto UDP ad un server DNS locale, che quindi cerca il nome e restituisce l’indirizzo IP al risolutore, che a sua volta lo restituisce al chiamante. Ora il programma, conoscendo l’indirizzo IP, può stabilire una connessione TCP con la destinazione oppure inviarle i pacchetti UDP.
 
 Questa tecnica è utile in quanto l’ampia diffusione di internet anche per utenti non tecnici non è pratica a memorizzare indirizzi IP numerici, per questo modificandoli in nomi testuali sono più semplici da memorizzare e utilizzare.
 
@@ -255,5 +246,4 @@ Così facendo grazie al DNS è possibile visitare quell’host remoto senza dove
 \begin{figure}[H]
 \centering
 \includegraphics[scale=1]{res/img/50_DNS.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
