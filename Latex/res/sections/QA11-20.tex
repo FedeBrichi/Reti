@@ -1,16 +1,17 @@
-\section{FDM, TDM, CDM: Algoritmi per la selezione della banda}
+\section{FDM, TDM, CDM: algoritmi per la selezione della banda}
 
-\paragraph{FDM (Frequency Division Multiplexing)} è una tecnica di condivisione delle risorse trasmissive di un canale di comunicazione. L’intero canale trasmissivo disponibile è diviso in sotto canali, ognuno costituito da una banda di frequenza e separato da un altro grazie ad un piccolo intervallo di guardia.
-Questo permette la condivisione dello stesso canale da parte di dispositivi che utilizzano diverse regioni di frequenze e utenti che possono cosi comunicare contemporaneamente senza interferirsi tra loro.
-Questa tecnica è comunemente utilizzata nelle trasmissioni televisive, radiofoniche, telefoniche o di dati. Anche le reti cellulari utilizzano in parte questo tipo di multiplazione per suddividere e assegnare l’intera capacità trasmissiva o banda radio disponibile alle varie celle di copertura servite da stazioni radio base.
+\paragraph{FDM (Frequency Division Multiplexing)} è una tecnica di condivisione delle risorse trasmissive di un canale di comunicazione. L'intero canale trasmissivo disponibile è diviso in sotto canali, ognuno costituito da una banda di frequenza e separato da un altro grazie ad un piccolo intervallo di guardia.
+Questo permette la condivisione dello stesso canale da parte di dispositivi che utilizzano diverse regioni di frequenze e utenti che possono così comunicare contemporaneamente senza interferirsi tra loro.
+
+Questa tecnica è comunemente utilizzata nelle trasmissioni televisive, radiofoniche, telefoniche o di dati. Anche le reti cellulari utilizzano in parte questo tipo di multiplazione per suddividere e assegnare l'intera capacità trasmissiva o banda radio disponibile alle varie celle di copertura servite da stazioni radio base.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.45]{res/img/11_FDM.png}
 \end{figure}
  
-\paragraph{TDM (Time Division Multiplexing)} è una tecnica di condivisione di un canale di comunicazione secondo la quale ogni dispositivo ricetrasmittente ottiene a turno l’uso esclusivo dello stesso per un breve lasso di tempo. Il tempo di utilizzo del canale è diviso in frame tutti della stessa durata, questi frame sono ulteriormente divisi in slot.
-Confrontato all’FDM il TDM risulta essere più efficiente in quanto elimina la necessità degli intervalli di guardia o separazione tra le varie bande di frequenza. Necessita tuttavia di un circuito di sincronizzazione temporale in ricezione per l’estrazione del time-slot di competenza.
+\paragraph{TDM (Time Division Multiplexing)} è una tecnica di condivisione di un canale di comunicazione secondo la quale ogni dispositivo ricetrasmittente ottiene a turno l'uso esclusivo dello stesso per un breve lasso di tempo. Il tempo di utilizzo del canale è diviso in frame tutti della stessa durata, questi frame sono ulteriormente divisi in slot.
+Confrontato all'FDM il TDM risulta essere più efficiente in quanto elimina la necessità degli intervalli di guardia o separazione tra le varie bande di frequenza. Necessita tuttavia di un circuito di sincronizzazione temporale in ricezione per l'estrazione del time-slot di competenza.
 
 \begin{figure}[H]
 \centering
@@ -18,9 +19,10 @@ Confrontato all’FDM il TDM risulta essere più efficiente in quanto elimina la
 \end{figure} 
 
 \paragraph{CDM (Code Division Multiplexing)} o conosciuta anche come CDMA è il protocollo di accesso multiplo a canale condiviso. Offre una maggiore velocità di trasmissione di dati rispetto a TDM e FDM.
-Questa tecnica è realizzata moltiplicando in trasmissione l’informazione generata per un’opportuna parola detta chip; la sequenza in uscita dal moltiplicatore sarà successivamente modulata e infine trasmessa sul canale.
-In ricezione il segnale ricevuto sarà costituito dalla somma vettoriale di tutti i segnali trasmessi dalle singole stazioni. Grazie all’ortogonalità dei chip delle sorgenti, l’estrazione dell’informazione associata a ciascuna sorgente potrà essere fatta moltiplicando il segnale ricevuto con il particolare codice associato alla determinata sorgente che si vuole estrarre.
-La miglior efficienza rispetto alle precedenti forme di multiplazione è dovuta al fatto che ciascun canale utilizza l’intera banda di frequenza assegnata al servizio per tutto il tempo che desidera, e la non-interferenza è assicurata grazie all’uso di codici ortogonali.
+Questa tecnica è realizzata moltiplicando in trasmissione l'informazione generata per un'opportuna parola detta chip; la sequenza in uscita dal moltiplicatore sarà successivamente modulata e infine trasmessa sul canale.
+In ricezione il segnale ricevuto sarà costituito dalla somma vettoriale di tutti i segnali trasmessi dalle singole stazioni. Grazie all'ortogonalità dei chip delle sorgenti, l'estrazione dell'informazione associata a ciascuna sorgente potrà essere fatta moltiplicando il segnale ricevuto con il particolare codice associato alla determinata sorgente che si vuole estrarre.
+
+La miglior efficienza rispetto alle precedenti forme di multiplazione è dovuta al fatto che ciascun canale utilizza l'intera banda di frequenza assegnata al servizio per tutto il tempo che desidera, e la non-interferenza è assicurata grazie all'uso di codici ortogonali.
 
 \begin{figure}[H]
 \centering
@@ -31,9 +33,11 @@ La miglior efficienza rispetto alle precedenti forme di multiplazione è dovuta 
 
 QAM è un sistema di modulazione numerica di ampiezza in quadratura, sia digitale che analogica. 
 Le portanti sono sinusoidi. Il termine quadratura indica che differiscono di $90^{\circ}$.
-Il segnale in ingresso viene suddiviso e modulato per l’ampiezza. Nel caso di segnali digitali si sommano i segnali modulati e si ottiene una forma d’onda che risulta una combinazione della modulazione di fase e quella d’ampiezza.
+
+Il segnale in ingresso viene suddiviso e modulato per l'ampiezza. Nel caso di segnali digitali si sommano i segnali modulati e si ottiene una forma d'onda che risulta una combinazione della modulazione di fase e quella d'ampiezza.
 Ciascun tipo di modulazione QAM è caratterizzato da un diagramma (costellazione) su cui sono rappresentati tutti gli stati della portante.
-La QAM, rispetto alla PSK (Phase shift keying), migliora l’immunità al rumore.
+La QAM, rispetto alla PSK (Phase shift keying), migliora l'immunità al rumore.
+
 QAM16 non è altro che un tipo di costellazione del QAM, utilizzando quattro ampiezze e quattro fasi, per un totale di 16 diverse combinazioni. Ogni modem ad alta velocità ha un suo schema di costellazione e può comunicare solo con altri modem che adottano lo stesso schema (anche se generalmente un modem riesce a emulare anche quelli più lenti).
 
 \begin{figure}[H]
@@ -41,14 +45,16 @@ QAM16 non è altro che un tipo di costellazione del QAM, utilizzando quattro amp
 \includegraphics[scale=0.6]{res/img/12_QAM16.png}
 \end{figure}
  
-\section{Cos’è il byte stuffing?}
+\section{Cos'è il byte stuffing?}
 
-Lo strato data link deve servire lo stato network, per farlo necessita di usare a sua volta le informazioni fornite dallo strato fisico il cui scopo è quello di prendere un flusso di bit e cercare di portarli a destinazione.
+Lo strato data link deve servire lo stato network. Per farlo necessita di usare a sua volta le informazioni fornite dallo strato fisico, il cui scopo è quello di prendere un flusso di bit e cercare di portarli a destinazione.
 Non esiste nessuna garanzia per la correttezza dei dati, i bit potrebbero essere maggiori, minori, modificati ecc. Uno dei compiti dello strato data link è quello di rilevare ed eventualmente correggere questi errori.
-Il modo per rinvenire questi errori è quello di suddividere il flusso dei bit in frame, per poi controllarli, uno dei metodi di framing è quello di utilizzare un flag byte con il byte stuffing.
-Il byte stuffing prevede l’uso di un flag per delimitare l’inizio e la fine dei frame. In questo modo quando il destinatario perde la sincronizzazione può cercare il flag byte per trovare la fine del frame corrente. Due flag byte consecutivi indicano la fine di un frame e l’inizio del successivo.
-Per far si che un flag byte sia contenuto internamente ai dati, bisogna utilizzare un byte di escape (ESC) prima di ogni occorrenza “accidentale” del byte flag nei dati. Successivamente lo strato data link della destinazione provvederà a rimuovere i byte di escape prima di passare i dati allo strato network, se anche un carattere ESC si trova dentro i dati, va preceduto da un ulteriore carattere ESC.
-Questo metodo di framing presenta notevoli svantaggi, in primis quello di essere legato all’uso di caratteri da 8 bit, non tutte le codifiche dei caratteri li usano. Un altro problema deriva dalla quantità di caratteri superflui da inserire per effettuare lo stuffing, per questo si è sentita la necessità di sviluppare una nuova tecnica di framing che consente di gestire caratteri di lunghezza arbitraria (bit stuffing).
+Il modo per rinvenire questi errori è quello di suddividere il flusso dei bit in frame, per poi controllarli. Uno dei metodi di framing è quello di utilizzare un flag byte con il byte stuffing.
+
+Il byte stuffing prevede l'uso di un flag per delimitare l'inizio e la fine dei frame. In questo modo quando il destinatario perde la sincronizzazione può cercare il flag byte per trovare la fine del frame corrente. Due flag byte consecutivi indicano la fine di un frame e l'inizio del successivo.
+Per far si che un flag byte sia contenuto internamente ai dati, bisogna utilizzare un byte di escape (ESC) prima di ogni occorrenza “accidentale” del byte flag nei dati. Successivamente lo strato data link della destinazione provvederà a rimuovere i byte di escape prima di passare i dati allo strato network; se anche un carattere ESC si trova dentro i dati, va preceduto da un ulteriore carattere ESC.
+
+Questo metodo di framing presenta notevoli svantaggi, in primis quello di essere legato all'uso di caratteri da 8 bit: non tutte le codifiche dei caratteri li usano. Un altro problema deriva dalla quantità di caratteri superflui da inserire per effettuare lo stuffing, per questo si è sentita la necessità di sviluppare una nuova tecnica di framing che consente di gestire caratteri di lunghezza arbitraria (bit stuffing).
 Il byte stuffing è usato in PPP (Point-to-Point Protocol).
 
 \begin{figure}[H]
@@ -56,13 +62,13 @@ Il byte stuffing è usato in PPP (Point-to-Point Protocol).
 \includegraphics[scale=0.8]{res/img/13_ByteStuffing.png}
 \end{figure}
 
-\section{Cos’è il bit stuffing?}
+\section{Cos'è il bit stuffing?}
 
 Lo strato data link deve servire lo stato network, per farlo necessita di usare a sua volta le informazioni fornite dallo strato fisico il cui scopo è quello di prendere un flusso di bit e cercare di portarli a destinazione.
 Non esiste nessuna garanzia per la correttezza dei dati, i bit potrebbero essere maggiori, minori, modificati ecc. Uno dei compiti dello strato data link è quello di rilevare ed eventualmente correggere questi errori.
-Per risolvere i problemi e le limitazioni provocate dal byte stuffing, viene sviluppata una nuova tecnica di framing , che prende il nome di bit stuffing, questa nuova tecnica permette di creare data frame che contengono sia un numero arbitrario di frame, sia codifiche di carattere con un numero arbitrario di bit.
+Per risolvere i problemi e le limitazioni provocate dal byte stuffing, viene sviluppata una nuova tecnica di framing, che prende il nome di bit stuffing, questa nuova tecnica permette di creare data frame che contengono sia un numero arbitrario di frame, sia codifiche di carattere con un numero arbitrario di bit.
 Ogni frame comincia e finisce con un gruppo speciale di bit “0111110” (flag byte). Ogni volta che lo strato data link della sorgente incontra cinque “1” consecutivi nei dati inserisce automaticamente un bit con valore 0 nel flusso in uscita. La destinazione quindi quando riceve cinque bit consecutivi con valore 1 seguiti da uno 0, automaticamente elimina lo 0.
-Con il bit stuffing il confine fra i due frame viene riconosciuto in modo inequivocabile tramite l’uso della sequenza flag.
+Con il bit stuffing il confine fra i due frame viene riconosciuto in modo inequivocabile tramite l'uso della sequenza flag.
  
 \begin{figure}[H]
 \centering
@@ -71,14 +77,14 @@ Con il bit stuffing il confine fra i due frame viene riconosciuto in modo inequi
 
 \section{Numero di bit necessari per riconoscimento (correzione) degli errori di trasmissione?}
 
-I dati trasmessi nei collegamenti locali sono spesso soggetti ad errori, per la loro gestione sono state sviluppate due strategie di base: la prima si basa su una codifica a correzione d’errore mentre la seconda è una codifica a rilevazione d’errore.
-La prima introduce una ridondanza (in ciascun blocco trasmesso) tale da riuscire a ricostruire il messaggio in caso di anomalie. La seconda invece introduce ridondanza sufficiente solo a capire che c’è stato un errore, ma non di correggerlo.
-Un frame generalmente consiste di m bit di dati e r bit ridondanti per i controlli, la somma n=m+r è la lunghezza totale del frame chiamata codeword di n bit. Date due codeword, per capire quanti bit corrispondenti sono differenti bisogna effettuare l’OR esclusivo e contare il numero di bit a “1” nel risultato, questo numero è chiamato distanza di Hamming.
-Detto questo, per trovare d errori è necessaria una codifica con distanza d+1, quando la destinazione vede una codeword non valida riesce a determinare che c’è stato un errore, ma non a correggerlo.
+I dati trasmessi nei collegamenti locali sono spesso soggetti ad errori, per la loro gestione sono state sviluppate due strategie di base: la prima si basa su una codifica a correzione d'errore mentre la seconda è una codifica a rilevazione d'errore.
+La prima introduce una ridondanza (in ciascun blocco trasmesso) tale da riuscire a ricostruire il messaggio in caso di anomalie. La seconda invece introduce ridondanza sufficiente solo a capire che c'è stato un errore, ma non di correggerlo.
+Un frame generalmente consiste di m bit di dati e r bit ridondanti per i controlli, la somma n=m+r è la lunghezza totale del frame chiamata codeword di n bit. Date due codeword, per capire quanti bit corrispondenti sono differenti bisogna effettuare l'OR esclusivo e contare il numero di bit a “1” nel risultato, questo numero è chiamato distanza di Hamming.
+Detto questo, per trovare d errori è necessaria una codifica con distanza d+1, quando la destinazione vede una codeword non valida riesce a determinare che c'è stato un errore, ma non a correggerlo.
 Per correggere d errori è necessaria una codifica con distanza 2d+1, in tal modo codeword legali sono distanziate in modo tale che anche con d cambiamenti la codeword originale è sempre più vicina di ogni altra, può quindi essere determinata univocamente.
-Un semplice esempio di codifica a rilevazione d’errore si può realizzare aggiungendo un bit di parità ai dati, calcolato in modo che il numero di “1” nella codeword sia sempre pari (o dispari).
+Un semplice esempio di codifica a rilevazione d'errore si può realizzare aggiungendo un bit di parità ai dati, calcolato in modo che il numero di “1” nella codeword sia sempre pari (o dispari).
 Entrambe le codifiche trovano uso in diversi ambienti:
-Nelle reti wireless, in cui è presente molto rumore, conviene utilizzare una codifica a correzione d’errore, cosi da ricostruire il messaggio in caso di errori, invece di farselo rispedire rischiandone di ulteriori. 
+Nelle reti wireless, in cui è presente molto rumore, conviene utilizzare una codifica a correzione d'errore, cosi da ricostruire il messaggio in caso di errori, invece di farselo rispedire rischiandone di ulteriori. 
 Sui canali affidabili invece è più economico usare codifiche a rilevazione, ed eventualmente farsi ritrasmettere il blocco.
 Questo perché, anche come visto dalla formula, per correggere gli errori abbiamo bisogno di molti più bit rispetto ad accorgersene solamente.
 
@@ -87,9 +93,9 @@ Questo perché, anche come visto dalla formula, per correggere gli errori abbiam
 Il CRC o Cycle Redundancy Check, è un metodo per il calcolo di somme di controllo, serve a individuare errori casuali nella trasmissione di dati (causati da interferenze, rumori di linea o distorsione). Non è utile invece nel caso di tentativi intenzionali di manomissione.
 Il CRC tratta le sequenze di bit come dei polinomi a coefficienti che possono assumere solo valori “0” o “1”. Un frame di k bit è visto come una lista di coefficienti per un polinomio con k termini che variano da $x^k-1$ a $x^0$. Questo polinomio è detto di grado k-1 e il coefficiente più alto è quello più a sinistra del polinomio (es 110001 ha 6 bit, quindi rappresenta un polinomio di $5^{\circ}$ grado con coefficienti 1,1,0,0,0 e 1: $x^5+x^4+x^0$.
 
-Quando si utilizza una codifica di questo tipo, sorgente e destinazione devono mettersi d’accordo in anticipo su un polinomio generatore G(x). Che deve avere i bit di ordine più alto e più basso a “1”.
-Per poter calcolare il checksum di un frame di m bit, quest’ultimo dev’essere più lungo del polinomio generatore. L’idea è quella di aggiungere un checksum alla fine del frame in modo che il polinomio rappresentato dal frame con checksum sia divisibile per G(x). Quando la destinazione riceve il frame con il checksum e prova a dividerlo per G(x). Se c’è un resto vuol dire che c’è stato un errore di trasmissione.
-Ora proviamo con l’esempio di un frame 10011101 con polinomio generatore $x^4+x+1$:
+Quando si utilizza una codifica di questo tipo, sorgente e destinazione devono mettersi d'accordo in anticipo su un polinomio generatore G(x). Che deve avere i bit di ordine più alto e più basso a “1”.
+Per poter calcolare il checksum di un frame di m bit, quest'ultimo dev'essere più lungo del polinomio generatore. L'idea è quella di aggiungere un checksum alla fine del frame in modo che il polinomio rappresentato dal frame con checksum sia divisibile per G(x). Quando la destinazione riceve il frame con il checksum e prova a dividerlo per G(x). Se c'è un resto vuol dire che c'è stato un errore di trasmissione.
+Ora proviamo con l'esempio di un frame 10011101 con polinomio generatore $x^4+x+1$:
 Frame: 1 0 0 1 1 1 0 1 
 Generatore G(x): 1 0 0 1 1
 Il grado di G(x) è 4, aggiungo 4 “0” al frame (ottenendo un nuovo frame M(x)) in modo da poter dividere le due parti ottenendo il resto da sottrarre al M(x).
@@ -99,7 +105,6 @@ Effettuo la divisione:
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.65]{res/img/16_DivisioneEsCRC.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
              
 1 1 1 1 è il resto di conseguenza, il frame trasmesso è 1 0 0 1  1 1 0 1  1 1 1 1.
@@ -109,32 +114,31 @@ Effettuo la divisione:
 Durante la ricezione dei dati, il frame viene controllato, e a seconda se è integro o meno, si segue uno dei tre diversi protocolli più comuni: 
 Stop-and-wait è il più semplice tra questi.
 Un mittente manda solo un frame alla volta, il destinatario, dopo aver ricevuto il frame corretto, invia un ACK (Acknowledge) al mittente, che a sua volta provvede a spedire il secondo frame e cosi via. 
-Se l’ACK non raggiunge il mittente, questo provvederà a inviare nuovamente lo stesso frame dopo aver atteso un certo tempo (timeout).
-Altri problemi sorgono quando l’ACK arriva danneggiato, in quel caso il mittente invia nuovamente il frame, con il risultato che il destinatario si trova due frame uguali, senza sapere se è un duplicato o se effettivamente il pacchetto successivo ha gli stessi dati, per questo è stato implementato un numero di sequenza per i frame, e il destinatario invia l’ACK inerente a quel frame.
+Se l'ACK non raggiunge il mittente, questo provvederà a inviare nuovamente lo stesso frame dopo aver atteso un certo tempo (timeout).
+Altri problemi sorgono quando l'ACK arriva danneggiato, in quel caso il mittente invia nuovamente il frame, con il risultato che il destinatario si trova due frame uguali, senza sapere se è un duplicato o se effettivamente il pacchetto successivo ha gli stessi dati, per questo è stato implementato un numero di sequenza per i frame, e il destinatario invia l'ACK inerente a quel frame.
 Anche in questo caso sorgono problemi di dissincronia, in cui, sbagliando i numeri dei frame si rischia di perderne molteplici.
-Concludendo lo stop-and-wait è parecchio inefficiente rispetto agli altri protocolli di “comunicazione di richiesta di ripetizione automatica”, specialmente a causa del tempo che intercorre tra l’invio dei vari pacchetti e contando anche il fatto che essendoci gli ACK il tempo di comunicazione aumenta considerevolmente, limitando la capacità del canale di comunicazione.
+Concludendo lo stop-and-wait è parecchio inefficiente rispetto agli altri protocolli di “comunicazione di richiesta di ripetizione automatica”, specialmente a causa del tempo che intercorre tra l'invio dei vari pacchetti e contando anche il fatto che essendoci gli ACK il tempo di comunicazione aumenta considerevolmente, limitando la capacità del canale di comunicazione.
  
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.65]{res/img/17_StopAndWait.png}
-%\caption{Didascalia dellimmagine}
 \end{figure}
 	     
-\section{Cos’è il piggybacking?}
+\section{Cos'è il piggybacking?}
 
-Molti protocolli di comunicazione necessitano di inviare l’ACK come segnale di avvenuta ricezione del frame.
+Molti protocolli di comunicazione necessitano di inviare l'ACK come segnale di avvenuta ricezione del frame.
 Fatto per ogni singolo frame, questo invio rischia di intasare inutilmente il canale di comunicazione, allungando i tempi e incorrendo in molteplici errori.
-La tecnica del piggybacking permette di aggiungere l’ACK al frame di dati in uscita, utilizzando il campo ack nell’intestazione di questo. In questo modo l’acknowledgement si procura un passaggio gratis insieme al successivo frame dati trasmesso.
+La tecnica del piggybacking permette di aggiungere l'ACK al frame di dati in uscita, utilizzando il campo ack nell'intestazione di questo. In questo modo l'acknowledgement si procura un passaggio gratis insieme al successivo frame dati trasmesso.
 Questo avviene quando arriva un frame di dati, la destinazione non invia subito un frame di controllo separato, ma aspetta che lo strato network gli passi il successivo pacchetto.
-Un problema può sorgere in caso di attesa molto lunga del pacchetto, poiché si rischia di far scattare il timer del mittente che re-invia il frame nell’attesa dell’ACK, in questo caso si decide un timeout in modo tale da fare piggybacking nel caso in cui il pacchetto da inviare è pronto in tempi celeri, altrimenti si invia l’ACK in modo indipendente.
+Un problema può sorgere in caso di attesa molto lunga del pacchetto, poiché si rischia di far scattare il timer del mittente che re-invia il frame nell'attesa dell'ACK, in questo caso si decide un timeout in modo tale da fare piggybacking nel caso in cui il pacchetto da inviare è pronto in tempi celeri, altrimenti si invia l'ACK in modo indipendente.
 Il vantaggio principale sta nel miglior uso della banda disponibile, inoltre un minor numero di frame inviati significa anche un minor numero di interrupt “frame in arrivo”, con conseguente minor necessità di buffer.
 
 \section{Si descriva la tecnica dello Sliding window}
 
 Sliding window è una classe di protocolli di controllo di flusso di dati, usato in particolare dal TCP.
-Una sliding window è formata da una finestra di invio e da una finestra di ricezione. La prima indica i frame che è autorizzata ad inviare, la seconda invece corrisponde all’insieme dei frame che può accettare.
+Una sliding window è formata da una finestra di invio e da una finestra di ricezione. La prima indica i frame che è autorizzata ad inviare, la seconda invece corrisponde all'insieme dei frame che può accettare.
 La finestra di invio contiene i frame da spedire, o spediti ma in attesa di ack, lo scopo è quello di mantenere nel buffer più frame, in modo da ritrasmetterli in caso di problemi. Se questo buffer è pieno, il livello data link costringe il livello network a sospendere la consegna di pacchetti. Quando si ottiene un ack il frame corrispondente esce dalla finestra lasciando posto ad altri.
-Analogamente, il destinatario mantiene una finestra corrispondente agli indici dei frame che possono essere accettati, se arriva un frame il cui indice è fuori dalla finestra questo viene scartato (senza invio dell’ack). Se l’indice è dentro la finestra, il frame viene accettato, viene spedito l’ack e si sposta in avanti la finestra.
+Analogamente, il destinatario mantiene una finestra corrispondente agli indici dei frame che possono essere accettati, se arriva un frame il cui indice è fuori dalla finestra questo viene scartato (senza invio dell'ack). Se l'indice è dentro la finestra, il frame viene accettato, viene spedito l'ack e si sposta in avanti la finestra.
 Le finestre di mittente e destinatario non devono avere necessariamente uguali dimensioni.
 
 \begin{figure}[H]
@@ -142,16 +146,16 @@ Le finestre di mittente e destinatario non devono avere necessariamente uguali d
 \includegraphics[scale=1]{res/img/19_SlidingWindow.png}
 \end{figure}
  
-Si noti che nel caso in cui abbiamo una finestra di dimensione massima uguale a 1 ci troviamo nel caso stop-and-wait, ovvero, dopo aver inviato un frame si attende l’ack corrispondente prima di inviarne ulteriori. In questo caso si mantiene l’ordine, con finestre più larghe questo non è più vero.
+Si noti che nel caso in cui abbiamo una finestra di dimensione massima uguale a 1 ci troviamo nel caso stop-and-wait, ovvero, dopo aver inviato un frame si attende l'ack corrispondente prima di inviarne ulteriori. In questo caso si mantiene l'ordine, con finestre più larghe questo non è più vero.
 
 \section{Si descriva l'idea dei protocolli "go back N", indicandone pregi e difetti}
 
-Il problema di ricezione dell’ack per ogni frame inviato, limitava di molto l’utilizzo della banda e rallentava le comunicazioni, per ovviare a questo problema viene usata la tecnica di pipelining. Si decide quindi di inviare più frame prima di ricevere i vari ack aumentando di parecchio l’utilizzo della linea. Tuttavia, sorge un problema, cosa succede nel caso in cui si perdano dei frames? Per il ripristino degli errori in presenza di pipelining sono disponibili due approcci base.
+Il problema di ricezione dell'ack per ogni frame inviato, limitava di molto l'utilizzo della banda e rallentava le comunicazioni, per ovviare a questo problema viene usata la tecnica di pipelining. Si decide quindi di inviare più frame prima di ricevere i vari ack aumentando di parecchio l'utilizzo della linea. Tuttavia, sorge un problema, cosa succede nel caso in cui si perdano dei frames? Per il ripristino degli errori in presenza di pipelining sono disponibili due approcci base.
 
-Tra questi go back n. Go back n è un’istanza specifica del protocollo “Automatic Repeat-reQuest” (modalità di trasmissione di pacchetti di dati) nel quale il processo mittente continua a mandare un numero di frame specificato nella window size anche senza aver ricevuto nessun ACK.
-La strategia corrisponde ad una finestra in ricezione di dimensione 1, rilevato l’errore si rifiuta di accettare qualunque frame eccetto il successivo che deve inviare allo strato network. Per questo il mittente scaduto il timeout riprende a spedire i frames che non hanno ricevuto l’ack.
-Questa tecnica può essere ottimizzata dall’uso del piggybacking, che consiste nello scrivere l’ack di un pacchetto nell’intestazione del pacchetto di informazione successivo, evitando latenze di trasmissione dovute alla trasmissione del solo ack.
-Go back n è uno dei metodi più efficienti per effettuare una connessione in quanto spedisce più pacchetti senza attendere ack, migliorando l’uso della banda, tuttavia può far perdere molta banda se la frequenza degli errori è molto alta.
+Tra questi go back n. Go back n è un'istanza specifica del protocollo “Automatic Repeat-reQuest” (modalità di trasmissione di pacchetti di dati) nel quale il processo mittente continua a mandare un numero di frame specificato nella window size anche senza aver ricevuto nessun ACK.
+La strategia corrisponde ad una finestra in ricezione di dimensione 1, rilevato l'errore si rifiuta di accettare qualunque frame eccetto il successivo che deve inviare allo strato network. Per questo il mittente scaduto il timeout riprende a spedire i frames che non hanno ricevuto l'ack.
+Questa tecnica può essere ottimizzata dall'uso del piggybacking, che consiste nello scrivere l'ack di un pacchetto nell'intestazione del pacchetto di informazione successivo, evitando latenze di trasmissione dovute alla trasmissione del solo ack.
+Go back n è uno dei metodi più efficienti per effettuare una connessione in quanto spedisce più pacchetti senza attendere ack, migliorando l'uso della banda, tuttavia può far perdere molta banda se la frequenza degli errori è molto alta.
 Go back-n e il selective repeat hanno diverse conseguenze in termini di uso di banda e di spazio di buffer nello strato data link, si può utilizzare un approccio oppure un altro in base a quale risorsa è più scarsa.
 
 \begin{figure}[H]
