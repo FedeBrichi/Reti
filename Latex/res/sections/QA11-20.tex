@@ -1,34 +1,54 @@
 \section{FDM, TDM, CDM: algoritmi per la selezione della banda}
-
-\paragraph{FDM (Frequency Division Multiplexing)} è una tecnica di condivisione delle risorse trasmissive di un canale di comunicazione. L'intero canale trasmissivo disponibile è diviso in sotto canali, ognuno costituito da una banda di frequenza e separato da un altro grazie ad un piccolo intervallo di guardia.
+\subsection{FDM (Frequency Division Multiplexing) cos'è?}
+è una tecnica di condivisione delle risorse trasmissive di un canale di comunicazione. L'intero canale trasmissivo disponibile è diviso in sotto canali, ognuno costituito da una banda di frequenza e separato da un altro grazie ad un piccolo intervallo di guardia.
 Questo permette la condivisione dello stesso canale da parte di dispositivi che utilizzano diverse regioni di frequenze e utenti che possono così comunicare contemporaneamente senza interferirsi tra loro.
-
-Questa tecnica è comunemente utilizzata nelle trasmissioni televisive, radiofoniche, telefoniche o di dati. Anche le reti cellulari utilizzano in parte questo tipo di multiplazione per suddividere e assegnare l'intera capacità trasmissiva o banda radio disponibile alle varie celle di copertura servite da stazioni radio base.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.45]{res/img/11_FDM.png}
 \end{figure}
- 
-\paragraph{TDM (Time Division Multiplexing)} è una tecnica di condivisione di un canale di comunicazione secondo la quale ogni dispositivo ricetrasmittente ottiene a turno l'uso esclusivo dello stesso per un breve lasso di tempo. Il tempo di utilizzo del canale è diviso in frame tutti della stessa durata, questi frame sono ulteriormente divisi in slot.
-Confrontato all'FDM il TDM risulta essere più efficiente in quanto elimina la necessità degli intervalli di guardia o separazione tra le varie bande di frequenza. Necessita tuttavia di un circuito di sincronizzazione temporale in ricezione per l'estrazione del time-slot di competenza.
+\subsubsection{Pregi}
+Permette di condividere un intero canale da più utenti, suddividendo le conversazioni in base alle diverse frequenze.
+\subsubsection{Difetti}
+Gli intervalli di guardia potrebbero essere uno spreco di banda utilizzato unicamente per la sicurezza.
+\subsubsection{Ambiti d'uso}
+Questa tecnica è comunemente utilizzata nelle trasmissioni televisive, radiofoniche, telefoniche o di dati. Anche le reti cellulari utilizzano in parte questo tipo di multiplazione per suddividere e assegnare l'intera capacità trasmissiva o banda radio disponibile alle varie celle di copertura servite da stazioni radio base.
+
+\subsection{TDM (Time Division Multiplexing) cos'è?}
+è una tecnica di condivisione di un canale di comunicazione secondo la quale ogni dispositivo ricetrasmittente ottiene a turno l'uso esclusivo dello stesso per un breve lasso di tempo. Il tempo di utilizzo del canale è diviso in frame tutti della stessa durata, questi frame sono ulteriormente divisi in slot.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{res/img/11_TDM.png}
 \end{figure} 
 
-\paragraph{CDM (Code Division Multiplexing)} o conosciuta anche come CDMA è il protocollo di accesso multiplo a canale condiviso. Offre una maggiore velocità di trasmissione di dati rispetto a TDM e FDM.
+\subsubsection{Pregi}
+Più efficiente del TDM in quanto elimina la necessità degli intervalli di guardia.
+
+\subsubsection{Difetti}
+Necessita di un circuito di sincronizzazione temporale in ricezione per l'estrazione del time-slot di competenza.
+
+\subsubsection{Ambiti d'uso}
+Utilizzata per le trasmissioni di fonia nella rete telefonica. Questo tipo di multiplazione è utilizzata molto nei sistemi a commutazione di circuito.
+
+\subsection{CDM (Code Division Multiplexing) cos'è?}
+Conosciuta anche come CDMA è il protocollo di accesso multiplo a canale condiviso. Offre una maggiore velocità di trasmissione di dati rispetto a TDM e FDM.
 Questa tecnica è realizzata moltiplicando in trasmissione l'informazione generata per un'opportuna parola detta chip; la sequenza in uscita dal moltiplicatore sarà successivamente modulata e infine trasmessa sul canale.
 In ricezione il segnale ricevuto sarà costituito dalla somma vettoriale di tutti i segnali trasmessi dalle singole stazioni. Grazie all'ortogonalità dei chip delle sorgenti, l'estrazione dell'informazione associata a ciascuna sorgente potrà essere fatta moltiplicando il segnale ricevuto con il particolare codice associato alla determinata sorgente che si vuole estrarre.
 
-La miglior efficienza rispetto alle precedenti forme di multiplazione è dovuta al fatto che ciascun canale utilizza l'intera banda di frequenza assegnata al servizio per tutto il tempo che desidera, e la non-interferenza è assicurata grazie all'uso di codici ortogonali.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{res/img/11_CDM.png}
 \end{figure}
- 
+\subsubsection{Pregi}
+Rispetto a TDM e FDM, CDM garantisce una miglior efficienza dovuta al fatto che ciascun canale utilizza l'intera banda di frequenza assegnata e per tutto il tempo che desidera.
+La non-interferenza è assicurata grazie all'uso di codici ortogonali.
+Provvede inoltre a fornire una maggior sicurezza dovuta al fatto che i segnali si mescolano nel canale e per estrarne uno è necessario conoscere la parola corretta.
+\subsubsection{Difetti}
+Necessita di circuiti più complessi rispetto alle altre tecniche di condivisione di un canale.
+\subsubsection{Ambiti d'uso}
+è il protocollo più diffuso nelle reti wireless e nei dispositivi mobili di seconda generazione e successive.
 \section{QAM e QAM16}
 
 QAM è un sistema di modulazione numerica di ampiezza in quadratura, sia digitale che analogica. 
@@ -44,7 +64,11 @@ QAM16 non è altro che un tipo di costellazione del QAM, utilizzando quattro amp
 \centering
 \includegraphics[scale=0.6]{res/img/12_QAM16.png}
 \end{figure}
- 
+
+\subsection{Pregi}
+\subsection{Difetti}
+\subsection{Ambiti d'uso}
+
 \section{Cos'è il byte stuffing?}
 
 Lo strato data link deve servire lo stato network. Per farlo necessita di usare a sua volta le informazioni fornite dallo strato fisico, il cui scopo è quello di prendere un flusso di bit e cercare di portarli a destinazione.
