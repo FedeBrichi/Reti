@@ -1,4 +1,5 @@
 \section{Cosa si intende per serie di Fourier?}
+\subsection{Cos'è?}
 Un segnale che ha una durata finita può essere gestito immaginando semplicemente che esso ripeta infinite volte l’intero schema (intervallo T e 2T è identico all’intervallo 0 a T).
 
 È possibile quindi rappresentare i segnali tramite funzioni, le quali permettono un’analisi e una modellazione più efficace.
@@ -13,19 +14,37 @@ Su questo teorema si basano le reti e il passaggio dei dati tramite i mezzi di t
 
 L’intervallo di frequenze trasmesse senza una forte attenuazione è chiamato Banda Passante.
 Generalmente nella realtà viene indicata la banda passante compresa tra 0 e la frequenza dove la potenza è attenuata del 50\%.
+\subsection{Pregi}
+Un pregio sicuramente è il fatto che scomporre un segnale in più componenti permette uno studio più preciso del segnale.
+
+\subsection{Difetti}
+--
+\subsection{Ambiti d'uso}
+Viene ampiamente usata nelle comunicazioni in generale, per la trasmissione dei dati, la scomposizione del segnale in più sinusoidi migliora la comprensione delle onde.
+Si passerà poi alle varie modulazioni per ovviare ai problemi dovuti alle attenuazioni o alle distorsioni.
 
 \section{Bitrate e Baudrate}
-
+\subsection{Cosa sono?}
 Il \textbf{Bitrate} è la quantità di informazioni digitali che è trasferita o registrata nell’unita di tempo.
 Stiamo parlando quindi di velocità di trasmissione, espressa in bit/s. La velocità di trasmissione è anche detta Banda e dipende dal tipo di mezzo trasmissivo utilizzato e dalle sue condizioni fisiche al momento dell’uso.
-
+\\
 Il \textbf{Baudrate} invece rappresenta il numero di simboli che viene trasmesso in un secondo. Non va confusa con il sopracitato bitrate in quanto misurano unità differenti; infatti ad un simbolo corrisponde un numero di bit differente in base alle tecniche di modulazione utilizzate.
+
+\subsection{Pregi}
+Grazie a queste unità di misura è possibile dare una rappresentazione della velocità di trasmissione del mezzo.
+
+\subsection{Difetti}
+--
+
+\subsection{Ambiti d'uso}
+Queste metriche vengono utilizzate nelle reti wireless e cablate.
 
 \section{Descrivere i vari tipi di cavo e confrontarli}
 I principali tipi di cavo utilizzato nelle telecomunicazioni sono: il doppino, il cavo coassiale e la fibra ottica. \\
-\textbf{Il doppino}:\\
--Cos’è: è un cavo composto da due conduttori di rame isolati, spessi circa 1mm e avvolti uno intorno all’altro in una forma elicoidale. L’intreccio è utile per annullare i campi elettromagnetici generati dai due conduttori, i quali si annullano a vicenda. Esistono diverse varietà di doppini, i più importanti per le telecomunicazioni sono gli UTP3 e UTP5 (UTP= Unshielded Twisted Pair, doppini non schermati). Le differenze tra i doppini di categoria 3 e categoria 5 sta nel numero di spire per centimetro: minor numero di spire per cm negli UTP3 e maggiore negli UTP5. Un maggior numero di spire permette di migliorare la qualità del segnale trasmesso su lunghe distanze, a scapito però della quantità di materiale necessario. Esistono anche categorie superiori, i quali gestiscono segnali con banda più ampia.  \\
--Applicazione: Il sistema di applicazione più diffuso per il doppino è il sistema telefonico. I doppini si possono utilizzare per trasmettere segnali analogici e digitali, l’ampiezza di banda dipende dal diametro del cavo e dalla distanza percorsa. Sono molto utilizzati grazie al basso costo e al discreto livello di prestazioni.
+\subsection{Il doppino, cos'è?}
+
+è un cavo composto da due conduttori di rame isolati, spessi circa 1mm e avvolti uno intorno all’altro in una forma elicoidale. L’intreccio è utile per annullare i campi elettromagnetici generati dai due conduttori, i quali si annullano a vicenda. Esistono diverse varietà di doppini, i più importanti per le telecomunicazioni sono gli UTP3 e UTP5 (UTP= Unshielded Twisted Pair, doppini non schermati). Le differenze tra i doppini di categoria 3 e categoria 5 sta nel numero di spire per centimetro: minor numero di spire per cm negli UTP3 e maggiore negli UTP5. Un maggior numero di spire permette di migliorare la qualità del segnale trasmesso su lunghe distanze, a scapito però della quantità di materiale necessario. Esistono anche categorie superiori, i quali gestiscono segnali con banda più ampia.  \\
+I doppini si possono utilizzare per trasmettere segnali analogici e digitali, l’ampiezza di banda dipende dal diametro del cavo e dalla distanza percorsa.
 
 \begin{figure}[H]
 \centering
@@ -33,9 +52,19 @@ I principali tipi di cavo utilizzato nelle telecomunicazioni sono: il doppino, i
 %\caption{Didascalia dell'immagine}
 \end{figure}
 
-\textbf{Il cavo coassiale}: \\
--Cos’è: è un cavo composto da un nucleo conduttore coperto da un rivestimento isolante, a sua volta circondato da un conduttore cilindrico, solitamente realizzato con una calza di conduttori sottili, che infine è avvolto da una guaina protettiva di plastica. La costruzione e la schermatura del cavo coassiale forniscono ampiezza di banda ed eccellente immunità al rumore. Ne esistono di due tipi, a 50$\Omega$ per le trasmissioni digitali e a 75$\Omega$ per quelle analogiche; non c’è una motivazione tecnica per questa distinzione. \\
--Applicazione: Il cavo coassiale è molto utilizzato per le reti metropolitane e le televisioni via cavo; la banda disponibile dipende dalla qualità, dalla lunghezza del cavo e dal rapporto segnale-rumore del segnale dati. Per molti ambiti il cavo coassiale è stato sostituito dalla fibra ottica per i tratti più lunghi.
+
+\subsubsection{Pregi}
+Costano poco e hanno un discreta velocità trasmissiva.
+
+\subsubsection{Difetti}
+L'ampiezza di banda fornita non è tra le migliori e sono vulnerabili ai campi elettromagnetici.
+
+\subsubsection{Ambiti d'uso}
+Vengono utilizzati prevalentemente nel sistema telefonico.
+
+\subsection{Il cavo coassiale, cos'è?} 
+ è un cavo composto da un nucleo conduttore coperto da un rivestimento isolante, a sua volta circondato da un conduttore cilindrico, solitamente realizzato con una calza di conduttori sottili, che infine è avvolto da una guaina protettiva di plastica. La costruzione e la schermatura del cavo coassiale forniscono ampiezza di banda ed eccellente immunità al rumore. Ne esistono di due tipi, a 50$\Omega$ per le trasmissioni digitali e a 75$\Omega$ per quelle analogiche; non c’è una motivazione tecnica per questa distinzione. \\
+la banda disponibile dipende dalla qualità, dalla lunghezza del cavo e dal rapporto segnale-rumore del segnale dati. Per molti ambiti il cavo coassiale è stato sostituito dalla fibra ottica per i tratti più lunghi.
 
 \begin{figure}[H]
 \centering
@@ -43,8 +72,17 @@ I principali tipi di cavo utilizzato nelle telecomunicazioni sono: il doppino, i
 \caption{D: nucleo, C: rivestimento isolante, B: conduttore cilindrico, A: guaina protettiva}
 \end{figure}
 
-\textbf{Fibra ottica:}\\
--Cos’è: Un sistema di trasmissione ottico è formato da: sorgente luminosa, mezzo di trasmissione e rilevatore. I cavi in fibra ottica sono il mezzo di trasmissione di questo sistema, che si basa su segnali luminosi invece che elettrici.
+\subsubsection{Pregi}
+Hanno un'isolamento quasi totale dai campi elettromagnetici grazie ai vari rivestimenti isolanti. 
+
+\subsubsection{Difetti}
+Su grandi tratti non sono molto efficienti in termini di banda, vengono infatti sostituiti dalla fibra ottica in quei casi.
+
+\subsubsection{Ambiti d'uso}
+Il cavo coassiale è molto utilizzato per le reti metropolitane e le televisioni via cavo.
+
+\subsection{Fibra ottica, cos'è?}
+Un sistema di trasmissione ottico è formato da: sorgente luminosa, mezzo di trasmissione e rilevatore. I cavi in fibra ottica sono il mezzo di trasmissione di questo sistema, che si basa su segnali luminosi invece che elettrici.
 La fibra ottica è formata da un nucleo (core) di vetro, attraverso il quale si propaga la luce, ha uno spessore di 50 micron per le fibre multimodali mentre dagli 8 ai 10 micron per quelle monomodali.
 
 Il nucleo è avvolto da un rivestimento di vetro (cladding) che ha un indice di rifrazione più basso; ciò costringe la luce a rimanere nel nucleo. L’ultimo strato è formato da plastica e serve a proteggere il rivestimento. Generalmente le fibre sono raggruppate in fasci, protetti da un’ulteriore guaina più esterna.  
@@ -64,22 +102,27 @@ Le fibre si possono collegare in diversi modi:
 \item Attaccate meccanicamente, tramite una manichetta speciale viene pinzato, viene poi allineato in modo da massimizzare il segnale, perdita del 10\% 
 \item Fusione delle due parti, genera una piccola attenuazione.
 \end{itemize}
--Applicazione: La fibra è molto utilizzata nelle LAN e nei sistemi di trasmissioni a lunga distanza e apporta diversi vantaggi rispetto al cavo in rame:
+
+\subsubsection{Pregi}
+Rispetto al cavo in rame classico, la fibra apporta diversi vantaggi:
 \begin{itemize}
-\item	Maggiore ampiezza di banda.
-\item	I ripetitori possono essere installati ogni 50km rispetto ai 5km dei cavi in rame, con un evidente risparmio.
-\item	Non è influenzata da sorgenti elettriche, dai campi elettromagnetici e dalle interruzioni della linea elettrica, la fibra è adatta anche agli ambienti più inospitali.
-\item	La fibra è sottile e leggera, occupando meno spazio permette alle aziende telefoniche di svuotare i condotti ormai saturi di cavi.
-\item	Le fibre non perdono la luce ed è difficile intercettare i dati, questo le rendono molto più sicure rispetto ai cavi in rame.
-\end{itemize}
-Presenta tuttavia degli svantaggi, che nonostante tutto non limitano troppo questa tecnologia, che rappresenta il futuro per le telecomunicazioni. Tra gli svantaggi troviamo:
-\begin{itemize}
-\item	Tecnologia meno nota, richiede conoscenze che non tutti gli ingegneri possiedono.
-\item	Si può danneggiare se la si piega troppo.
-\item	La trasmissione è unidirezionale, di conseguenza, per avere una comunicazione bidirezionale è richiesta una doppia fibra o due bande di frequenza in una sola.
-\item	Le interfacce per la fibra ottica costano di più di quelle elettriche.
+	\item	Maggiore ampiezza di banda.
+	\item	I ripetitori possono essere installati ogni 50km rispetto ai 5km dei cavi in rame, con un evidente risparmio.
+	\item	Non è influenzata da sorgenti elettriche, dai campi elettromagnetici e dalle interruzioni della linea elettrica, la fibra è adatta anche agli ambienti più inospitali.
+	\item	La fibra è sottile e leggera, occupando meno spazio permette alle aziende telefoniche di svuotare i condotti ormai saturi di cavi.
+	\item	Le fibre non perdono la luce ed è difficile intercettare i dati, questo le rendono molto più sicure rispetto ai cavi in rame.
 \end{itemize}
 
+\subsubsection{Difetti}
+\begin{itemize}
+	\item	Tecnologia meno nota, richiede conoscenze che non tutti gli ingegneri possiedono.
+	\item	Si può danneggiare se la si piega troppo.
+	\item	La trasmissione è unidirezionale, di conseguenza, per avere una comunicazione bidirezionale è richiesta una doppia fibra o due bande di frequenza in una sola.
+	\item	Le interfacce per la fibra ottica costano di più di quelle elettriche.
+\end{itemize}
+
+\subsubsection{Ambiti d'uso}
+La fibra è molto utilizzata nelle LAN e nei sistemi di trasmissioni a lunga distanza.
 
 \section{Caratteristiche e confronto tra i vari tipi di satellite: GEO, MEO e LEO}
 
@@ -101,43 +144,51 @@ Esistono quindi 3 zone in cui i satelliti possono essere collocati
 \centering
 \includegraphics[scale=0.55]{res/img/4_satelliti.png}
 \end{figure}
- 
+\subsection{Cosa sono?}
 \paragraph{GEO}
-GEO (Geostationary Earth Orbit), sono collocati nella fascia più alta, disposti con un intervallo di $2^{\circ}$ nel piano equatoriale, così da evitare interferenze, di conseguenza c’è posto per “solo” 180 satelliti di questo tipo, la loro dimensione è importante e la gestione dell’allocazione degli slot orbitali è motivo di disputa tra paesi, stazioni televisive e militari.
+GEO (Geostationary Earth Orbit), sono collocati nella fascia più alta, disposti con un intervallo di $2^{\circ}$ nel piano equatoriale, così da evitare interferenze, di conseguenza c’è posto per “solo” 180 satelliti di questo tipo. La loro dimensione è importante e la gestione dell’allocazione degli slot orbitali è motivo di disputa tra paesi, stazioni televisive e militari.
 \paragraph{MEO}
 Tra le due fasce di Van Allen troviamo i satelliti MEO (Medium Earth Orbit), questi satelliti si spostano lentamente lungo la longitudine, impiegando 6 ore per compiere un giro attorno al pianeta, attualmente non sono utilizzati per le telecomunicazioni. Rispetto al GEO, il MEO permette un ritardo di propagazione inferiore, tuttavia si perde la comodità del “punto fisso” garantito dal GEO, questo perché il MEO si sposta più velocemente.
 \paragraph{LEO}
 I LEO (Low Earth Orbit) sono i più bassi tra i tre tipi; si spostano molto velocemente, di conseguenza un sistema completo richiede l’utilizzo di molti satelliti di questo tipo. D’altra parte, le stazioni terrestri non hanno bisogno di molta energia per la comunicazione e i ritardi sono di pochi millisecondi.
 Questo tipo di satellite tratta prevalentemente trasmissione voce e servizi internet/GPS. \\
 
-Una menzione particolare va fatta alla differenza tra satelliti e fibra: quale preferire? \\
-Non esiste una risposta ben definita, la fibra grazie alla sua comodità sembrava avesse preso dominio nel mercato, tuttavia i satelliti avevano applicazione in campo in cui la fibra non poteva arrivare:
-\begin{itemize}
-\item	La fibra non è attualmente disponibile a una gran parte dell’utenza, mentre per i satelliti, l’utente basta che innalzi un’antenna sul tetto di casa per ottenere una maggiore ampiezza di banda.
-\item	Comunicazione mobile, la fibra ottica non è di nessuna utilità per questa categoria, mentre i collegamenti satellitari potenzialmente ce l’hanno.
-\item	Comunicazione broadcast, un messaggio inviato da un satellite può essere ricevuto contemporaneamente da migliaia di stazioni terrestri.
-\item	Comunicazione in luoghi con terreni inospitali o scarsamente dotati di infrastrutture.
-\end{itemize}
 Il sistema di comunicazione principale del futuro sarà quello terrestre basato su fibre ottiche, combinato con la rete radio cellulare, tuttavia per alcune applicazioni specifiche i satelliti sono migliori.
 
+\subsection{Pregi}
+Sono di facile utilizzo, basta alzare un'antenna sul tetto di casa per ottenere una maggior ampiezza di banda.
+Sono importanti per la connessione mobile.
+Trovano applicazione per portare connessione in terreni inospitali o scarsamente dotati di infrastrutture.
+
+\subsection{Difetti}
+Le fibre ottiche per molti versi sono più comode e versatili rispetto ai satelliti, in quanto la loro velocità è di gran lunga superiore.
+\subsection{Ambiti d'uso}
+Trovano applicazione in luoghi inospitali e privi di infrastrutture, trovano applicazione nelle trasmissioni broadcast e nelle comunicazioni mobile, dove quindi la fibra fatica ad arrivare.
 
 \section{Cos’è la modulazione in frequenza?}
-Durante l’invio di informazioni, il segnale può subire attenuazione, distorsione o venir disturbata dal rumore; questo porta ad evitare l’uso di un largo intervallo di frequenze, ma sfortunatamente le onde quadre utilizzate nei segnali digitali utilizzano un ampio spettro di frequenza, e perciò sono soggette ad una forte attenuazione e alla distorsione.
 
+Durante l’invio di informazioni, il segnale può subire attenuazione, distorsione o venir disturbata dal rumore; questo porta ad evitare l’uso di un largo intervallo di frequenze. Sfortunatamente le onde quadre utilizzate nei segnali digitali utilizzano un ampio spettro di frequenza, e perciò sono soggette ad una forte attenuazione e alla distorsione.
+\\\\
 Questi effetti rendono adatta la trasmissione in banda base (DC) solo a velocità basse e distanze brevi.
-
+\\\\
 Per aggirare questi problemi viene usata la trasmissione AC, un tono continuo (portante d’onda sinusoidale) nell’intervallo compreso tra 1000 e 2000Hz, il quale permette la modulazione della sua ampiezza (AM), frequenza (FM) o fase.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=1]{res/img/5_modulazione.png}
 \end{figure}
-
+\subsection{Cos'è?}
 La modulazione in frequenza non è altro che una tecnica di trasmissione utilizzata per trasmettere informazioni usando la variazione di frequenza dell’onda portante. Rispetto alla modulazione in ampiezza ha il vantaggio di essere molto meno sensibile ai disturbi e permette una trasmissione di miglior qualità. Ha inoltre un’efficienza energetica molto maggiore dato che la potenza del segnale modulato FM è esclusivamente quello della portante.
 
-Il difetto principale è la necessità di circuiti più complessi, sia per la generazione del segnale sia per la ricezione. L’attuale tecnologia ha permesso di superare queste problematiche, rendendo la modulazione in frequenza molto più usata rispetto a quella in ampiezza, soprattutto in ambito di broadcasting commerciale.
+\subsection{Pregi}
+Permette di ridurre i problemi di attenuazione e distorsione della linea.
+\subsection{Difetti}
+Necessita di circuiti complessi sia per la generazione del segnale sia per la sua ricezione. Questi problemi sono stati superati dalle attuali tecnologie.
+\subsection{Ambiti d'uso}
+Viene utilizzata soprattutto in ambito di broadcasting commerciale, è più usata della modulazione in ampiezza.
 
 \section{Cos’è la modulazione delta (delta modulation)?}
+\subsection{Cos'è?}
 La delta modulation è un metodo di digitalizzazione e compressione di un segnale analogico.
 Si basa sul fatto che il segnale cambia in modo relativamente lento rispetto alla frequenza di campionamento, ciò rende gran parte dell’informazione ridondante.
 
@@ -145,10 +196,18 @@ Questo metodo prevede che ogni valore campionato differisca dal precedente di +1
 
 Un problema si ha se il segnale cambia troppo rapidamente, in quel caso si perdono informazioni.
 
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{res/img/6_modulazioneDelta.png}
 \end{figure}
+
+ \subsection{Pregi}
+ Grazie a questa tecnica è possibile comprimere e digitalizzare il segnale analogico (e viceversa), con il risultato di gravare meno sulle linee e permettere comunicazioni più veloci (a discapito della precisione).
+ \subsection{Difetti}
+ --
+ \subsection{Ambiti d'uso}
+ Viene utilizzata nelle comunicazioni satellitari o nelle comunicazioni voce.
  
 \section{Descrivere in dettaglio il GSM (Global System for Mobile connection)}
 Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da una diversa tecnologia:
@@ -157,6 +216,7 @@ Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da
 \item	Voce digitale
 \item	Voce e dati digitali (Internet, posta elettronica ecc.)
 \end{itemize}
+\subsection{Cos'è?}
 Il GSM tratta dei telefoni della seconda generazione: voce digitale.
 La sua struttura è formata da 4 tipi di celle: macro, micro, pico e umbrella. 
 Le prime sono le più grandi, sono sopraelevate rispetto gli edifici e hanno un raggio massimo di 35 km. Le micro sono più piccole, coprono un'altezza pari agli edifici. Le pico sono molto piccole, usate in aree molto dense, tipicamente indoor. Umbrella è una piccola estensione, usata per coprire i buchi tra le varie celle sopracitate.
@@ -172,6 +232,13 @@ Trasmissione e ricezione non avvengono nello stesso intervallo temporale perché
 
 Il GSM introduce anche l’utilizzo della SIM card, in cui vengono memorizzati i dati descrittivi dell’abbonato e ha la funzione principale di fornire autenticazione ed autorizzazione all’utilizzo della rete.
 
+\subsection{Pregi}
+Interoperabilità tra reti diverse che fanno capo ad un unico standard internazionale.
+Introduzione della comunicazione di tipo digitale.
+\subsection{Difetti}
+--
+\subsection{Ambiti d'uso}
+è utilizzato appunto nella seconda generazione di telefoni cellulari, è il sistema più diffuso al mondo.
 \section{Si descriva la tecnica CDMA (Code Division Multiple Access), possibilmente con esempio}
 Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da una diversa tecnologia:
 \begin{itemize}
@@ -179,6 +246,7 @@ Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da
 \item	Voce digitale
 \item	Voce e dati digitali (Internet, posta elettronica ecc.)
 \end{itemize}
+\subsection{Cos'è?}
 Il CDMA tratta dei telefoni della seconda generazione: voce digitale.
 D-AMPS e GSM sono sistemi che utilizzano FDM e TDM per dividere lo spettro in canali e i canali in slot temporali. CDMA invece di dividere l’intero intervallo di frequenze assegnate in poche centinaia di canali a banda stretta, permette ad ogni stazione di trasmettere per tutto il tempo attraverso l’intero spettro di frequenza. Trasmissioni multiple simultanee sono separate usando la teoria della codifica. La capacità del CDMA è di riuscire a estrarre il segnale desiderato scartando tutto il resto.
 
@@ -194,6 +262,13 @@ Ad esempio, A e C trasmettono 1, B trasmette 0. Il ricevitore vede la somma S=A+
 $S*C=(A+!B+C)*C=A*C+B*C+C*C=0+0+1=1$
 \end{center}
 I primi due termini spariscono perché le sequenze di chip sono state scelte per essere ortogonali.
+\subsection{Pregi}
+Grazie alla maggiore efficienza spettrale, il CDMA garantisce una maggior velocità di trasmissione dati.
+Provvede inoltre a garantire una maggior sicurezza rispetto ai predecessori, in quanto la demultiplazione è fattibile solo grazie alla conoscenza delle parole di codice.
+\subsection{Difetti}
+--
+\subsection{Ambiti d'uso}
+Viene utilizzata nei telefoni di seconda generazione, come alternativa a D-AMPS e GSM.
 
 \section{Il GPRS: Cos’è? Pregi e difetti}
 
@@ -203,6 +278,7 @@ Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da
 \item	Voce digitale
 \item	Voce e dati digitali (Internet, posta elettronica ecc.)
 \end{itemize}
+\subsection{Cos'è?}
 GPRS è un’evoluzione tra la seconda e la terza generazione di telefoni cellulari. È una rete a pacchetti costruita sopra D-AMPS e GSM. Questa permette alle stazioni mobili di inviare e ricevere pacchetti IP in una cella basata su un sistema vocale.
 
 Quando GPRS è operativo vengono riservate alcuni slot temporali posti su alcune frequenze, per il traffico di pacchetti.
@@ -210,8 +286,14 @@ Gli slot disponibili sono divisi in canali logici, la stazione base determina l�
 
 Per inviare un pacchetto IP, una stazione mobile chiede uno o più slot inviando una richiesta alla stazione base. Se la richiesta arriva senza problemi, la stazione comunica all’apparecchio mobile la frequenza e gli slot che dovrà utilizzare per trasmettere il pacchetto. Una volta arrivato alla stazione base, il pacchetto è trasferito su Internet attraverso una connessione via cavo.
 
-I vantaggi rispetto ai suoi predecessori stanno nel fatto che lo spreco di banda inesistente e viene utilizzata una tariffa a traffico e non a tempo. GPRS aggiunge il supporto a PPP e IP.
+\subsection{Pregi}
+Lo spreco di banda è inesistente, e viene utilizzata una tariffa a traffico e non a tempo come i suoi predecessori.
+GPRS aggiunge il supporto a PPP e IP.
 
+\subsection{Difetti}
+--
+\subsection{Ambiti d'uso}
+è una tecnologia a cavallo tra la seconda generazione e la terza generazione di telefoni cellulari. Viene utlizzata per scambi di pacchetti dati tramite celle basate su sistemi vocali.
 \section{Handoff cos’è e vari tipi}
 
 Nell’ambito della telefonia mobile, con “Handoff” si intende la procedura per la quale un terminale cambia il canale (frequenza e slot di tempo) che sta utilizzando durante una comunicazione.
@@ -224,5 +306,12 @@ Il telefono viene informato della nuova centrale di controllo e viene forzato al
 Esistono due tipi di handoff: il soft e l’hard handoff. Nel soft handoff il telefono è acquisito dalla nuova stazione di base prima di interrompere il segnale precedente, il vantaggio sta nel fatto che non vi è nessuna perdita di continuità, tuttavia il telefono deve riuscire a gestire più frequenze nello stesso momento (né i telefoni di prima generazione ne seconda sono in grado).
 
 Nel caso di hard handoff la vecchia stazione di base rilascia il telefono prima che la nuova lo acquisisca. Se la nuova non è in grado di prendere il controllo del dispositivo (ad esempio se non è disponibile nessuna frequenza) il segnale viene interrotto bruscamente, con il risultato di terminazione brusca di una possibile chiamata.
-
+\subsection{Pregi}
+Il soft handoff è più performante in quanto non si perde continuità di chiamata.
+L'hard handoff non necessita che il dispositivo sia in grado di gestire più frequenze contemporaneamente
+\subsection{Difetti}
+Il soft handoff richiede che il dispositivo sia in grado di gestire più frequenze contemporaneamente.
+L'hard handoff può causare la caduta di linea con la conseguente perdita di chiamata nel caso in cui una cella non sia in grado di prendere il dispositivo in un lasso di tempo breve.
+\subsection{Ambiti d'uso}
+Questa tecnica viene utilizzata dai dispositivi mobili (cellulari appunto, che sfruttano le celle). Il soft handoff può essere utilizzato dai telefoni di generazione superiore alla seconda, mentre l'hard handoff da tutti.
 
