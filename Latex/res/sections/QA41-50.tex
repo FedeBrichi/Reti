@@ -1,26 +1,34 @@
 \section{Leaky bucket, pregi e difetti}
 
 Quando ci si scambia pacchetti nella rete, serve un modo per controllare il flusso; per delimitare banda e velocità di trasmissione si può utilizzare l’algoritmo leaky bucket, un sistema di accodamento a singolo server con tempo di servizio costante.
-
+\subsection{Cos'è?}
 Questo algoritmo si basa sull’idea del “secchio che perde” attraverso il quale qualsiasi quantità d’acqua contenuta fluirà all’esterno sempre con la stessa velocità, se l’acqua viene aggiunta troppo velocemente questa supererà in volume la capacità del secchio e straborderà.
 
 Allo stesso modo il leaky bucket è formato da una coda finita. Al suo arrivo, se c’è spazio il pacchetto viene aggiunto alla coda, altrimenti viene scartato. Ad ogni ciclo di clock viene trasmesso un pacchetto (se la coda non è vuota).
-
-Così facendo si gestiscono burst di dati che altrimenti congestionerebbero la rete; un contro però può essere che, siccome trasmette pacchetti solo ad intervalli prefissati, ci saranno parecchi casi in cui il volume del traffico sarà molto basso e ampie porzioni di risorse di rete non verranno utilizzate.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{res/img/41_LeakyBucket.png}
 \end{figure}
 
+\subsection{Pregi}
+Burst di dati che potrebbero congestionare la rete vengono catturati dall'algoritmo che li distribuisce equamente.
+
+\subsection{Difetti}
+Ampie porzioni di risorse di rete non verranno utilizzate quando il volume del traffico è molto basso.\\
+Quando la coda si riempie troppo i pacchetti in eccesso vengono brutalmente scartati.
+
+\subsection{Ambiti d'uso}
+Strato Network. Utilizzato nelle reti a commutazione di pacchetto, per controllare che le trasmissione dei pacchetti siano ben delimitati in banda e velocità di trasmissione.
+
 \section{Descrivere il token bucket, pregi e difetti}
 
 Per gestire il flusso di pacchetti su una rete è necessario utilizzare algoritmi che permettano un controllo della congestione e che sfruttino al meglio le risorse di rete. L’algoritmo leaky bucket (secchio che perde) gestiva le congestioni, ma purtroppo imponeva un modello di output troppo rigido, che non seguiva la variabilità del traffico.
 
 Per molte applicazioni è meglio permettere all’output di accelerare un po’ quando ci sono burst di dati, perciò serve un algoritmo più flessibile e che non perda mai dati.
-
+\subsection{Cos'è?}
 L’algoritmo token bucket riprende l’idea del leaky bucket, ma aggiunge dei token, generati da un clock.
-Un pacchetto per passare deve distruggere un token, se non c’è attende finché non viene generato dal clock. A differenza del leaky bucket, il token bucket non scarta i pacchetti quando il secchio è pieno.
+Un pacchetto per passare deve distruggere un token, se non c’è, attende finché non viene generato dal clock. A differenza del leaky bucket, il token bucket non scarta i pacchetti quando il secchio è pieno.
 
 Se non arrivano pacchetti da inviare, il token bucket accumula i token fino ad un massimo di n. Così facendo si prepara a gestire dei possibili burst di massimo n pacchetti (pari al numero di token), bruciando i token in rapida successione e dando una risposta più veloce a picchi improvvisi.
 
@@ -31,10 +39,18 @@ Per implementare questo algoritmo è necessaria solo una variabile che tenga con
 \includegraphics[scale=0.6]{res/img/42_TokenBucket.png}
 \end{figure}
  
+\subsection{Pregi}
+Al contrario del leaky bucket, usando quest'algoritmo non scarta nessun pacchetto.\\
+Gestisce meglio i burst improvvisi, dando una risposta più veloce.
+\subsection{Difetti}
+Un potenziale difetto può essere che consente di trasmettere grandi raffiche di dati, che potrebbero causare congestione. (non sicura).
+\subsection{Ambiti d'uso}
+Strato Network, utilizzato per gestire il traffico in una rete dati, finalizzato a regolare l'output di trasmissione.
+
 \section{Descrivere l’ARP}
 Ogni macchina di Internet ha uno o più indirizzi IP, tuttavia questi non possono essere utilizzati per inviare pacchetti, in quanto l’hardware che opera sullo strato data link non comprende gli indirizzi Internet.
 Bisogna trovare un modo per associare l’indirizzo Ethernet a 48 bit (indirizzo MAC) con l’indirizzo IP associato.
-
+\subsection{Cos'è?}
 ARP è un protocollo che permette di associare un indirizzo IP all’indirizzo Ethernet in una sottorete (o anche tra più sottoreti utilizzando Arp-proxy).
 Viene trasmesso un pacchetto broadcast a tutte le stazioni nella sottorete che chiede chi è il proprietario di un determinato indirizzo IP. Le stazioni controllano il proprio indirizzo IP e solo il proprietario di tale indirizzo risponde inviando il proprio indirizzo Ethernet. In questo modo la stazione che cercava un determinato indirizzo riesce a collegare l’IP con il MAC.
 
@@ -42,12 +58,18 @@ A questo punto, il software IP costruisce un frame Ethernet indirizzato al desti
 La scheda Ethernet del destinatario rileva il frame, si accorge di essere la stazione designata della comunicazione, preleva i dati ed estrae il pacchetto IP dal carico utile per passarlo al software IP, il quale verifica la correttezza dell’indirizzo ed elabora i dati.
 Per migliorare le prestazioni, dopo aver associato degli indirizzi, questi vengono memorizzati nella cache, così, in caso di nuove trasmissioni verso la stessa stazione, si ha già l’indirizzo pronto.
 
-Questo protocollo viene usato tutte le volte che un host collegato ad una LAN deve inviare un messaggio ad un host nella stessa LAN di cui conosce esclusivamente l’indirizzo di rete (IP). Inoltre, non prevede metodi per autenticare le risposte ricevute, il che lo rende molto vulnerabile a possibili attacchi.
-
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{res/img/43_ARP.png}
 \end{figure}
+\subsection{Pregi}
+Permette la trasmissione di pacchetti ad un host anche senza conoscere l'indirizzo MAC (necessario per instaurare una connessione a livello data-link).
+\subsection{Difetti}
+Non autentica le risposte, il che lo rende molto vulnerabile a possibili attacchi.
+
+\subsection{Ambiti d'uso}
+Utilizzato nel protocollo IPv4 e operante a livello di accesso alla rete. \\
+Viene utilizzato tutte le volte che un host collegato ad una LAN deve inviare un messaggio ad un host nella stessa LAN conoscendo solamente l'indirizzo IP.
 
 \section{Si descriva DHCP e il suo funzionamento}
 
@@ -59,6 +81,7 @@ A volte è necessario risolvere il problema inverso: dato un indirizzo Ethernet,
 Per risolvere questo problema BOOTP viene esteso e chiamato in modo diverso, cioè DHCP (Dynamic Host Configuration Protocol), che permette un’assegnazione manuale o automatica degli indirizzi IP.
 Questo protocollo ha ampiamente sostituito RARP e BOOTP.
 
+\subsection{Cos'è?}
 DHCP si basa sull’idea di un server speciale che assegna gli indirizzi IP agli host che ne richiedono uno.
 Questo server non deve trovarsi sulla stessa LAN, il che comporta che potrebbe non essere raggiunto dalle trasmissioni broadcast, perciò è necessario installare in ogni LAN un agente di inoltro DHCP.
 
