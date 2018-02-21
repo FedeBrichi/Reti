@@ -1,3 +1,94 @@
 \section{Appunti di teoria}
 Questa sezione raccoglie alcuni appunti per un ripasso rapido.
 
+\subsection{Tipi di collegamento}
+Ci sono due tipi di collegamento:
+\begin{itemize}
+\item \textbf{Poin-to-Point} - la comunicazione avviene tra due macchine tramite dei pacchetti.
+\item \textbf{Broadcast} - esiste un canale condiviso da tutte le macchine; una volta inviato un pacchetto viene ricevuto da tutti e viene processato solo dalla macchina che ha l'indirizzo indicato nel pacchetto; è possibile anche mandare un pacchetto a tutte le macchine della rete con un codice speciale nel campo indirizzo del pacchetto.
+\end{itemize}
+
+\subsection{Classificazione delle reti}
+Classificazione delle reti in base alla distanza dei processori:
+\begin{itemize}
+\item PAN - Personal Area Network
+\item LAN - Local (Stanza/Edificio)
+\item MAN - Metropolitan (Città)
+\item WAN - Wide (Nazione/Continente)
+\item Internet (Pianeta)
+\end{itemize}
+
+\subsection{Architettura delle reti}
+L'architettura delle reti è composta da livelli e protocolli.
+Una rete è organizzata come una pila di livelli i quali offrono servizi ai livelli superiori, senza dare dettagli implementativi.
+
+Un livello di un computer comunica con lo stesso livello di un altro computer.
+Le entità su uno stesso livello sono detti peer (pari).
+Tuttavia i dati non passano direttamente da un livello $n_A$ ad un livello $n_B$, ma dovranno essere passati ai sottolivelli di A per poi risalire i livelli di B.
+
+Le regole e le convenzioni per la comunicazione tra livelli pari sono note come \textbf{protocolli} di livello. Un protocollo indica come deve avvenire la comunicazione tra le parti (es: il formato dei pacchetti).
+
+Infine, tra i livelli sono presenti le \textbf{interfacce}, che definiscono le operazioni (o servizi) che il livello inferiore mette a disposizione del soprastante.
+
+In una rete strutturata bene è possibile sostituire l'implementazione di un livello perchè quella nuova dovrà solo rendere disponibile al livello soprastante gli stessi servizi della vecchia.
+
+\subsubsection{Progettare una rete}
+
+I punti chiave da tenere in considerazione quando si progetta una rete sono:
+\begin{itemize}
+\item Affidabilità
+\begin{itemize}
+\item individuare gli errori e, se possibile, corregerli;
+\item trovare un percorso valido tra sorgente e destinatario (routing/instradamento);
+\end{itemize}
+\item Evoluzione della rete
+\item Allocazione delle risorse
+\begin{itemize}
+\item gestire una banda condivisa;
+\item impedire che una sorgente veloce inondi un ricevitore lento (flow control) per evitare una congestione;
+\end{itemize}
+\item Sicurezza della rete
+\end{itemize}
+
+\subsubsection{Tipi di servizi offerti da un livello}
+Un livello può offrire un servizio orientato alla connessione o senza connesione.
+
+Il primo richiede di stabilire una connessione, usarla e rilasciarla una volta terminato. 
+In questo servizio le informazioni inviate mantengono l'ordine di partenza.
+
+Nel servizio senza connessione ogni pacchetto viene mandato al destinatario indipendentemente dai messaggi successivi, quindi non c'è sicurezza che l'ordine sia mantenuto. 
+
+Inoltre c'è una questione legata all'affidabilità. 
+Un servizio è considerato affidabile se riceve sempre tutti i pacchetti e di solito avviene tramite una conferma di ricezione. 
+La conferma tuttavia rallenta le prestazioni del servizio, quindi è necessario valutare nei singoli casi se ne vale la pena: 
+ad esempio in un servizio di streaming è più importante la velocità per un servizio più fluido piuttosto che l'affidabilità per una qualità migliore dell'audio/video.
+
+\subsection{Modelli di reti}
+Esistono due architetture di rete principali utilizzate come modello: OSI e TCP/IP. \\
+Il primo utilizza 7 livelli:
+\begin{enumerate}
+\item fisico
+\item data link
+\item rete
+\item trasporto
+\item sessione
+\item presentazione
+\item applicazione
+\end{enumerate}
+Il secondo utilizza 4 livelli:
+\begin{enumerate}
+\item link
+\item internet
+\item trasporto
+\item applicazione
+\end{enumerate}
+Il libro e il corso utilizza un modello ibrido a 5 livelli:
+\begin{enumerate}
+\item fisico
+\item link
+\item rete
+\item trasporto
+\item applicazione
+\end{enumerate}
+
+
