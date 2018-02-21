@@ -1,5 +1,5 @@
 \section{Bluetooth}
-
+\subsection{Cos'è?}
 Bluetooth è uno standard wireless che permette il collegamento di dispositivi di calcolo, di comunicazione e accessori vari mediante un sistema radio wireless a basso costo, bassa potenza e portata ridotta.
 
 L’unità di base di un sistema Bluetooth è la piconet, composta da un nodo master e da diversi nodi slave (non più di 7), situati nel raggio di 10 metri. Più piconet possono trovarsi nella stessa stanza e possono essere collegate tramite un nodo ponte; un insieme di piconet è chiamato scatternet.
@@ -22,46 +22,65 @@ La funzione principale dello strato network è quella d’instradare i pacchetti
 Lo strato network sfrutta particolari algoritmi detti algoritmi di routing per instradare correttamente i pacchetti nei vari percorsi. Esistono diversi modi per farlo, in quanto ci sono molti fattori da tenere in considerazione, però possiamo suddividerli in due grandi tipi: algoritmi non adattivi e algoritmi adattivi.
 
 Gli algoritmi non adattivi basano le loro decisioni su misure e stime del traffico e della topologia corrente, viene calcolato il percorso all’avvio della rete, in modalità fuori linea e viene scaricato nei router. Questa procedura si chiama anche routing statico. Gli algoritmi adattivi invece cambiano le loro decisioni secondo le modifiche apportate alla topologia e al traffico.
-
-L’algoritmo di Flooding è un algoritmo statico, in cui ogni pacchetto in arrivo è inviato a tutte le linee tranne quella da cui proviene. I vantaggi che porta si possono elencare in due punti, semplicità di attuazione e assicurazione di ricezione del pacchetto alla stazione desiderata (molteplici volte).
-Tuttavia, gli svantaggi sono evidenti: la banda è sprecata, i pacchetti vengono duplicati aumentando la complessità perché vengano scartati, e in caso di cicli i pacchetti potrebbero circolare nella rete all’infinito. Per questo vanno prese delle precauzioni.
+\subsection{Cos'è?}
+L’algoritmo di Flooding è un algoritmo statico, in cui ogni pacchetto in arrivo è inviato a tutte le linee tranne quella da cui proviene.
 
 Una variante un po’ più pratica è chiamata flooding selettivo. In questo algoritmo i router non trasmettono ogni pacchetto verso tutte le linee, ma solo attraverso quelle che vanno approssimativamente nella direzione corretta.
 Nella maggior parte delle applicazioni questo algoritmo non è molto utilizzato, salvo casi particolari (i militari lo utilizzano, in quanto un gran numero di router potrebbero saltare in aria, aver questo metodo di trasmissione di pacchetti accerta la ricezione dei dati).
 
 Questo algoritmo viene utilizzato anche come metrica di confronto per altri algoritmi di routing, in quanto sceglie sempre il percorso più breve (scegliendoli tutti LOL), di conseguenza nessun algoritmo può produrre un ritardo più breve (ignorando il tempo di elaborazione dati generato dal processo di flooding).
- 
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{res/img/32_Flooding.png}
 \end{figure}
 
+\subsection{Pregi}
+Semplice da attuare e assicura la ricezione del pacchetto alla stazione desiderata.
+
+\subsection{Difetti}
+Spreco evidente di banda, pacchetti duplicati e rischio di cicli infiniti.
+
+\subsection{Ambiti d'uso}
+Strato Network.
+Questo algoritmo viene utilizzato come metrica di confronto per altri algoritmi di routing, in quanto sceglie sempre il percorso più breve (tra i molteplici).
+Utilizzato anche in ambito militare in quanto la duplicazione dei pacchetti può essere una nota positiva a causa del rischio di bombardamenti.
+
 \section{Descrivere il distance vector routing}
 
-La funzione principale dello strato network è quella d’instradare i pacchetti dal computer sorgente al computer di destinazione. Per fare questo vengono utilizzati diversi algoritmi che si possono raggruppare in due grandi gruppo: algoritmi adattivi e non adattivi. Gli algoritmi non adattivi sono anche detti statici, in quanto basano i loro calcoli sulla rete “a freddo” senza tener conto del carico istantaneo o dei problemi di linea; un esempio è l’algoritmo di Flooding.
+La funzione principale dello strato network è quella d’instradare i pacchetti dal computer sorgente al computer di destinazione. Per fare questo vengono utilizzati diversi algoritmi che si possono raggruppare in due grandi gruppi: algoritmi adattivi e non adattivi. Gli algoritmi non adattivi sono anche detti statici, in quanto basano i loro calcoli sulla rete “a freddo” senza tener conto del carico istantaneo o dei problemi di linea; un esempio è l’algoritmo di Flooding.
 
 Generalmente le moderne reti di computer utilizzano algoritmi adattivi, o dinamici se vogliamo. Tra i più popolari ci sono il distance vector routing e il linkstate routing.
-
+\subsection{Cos'è?}
 Gli algoritmi di routing basati sul vettore delle distanze (distance vector routing) operano facendo in modo che ogni router conservi una tabella (vettore) che definisce la miglior distanza conosciuta per ogni destinazione e la linea che lo conduce ad essa. Queste tabelle vengono aggiornate scambiando informazioni con i router vicini.
 
 Questo algoritmo è basato sull’algoritmo di Bellman-Ford (che calcola i cammini minimi su un grafo).
 Ogni router misura la “distanza” (secondo una metrica che può includere vari fattori) che lo separa dai nodi adiacenti ricevendo i dati dai router vicini. A partire da tali dati, utilizzando l’algoritmo di Bellman-Ford, il router costruisce una tabella che associa ad ogni destinazione conosciuta la stima della distanza che lo separa dalla destinazione e il primo passo del percorso calcolato.
 Questo aggiornamento viene fatto periodicamente e dopo sufficienti scambi ciascun router avrà una riga per ogni altro nodo nella rete.
 
-Purtroppo, usando questo algoritmo c’è la possibilità che si creino cicli, e, nel caso in cui un collegamento si interrompe, si può avere una situazione di “count-to-infinity”.
-
-Viene sostituito dal linkstate routing, in quanto l’algoritmo basato sul vettore delle distanze molte volte impiegava troppo tempo a raggiungere la convergenza, e non teneva conto della banda della linea quando sceglieva i percorsi.
-
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.8]{res/img/33_DistanceVectorRouting.png}
 \end{figure} 
+
+
+\subsection{Pregi}
+Ogni router ha il percorso migliore per arrivare a tutti i suoi nodi adiacenti.
+
+\subsection{Difetti}
+Impiega troppo tempo a raggiungere la convergenza.\\
+Non tiene conto della banda della linea quando sceglie i percorsi.\\
+Possibilità che si creino i cicli, potenzialmente infiniti.
+
+\subsection{Ambiti d'uso}
+Strato network per instradare i pacchetti ai vari router della rete, algoritmo adattivo (dinamico).
 
 \section{Descrivere Linkstate routing}
 
 La funzione principale dello strato network è quella d’instradare i pacchetti dal computer sorgente al computer di destinazione. Per fare questo vengono utilizzati diversi algoritmi che si possono raggruppare in due grandi gruppo: algoritmi adattivi e non adattivi. Gli algoritmi non adattivi sono anche detti statici, in quanto basano i loro calcoli sulla rete “a freddo” senza tener conto del carico istantaneo o dei problemi di linea; un esempio è l’algoritmo di Flooding.
 
 Generalmente le moderne reti di computer utilizzano algoritmi adattivi, o dinamici se vogliamo. Tra i più popolari ci sono il distance vector routing e il linkstate routing.
+\subsection{Cos'è?}
 Gli algoritmi di routing basati sullo stato dei collegamenti (linkstate routing) è il sostituto del distance vector routing. L’idea di questo algoritmo si basa su 5 punti:
 \begin{itemize}
 \item	Scoprire i propri vicini e i relativi indirizzi di rete.
@@ -89,39 +108,63 @@ Dopo aver accumulato una serie completa di pacchetti sullo stato della connessio
 
 Questo algoritmo è molto utilizzato nelle reti reali in quanto può gestire reti composte da molti nodi, converge rapidamente al cammino minimo, difficilmente genera cicli ed è facile da comprendere in quanto ogni nodo ha la mappa completa della rete. Il principale svantaggio è la complessità di realizzazione, anche dovuta alla notevole capacità di memoria ed elaborazione richiesti dai router.
 
+\subsection{Pregi}
+Può gestire reti molto caotiche.\\
+Converge velocemente al cammino minimo.\\
+Difficilmente genera cicli.\\
+Facile da comprendere.
+
+\subsection{Difetti}
+Difficile da realizzare, a causa della notevole capacità di memoria ed elaborazione richiesta dai router.
+
+\subsection{Ambiti d'uso}
+Strato network, sostituto al distance vector routing.
+Molto utilizzato nelle reti attuali visti i numerosi pregi.
+
 \section{Choke packet}
 
 La funzione principale dello strato network è quella d’instradare i pacchetti dal computer sorgente al computer di destinazione. La decisione del miglior percorso viene effettuato dagli algoritmi di routing (flooding, linkstate o distance vector). Purtroppo, per molteplici motivi, le reti potrebbero congestionarsi, più computer vogliono inviare pacchetti alla stessa destinazione che, non riuscendo ad elaborarli tutti ne perde, questo causa la ritrasmissione che causa ulteriori ingorghi. Questo problema è la congestione ed è un punto critico che va regolamentato.
-
+\subsection{Cos'è?}
 Il choke packet è uno speciale pacchetto utilizzato per il controllo di flusso in una rete. Un router che rileva una congestione, invia all’host originale del pacchetto un choke packet per avvertirlo di diminuire il flusso. Quando l’host sorgente riceve il pacchetto speciale diminuisce il flusso (tipicamente lo dimezza) e ignora i successivi choke packet (generalmente ne arrivano in rapida successione), passato un tempo prefissato l’host si rimette all’ascolto, se arrivano altri choke packet in quel frangente diminuisce ulteriormente il flusso, altrimenti riprende gradualmente la velocità normale.
 
-Un problema di questa tecnica è la lentezza di reazione, perché l’host che produce i pacchetti ci mette un certo tempo a ricevere il choke packet e prendere provvedimenti, un miglioramento è dato da hop-by-hop choke packet che diminuisce il flusso per ogni router sul percorso in modo immediato.
- 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{res/img/35_ChokePacket.png}
 \end{figure}
+\subsection{Pregi}
+Permette di risolvere la congestione di una linea tramite l'uso di uno speciale pacchetto.
+
+\subsection{Difetti}
+Lento a reagire, purtroppo l'host produttore di pacchetti che genera la congestione, ci mette un certo tempo per ricevere il choke packet e prendere provvedimenti. Un miglioramento si ha con il Choke packet hop-by-hop (altro algoritmo per risolvere la congestione).
+
+\subsection{Ambiti d'uso}
+Strato network, algoritmo di controllo della congestione.
 
 \section{Choke packet hop-by-hop}
 
 La funzione principale dello strato network è quella d’instradare i pacchetti dal computer sorgente al computer di destinazione. La decisione del miglior percorso viene effettuato dagli algoritmi di routing (flooding, linkstate o distance vector). Purtroppo, per molteplici motivi, le reti potrebbero congestionarsi, più computer vogliono inviare pacchetti alla stessa destinazione che, non riuscendo ad elaborarli tutti ne perde, questo causa la ritrasmissione che causa ulteriori ingorghi. Questo problema è la congestione ed è un punto critico che va regolamentato.
-
+\subsection{Cos'è?}
 Il hop-by-hop choke packet è un miglioramento della sua versione precedente (choke packet).
 Choke packet aveva il problema di aver un tempo di reazione per prendere provvedimenti troppo lento, il che causava una grossa perdita di dati prima di risolvere il problema.
 
 Hop-by-hop choke packet risolve questo problema limitando tutte le stazioni che attraversa in maniera immediata, senza dover attendere di arrivare all’host sorgente.
 
-Questa tecnica rende più veloce il sollievo del router destinatario, ma richiede spazio di buffer nei router “in mezzo” (tra mittente e destinatario).
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{res/img/36_ChokePacketHopbHop.png}
 \end{figure}
  
+\subsection{Pregi}
+Rispetto al choke packet originale, da sollievo più veloce alla rete.
+\subsection{Difetti}
+Richiede maggior utilizzo dei buffer di trasmissione nei router tra mittente e destinatario.
+\subsection{Ambiti d'uso}
+Strato network, algoritmo di controllo della congestione, miglioramento del choke packet.
+
 \section{Load shedding}
-
 La funzione principale dello strato network è quella d’instradare i pacchetti dal computer sorgente al computer di destinazione. La decisione del miglior percorso viene effettuato dagli algoritmi di routing (flooding, linkstate o distance vector). Purtroppo, per molteplici motivi, le reti potrebbero congestionarsi, più computer vogliono inviare pacchetti alla stessa destinazione che, non riuscendo ad elaborarli tutti ne perde, questo causa la ritrasmissione che causa ulteriori ingorghi. Questo problema è la congestione ed è un punto critico che va regolamentato.
-
+\subsection{Cos'è?}
 Quando gli algoritmi di choke packet (puro e hop-by-hop) non bastano per gestire la congestione, i router possono utilizzare la tecnica load shedding che, molto banalmente elimina dei pacchetti casuali in caso di sovraffollamento.
 
 Lo scartare pacchetti casuali non è sempre la scelta migliore, per migliorare l’algoritmo infatti la scelta può basarsi sull’applicazione in esecuzione. Esistono due criteri generali per identificare queste scelte, wine e milk.
@@ -130,15 +173,34 @@ Wine da più importanza ai pacchetti vecchi, scarta di conseguenza quelli nuovi 
 
 Questa tecnica permette numerose applicazioni e metodi per implementarla (oltre a wine e milk). Questo permette di tenere sotto controllo possibili momenti di congestione.
 
+\subsection{Pregi}
+Risolve la congestione in modo brutale, quando il choke packet non basta.
+
+\subsection{Difetti}
+Scarta pacchetti senza un criterio sufficientemente preciso da evitare di scartare pacchetti importanti.
+
+\subsection{Ambiti d'uso}
+Strato network, metodo brutale utilizzato per risolvere la congestione delle linee.
+
 \section{Red (Random Early Detection)}
 
 Nello strato network esistono numerosi algoritmi di instradamento per portare un pacchetto da una destinazione ad un mittente (flooding, distance vector, linkstate). Quando questa linea si congestiona esistono algoritmi che permettono di gestire la congestione e risolvere il problema (choke packet e load shedding). Risulta tuttavia più semplice gestire la congestione appena viene rilevata, non cercare di porvi rimedio dopo averle dato il tempo di bloccare tutta la linea.
-
+\subsection{Cos'è?}
 Questa osservazione porta all’idea di scartare i pacchetti prima che il buffer sia completamente pieno. Da qui nasce un celebre algoritmo usato per mettere in pratica questo schema: \textbf{RED} (Random Early Detection).
 
-Red in pratica fa in modo che i router scartino i pacchetti prima che la situazione diventi senza speranza (early). Per stabilire quando è il momento giusto per iniziare a scartare i pacchetti, i router mantengono una media mobile delle lunghezze delle code. Quando la lunghezza media su una linea supera una soglia di guardia allora quella determinata linea è considerata congestionata e prende le dovute azioni di correzione. Il massimo che può fare purtroppo è scegliere un pacchetto a caso dalla coda che ha attivato “l’azione difensiva” e scartarlo. Per segnalare il rischio di congestione il router potrebbe inviare un choke packet per chiedere la diminuzione di flusso, tuttavia questo congestionerebbe ulteriormente le linee.
+Red fa in modo che i router scartino i pacchetti prima che la situazione diventi senza speranza (early). Per stabilire quando è il momento giusto per iniziare a scartare i pacchetti, i router mantengono una media mobile delle lunghezze delle code. Quando la lunghezza media su una linea supera una soglia di guardia allora quella determinata linea è considerata congestionata e prende le dovute azioni di correzione. Il massimo che può fare purtroppo è scegliere un pacchetto a caso dalla coda che ha attivato “l’azione difensiva” e scartarlo. Per segnalare il rischio di congestione il router potrebbe inviare un choke packet per chiedere la diminuzione di flusso, tuttavia questo congestionerebbe ulteriormente le linee.
 
-Scartando il pacchetto, la sorgente lo invierà nuovamente a causa del mancato acknowledgement. Questa ultima strategia funziona solo quando le sorgenti rispondono ai pacchetti perduti rallentando il flusso. Nelle reti wireless, dove la maggior parte dei pacchetti persi è a causa del rumore, questo non avviene, è infatti impossibile usarla in quei casi.
+Scartando il pacchetto, la sorgente lo invierà nuovamente a causa del mancato acknowledgement.
+
+\subsection{Pregi}
+Risolve le congestioni prima che sia troppo tardi e sia necessario scartare pacchetti con il load shedding.
+
+\subsection{Difetti}
+Non può sapere esattamente che pacchetto ha causato il superamento della soglia (di conseguenza non sa chi è il reale mittente), di conseguenza non è il massimo della precisione.
+
+\subsection{Ambiti d'uso}
+Viene utilizzato prevalentemente nelle reti in cui le sorgenti rispondono ai pacchetti perduti rallentando il flusso.\\
+Nelle reti wireless la perdita dei pacchetti è causata dal rumore nella maggior parte dei casi, di conseguenza non si rallenta il flusso e RED è impossibile da utilizzare.
 
 \section{Reverse Path Forwarding}
 
