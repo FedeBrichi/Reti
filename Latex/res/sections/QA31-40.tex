@@ -209,16 +209,23 @@ I router spesso necessitano di inviare messaggi a molti o a tutti gli altri host
 L’algoritmo di routing più quotato per questo genere di trasmissioni è sicuramente quello di flooding, in quanto invia i pacchetti a tutte le stazioni vicine (tranne quella da cui ha ricevuto il pacchetto). Un problema di questa tecnica è sicuramente lo spreco di banda e la creazione di troppi pacchetti.
 Per ovviare a questo problema sono stati creati numerosi algoritmi che cercano di migliorare questo sistema di broadcasting.
 
-Con il Reverse path forwarding il router che riceve un pacchetto controlla se gli è giunto da una linea che normalmente è utilizzata per inviare i pacchetti alla sorgente (ovvero che sia la linea con cammino minimo da lui alla sorgente). In caso affermativo, c’è una forte probabilità che il pacchetto broadcast abbia seguito il percorso migliore dalla sorgente fino a lui, di conseguenza lo copia e lo inoltra a tutte le linee (tranne quella da cui l’ha ricevuto). Se invece il pacchetto broadcast è giunto attraverso una linea diversa dalla preferita per raggiungere la sorgente, il pacchetto viene scartato in quanto è probabile si tratti di un duplicato.
-Questo algoritmo previene il problema dell’IP spoofing (falsificazione dell’indirizzo del mittente).
+\subsection{Cos'è?}
+Con il Reverse path forwarding, il router che riceve un pacchetto controlla se gli è giunto da una linea che normalmente è utilizzata per inviare i pacchetti alla sorgente (ovvero che sia la linea con cammino minimo da lui alla sorgente). In caso affermativo, c’è una forte probabilità che il pacchetto broadcast abbia seguito il percorso migliore dalla sorgente fino a lui, di conseguenza lo copia e lo inoltra a tutte le linee (tranne quella da cui l’ha ricevuto). Se invece il pacchetto broadcast è giunto attraverso una linea diversa dalla preferita per raggiungere la sorgente, il pacchetto viene scartato in quanto è probabile si tratti di un duplicato.
 
-La sua implementazione è efficiente e non richiede di conoscere la mappa della sottorete, liste di destinazione o mappe di bit per ogni pacchetto broadcast, il che lo rende anche di facile implementazione.
+
+\subsection{Pregi}
+Implementazione facile ed efficiente: non richiede di conoscere la mappa della sottorete, liste di destinazione o mappe di bit per ogni pacchetto.\\
+Previene il problema dell'IP spoofing (falsificazione dell'indirizzo del mittente).
+\subsection{Difetti}
+--
+\subsection{Ambiti d'uso}
+Strato Network, tecnica usata nei moderni router con lo scopo di assicurare un cammino di pacchetti privi di loop.
 
 \section{Quality of Service (QoS)}
 
 Un flusso di pacchetti da una sorgente a una destinazione è chiamato, appunto, flusso.
 Ogni flusso viene regolamentato per il percorso da effettuare e quando effettuarlo, i metodi di gestione della congestione e così via.
-
+\subsection{Cos'è?}
 Ogni flusso ha le sue esigenze, in base all’applicazione che sta servendo, possiamo quindi caratterizzare queste esigenze in quattro parametri primari: affidabilità, ritardo, jitter e banda. Insieme, questi parametri determinano la QoS (Quality of Service), ossia la qualità del servizio richiesta dal flusso.
 \begin{itemize}
 \item	\textbf{Affidabilità}: nessun bit può essere trasmesso in modo scorretto. Questo obiettivo viene di solito raggiunto creando il checksum di ogni pacchetto e verificandolo alla destinazione. Questo parametro è ricercato da applicazioni tipo la posta elettronica o trasferimento di file, che necessitano di un’alta affidabilità, applicazioni come audio o video possono tollerare errori, perciò non viene elaborato o verificato nessun checksum.
