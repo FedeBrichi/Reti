@@ -90,12 +90,20 @@ Questo avviene nel caso di un singolo server DHCP, potrebbero essercene multipli
 L’indirizzo assegnato proviene da una pool di indirizzi IP comuni, un problema causato da questo potrebbe essere la durata di allocazione: se un host abbandona la rete senza restituire l’indirizzo IP questo viene perso per sempre.
 
 Per evitare questa eventualità, gli indirizzi IP sono assegnati secondo una tecnica chiamata di leasing, ovvero a scadenza di tempo. Prima che questo scada l’host deve fare richiesta di rinnovo dell’indirizzo, se non riesce a farla o se viene rifiutata, l’host non può più utilizzare quell’indirizzo IP.
-DHCP base non include nessun meccanismo di autenticazione, per questo motivo è vulnerabile a vari attacchi.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{res/img/44_DHCP.png}
 \end{figure}
+
+\subsection{Pregi}
+Permette di associare indirizzi IP avendo l'indirizzo MAC di un'host.
+
+\subsection{Difetti}
+Non include nessun meccanismo di autenticazione, il che lo rende vulnerabile a possibili attacchi
+
+\subsection{Ambiti d'uso}
+Protocollo di rete a livello applicativo, utilizzato ampiamente nelle reti odierne.
 
 \section{IPV6}
 
@@ -114,24 +122,39 @@ IPv6 e IPv4 non sono compatibili tra loro, è facile trasformare un indirizzo di
 \includegraphics[scale=0.6]{res/img/6_modulazioneDelta.png}
 \end{figure}
 
+\subsection{Pregi}
+Aumenta di molto gli indirizzi gestibili rispetto all'IPv4.\\
+Migliora e semplifica l'intestazione, consentendo una elaborazione di pacchetti più veloce.\\
+Migliora il supporto per le opzioni e migliora la sicurezza.
+
+\subsection{Difetti}
+Non è compatibile con il predecessore, quindi l'introduzione a questo nuovo protocollo è lenta.
+
+\subsection{Ambiti d'uso}
+Protocollo di rete, utilizzato per gli indirizzi di rete.
+
 \section{Elencare e descrivere brevemente i secondi (primi) 32b dell'header IPv4 (IPv6)}
 (sinceramente sta domanda non la capisco… faccio entrambe le versioni, poi nella risposta va scelta quella che viene richiesta. inizio con un’intro comune, poi un’intro per IPv4 e una IPv6 (da scegliere), successivamente descrivo in blocco i primi 32b dell’IPv4, seguiti dai secondi 32, poi faccio lo stesso per IPv6, Enjoy).\\
 
 Un indirizzo IP, è un’etichetta numerica che identifica univocamente un dispositivo (host) collegato ad una rete informatica che utilizza l’internet Protocol come protocollo di rete.\\
+\subsection{IPv4}
 \textbf{IPv4} è il protocollo più usato e la sua tecnologia può supportare al massimo $2^32$ indirizzi univoci, numero che sta iniziando a diventare stretto.
 Un datagramma IP di questa versione è costituito da una parte di intestazione e una parte di testo. L’intestazione è di 20B fissi e una parte opzionale di lunghezza variabile, consiste in 13 campi.\\
+\subsection{IPv6}
 \textbf{IPv6} è l’evoluzione dell’IPv4 e conta di risolvere molti dei suoi problemi, può supportare al massimo $2^128$ indirizzi univoci.
 Un datagramma IP di questa versione è costituito da una parte di intestazione e una parte di carico utile. L’header è costituito dai primi 40 byte e contiene 8 campi, il carico utile invece va da un minimo di 1280 byte e arriva fino a 65535 byte (in modalità standard).
 
-I primi 32b dell’IPv4 sono così formati:
+\subsection{IPv4, primi 32bit}
 \begin{itemize}
 \item	Version [4 bit]: indica la versione del pacchetto IP; per IPv4, ha valore 4.
 \item	Internet Header Lenght (IHL) [4bit]: indica la lunghezza (in word da 32 bit) dell’header del pacchetto IP; tale lunghezza può variare da 5 word (20 byte) a 15 word (60 byte) a seconda della presenza e della lunghezza del campo facoltativo.
 \item	Type of Service (TOS) [8 bit]: Nelle specifiche iniziali, questo campo avrebbe dovuto specificare il modo e la precedenza con cui l’host ricevente doveva trattare il datagramma;
 Ad esempio, un host poteva scegliere una bassa latenza, mentre un altro preferire un’alta affidabilità. Nella pratica questo uso del campo TOS non ha preso piede.
 \item	Total Length [16 bit]: Indica la dimensione (in byte) dell’intero pacchetto, comprendendo header e dati.
+\end{itemize}
 
-I secondi 32b dell’IPv4 sono cosi formati:
+\subsection{IPv4, secondi 32bit}
+\begin{itemize}
 \item	Identification [16 bit]: Inizialmente sarebbe dovuto essere utilizzato per identificare in modo univoco i vari frammenti in cui può essere spezzato un pacchetto IP. Sperimentazioni successive però hanno suggerito di utilizzarlo per aggiungere la funzionalità di tracciamento dei pacchetti. Serve per determinare quale datagramma appartiene al frammento appena arrivato (tutti i frammenti di un datagramma hanno lo stesso campo identification).
 \item	Flags [3 bit]: Bit utilizzati per il controllo del protocollo e della frammentazione dei datagrammi. Il primo è Reserved sempre settato a “0” (bit inutilizzato in poche parole), successivamente troviamo DF (Don’t Fragment) se settato a “1” indica che il pacchetto non deve essere frammentato, se non è possibile inviarlo senza frammentazione, il pacchetto viene scartato. L’ultimo bit di flag è MF (More Fragments) se settato a “0” indica che il pacchetto è l’ultimo frammento (o il solo frammento del pacchetto originario), perciò tutti gli altri frammenti dello stesso pacchetto avranno MF settato a “1”. 
 \item	Fragment Offset [13 bit]: Indica l’offset (misurato in blocchi di 8 byte) di un particolare frammento relativamente all’inizio del pacchetto IP originale: il primo frammento ha offset 0, i successivi avranno valore multiplo di 8byte e indica la posizione del frammento nel datagramma. Il valore massimo è pari a 65536 byte.
@@ -142,12 +165,14 @@ I secondi 32b dell’IPv4 sono cosi formati:
 \includegraphics[scale=0.7]{res/img/46_IPv4.png}
 \end{figure}
 
-I primi 32b dell’IPv6 sono cosi formati:
+\subsection{IPv6, primi 32bit}
 \begin{itemize}
 \item	Version [4 bit]: Indica la versione del datagramma IP: per IPv6, ha valore 6 (lel).
 \item	Traffic Class [8 bit]: Permette di gestire le code di priorità, assegnando ad ogni pacchetto una classe di priorità rispetto ad altri pacchetti provenienti dalla stessa sorgente. Viene usata anche per controllare la congestione.
 \item	Flow Label [20 bit]: Campo ancora in fase sperimentale, usato dal mittente per etichettare una sequenza di pacchetti come se fossero nello stesso flusso. Supporta la gestione del QoS (Quality of Service) consentendo ad esempio di specificare quali etichette abbiano via libera rispetto ad altre. I pacchetti con flow label diverso da “0” avranno trattamenti speciali dai router.
-I secondi 32b dell’IPv6 sono cosi formati:
+\end{itemize}
+\subsection{IPv6, secondi 32bit}
+\begin{itemize}
 \item	Payload Length [16 bit]: è la dimensione del payload (carico utile), ovvero il numero di byte di tutto il contenuto presente dopo l’header.
 \item	Next Header [8 bit]: Indica quale tipo di processo di trasporto è in attesa di quei dati (UDP, TCP o altri). Simile al campo protocol dell’IPv4 con cui condivide i valori.
 \item	Hop Limit [8 bit]: Indica il tempo di vita del pacchetto, il suo valore viene decrementato di 1 ogni volta che il pacchetto passa da un router, quando arriva a 0 viene scartato. Simile al campo Time to live presente nell’IPv4.
@@ -161,7 +186,7 @@ I secondi 32b dell’IPv6 sono cosi formati:
 \textbf{NOTA:} Ripeto che questa domanda alla fine contiene 4(?) domande possibili, bisogna utilizzare i pezzi che vengono richiesti al momento, letta tutta d’un fiato non ha senso, è divisa e si dovrebbe capire il suo contenuto, se non lo capite cambiate esame :P
 
 \section{Frame Ethernet}
-
+\subsection{Cos'è?}
 Un frame Ethernet è l’unità trasportata nel livello Data Link.
 Esistono diverse versioni di questo frame; ora analizziamo la versione IEEE 802.3. 
 
@@ -183,13 +208,14 @@ Un frame Ethernet ha una grandezza compresa tra 64 e 1518 byte, ed è formato da
 \end{figure}
 
 \section{Si descriva l’header UDP}
+
 Lo stato di trasporto è il cuore dell’intera gerarchia dei protocolli. Il suo compito è fornire il trasporto dei dati, affidabile ed efficiente in termini di costi, dal computer di origine a quello di destinazione, indipendentemente dalla rete o dalle reti fisiche effettivamente utilizzate.
 Nello strato di trasporto ci sono due protocolli principali, che si distinguono dal fatto che uno è orientato alla connessione l’altro è senza connessione (TCP e UDP).\\
 \textbf{Senza connessione:} lo scambio di dati a pacchetto tra mittente e destinatario non richiede l’operazione preliminare di creazione di un circuito su cui instradare l’intero flusso.
-
+\subsection{Cos'è UDP?}
 UDP (User Datagram Protocol) è un protocollo dello stato di trasporto senza connessione. Non gestisce il riordinamento dei pacchetti né la ritrasmissione di quelli persi, il che lo rendono di minor affidabilità rispetto al TCP. In compenso è molto rapido ed efficiente per applicazioni leggere o time sensitive (audio video real-time).
 UDP fornisce servizi basilari: Multiplazione delle connessioni tramite assegnazione delle porte e verifica degli errori mediante una checksum inserita in un campo dell’header.
-
+\subsection{Header UDP}
 L’header dell’UDP è cosi formato:
 \begin{itemize}
 \item	Source port [16 bit]: identifica il numero di porta sull’host del mittente del datagramma;
@@ -198,6 +224,13 @@ L’header dell’UDP è cosi formato:
 \item	Checksum [16 bit]: contiene il codice di controllo del datagramma, l’algoritmo di calcolo è definito nell’RFC del protocollo (documento con informazioni e specifiche del protocollo).
 \end{itemize}
 Infine sono presenti i dati del messaggio.
+
+\subsection{Pregi}
+Rapido ed efficiente per applicazioni leggere e che necessitano di velocità di trasmissione.
+\subsection{Difetti}
+Non gestisce il riordinamento dei pacchetti e la ritrasmissione di quelli persi.\\
+Non da nessuna affidabilità.
+\subsection{Ambiti d'uso}
 UDP viene utilizzato dalle applicazioni di rete che sono elastiche riguardo alla perdita dei dati e strettamente dipendenti dal tempo, si usa inoltre per comunicazioni in broadcast (tutti i terminali in una rete) e multicast (tutti i terminali iscritti ad un servizio).
 
 \begin{figure}[H]
@@ -209,13 +242,13 @@ UDP viene utilizzato dalle applicazioni di rete che sono elastiche riguardo alla
 Lo stato di trasporto è il cuore dell’intera gerarchia dei protocolli. Il suo compito è fornire il trasporto dei dati, affidabile ed efficiente in termini di costi, dal computer di origine a quello di destinazione, indipendentemente dalla rete o dalle reti fisiche effettivamente utilizzate.
 Nello strato di trasporto ci sono due protocolli principali, che si distinguono dal fatto che uno è orientato alla connessione l’altro è senza connessione (TCP e UDP).\\
 \textbf{Orientato alla connessione}: I dispositivi utilizzano un protocollo di comunicazione per stabilire una connessione end-to-end tra gli agenti della comunicazione prima della trasmissione di qualsiasi tipo di dato.
-
+\subsection{Cos'è TCP?}
 \textbf{TCP} (Transmission Control Protocol) è il protocollo orientato alla connessione dello strato di trasporto. Si occupa di controllo della trasmissione, di rendere affidabile la comunicazione di dati in rete tra mittente e destinatario.
 
 Contrariamente a UDP, TCP riesce a garantire la consegna dei dati, utilizzando meccanismi di acknowledgment e di ritrasmissione su timeout, al costo però di un maggior overhead (viene usata più banda di quello che servirebbe per i dati) della rete.
 TCP inoltre possiede funzionalità di controllo di flusso e controllo della congestione (attraverso la sliding window).
 TCP è solitamente usato in combinazione con il protocollo di livello di rete IP. Erroneamente TCP/IP sono considerati un unico protocollo.
-
+\subsection{Header TCP}
 L’header del TCP è formato nel seguente modo:
 \begin{itemize}
 \item	Source port [16 bit]: Identifica il numero di porta sull’host mittente associato alla connessione TCP.
@@ -248,8 +281,18 @@ QUESTA è NUOVA, NON CREDO SERVA
 \includegraphics[scale=0.7]{res/img/49_HeaderTCP.png}
 \end{figure}
 
-\section{Cos’è il DNS?}
+\subsection{Pregi}
+Possiede funzionalità di controllo di flusso e controllo della congestione (attraverso la sliding window).
+Da grande affidabilità nel trasporto di pacchetti nella rete.
 
+\subsection{Difetti}
+Utilizza molta banda per fornire tutte le feature, feature che per molte applicazioni non sono utili, con conseguente spreco di banda nei loro casi.
+
+\subsection{Ambiti d'uso}
+Strato di trasporto, presente nei terminali. Implementato all'interno del sistema operativo. Usato nella stragrande maggioranza delle applicazioni internet che richiedono una consegna affidabile di pacchetti (che UDP non può garantire).
+
+\section{Cos’è il DNS?}
+\subsection{Cos'è?}
 Protocollo dello strato applicativo, \textbf{DNS} (Domain Name System) è un sistema per la risoluzione di nomi degli host in indirizzi IP. 
 L’essenza del DNS è l’invenzione di uno schema di denominazione gerarchico basato su dominio, e di un sistema di database distribuito per l’implementazione di questo schema di denominazione.
 
@@ -270,3 +313,13 @@ Così facendo grazie al DNS è possibile visitare quell’host remoto senza dove
 \centering
 \includegraphics[scale=1]{res/img/50_DNS.png}
 \end{figure}
+
+\subsection{Pregi}
+Garantisce una maggior chiarezza per l'utente medio.
+
+\subsection{Difetti}
+--
+\subsection{Ambiti d'uso}
+Strato Applicativo.\\
+Utilizzato per la risoluzione di nomi della rete.\\
+Utilizzato molto nei web server, in cui con un singolo indirizzo IP si possono ospitare più siti web.
