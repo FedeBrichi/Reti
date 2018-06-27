@@ -1,4 +1,3 @@
-\chapter{Appunti di teoria}
 Questa sezione raccoglie alcuni appunti per un ripasso rapido.
 
 \section{Introduzione}
@@ -35,7 +34,7 @@ Un protocollo indica come deve avvenire la comunicazione tra le parti (es: il fo
 
 Infine, tra i livelli sono presenti le \textbf{interfacce}, che definiscono i \textit{servizi} (cioè un insieme di primitive/operazioni) che il livello inferiore mette a disposizione del soprastante.
 
-In una rete strutturata bene è possibile sostituire l'implementazione di un livello perchè quella nuova dovrà solo rendere disponibile al livello soprastante gli stessi servizi della vecchia.
+In una rete strutturata bene è possibile sostituire l'implementazione di un livello perché quella nuova dovrà solo rendere disponibile al livello soprastante gli stessi servizi della vecchia.
 
 \subsubsection{Progettare una rete}
 
@@ -43,7 +42,7 @@ I punti chiave da tenere in considerazione quando si progetta una rete sono:
 \begin{itemize}
 \item Affidabilità
 \begin{itemize}
-\item individuare gli errori e, se possibile, corregerli;
+\item individuare gli errori e, se possibile, correggerli;
 \item trovare un percorso valido tra sorgente e destinatario (routing/instradamento);
 \end{itemize}
 \item Evoluzione della rete
@@ -56,7 +55,7 @@ I punti chiave da tenere in considerazione quando si progetta una rete sono:
 \end{itemize}
 
 \subsubsection{Tipi di servizi offerti da un livello}
-Un livello può offrire un servizio orientato alla connessione o senza connesione.
+Un livello può offrire un servizio orientato alla connessione o senza connessione.
 
 Il primo richiede di stabilire una connessione, usarla e rilasciarla una volta terminato. 
 In questo servizio le informazioni inviate mantengono l'ordine di partenza.
@@ -109,10 +108,10 @@ I mezzi di trasmissione possono essere guidati (es: cavi) o non guidati (wireles
 Le informazioni possono essere trasmesse su cavi sfruttando proprietà come voltaggio o corrente. 
 Usando questi valori, si può modellare il comportamento del segnale e analizzarlo matematicamente.
 
-\subsection{Serie di Fuorier e Banda passante}
+\subsection{Serie di Fourier e Banda passante}
 
-Fuorier afferma che una funzione periodica con periodo T può essere costruita come la somma di un numero n di seni e coseni.
-Da ciò deriva la serie di Fuorier, una formula che permette di ricostruire la suddetta funzione periodica. 
+Fourier afferma che una funzione periodica con periodo T può essere costruita come la somma di un numero n di seni e coseni.
+Da ciò deriva la serie di Fourier, una formula che permette di ricostruire la suddetta funzione periodica. 
 Nel contesto delle reti, un segnale che ha durata finita può essere immaginato come un pattern che viene ripetuto con l'intervallo T e 2T identico all’intervallo 0 a T.
 In questo modo, conoscendo periodo e ampiezza è possibile ricostruire la funzione del segnale, permettendo un analisi e modellazione più facile del segnale.
 Il problema è che i mezzi di trasmissione perdono parte della potenza del segnale, generando una distorsione.
@@ -130,7 +129,7 @@ Per esempio può essere più comodo trasportare un camion di hard disk piuttosto
 Anche se le connessioni stanno diventando sempre più veloci, in alcuni casi i mezzi magnetici possono rimanere la miglior soluzione (sempre da considerare il contesto).
 
 \subsubsection{Il doppino}
-Il doppino è un cavo composto da due conduttori in rame isolati di 1mm, attorcigliati in modo elicoidale (simile al dna).
+Il doppino è un cavo composto da due conduttori in rame isolati di 1mm, attorcigliati in modo elicoidale (simile al DNA).
 Questa forma permette di eliminare i campi elettromagnetici che si verrebbero a formare se fossero paralleli.
 Un segnale è tramesso come differenza di voltaggio tra i due cavi, in modo da evitare i disturbi da rumori esterni(?).
 L'uso più comune è per il telefono e l'accesso ad internet con l'ADSL. 
@@ -184,7 +183,7 @@ può anche danneggiarsi se si piega troppo.
 Inoltre la trasmissione è monodirezionale, quindi sono richiesti due cavi per andata e ritorno, e le interfacce sono più costose.
 
 Tuttavia ha una maggior ampiezza di banda, richiede meno ripetitori (uno ogni 50km contro uno ogni 5 di quelli in rame), il che porta ad un risparmio,
-è più sottile, richiedendo quindi meno spazio, è più sicura perchè non è possibile intercettare la luce ed infine è più adatta ai luoghi inospitali, in quanto subisce meno interferenze.
+è più sottile, richiedendo quindi meno spazio, è più sicura perché non è possibile intercettare la luce ed infine è più adatta ai luoghi inospitali, in quanto subisce meno interferenze.
 
 \subsection{Mezzi wireless}
 
