@@ -1,3 +1,5 @@
+\chapter{Domande e risposte}
+
 \section{Cosa si intende per serie di Fourier?}
 \subsection{Cos'è?}
 Un segnale che ha una durata finita può essere gestito immaginando semplicemente che esso ripeta infinite volte l’intero schema (intervallo T e 2T è identico all’intervallo 0 a T).
@@ -10,7 +12,9 @@ $g(t)=\frac{1}{2}c+\sum_{n=1}^\infty a_n sen(2\pi nft)+\sum_{n=1}^\infty b_n cos
 
 $f=1/T$ rappresenta la frequenza fondamentale, $a_n$  $b_n$  sono rispettivamente le ampiezze seno e coseno dell’n-esima armonica e \textit{c} rappresenta una costante.
 
-Su questo teorema si basano le reti e il passaggio dei dati tramite i mezzi di trasmissione; purtroppo nella pratica i mezzi di trasmissione attenuano in modo non uniforme i componenti della serie di Fourier, generando così una distorsione. Per ovviare a questa distorsione, le ampiezze fino ad una certa frequenza vengono trasmesse senza modifiche, da quella frequenza in poi vengono attenuate.
+Su questo teorema si basano le reti e il passaggio dei dati tramite i mezzi di trasmissione;
+purtroppo nella pratica i mezzi di trasmissione attenuano in modo non uniforme i componenti della serie di Fourier, generando così una distorsione.
+Per ovviare a questa distorsione, le ampiezze fino ad una certa frequenza vengono trasmesse senza modifiche, da quella frequenza in poi vengono attenuate.
 
 L’intervallo di frequenze trasmesse senza una forte attenuazione è chiamato Banda Passante.
 Generalmente nella realtà viene indicata la banda passante compresa tra 0 e la frequenza dove la potenza è attenuata del 50\%.
@@ -26,9 +30,11 @@ Si passerà poi alle varie modulazioni per ovviare ai problemi dovuti alle atten
 \section{Bitrate e Baudrate}
 \subsection{Cosa sono?}
 Il \textbf{Bitrate} è la quantità di informazioni digitali che è trasferita o registrata nell’unita di tempo.
-Stiamo parlando quindi di velocità di trasmissione, espressa in bit/s. La velocità di trasmissione è anche detta Banda e dipende dal tipo di mezzo trasmissivo utilizzato e dalle sue condizioni fisiche al momento dell’uso.
+Stiamo parlando quindi di velocità di trasmissione, espressa in bit/s.
+La velocità di trasmissione è anche detta Banda e dipende dal tipo di mezzo trasmissivo utilizzato e dalle sue condizioni fisiche al momento dell’uso.
 \\
-Il \textbf{Baudrate} invece rappresenta il numero di simboli che viene trasmesso in un secondo. Non va confusa con il sopracitato bitrate in quanto misurano unità differenti; infatti ad un simbolo corrisponde un numero di bit differente in base alle tecniche di modulazione utilizzate.
+Il \textbf{Baudrate} invece rappresenta il numero di simboli che viene trasmesso in un secondo.
+Non va confusa con il sopracitato bitrate in quanto misurano unità differenti; infatti ad un simbolo corrisponde un numero di bit differente in base alle tecniche di modulazione utilizzate.
 
 \subsection{Pregi}
 Grazie a queste unità di misura è possibile dare una rappresentazione quantitativa della velocità di trasmissione del mezzo.
@@ -43,7 +49,12 @@ Queste metriche vengono utilizzate nelle reti wireless e cablate.
 I principali tipi di cavo utilizzato nelle telecomunicazioni sono: il doppino, il cavo coassiale e la fibra ottica. \\
 \subsection{Il doppino, cos'è?}
 
-È un cavo composto da due conduttori di rame isolati, spessi circa 1mm e avvolti uno intorno all’altro in una forma elicoidale. L’intreccio è utile per annullare i campi elettromagnetici generati dai due conduttori, i quali si annullano a vicenda. Esistono diverse varietà di doppini, i più importanti per le telecomunicazioni sono gli UTP3 e UTP5 (UTP= Unshielded Twisted Pair, doppini non schermati). Le differenze tra i doppini di categoria 3 e categoria 5 sta nel numero di spire per centimetro: minor numero di spire per cm negli UTP3 e maggiore negli UTP5. Un maggior numero di spire permette di migliorare la qualità del segnale trasmesso su lunghe distanze, a scapito però della quantità di materiale necessario. Esistono anche categorie superiori, i quali gestiscono segnali con banda più ampia.  \\
+È un cavo composto da due conduttori di rame isolati, spessi circa 1mm e avvolti uno intorno all’altro in una forma elicoidale.
+L’intreccio è utile per annullare i campi elettromagnetici generati dai due conduttori, i quali si annullano a vicenda.
+Esistono diverse varietà di doppini, i più importanti per le telecomunicazioni sono gli UTP3 e UTP5 (UTP= Unshielded Twisted Pair, doppini non schermati).
+Le differenze tra i doppini di categoria 3 e categoria 5 sta nel numero di spire per centimetro: minor numero di spire per cm negli UTP3 e maggiore negli UTP5.
+Un maggior numero di spire permette di migliorare la qualità del segnale trasmesso su lunghe distanze, a scapito però della quantità di materiale necessario.
+Esistono anche categorie superiori, i quali gestiscono segnali con banda più ampia.  \\
 I doppini si possono utilizzare per trasmettere segnali analogici e digitali, l’ampiezza di banda dipende dal diametro del cavo e dalla distanza percorsa.
 
 \begin{figure}[H]
@@ -62,8 +73,12 @@ L'ampiezza di banda fornita non è tra le migliori e sono vulnerabili ai campi e
 Vengono utilizzati prevalentemente nel sistema telefonico.
 
 \subsection{Il cavo coassiale, cos'è?} 
-È un cavo composto da un nucleo conduttore coperto da un rivestimento isolante, a sua volta circondato da un conduttore cilindrico, solitamente realizzato con una calza di conduttori sottili, che infine è avvolto da una guaina protettiva di plastica. La costruzione e la schermatura del cavo coassiale forniscono ampiezza di banda ed eccellente immunità al rumore. Ne esistono di due tipi, a 50$\Omega$ per le trasmissioni digitali e a 75$\Omega$ per quelle analogiche; non c’è una motivazione tecnica per questa distinzione. \\
-la banda disponibile dipende dalla qualità, dalla lunghezza del cavo e dal rapporto segnale-rumore del segnale dati. Per molti ambiti il cavo coassiale è stato sostituito dalla fibra ottica per i tratti più lunghi.
+È un cavo composto da un nucleo conduttore coperto da un rivestimento isolante, a sua volta circondato da un conduttore cilindrico,
+solitamente realizzato con una calza di conduttori sottili, che infine è avvolto da una guaina protettiva di plastica.
+La costruzione e la schermatura del cavo coassiale forniscono ampiezza di banda ed eccellente immunità al rumore.
+Ne esistono di due tipi, a 50$\Omega$ per le trasmissioni digitali e a 75$\Omega$ per quelle analogiche; non c’è una motivazione tecnica per questa distinzione. \\
+la banda disponibile dipende dalla qualità, dalla lunghezza del cavo e dal rapporto segnale-rumore del segnale dati.
+Per molti ambiti il cavo coassiale è stato sostituito dalla fibra ottica per i tratti più lunghi.
 
 \begin{figure}[H]
 \centering
@@ -81,17 +96,21 @@ Su grandi tratti non sono molto efficienti in termini di banda, vengono infatti 
 Il cavo coassiale è molto utilizzato per le reti metropolitane e le televisioni via cavo.
 
 \subsection{Fibra ottica, cos'è?}
-Un sistema di trasmissione ottico è formato da: sorgente luminosa, mezzo di trasmissione e rilevatore. I cavi in fibra ottica sono il mezzo di trasmissione di questo sistema, che si basa su segnali luminosi invece che elettrici.
+Un sistema di trasmissione ottico è formato da: sorgente luminosa, mezzo di trasmissione e rilevatore.
+I cavi in fibra ottica sono il mezzo di trasmissione di questo sistema, che si basa su segnali luminosi invece che elettrici.
 La fibra ottica è formata da un nucleo (core) di vetro, attraverso il quale si propaga la luce, ha uno spessore di 50 micron per le fibre multimodali mentre dagli 8 ai 10 micron per quelle monomodali.
 
-Il nucleo è avvolto da un rivestimento di vetro (cladding) che ha un indice di rifrazione più basso; ciò costringe la luce a rimanere nel nucleo. L’ultimo strato è formato da plastica e serve a proteggere il rivestimento. Generalmente le fibre sono raggruppate in fasci, protetti da un’ulteriore guaina più esterna.  
+Il nucleo è avvolto da un rivestimento di vetro (cladding) che ha un indice di rifrazione più basso;
+ciò costringe la luce a rimanere nel nucleo. L’ultimo strato è formato da plastica e serve a proteggere il rivestimento.
+Generalmente le fibre sono raggruppate in fasci, protetti da un’ulteriore guaina più esterna.  
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{res/img/3_FibraOttica.png}
 \end{figure}
 
-Esistono due tipi di fibra, la monomodale e la multimodale. La monomodale è più costosa e utilizzata soprattutto per le lunghe distanze, in cui la luce può propagarsi solo in linea retta senza rimbalzare.
+Esistono due tipi di fibra, la monomodale e la multimodale.
+La monomodale è più costosa e utilizzata soprattutto per le lunghe distanze, in cui la luce può propagarsi solo in linea retta senza rimbalzare.
 Nella multimodale invece può contenere più raggi che rimbalzano ad angoli diversi, in questo caso si dice che ogni raggio ha una modalità diversa, da qui il nome multimodale.
 
 Le fibre si possono collegare in diversi modi:
@@ -122,20 +141,21 @@ Rispetto al cavo in rame classico, la fibra apporta diversi vantaggi:
 \subsubsection{Ambiti d'uso}
 La fibra è molto utilizzata nelle LAN e nei sistemi di trasmissioni a lunga distanza.
 
-\section{Caratteristiche e confronto tra i vari tipi di satellite: GEO, MEO e LEO}
+\section{Caratteristiche e confronto tra i vari tipi di satellite: GEO, MEO e LEO}\label{satelliti}
 
-Un satellite di comunicazioni può essere immaginato come un grande ripetitore di microonde posto nel cielo. Questo dispositivo contiene diversi transponder, ossia ricetrasmettitori satellitari, i quali ascoltano una parte dello spettro, amplificano il segnale e lo ritrasmettono su altre frequenze per evitare interferenze.
+Un satellite di comunicazioni può essere immaginato come un grande ripetitore di microonde posto nel cielo.
+Questo dispositivo contiene diversi transponder, ossia ricetrasmettitori satellitari, i quali ascoltano una parte dello spettro, amplificano il segnale e lo ritrasmettono su altre frequenze per evitare interferenze.
 
-La collocazione dei satelliti è importante, e determinata da alcuni fattori:
+La collocazione dei satelliti è importante, ed è determinata da alcuni fattori:
 \begin{itemize}
 \item	Il periodo orbitale: più alto è il satellite, più lungo è il periodo.
 \item	Le fasce di Van Allen distruggerebbero velocemente un satellite che le attraversasse.
 \end{itemize}
-Esistono quindi 3 zone in cui i satelliti possono essere collocati
+Esistono quindi 3 zone in cui i satelliti possono essere collocati:
 \begin{itemize}
 \item LEO: sotto la fascia di Van Allen inferiore
-\item MEO: tra la fascia VA inferiore e quella superiore
-\item GEO: molto al di sopra della fascia VA superiore
+\item MEO: tra la fascia Van Allen inferiore e quella superiore
+\item GEO: molto al di sopra della fascia Van Allen superiore
 \end{itemize}
 
 \begin{figure}[H]
@@ -144,14 +164,26 @@ Esistono quindi 3 zone in cui i satelliti possono essere collocati
 \end{figure}
 \subsection{Cosa sono?}
 \paragraph{GEO}
-GEO (Geostationary Earth Orbit), sono collocati nella fascia più alta, disposti con un intervallo di $2^{\circ}$ nel piano equatoriale, così da evitare interferenze, di conseguenza c’è posto per “solo” 180 satelliti di questo tipo. La loro dimensione è importante e la gestione dell’allocazione degli slot orbitali è motivo di disputa tra paesi, stazioni televisive e militari.
+GEO (Geostationary Earth Orbit), sono collocati nella fascia più alta, disposti con un intervallo di $2^{\circ}$ nel piano equatoriale,
+così da evitare interferenze. Di conseguenza c’è posto per “solo” 180 satelliti di questo tipo. La loro dimensione è importante e
+la gestione dell’allocazione degli slot orbitali è motivo di disputa tra paesi, stazioni televisive e militari.
+Per mantenere la loro posizione, sono dotatti di razzi motori che permettono manovre correttive; di solito il carburante per farlo basta per 10 anni.
+Oltre alla posizione anche le frequenze sono oggetto di dispute, perchè possono interferire con quelle degli utilizzatori delle microonde.
+Vengono quindi assegnate solo certe frequenze per i satelliti, ognuna con i loro problemi (meteo, affollamento e simili).
+...
+
 \paragraph{MEO}
-Tra le due fasce di Van Allen troviamo i satelliti MEO (Medium Earth Orbit), questi satelliti si spostano lentamente lungo la longitudine, impiegando 6 ore per compiere un giro attorno al pianeta, attualmente non sono utilizzati per le telecomunicazioni. Rispetto al GEO, il MEO permette un ritardo di propagazione inferiore, tuttavia si perde la comodità del “punto fisso” garantito dal GEO, questo perché il MEO si sposta più velocemente.
+Tra le due fasce di Van Allen troviamo i satelliti MEO (Medium Earth Orbit); questi satelliti si spostano lentamente lungo la longitudine,
+impiegando 6 ore per compiere un giro attorno al pianeta. Attualmente non sono utilizzati per le telecomunicazioni, ma più per la navigazione.
+Rispetto al GEO, il MEO permette un ritardo di propagazione inferiore, tuttavia si perde la comodità del “punto fisso” garantito dal GEO, perché il MEO si sposta più velocemente.
+
 \paragraph{LEO}
-I LEO (Low Earth Orbit) sono i più bassi tra i tre tipi; si spostano molto velocemente, di conseguenza un sistema completo richiede l’utilizzo di molti satelliti di questo tipo. D’altra parte, le stazioni terrestri non hanno bisogno di molta energia per la comunicazione e i ritardi sono di pochi millisecondi.
+I LEO (Low Earth Orbit) sono i più bassi tra i tre tipi; si spostano molto velocemente, di conseguenza un sistema completo richiede l’utilizzo di molti satelliti di questo tipo.
+D’altra parte, le stazioni terrestri non hanno bisogno di molta energia per la comunicazione e i ritardi sono di pochi millisecondi.
 Questo tipo di satellite tratta prevalentemente trasmissione voce e servizi internet/GPS. \\
 
-Il sistema di comunicazione principale del futuro sarà quello terrestre basato su fibre ottiche, combinato con la rete radio cellulare, tuttavia per alcune applicazioni specifiche i satelliti sono migliori.
+Il sistema di comunicazione principale del futuro sarà quello terrestre basato su fibre ottiche, combinato con la rete radio cellulare.
+Tuttavia per alcune applicazioni specifiche i satelliti sono migliori.
 
 \subsection{Pregi}
 Sono di facile utilizzo, basta alzare un'antenna sul tetto di casa per ottenere una maggior ampiezza di banda.
@@ -160,6 +192,8 @@ Trovano applicazione per portare connessione in terreni inospitali o scarsamente
 
 \subsection{Difetti}
 Le fibre ottiche per molti versi sono più comode e versatili rispetto ai satelliti, in quanto la loro velocità è di gran lunga superiore.
+Un sistema di satelliti è più costoso (?) rispetto alla fibra ottica.
+
 \subsection{Ambiti d'uso}
 Trovano applicazione in luoghi inospitali e privi di infrastrutture, trovano applicazione nelle trasmissioni broadcast e nelle comunicazioni mobile, dove quindi la fibra fatica ad arrivare.
 
@@ -237,6 +271,7 @@ Introduzione della comunicazione di tipo digitale.
 --
 \subsection{Ambiti d'uso}
 è utilizzato appunto nella seconda generazione di telefoni cellulari, è il sistema più diffuso al mondo.
+
 \section{Si descriva la tecnica CDMA (Code Division Multiple Access), possibilmente con esempio}
 Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da una diversa tecnologia:
 \begin{itemize}

@@ -1,11 +1,15 @@
-\section{Appunti di teoria}
+\chapter{Appunti di teoria}
 Questa sezione raccoglie alcuni appunti per un ripasso rapido.
+
+\section{Introduzione}
 
 \subsection{Tipi di collegamento}
 Ci sono due tipi di collegamento:
 \begin{itemize}
 \item \textbf{Poin-to-Point} - la comunicazione avviene tra due macchine tramite dei pacchetti.
-\item \textbf{Broadcast} - esiste un canale condiviso da tutte le macchine; una volta inviato un pacchetto viene ricevuto da tutti e viene processato solo dalla macchina che ha l'indirizzo indicato nel pacchetto; è possibile anche mandare un pacchetto a tutte le macchine della rete con un codice speciale nel campo indirizzo del pacchetto.
+\item \textbf{Broadcast} - esiste un canale condiviso da tutte le macchine;
+una volta inviato un pacchetto viene ricevuto da tutti e viene processato solo dalla macchina che ha l'indirizzo indicato nel pacchetto;
+è possibile anche mandare un pacchetto a tutte le macchine della rete con un codice speciale nel campo indirizzo del pacchetto.
 \end{itemize}
 
 \subsection{Classificazione delle reti}
@@ -26,9 +30,10 @@ Un livello di un computer comunica con lo stesso livello di un altro computer.
 Le entità su uno stesso livello sono detti peer (pari).
 Tuttavia i dati non passano direttamente da un livello $n_A$ ad un livello $n_B$, ma dovranno essere passati ai sottolivelli di A per poi risalire i livelli di B.
 
-Le regole e le convenzioni per la comunicazione tra livelli pari sono note come \textbf{protocolli} di livello. Un protocollo indica come deve avvenire la comunicazione tra le parti (es: il formato dei pacchetti).
+Le regole e le convenzioni per la comunicazione tra livelli pari sono note come \textbf{protocolli} di livello.
+Un protocollo indica come deve avvenire la comunicazione tra le parti (es: il formato e significato dei pacchetti).
 
-Infine, tra i livelli sono presenti le \textbf{interfacce}, che definiscono le operazioni (o servizi) che il livello inferiore mette a disposizione del soprastante.
+Infine, tra i livelli sono presenti le \textbf{interfacce}, che definiscono i \textit{servizi} (cioè un insieme di primitive/operazioni) che il livello inferiore mette a disposizione del soprastante.
 
 In una rete strutturata bene è possibile sostituire l'implementazione di un livello perchè quella nuova dovrà solo rendere disponibile al livello soprastante gli stessi servizi della vecchia.
 
@@ -63,6 +68,8 @@ Un servizio è considerato affidabile se riceve sempre tutti i pacchetti e di so
 La conferma tuttavia rallenta le prestazioni del servizio, quindi è necessario valutare nei singoli casi se ne vale la pena: 
 ad esempio in un servizio di streaming è più importante la velocità per un servizio più fluido piuttosto che l'affidabilità per una qualità migliore dell'audio/video.
 
+Un esempio di primitive di un servizio orientato alla connessione sono: Listen, Connect, Accept, Receive, Send, Disconnect.
+
 \subsection{Modelli di reti}
 Esistono due architetture di rete principali utilizzate come modello: OSI e TCP/IP. \\
 Il primo utilizza 7 livelli:
@@ -77,18 +84,184 @@ Il primo utilizza 7 livelli:
 \end{enumerate}
 Il secondo utilizza 4 livelli:
 \begin{enumerate}
-\item link
-\item internet
-\item trasporto
-\item applicazione
+\item link - livello  di accesso alla rete per spedire i pacchetti IP.
+\item internet - livello che gestisce l'indirizzamento dei nodi e l'instradamento, assegnando ad ogni nodo un indirizzo IP e indicando il percorso migliore verso il destinatario.
+\item trasporto - livello che gestisce la comunicazione, tramite protocollo TCP o UDP.
+\item applicazione - livello più vicino all'utente che gestisce le sessioni e la presentazione; alcuni protocolli di questo livello sono HTTP e DNS.
 \end{enumerate}
 Il libro e il corso utilizza un modello ibrido a 5 livelli:
 \begin{enumerate}
-\item fisico
-\item link
-\item rete
-\item trasporto
-\item applicazione
+\item fisico - indica come vengono trasmessi i bits tramite segnali elettrici o simili.
+\item link - indica come mandare i messaggi ai computer (es. Ethernet, 802.11).
+\item rete - indica come combinare link multipli per spedire pacchetti tra computer distanti
+\item trasporto - gestisce la comunicazione, tramite protocollo TCP o UDP.
+\item applicazione - programmi che usano il network
 \end{enumerate}
 
+\newpage
 
+\section{Strato fisico}
+
+L'obiettivo dello strato fisico è quello di trasportare i bits da una macchina ad un'altra.
+Per farlo si possono usare diversi mezzi fisici con proprie caratteristiche.
+I mezzi di trasmissione possono essere guidati (es: cavi) o non guidati (wireless, satelliti).
+
+Le informazioni possono essere trasmesse su cavi sfruttando proprietà come voltaggio o corrente. 
+Usando questi valori, si può modellare il comportamento del segnale e analizzarlo matematicamente.
+
+\subsection{Serie di Fuorier e Banda passante}
+
+Fuorier afferma che una funzione periodica con periodo T può essere costruita come la somma di un numero n di seni e coseni.
+Da ciò deriva la serie di Fuorier, una formula che permette di ricostruire la suddetta funzione periodica. 
+Nel contesto delle reti, un segnale che ha durata finita può essere immaginato come un pattern che viene ripetuto con l'intervallo T e 2T identico all’intervallo 0 a T.
+In questo modo, conoscendo periodo e ampiezza è possibile ricostruire la funzione del segnale, permettendo un analisi e modellazione più facile del segnale.
+Il problema è che i mezzi di trasmissione perdono parte della potenza del segnale, generando una distorsione.
+Un cavo riesce a trasmettere frequenze senza attenuazione in un intervallo che va da 0 a $f_c$ (frequenza di cutoff).
+Questo intervallo è detto Banda passante (\textit{bandwidth}) e dipende da diversi fattori del mezzo di trasmissione (materiali, lunghezza e spessore di un cavo, ecc).
+Le frequenze che vanno oltre vengono attenuate.
+La frequenza di cutoff non è ben definita, quindi di solito si pone l'intervallo da 0 fino alla frequenza dove la potenza del segnale è dimezzata.
+A volte vengono utilizzati dei filtri che possono modificare la banda passante, per esempio alzando l'intervallo da un valore maggiore di zero: è il caso delle trasmissioni wireless.
+
+\subsection{Mezzi di trasmissione guidati}
+
+\subsubsection{Mezzi magnetici}
+I mezzi magnetici sono un comune mezzo di trasporto per dati (cd, dcd, hdd) che in alcuni casi può risultare più conveniente se considerato un rapporto dimensioneDati/tempoTrasferimento.
+Per esempio può essere più comodo trasportare un camion di hard disk piuttosto che spedire lo stesso quantitativo di dati tramite la rete. 
+Anche se le connessioni stanno diventando sempre più veloci, in alcuni casi i mezzi magnetici possono rimanere la miglior soluzione (sempre da considerare il contesto).
+
+\subsubsection{Il doppino}
+Il doppino è un cavo composto da due conduttori in rame isolati di 1mm, attorcigliati in modo elicoidale (simile al dna).
+Questa forma permette di eliminare i campi elettromagnetici che si verrebbero a formare se fossero paralleli.
+Un segnale è tramesso come differenza di voltaggio tra i due cavi, in modo da evitare i disturbi da rumori esterni(?).
+L'uso più comune è per il telefono e l'accesso ad internet con l'ADSL. 
+Il doppino può estendersi per chilometri, ma dopo certe distanze è necessario un ripetitore altrimenti il segnale diventa troppo attenuato.
+Il prezzo del doppino è ridotto e ha una velocità di trasmissione moderata.
+Si possono usare per segnali sia analogici che digitali e la larghezza di banda dipende dallo spessore del cavo e dalla distanza percorsa, tuttavia è limitata.
+
+Esistono diversi tipi di cavi che utilizzano il doppino, come Cat 3 e Cat 5.
+Questi consistono in due cavi isolati attorcigliati tra loro, raggruppati con altre coppie (4 totali), ricoperti da una protezione in plastica.
+La differenza tra le due tipologie sta nel numero di spire per metro: maggior numero di spire significa una maggior qualità del segnale su lunghe distanze.
+Esistono categorie superiori come Cat 6 e 7 che supportano segnali con una maggiore larghezza di banda (fino a 500 MHz).
+
+\subsubsection{Il cavo coassiale}
+Il cavo coassiale è un mezzo trasmissivo che permette una maggior larghezza di banda (fino a qualche GHz) rispetto al doppino grazie alla migliore schermatura,
+permettendo di viaggiare a maggiori velocità a lunghe distanze.
+In particolare, il cavo è composto da un nucleo conduttore in rame, ricoperto da un materiale isolante,
+il quale a sua volta è ricoperto da un conduttore cilindrico intrecciato (tipo una rete), protetto da una guaina in plastica.
+Esistono due tipi di cavi coassiali, usati in base al tipo di segnale.
+Il 50$\Omega$ viene usato per i segnali digitali, mentre il 75$\Omega$ per i segnali analogici e per la televisione.
+Questo cavo veniva usato anche nel campo della telefonia, ma ormai sta venendo rimpiazzato dalla fibra ottica. Viene ancora usato per la tv via cavo e per le MAN.
+
+\subsubsection{Fibra ottica}
+Un sistema di trasmissione ottico si basa su una fonte luminosa, un mezzo di trasmissione e un ricevitore.
+La presenza di luce indica un 1 mentre l'assenza uno 0.
+Nel caso della fibra ottica, si utilizza una sottilissima fibra di vetro come nucleo, attraverso la quale viaggia la luce. 
+Alle estremità un ricevitore che "legge" i segnali luminosi e li traduce in segnali elettrici.
+La buona riuscita della trasmissione del raggio luminoso sta negli indici di rifrazione dei componenti della fibra ottica. 
+Grazie ad essi il raggio luminoso rimane nella fibra e continua il suo percorso fino a destinazione.
+Infatti il core è ricoperto da un rivestimento di vetro (cladding) che ha un indice di rifrazione più basso, e a sua volta è ricoperto da uno strato protettivo in plastica.
+Di solito le fibre sono raggruppati in fasci, a loro volta protetti da una guaina esterna.
+
+In base allo spessore del nucleo, la fibra cambia il proprio nome.
+Se un raggio al suo interno è propagato grazie ai rimbalzi della rifrazione, si dice multimodale (50 microns).
+Se la fibra è abbastanza sottile da far procedere il raggio quasi in linea retta, si dice monomodale (8-10 microns).
+Quest'ultima è più costosa ma più efficiente sulle lunghe distanze.
+
+Ci sono tre modi per connettere la fibra ottica:
+\begin{itemize}
+\item collegamento della parte finale ad un connettore in apposite prese, con una perdita del 10-20\% del segnale luminoso ma una facile riconfigurazione del sistema
+\item attaccate meccanicamente, cercando di allinearle al meglio, con una perdita del 10\% del segnale
+\item fusione delle due parti, generando una piccola attenuazione
+\end{itemize}
+
+Le fonti luminose possono essere LED (basso data rate, multimodale, low cost) o laser semiconduttori (alto data rate, sia mono che multimodale, costoso).
+
+Il ricevitore che converte il segnale luminoso in elettrico ha un limite di data rate di 100 Gbps.
+Inoltre l'interferenza termica può risultare un problema, quindi conviene utilizzare raggi luminosi abbastanza potenti da essere rilevati.
+
+La fibra ottica è una tecnologia relativamente recente, di conseguenza non tutti gli addetti hanno le conoscenze necessarie per installarla od utilizzarla correttamente;
+può anche danneggiarsi se si piega troppo. 
+Inoltre la trasmissione è monodirezionale, quindi sono richiesti due cavi per andata e ritorno, e le interfacce sono più costose.
+
+Tuttavia ha una maggior ampiezza di banda, richiede meno ripetitori (uno ogni 50km contro uno ogni 5 di quelli in rame), il che porta ad un risparmio,
+è più sottile, richiedendo quindi meno spazio, è più sicura perchè non è possibile intercettare la luce ed infine è più adatta ai luoghi inospitali, in quanto subisce meno interferenze.
+
+\subsection{Mezzi wireless}
+
+
+
+\subsection{Satelliti}
+
+Un satellite è composto da tanti transponder che ascoltano una diversa porzione dello spettro.
+Quando riceve un segnale in arrivo, il relativo transponder lo amplifica e lo ritrasmette con frequenza diversa per evitare interferenze.
+Esistono tre tipi di satelliti in base alla loro posizione: GEO, MEO, LEO.\\
+Vai a §\ref{satelliti}.
+
+
+
+\section{Strato link}
+
+\section{Strato rete}
+
+\section{Strato trasporto}
+
+\section{Strato applicazione}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Argomenti:
+
+% Capitolo 1, tutto tranne le sezioni da 1.5 a 1.9 incluse. % OK %
+% Capitolo 2, tutto tranne:
+
+% la sottosezione Wireless Local Loops di 2.5.3
+% la sottosezione SONET/SDH di 2.5.4
+% la sezione 2.7 Cable Television
+
+% Capitolo 3, tutto esclusi tutti i listati in C, e la sezione 3.5 Protocol Verification
+% Capitolo 4, tutto tranne:
+
+% la sezione 4.2.5 Wavelength Division Multiple Access Protocols
+% la sezione 4.3.9 IEEE 802.2: Logical Link Control
+% la sezione 4.4.4 The 802.11 Frame Structure
+% la sezione 4.5 Broadband Wireless
+% la sezione 4.6 Bluetooth
+% la sottosezione 4.7.6 Virtual LANs
+
+% Capitolo 5, tutto tranne:
+
+% nella sezione 5.2.2, la descrizione dell'algoritmo di Dijkstra (incluso il listato)
+% la sottosezione Computing the New Routes di 5.2.5
+% dalla sezione 5.2.8 Multicast Routing alla sezione 5.2.11 Node Lookup in Peer-to-Peer Networks
+% la sottosezione The Warning Bit di 5.3.4
+% la parte di 5.4.2 da Resource Reservation in poi
+% dalla sezione 5.4.3 Integrated Services alla sezione 5.4.5 Label Switching and MPLS
+% la sezione 5.5.5 Tunneling
+% la sezione 5.5.7 Fragmentation
+% la descrizione di RARP e BOOTP nella sottosezione RARP, BOOTP, and DHCP
+% la sezione 5.6.7 Mobile IP
+
+% Capitolo 6, le seguenti parti:
+
+% il three-way handshake nella sezione 6.2.2 Connection Establishment
+% la sezione 6.2.3 Connection Release
+% la sezione 6.4.1 Introduction to UDP
+% dalla sezione 6.5.1 Introduction to TCP alla sezione 6.5.6 TCP Connection Release
+
+% Capitolo 7, le seguenti parti:
+
+% la sezione 7.1 DNS - The Domain Name System
+
+% Capitolo 8, le seguenti parti:
+
+% la sezione 8.1 Cryptography. tranne le sottosezioni transposition ciphers (8.1.3) e Quantum Cryptography (in 8.1.4)
+% la sezione 8.2 Symmetric-Key Algorithms, tranne i cipher mode di tipo Block Chaining, Feedback, e Counter nella sottosezione Cipher Modes (8.2.3)
+% la sezione 8.3 Public-Key Algorithms
+% la sottosezione 8.4.3 Message Digests
+% la sottosezione 8.6.1 IPSec nella versione ESP (Encapsulating Security Payload)
+% la sottosezione 8.6.2 Firewalls
+% la sottosezione 8.6.4. Wireless Security, tranne la parte Bluetooth Security
+% il replay attack (sottosezione 8.7.3)
+% il DNS Spoofing (sottosezione 8.9.2), tranne la parte Self-Certifying Names
