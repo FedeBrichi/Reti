@@ -119,7 +119,9 @@ Un cavo riesce a trasmettere frequenze senza attenuazione in un intervallo che v
 Questo intervallo è detto Banda passante (\textit{bandwidth}) e dipende da diversi fattori del mezzo di trasmissione (materiali, lunghezza e spessore di un cavo, ecc).
 Le frequenze che vanno oltre vengono attenuate.
 La frequenza di cutoff non è ben definita, quindi di solito si pone l'intervallo da 0 fino alla frequenza dove la potenza del segnale è dimezzata.
+Questi sono detti segnali baseband(tradotto?).
 A volte vengono utilizzati dei filtri che possono modificare la banda passante, per esempio alzando l'intervallo da un valore maggiore di zero: è il caso delle trasmissioni wireless.
+QUesti sono segnali passband(tradotto?).
 
 \subsection{Mezzi di trasmissione guidati}
 
@@ -187,7 +189,11 @@ Tuttavia ha una maggior ampiezza di banda, richiede meno ripetitori (uno ogni 50
 
 \subsection{Mezzi wireless}
 
-
+\subsubsection{Spettro elettromagnetico}
+\subsubsection{Trasmissioni radio}
+\subsubsection{Trasmissioni microonde}
+\subsubsection{Infrarossi}
+\subsubsection{Lightwave?}
 
 \subsection{Satelliti}
 
@@ -196,6 +202,44 @@ Quando riceve un segnale in arrivo, il relativo transponder lo amplifica e lo ri
 Esistono tre tipi di satelliti in base alla loro posizione: GEO, MEO, LEO.\\
 Vai a §\ref{satelliti}.
 
+\subsection{Modulazione digitale e multiplexing}
+La modulazione digitale è il processo di conversione tra bit e i segnali che li rappresentano. 
+
+% ED.5 Inglese
+% 2.5 DIGITAL MODULATION AND MULTIPLEXING, 125
+% 2.5.1 Baseband Transmission, 125
+% 2.5.2 Passband Transmission, 130
+% 2.5.3 Frequency Division Multiplexing, 132
+% 2.5.4 Time Division Multiplexing, 135
+% 2.5.5 Code Division Multiplexing, 135
+% 2.6 THE PUBLIC SWITCHED TELEPHONE NETWORK, 138
+% 2.6.1 Structure of the Telephone System, 139
+% 2.6.2 The Politics of Telephones, 142
+% 2.6.3 The Local Loop: Modems, ADSL, and Fiber, 144
+% 2.6.4 Trunks and Multiplexing, 152
+% 2.6.5 Switching, 161
+
+% ED.4 di riferimento
+% 2.5. The Public Switched Telephone Network
+% 2.5.1. Structure of the Telephone System
+% 2.5.2. The Politics of Telephones
+% 2.5.3. The Local Loop: Modems, ADSL, and Wireless
+% Modems
+% Digital Subscriber Lines
+% Wireless Local Loops ----NO
+% 2.5.4. Trunks and Multiplexing
+% Frequency Division Multiplexing
+% Wavelength Division Multiplexing
+% Time Division Multiplexing
+% SONET/SDH ----NO
+% 2.5.5. Switching
+% Circuit Switching
+% Message Switching
+% Packet Switching
+
+
+
+\subsection{Sistema telefonico mobile}
 
 
 \section{Strato link}
@@ -204,7 +248,45 @@ Vai a §\ref{satelliti}.
 
 \section{Strato trasporto}
 
-\section{Strato applicazione}
+\section{Strato applicazione} % SOLO DNS
+
+Lo strato applicazione e dove si trovano effettivamente le applicazioni.
+Ci sono comunque dei protocolli di supporto per permettere alle applicazioni di funzionare.
+Uno di questi è il DNS.
+
+\subsection{DNS}
+
+Il DNS (Domain name system) è un protocollo per la gestione dei nomi.
+I siti web e le altre risorse possono essere accedute direttamente tramite l'indirizzo IP,
+ma non risulta molto user-friendly in quanto per l'utente è difficile memorizzare l'indirizzo della risorsa richiesta.
+Il DNS serve per tradurre gli indirizzi IP in nomi comprensibili e viceversa.
+Infatti, se per l'utente il nome è più comprensibile, il network comprende solo l'indirizzo IP, per cui è richiesta la traduzione inversa da nome a indirizzo.
+Un altro problema che ha portato alla creazione del DNS era la necessità di un sistema centralizzato, che permettesse di gestire i nomi senza avere duplicati.
+
+Il DNS quindi è un sistema centralizzato con un database distribuito dove viene implementato lo schema gerarchico dei nomi. 
+Viene utilizzato principalmente per mappare indirizzi IP e nomi del relativo host.
+Per mappare un nome con il suo indirizzo IP, viene chiamata una procedura detta \texttt{resolver} con il nome come parametro.
+Questa invia la query al server DNS e viene ritornato l'indirizzo IP; sia la query, sia la risposta sono spediti come pacchetti UPD.
+
+La gerarchia dei nomi è divisa in diversi livelli. 
+Il primo livello è diviso in più di 250 domini contenenti i vari host. 
+Ogni dominio è partizionato in sottodomini, anch'essi partizionati ecc.
+Il primo livello è distinto tra generici (com, org, ecc) e paesi (it, uk, jp, ecc).
+Il secondo livello spesso indica l'azienda.
+Il nome di un dominio può essere assoluto o relativo. Se termina con il punto è assoluto.
+I nomi sono case-insensitive e di lunghezza massima di 255 caratteri.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -251,7 +333,7 @@ Vai a §\ref{satelliti}.
 
 % Capitolo 7, le seguenti parti:
 
-% la sezione 7.1 DNS - The Domain Name System
+% la sezione 7.1 DNS - The Domain Name System  % OK %
 
 % Capitolo 8, le seguenti parti:
 
