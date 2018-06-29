@@ -1,6 +1,6 @@
 Questa sezione raccoglie alcuni appunti per un ripasso rapido.
 
-\section{Introduzione}
+\section{Capitolo 1 - Introduzione}
 
 \subsection{Tipi di collegamento}
 Ci sono due tipi di collegamento:
@@ -99,7 +99,7 @@ Il libro e il corso utilizza un modello ibrido a 5 livelli:
 
 \newpage
 
-\section{Strato fisico}
+\section{Capitolo 2 - Strato fisico}
 
 L'obiettivo dello strato fisico è quello di trasportare i bits da una macchina ad un'altra.
 Per farlo si possono usare diversi mezzi fisici con proprie caratteristiche.
@@ -119,9 +119,9 @@ Un cavo riesce a trasmettere frequenze senza attenuazione in un intervallo che v
 Questo intervallo è detto Banda passante (\textit{bandwidth}) e dipende da diversi fattori del mezzo di trasmissione (materiali, lunghezza e spessore di un cavo, ecc).
 Le frequenze che vanno oltre vengono attenuate.
 La frequenza di cutoff non è ben definita, quindi di solito si pone l'intervallo da 0 fino alla frequenza dove la potenza del segnale è dimezzata.
-Questi sono detti segnali baseband(tradotto?).
+Questi sono detti segnali baseband.
 A volte vengono utilizzati dei filtri che possono modificare la banda passante, per esempio alzando l'intervallo da un valore maggiore di zero: è il caso delle trasmissioni wireless.
-QUesti sono segnali passband(tradotto?).
+Questi sono segnali passband.
 
 \subsection{Mezzi di trasmissione guidati}
 
@@ -190,17 +190,22 @@ Tuttavia ha una maggior ampiezza di banda, richiede meno ripetitori (uno ogni 50
 \subsection{Mezzi wireless}
 
 \subsubsection{Spettro elettromagnetico}
+Lo spostamento degli elettroni crea onde elettromagnetiche:
+il numero di oscillazioni al secondo di un'onda è detta frequenza (misurata in Hz),
+mentre la distanza tra due massimi è detta lunghezza d'onda (indicata da lambda).
+
+
 \subsubsection{Trasmissioni radio}
-\subsubsection{Trasmissioni microonde}
+\subsubsection{Trasmissioni a microonde}
 \subsubsection{Infrarossi}
-\subsubsection{Lightwave?}
+\subsubsection{Trasmissioni a donde luminose}
 
 \subsection{Satelliti}
 
-Un satellite è composto da tanti transponder che ascoltano una diversa porzione dello spettro.
+Un satellite è composto da tanti transponder che ascoltano una diversa porzione dello spettro elettromagnetico.
 Quando riceve un segnale in arrivo, il relativo transponder lo amplifica e lo ritrasmette con frequenza diversa per evitare interferenze.
 Esistono tre tipi di satelliti in base alla loro posizione: GEO, MEO, LEO.\\
-Vai a §\ref{satelliti}.
+Vai a §\ref{satelliti} per il confronto delle tre tipologie.
 
 \subsection{Modulazione digitale e multiplexing}
 La modulazione digitale è il processo di conversione tra bit e i segnali che li rappresentano. 
@@ -238,17 +243,27 @@ La modulazione digitale è il processo di conversione tra bit e i segnali che li
 % Packet Switching
 
 
-
 \subsection{Sistema telefonico mobile}
 
 
-\section{Strato link}
+\newpage
+\section{Capitolo 3 - Strato data link}
 
-\section{Strato rete}
 
-\section{Strato trasporto}
+\newpage
+\section{Capitolo 4 - Sottostrato MAC}
 
-\section{Strato applicazione} % SOLO DNS
+
+\newpage
+\section{Capitolo 5 - Strato rete}
+
+
+\newpage
+\section{Capitolo 6 - Strato trasporto}
+
+
+\newpage
+\section{Capitolo 7 - Strato applicazione} % SOLO DNS
 
 Lo strato applicazione e dove si trovano effettivamente le applicazioni.
 Ci sono comunque dei protocolli di supporto per permettere alle applicazioni di funzionare.
@@ -263,18 +278,30 @@ Il DNS serve per tradurre gli indirizzi IP in nomi comprensibili e viceversa.
 Infatti, se per l'utente il nome è più comprensibile, il network comprende solo l'indirizzo IP, per cui è richiesta la traduzione inversa da nome a indirizzo.
 Un altro problema che ha portato alla creazione del DNS era la necessità di un sistema centralizzato, che permettesse di gestire i nomi senza avere duplicati.
 
-Il DNS quindi è un sistema centralizzato con un database distribuito dove viene implementato lo schema gerarchico dei nomi. 
+Il DNS quindi è un sistema centralizzato con un database distribuito dove viene implementato lo schema gerarchico dei nomi basato su dominio. 
 Viene utilizzato principalmente per mappare indirizzi IP e nomi del relativo host.
 Per mappare un nome con il suo indirizzo IP, viene chiamata una procedura detta \texttt{resolver} con il nome come parametro.
 Questa invia la query al server DNS e viene ritornato l'indirizzo IP; sia la query, sia la risposta sono spediti come pacchetti UPD.
 
 La gerarchia dei nomi è divisa in diversi livelli. 
-Il primo livello è diviso in più di 250 domini contenenti i vari host. 
+Internet è diviso in più di 250 domini di primo livello contenenti i vari host. 
 Ogni dominio è partizionato in sottodomini, anch'essi partizionati ecc.
-Il primo livello è distinto tra generici (com, org, ecc) e paesi (it, uk, jp, ecc).
+Il primo livello è distinto tra generici (com, org, edu, ecc) e nazioni (it, uk, jp, ecc).
 Il secondo livello spesso indica l'azienda.
-Il nome di un dominio può essere assoluto o relativo. Se termina con il punto è assoluto.
+Il nome di un dominio può essere assoluto o relativo.
+Se termina con il punto è assoluto; se è relativo, il reale significato dipende dal contesto.
 I nomi sono case-insensitive e di lunghezza massima di 255 caratteri.
+
+Ogni dominio può essere associato ad un insieme di record delle risorse.
+Quando il DNS riceve un nome, restituisce i record associati, tra cui quello che indica l'indirizzo IP.
+Un record è identificato dalla quintupla:\\
+\texttt{Domain_name Time_to_live Class Type Value}
+Il Type A è il più importante in quanto è il record che contiene l'indirizzo IP. Questo record può non essere univoco.
+
+Il server del DNS non è unico, altrimenti verrebbe sovraccaricato. Quindi i nomi sono divisi in zone, che risiedono su server diversi. 
+
+\newpage
+\section{Capitolo 8 - Sicurezza}
 
 
 
@@ -332,7 +359,6 @@ I nomi sono case-insensitive e di lunghezza massima di 255 caratteri.
 % dalla sezione 6.5.1 Introduction to TCP alla sezione 6.5.6 TCP Connection Release
 
 % Capitolo 7, le seguenti parti:
-
 % la sezione 7.1 DNS - The Domain Name System  % OK %
 
 % Capitolo 8, le seguenti parti:
