@@ -1,5 +1,3 @@
-Questa sezione raccoglie alcuni appunti per un ripasso rapido.
-
 \section{Capitolo 1 - Introduzione}
 
 \subsection{Tipi di collegamento}
@@ -260,6 +258,35 @@ La modulazione digitale è il processo di conversione tra bit e i segnali che li
 
 \newpage
 \section{Capitolo 6 - Strato trasporto}
+Il livello di trasporto si basa sul livelo di rete per fornire il trasporto dei dati tra due macchine secondo il livello di affidabilità desiderato e indipendentemente dalle reti fisiche. 
+
+\subsection{Richiesta connessione e protocollo Three-way Handshake}
+
+Il Three-way handshake è un protocollo che entra in gioco quando si deve stabilire una connessione.
+Infatti stabilire una connessione è un'operazione tutt'altro che facile.
+Al normale "percorso" CONNECTION REQUEST - CONNECTION ACCEPTED, la rete può perdere, ritardare, corrompere o duplicare i pacchetti, creando diversi problemi.
+
+
+
+\subsection{Rilascio della connessione}
+
+\subsection{Introduzione all'UDP}
+
+\subsection{TCP}
+
+Introduzione
+
+Modello di servizio di TCP
+
+Protocollo TCP
+
+Intestazione TCP
+
+Connessione TCP
+
+Rilascio connessione TCP
+
+
 
 
 \newpage
@@ -295,7 +322,8 @@ I nomi sono case-insensitive e di lunghezza massima di 255 caratteri.
 Ogni dominio può essere associato ad un insieme di record delle risorse.
 Quando il DNS riceve un nome, restituisce i record associati, tra cui quello che indica l'indirizzo IP.
 Un record è identificato dalla quintupla:\\
-\texttt{Domain_name Time_to_live Class Type Value}
+\texttt{Domain\_name Time\_to\_live Class Type Value}
+
 Il Type A è il più importante in quanto è il record che contiene l'indirizzo IP. Questo record può non essere univoco.
 
 Il server del DNS non è unico, altrimenti verrebbe sovraccaricato. Quindi i nomi sono divisi in zone, che risiedono su server diversi. 
