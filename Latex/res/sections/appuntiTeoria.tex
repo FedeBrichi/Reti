@@ -191,12 +191,56 @@ Tuttavia ha una maggior ampiezza di banda, richiede meno ripetitori (uno ogni 50
 Lo spostamento degli elettroni crea onde elettromagnetiche:
 il numero di oscillazioni al secondo di un'onda è detta frequenza (misurata in Hz),
 mentre la distanza tra due massimi è detta lunghezza d'onda (indicata da lambda).
+Un'antenna collegata ad un circuito elettrico riesce a trasmettere onde elettromagnetiche.
+Nel vuoto le onde viaggiano tutte alla velocità della luce, nei cavi la velocità scende a 2/3 di quella della luce.
 
+Lo spettro elettromagnetico è composto da diversi tipi di onde in base alla frequenza:
+radio, microonde, infrarosso, luce visibile, ultravioletti, raggi x e raggi gamma.
+Queste si possono usare per trasmettere segnali; le ultime tre sarebbero le migliori ma non vengono usate per la difficoltà nel generarle e sono dannose per gli esseri viventi.
+
+Di solito si usa una banda di frequenza ristretta per avere una migliore ricezione, ma in alcuni casi si utilizza la banda larga con due varianti:
+\begin{itemize}
+\item spettro distribuito a frequenza variabile (frequency hopping), dove il trasmettitore salta da una frequenza all'altra centinaia di volte al secondo (adottato dal 802.11)
+\item spettro distribuito a sequenza diretta (direct sequence)
+\end{itemize}
 
 \subsubsection{Trasmissioni radio}
+Le onde radio sono onde a bassa frequenza, facili da generare, che possono viaggiare per lunghe distanze e attraversano facilmente gli edifici. 
+Queste onde sono omnidirezionali, cioè si espandono in tutte le direzioni, quindi non necessitano che il trasmettitore e il ricevitore siano allineati.
+Le onde radio sono soggette a interferenze da motori e da altri dispositivi elettrici.
+
+A bande basse (VLF, LF, MF), le onde radio seguono il terreno e si possono ricevere fino a 1000km.
+Le stazioni radio AM usamo le MF che permettono di attraversare facilemente gli edifici.
+Le bande alte (HF, VHF) sfruttano i rimbalzi contro la ionosfera per ottenere trasmissioni a distanze maggiori.
+
 \subsubsection{Trasmissioni a microonde}
+Sopra i 100MHz le onde viaggiano quasi in linea retta, rendendo possibile la messa a fuoco.
+Si concentra l'energia in un unico raggio trasmesso tramite un'antenna parabolica, tuttavia è richiesto che sia allineata con l'antenna ricevente.
+Se da un lato è una limitazione non da poco, dall'altro permette di trasmettere più raggi in parallelo senza interferenze.
+Quando le antenne sono lontane, entra in gioco la curvatura della terra e sono quindi necessari dei ripetitori.
+Più sono in alto le antenne, maggiore è la distanza raggiungibile.
+
+Esiste un problema con le microonde. Anche se sono dirette, possono divergere e rifrangere sugli strati più bassi dell'atmosfera, arrivando fuorifase con le dirette, il che può annullare il segnale.
+L'effetto è detto multipath fading e può essere determinato dalle condizioni climatiche e dalla frequenza.
+La richiesta di spettro ha portato ad utilizzare frequenze più alte, ma queste hanno il problema di venire assorbite dall'acqua. 
+In entrambi i casi, la soluzione è interrompere la trasmissione in caso di pioggia e utilizzare altri mezzi.
+
+Nonostante questi problemi, le microonde sono molto utilizzate per le comunicazioni telefoniche a lunga distanza, nella telefonia cellulare e nella televisione.
+Rispetto a mezzi come la fibra, basta una semplice antenna e non è richiesto alcun diritto di passaggio. 
+\`E inoltre più economica da installare.
+Esiste però un altro problema, ovvero il bisogno di più frequenze dello spettro.
+Sono stati stipulati degli accordi per gestire le frequenze utilizzabili (Come? Concorso di bellezza, lotteria, non assegnandole). 
+
 \subsubsection{Infrarossi}
-\subsubsection{Trasmissioni a donde luminose}
+Queste onde sono utilizzate per la comunicazione a cortoraggio (esempio i telecomandi).
+\`E un sistema economico ma che non attraversa gli ostacoli solidi.
+Tuttavia questa limitazione torna comoda in determinate situazioni perchè non riuscendo ad attraversare i muri non crea interferenze.
+
+\subsubsection{Trasmissioni a onde luminose}
+La trasmissione utilizzando laser è unidirezionale e richiede quindi due laser e due rilevatori.
+L'ampiezza di banda offerta è elevata, a costo ridotto e di facile installazione.
+Tuttavia puntare il laser richiede molta precisione e non posso attraversare pioggia e nebbia.
+Anche le giornate serene possono creare problemi in quanto il caldo può creare correnti di convezione che deviano il raggio.
 
 \subsection{Satelliti}
 
@@ -205,43 +249,120 @@ Quando riceve un segnale in arrivo, il relativo transponder lo amplifica e lo ri
 Esistono tre tipi di satelliti in base alla loro posizione: GEO, MEO, LEO.\\
 Vai a §\ref{satelliti} per il confronto delle tre tipologie.
 
-\subsection{Modulazione digitale e multiplexing}
-La modulazione digitale è il processo di conversione tra bit e i segnali che li rappresentano. 
+\subsection{Rete telefonica pubblica commutata}
+Il PSTN, ovvero Public Switched Telephone Network, rete telefonica pubblica commutata, è uno dei sistemi di comunicazione esistenti. 
 
-% ED.5 Inglese
-% 2.5 DIGITAL MODULATION AND MULTIPLEXING, 125
-% 2.5.1 Baseband Transmission, 125
-% 2.5.2 Passband Transmission, 130
-% 2.5.3 Frequency Division Multiplexing, 132
-% 2.5.4 Time Division Multiplexing, 135
-% 2.5.5 Code Division Multiplexing, 135
-% 2.6 THE PUBLIC SWITCHED TELEPHONE NETWORK, 138
-% 2.6.1 Structure of the Telephone System, 139
-% 2.6.2 The Politics of Telephones, 142
-% 2.6.3 The Local Loop: Modems, ADSL, and Fiber, 144
-% 2.6.4 Trunks and Multiplexing, 152
-% 2.6.5 Switching, 161
+Il sistema telefonico è strutturato secondo una gerarchia multilivello ad alta ridondanza.
+Da ogni telefono partono due cavi di rame collegati alla centrale locale (la più vicina). 
+Se la chiamata avviene tra due utenti collegati alla stessa centrale, questa crea una connessione elettrica tra i due e rimane aperta fino al termine della chiamata.
+Se invece i due telefoni sono collegati a due centrali diverse, le centrali locali si collegano con una centrale interurbana che crea la connessione. 
+Se tuttavia non si collegano alla stessa centrale interurbana, cercano di collegarsi a stazioni intermedie di livello superiore.
 
-% ED.4 di riferimento
-% 2.5. The Public Switched Telephone Network
-% 2.5.1. Structure of the Telephone System
-% 2.5.2. The Politics of Telephones
-% 2.5.3. The Local Loop: Modems, ADSL, and Wireless
-% Modems
-% Digital Subscriber Lines
-% Wireless Local Loops ----NO
-% 2.5.4. Trunks and Multiplexing
-% Frequency Division Multiplexing
-% Wavelength Division Multiplexing
-% Time Division Multiplexing
-% SONET/SDH ----NO
-% 2.5.5. Switching
-% Circuit Switching
-% Message Switching
-% Packet Switching
+I collegamenti locali utilizzano il doppino con segnali analogici, mentre le linee utilizzano le fibre ottiche digitali per collegare le centrali di commutazione.
 
+\subsubsection{Collegamenti locali}
+Il collegamento locale, spesso chiamato anche "ultimo miglio", utilizza tutt'ora la trasmissione analogica.
+Innanzitutto, per spedire dati digitali devono essere convertiti in analogici dal modem. 
+Una volta giunta la centrale, i dati vengono riconvertiti in digitale.
+Il ricevente farà la conversione inversa.
+Il segnale analogico viene trasmesso tramite la variazione di tensione, quindi il segnale ricevuto non sarà mai identico, il che può determinare errori.
+I problemi sono 3:
+\begin{itemize}
+    \item attenuazione, rappresenta la perdita di energia causata dalla propagazione del segnale e dipende dalla frequanza
+    \item distorsione, il segnale si modifica a causa della differenza di velocità con cui si propagano i componenti di Fourier attraverso il cavo
+    \item rumore, cioè l'energia indesiderata generata da sorgenti esterne al trasmettitore
+\end{itemize}
+
+\paragraph{Modem}
+Dato che i problemi descritti sopra sono molto legati alla frequenza, conviene che venga utilizzato un intervallo ridotto.
+I segnali digitali tuttavia usano un ampio spettro di frequenza e sono quindi molto soggetti ad attenuazione e distorsione.
+Si utilizza come soluzione la trasmissione AC, introducendo un tono continuo, detto portante d'onda sinusoidale, nell'intervallo 1000-2000 Hz.
+Modulando ampiezza, frequenza e fase si possono trasmettere le informazioni.
+Nella modulazione d'ampiezza di usano due ampiezze diverse per indicare 1 o 0.
+Nella modulazione di frequenza si utilizzano due o più toni.
+Nella modulazione di fase l'onda portante è spostata di 0 o 180 a intervalli uniformi.
+
+Il modem accetta i bit in ingresso e produce la portante utilizzando i metodi di modulazione (e viceversa).
+
+Il numero di campioni al secondo è misurato in baud. 
+Durante ogni baud viene trasmesso un simbolo, quindi una linea a \textit{n} baud trasmette \textit{n} simboli al secondo.
+Questa misura è detta Baudrate, che è diverso dal Bitrate.
+Il Bitrate indica quanti bit al secondo (bps) vengono trasmessi, mentre il Baudrate indica il numero di simboli trasmessi.
+Quindi la differenza tra i due è determinato da quanti bit rappresenta un simbolo ed è determinato dalla tecnica di modulazione utilizzata. 
+Se viene utilizzato il voltaggio 0V=0 e 1V=1, allora Bitrate e Baudrate equivalgono, ma se ogni simbolo è composto da 2 o più bit, il Bitrate sarà conseguentemente maggiore.
+Quando ci sono 4 possibili cambi di fase e quindi un simbolo descrive 2 bit, la tecnica di modulazione è detta QPSK (Quadrature Phase Shift Keying).
+
+Un'altra tecnica di modulazione è la QAM-16, la quale utilizza 4 bit per simbolo (4 ampiezze e 4 fasi). Se vengono utilizzati 5 bit è detta QAM-32, 6 bit QAM-64.
+
+I diagrammi di costellazione indicano le combinazioni valide di ampiezza e fase. 
+Un modem può comunicare solo con altri model che usano la stessa costellazione, ma sono molto soggette ad errori in quanto basta un'alterazione dell'ampiezza o della fase per perdere informazioni.
+Per risolvere questo problema sono stati introdotti bit di parità per implementare codice di correzione di errori.
+Questi schemi sono detti TCM (Trellis Coded Modulation). Lo standard V32 usa 4 bit di dati e uno di parità.
+Il V32 bis usa 6 bit di dati e 1 di parità. Ci sono anche versioni superiori.
+
+I modem moderni permettono la trasmissione bidirezionale utilizzando frequenze diverse.
+Una connessione che permette di viaggiare \textbf{contemporaneamente} in entrambi i sensi è detta full duplex, mentre half duplex se solo una direzione è supportata.
+Se permette di viaggiare solo in una direzione è detta simplex (es: fibra ottica).
+
+\paragraph{DSL, Digital Subscriber Line}
+I collegamenti locali che usano il modem si collegano al commutatore con un filtro che limita la frequenza,
+mentre chi utilizza le tecnologie DLS si connettono ad un diverso commutatore che non presenta il filtro.
+Quindi il limite non è più il filtro, bensì le proprietà fisiche del mezzo.
+
+Il primo ADSL divideva lo spettro tra:
+\begin{itemize}
+    \item servizio telefonico
+    \item upstream
+    \item downstream
+\end{itemize}
+La tecnica di divisione è detta multiplexing a divisione di frequenza.
+Il metodo alternativo è il DMT (Discrete MultiTone), che divide in 256 canali lo spettro.
+Il canale 0 è per la voce, i canali 1-5 non usati, uno per upstream e uno per downstream, gli altri a disposizione dei dati dell'utente.
+Quelli liberi per i dati di solito vengono distribuiti secondo il provider tra up e down.
+
+\subsection{Linee e multiplexing}
+Le aziende telefoniche hanno organizzato il sistema per utilizzare un unico collegamento fisico sia per la banda larga che per quella stretta.
+Per fare ciò viene utilizzato il multiplexing, che si distingue in due tipologie:
+\begin{itemize}
+    \item FDM: Frequency division multiplexing, dove lo spettro è diviso in bande di frequenza e ogni utente ha a disposizione solo alcune parti
+    \item TDM: Time division multiplexing, dove la banda viene scambiata per intero tra gli utenti per breve tempo
+\end{itemize}
+
+\subsubsection{Multiplexing a divisione di frequenza}
+[...]
+
+\subsubsection{Multiplexing a divisione di lunghezza d'onda}
+Questo multiplexing è utilizzato per i canali in fibra ottica.
+[...]
+
+\subsubsection{Multiplexing a divisione di tempo}
+[...]
+
+\subsection{Commutazione}
+
+\subsubsection{Commutazione di circuito}
+La commutazione di circuito è la tecnica che crea il percorso fisico tra i due telefoni comunicanti. 
+Quando una chiamata arriva ad una centrale di commutazione, viene stabilita una connessione fisica tra la linea entrante e quella d'uscita della centrale.
+Questo tipo richiede di configurare il percorso \textbf{prima} di iniziare a trasmettere i dati.
+
+\subsubsection{Commutazione di messaggio}
+Questa commutazione non richiede un percorso fisico prestabilito. 
+Quando viene inviato un blocco di dati, questo viene inviato alla prima centrale e vengono instradate un passo alla volta. 
+Ad ogni passo viene controllato che il blocco ricevuto non contenga errori e poi ritrasmesso.
+Una rete che utilizza questa tecnica è detta \textit{store and forward}.
+Il blocco può essere di qualsiasi dimensione, richiedendo dischi capaci di memorizzarli temporaneamente, e possono occupare per un tempo considerevole una linea.
+
+\subsubsection{Commutazione di pacchetto}
+Per risolvere i problemi della commutazione di messaggio, si utilizza quella di pacchetto che impone una dimensione massima del pacchetto e si assicura che non occupino per troppo tempo una linea.
+Un altro vantaggio è che un pacchetto può essere mandato prima che finisca di arrivare il successivo.
 
 \subsection{Sistema telefonico mobile}
+
+\subsubsection{Prima generazione}
+
+\subsubsection{Seconda generazione}
+
+\subsubsection{Terza generazione}
 
 
 \newpage
@@ -330,14 +451,6 @@ Il server del DNS non è unico, altrimenti verrebbe sovraccaricato. Quindi i nom
 
 \newpage
 \section{Capitolo 8 - Sicurezza}
-
-
-
-
-
-
-
-
 
 
 
