@@ -338,7 +338,7 @@ Questo multiplexing è utilizzato per i canali in fibra ottica.
 \subsubsection{Multiplexing a divisione di tempo}
 [...]
 
-\subsection{Commutazione}
+\subsection{Commutazione (\textit{Switching})}
 
 \subsubsection{Commutazione di circuito}
 La commutazione di circuito è la tecnica che crea il percorso fisico tra i due telefoni comunicanti. 
@@ -354,19 +354,217 @@ Il blocco può essere di qualsiasi dimensione, richiedendo dischi capaci di memo
 
 \subsubsection{Commutazione di pacchetto}
 Per risolvere i problemi della commutazione di messaggio, si utilizza quella di pacchetto che impone una dimensione massima del pacchetto e si assicura che non occupino per troppo tempo una linea.
-Un altro vantaggio è che un pacchetto può essere mandato prima che finisca di arrivare il successivo.
+Un altro vantaggio è che un pacchetto che fa parte di un messaggio può essere mandato prima che finisca di arrivare il successivo.
+Come per quella di messaggio, non è richiesta la preparazione fisica del percorso prima della trasmissione.
+I pacchetti possono seguire strade diverse e non arrivare in ordine.
+
+La commutazione di circuito riserva l'ampiezza di banda per tutto il percorso, mentre quella di pacchetto no.
+Quindi la prima soluzione garantisce il servizio, con spreco di risorse, mentre il secondo no.
+Anche quella di pacchetto usa la tecnica \textit{store and forward}. 
+Un'altra differenza è che la commutazione di circuito dà libertà di velocità, formato e framing, mentre in quella di pacchetto sono dipendenti dall'onda portante.
+Ultima differenza riguarda l'addebito: per il circuito dipende da tempo e distanza, per il pacchetto dipende dal volume dei dati.
 
 \subsection{Sistema telefonico mobile}
 
-\subsubsection{Prima generazione}
+\subsubsection{Prima generazione - voce analogica}
+Prima versione: sistema telefonico per auto, che usava un pulsante per attivare il trasmettitore e disattivare il ricevitore. Quindi una sola direzione alla volta.\\
+Seconda versione: IMTS, usa due frequenze, una per trasmettere e una per ricevere. La frequenza disponibile era limitata, quindi richiedeva del tempo per avere la linea libera.
 
-\subsubsection{Seconda generazione}
+AMPS è il sistema telefonico mobile avanzato da cui deriva la versione digitale D-AMPS.
+Un'area geografica è divisa in celle di 10-20Km, ognuna delle quali utilizza frequenze diverse da quelle vicine.
+Il vantaggio di questa organizzazione è che celle vicine (ma non quelle adiacenti) possono usare le stesse frequenze, a differenza del IMTS che si estendeva per 100Km.
+Si ottiene quindi una maggiore capacità del sistema e ridecendo la grandezza delle celle si riesce ad aumentare ulteriormente la capacità, richiedendo anche meno potenza per i trasmettitori.
+Il principale problema è trovare una posizione elevata per le antenne base, che sono gestite dalla stazione base, di solito al centro di ogni cella.
+La stazione è composta da un computer e un trasmettitore/ricevitore connesso all'antenna.
+Le stazioni sono collegate a dei commutatori per il mobile, cioè il MTSO (Mobile Telephone Switching Office).
+Se la rete è piccola si collegano allo stesso commutatore, altrimenti si crea una gerarchia a livelli simile alla rete telefonica cablata.
+Viene utilizzata la commutazione di pacchetto.
 
-\subsubsection{Terza generazione}
+Quando un telefono abbandona una cella perchè il segnale di sta affievolendo, la stazione base verifica la potenza del segnale delle celle adiacenti e trasferisce la gestione del dispositivo.
+Il telefono è informato del cambiamento e se era in corso una chiamata viene forzato a passare su un altro canale. 
+Questo processo è detto \textbf{handoff}. Esistono due tipi:
+\begin{itemize}
+    \item soft handoff, dove la nuova stazione acquisisce la gestione del telefono prima di interrompere il segnale; non c'è perdita di continuità ma il telefono deve essere capace di gestire le due frequenze contemporanemante (solo la terza generazione di telefoni riesce)
+    \item hard handoff, la vecchia stazione rilascia il telefono prima che la nuova lo acquisisca; è un processo abbastanza veloce, ma la chiamata può venire interrotta se la stazione non è in grado di gestire il nuovo dispositivo
+\end{itemize}
+AMPS usa 832 canali duplex composti da una coppia di simplex. 
+AMPS usa FDM (Frequency Division Multiplexing) per separare i canali.
+I canali sono divisi in 4 categorie:
+\begin{itemize}
+    \item controllo, dalla base al telefono, per gestire il sistema
+    \item paging, dalla base al telefono, per notificare la chiamata all'utente
+    \item accesso, bidirezionale, per impostare chiamata e canale
+    \item dati, bidirezionale, per voce e dati
+\end{itemize}
+Ogni telefono ha una PROM dove sono predeterminati 21 canali per il controllo, il numero seriale e il numero di telefono. 
+Il telefono trasmette queste informazioni in un pacchetto in broadcast per collegarsi alla stazione base più vicina.
 
+Quando si effettua una chiamata, viene trasmesso tramite il canale di accesso il numero da chiamare e la propria identità.
+Una volta che la richiesta raggiunge la stazione, questa comunica con il MTSO che cerca un canale libero per la chiamata.
+Quando trovato, viene trasmesso il numero nel canale di controllo e il telefono passa al canale vocale in attesa di risposta.
+
+\subsubsection{Seconda generazione - voce digitale}
+Per la seconda generazione sono utilizzati 4 sistemi qui esposti.
+
+\paragraph{D-AMPS}
+\`E la seconda generazione di AMPS, orientata al digitale. 
+La versione digitale utilizza le stesse frequenze di AMPS, quindi vengono divisi i canali tra digitali e analogici.
+La ripartizione può cambiare dinamicamente in base al tipo di dispositivi presenti nella cella. 
+Sta al MTSO della cella la gestione della distribuzione.
+
+Per gestire l'aumemento di carico, è stata prevista una nuova banda di frequenza. 
+
+Il segnale vocale viene raccolto dal microfono, digitalizzato e compresso dal \textit{vocoder}.
+Questo processo è molto importante per la telefonia mobile con D-AMPS perchè offre un ottimo miglioramento utilizzando il TDM. 
+[...]
+
+\paragraph{GSM}
+[...]
+
+\paragraph{CDMA}
+[...]
+
+\paragraph{PDC}
+Usato solo in Giappone, non approfondito.
+
+\subsubsection{Terza generazione - voce e dati digitali}
+Per la terza generazione si puntava ad un'unica tecnologia per semplificare la diffusione e lo sviluppo del dispositivi che dovevano utilizarla.
+Ci sono state diverse proposte e dopo una selezione rimasero due possibilità: W-CDMA e CDMA2000.
+Il primo utilizzava una modulazione a spettro distribuito a sequenza diretta, pensato per interagire con GSM, in modo da poter entrare nelle celle di quest'ultimo senza perdere le chiamate.
+La seconda proposta si basava anch'essa sulla modulazione a spettro distribuito a sequenza diretta, ma non punta all'interazione con GSM. 
+
+Nel frattempo alcuni operatori proposero alcuni schemi detti \textit{2.5G}; 
+uno è EDGE, un GSM con un bit in più per baud. Il bit in più porta anche a più errori.
+L'altra proposta è GPRS, una rete a pacchetti costruita sopra D-AMPS e GSM.
+Questa permette di inviare/ricevere pacchetti IP in una cella vocale;
+vengono riservati alcuni slot temporali al traffico di pacchetti e la stazione base definisce il numero e la posizione degli slot.
+Gli slot disponibili sono divisi in canali logici, la stazione base determina l’associazione tra i canali logici e time slot.
+Un canale logico è usato per scaricare i pacchetti dalla stazione base nella stazione mobile e ogni pacchetto indica il destinatario.
+
+Per inviare un pacchetto IP, una stazione mobile chiede uno o più slot inviando una richiesta alla stazione base.
+Se la richiesta arriva senza problemi, la stazione comunica all’apparecchio mobile la frequenza e gli slot che dovrà utilizzare per trasmettere il pacchetto.
+Una volta arrivato alla stazione base, il pacchetto è trasferito su Internet attraverso una connessione via cavo.
 
 \newpage
 \section{Capitolo 3 - Strato data link}
+
+\subsection{Progetto dello strato data link} % 3.1
+Lo strato data link ha diverse funzioni, tra cui:
+\begin{itemize}
+    \item fornire un servizio di interfaccia per lo strato network
+    \item gestire gli errori di trasmissione
+    \item regolare il flusso dati 
+\end{itemize}
+Per svolgere le sue funzioni, lo strato data link riceve i pacchetti dallo strato network e li incapsula in frame.
+Un frame contiene header, carico e coda.
+
+\subsubsection{Servizi forniti allo strato network}
+Il servizio principale è quello di trasferire i dati tra gli strati network di due macchine differenti.
+Alcuni servizi forniti sono:
+\begin{itemize}
+    \item unacknowledged senza connessione
+    \item acknowledged senza connessione
+    \item acknowledged orientato alla connessione
+\end{itemize}
+Il primo consiste nell'invio di frame senza che la macchina di destinazione debba dare l'acknowledgement, ovvero la conferma della ricezione.
+Non viene creata una connessione logica e non ci si assicura che il frame arrivi a destinazione.
+Si utilizza quando gli errori di trasmissione sono limitati, così da permettere la correzione direttamente agli strati superiori e
+quando si vuole una comunicazione real-time dove il ritardo è peggio di una ricezione di dati parzialmente errati (es: chiamate, stream video).
+
+Il secondo offre una maggiore affidabilità in quanto è richiesto l'acknowledgement.
+Se non viene ricevuto entro un certo intervallo, può essere rispedito il frame. 
+Anche questo non usa una connessione logica. 
+L'acknowledgement può essere richiesto direttamente dallo strato network, ma si presenta un problema di prestazioni.
+Il strato network può richiedere la spedizione dell'intero pacchetto nel caso non arrivi l'acknowledgement, che non ha limiti di dimensioni.
+Un frame invece è di dimensione ridotta e limitata, per cui è più facile gestire il reinvio del singolo frame rispetto al pacchetto intero.
+
+Il terzo tipo è il più affidabile. Oltre alla richiesta di acknowledgement, deve stabilire una connessione con il destinatario prima di iniziare la trasmissione.
+I frame sono numerati ed è garantito l'arrivo nell'ordine corretto.
+Il trasferimento dei dati avviene in 3 fasi: stabilita la connessione, trasmissione dei frame, rilascio della connessione. 
+
+\subsubsection{Suddivisione in frame}
+Lo strato data link deve ricevere dallo strato fisico i dati sottoforma di bit e verificare che siano corretti ed eventualmente correggerli.
+Per fare ciò viene suddiviso il flusso di bit in una serie di frame e viene calcolato il checksum (vai a §\ref{checksum}) per ogni frame.
+Una volta giunto a destinazione il frame, viene ricalcolato il checksum e se è differente da quello del frame, lo strato sa che c'è stato un errore e prende i relativi provvedimenti.
+
+La suddivisione non è un'operazione banale. Ci sono diversi metodi per farlo, spiegati di seguito.
+
+\paragraph{Conteggio dei caratteri}
+Questo metodo usa un campo dell'intestazione per indicare il numero di caratteri nel frame.
+In questo modo quando viene letto il frame sa dove termina.
+Il problema è che un errore può alterare il conteggio, mandando il destinatario fuori sincronia.
+Anche utilizzando il checksum non è possibile sapere dove inizia il frame successivo.
+Per questi problemi, il metodo non è più usato.
+
+\paragraph{Byte stuffing}
+Un secondo metodo utilizza un byte all'inizio e alla fine del frame come flag byte.
+Di solito i byte utilizzati sono gli stessi.
+Questo metodo permette di trovare il frame successivo nel caso un errore faccia perdere la sincronia.
+Tuttavia il problema di questo metodo si presenta quando vengono trasmessi file binari, in quanto il valore del flag byte potrebbe essere presente nel frame.
+Per risolvere questo problema è possibile usare la tecnica del Byte stuffing,
+ovvero viene inserito un carattere di escape prima di ogni occorrenza nel frame del byte flag, in modo da distinguerli effettivamente dai flag;
+lo strato data link di destinazione rimuoverà gli escape.
+
+\paragraph{Bit stuffing}
+Il Byte stuffing è limitato perchè è legato a caratteri di 8 bit, ma se si usano codifiche diverse risulta un problema.
+
+Con la nuova tecnica è possibile usare sia un numero arbitrario di bit, sia codifiche varie.
+Ogni frame comincia e finisce con il gruppo di bit 01111110, di fatto un flag byte. 
+Se nel flusso vengono letti 5 bit 1 consecutivi, viene messo un bit 0 in coda, mentre nella destinazione verrà rimosso.
+Questa tecnica è detta bit stuffing.
+
+\subsubsection{Controllo errori}
+Problema: assicurarsi che i frame arrivino tutti a destinazione e nell'ordine corretto.\\
+Un modo è quello di utilizzare un acknowledgement, positivo o negativo, per notificare l'arrivo del frame.
+Tuttavia, anche l'acknowledgement può andare perso. Si utilizza quindi un timer che parte insieme all'invio del frame.
+Se viene ricevuto l'acknowledgement, viene ignorato il timer, altrimenti allo scadere del tempo viene rispedito il frame.
+Per evitare doppioni, i frame hanno un numero di sequenza in modo che se la destinazione aveva già ricevuto il frame possa ignorarlo.
+
+\subsubsection{Controllo di flusso}
+Il controllo del flusso consiste nella gestione della velocità di trasmissione dei frame, in modo da non congestionare il destinatario se non riesce ad elaborare ciò che riceve abbastanza velocemente.
+
+\subsection{Rilevazione e correzione errori} % 3.2
+Gli errori di trasmissione è un problema difficile da evitare, in particolare per i collegamenti locali che sono ancora analogici.
+
+\subsubsection{Codici per la correzione degli errori}
+Per gestire gli errori ci sono due possibilità. 
+O si aggiungono dei dati ridondanti di parità che permettono di ricostruire il contenuto del blocco (codifica a correzione d'errore),
+o si utilizza abbastanza ridondanza da poter identificare la presenza di un errore, senza però poterla correggere, e vengono quindi ritrasmessi (codifica a rilevazione d'errore).
+I canali affidabili come la fibra utilizzano la rilevazione, mentre quelli più soggetti a disturbi come il wireless usano la correzione.
+
+Ma in cosa consiste un errore? \\
+Un frame è composta da m bit di dati e r bit ridondanti, con un totale di n bit.
+Gli n bit sono detti codeword. 
+Date le due parole, si possono confrontare lo XOR per vedere quanti bit sono differenti;
+il numero di bit indica la distanza di Hamming ed indica il numero di errori su singoli bit per convertire da una sequenza all'altra.
+
+
+\subsubsection{Codifiche a rilevazione d'errore}
+
+
+\subsection{Protocolli data link elementari} % 3.3
+
+\subsubsection{Simplex senza restrizioni}
+
+\subsubsection{Simplex stop-and-wait}
+
+\subsubsection{Simplex per canali rumorosi}
+
+
+\subsection{Protocolli sliding window} % 3.4
+
+\subsubsection{Sliding window a 1 bit}
+
+\subsubsection{Go back N}
+
+\subsubsection{Ripetizione selettiva}
+
+
+\subsection{Esempi di protocolli} % 3.6
+
+\subsubsection{HDLC - High-level Data Link Control}
+
+\subsubsection{PPP - protocollo punto a punto}
 
 
 \newpage
@@ -374,7 +572,7 @@ Un altro vantaggio è che un pacchetto può essere mandato prima che finisca di 
 
 
 \newpage
-\section{Capitolo 5 - Strato rete}
+\section{Capitolo 5 - Strato network}
 
 
 \newpage
