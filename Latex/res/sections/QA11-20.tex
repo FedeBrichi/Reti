@@ -107,7 +107,7 @@ Non esiste nessuna garanzia per la correttezza dei dati, i bit potrebbero essere
 Per risolvere i problemi e le limitazioni provocate dal byte stuffing, viene sviluppata una nuova tecnica di framing, che prende il nome di bit stuffing, questa nuova tecnica permette di creare data frame che contengono sia un numero arbitrario di frame, sia codifiche di carattere con un numero arbitrario di bit.
 Ogni frame comincia e finisce con un gruppo speciale di bit “0111110” (flag byte). Ogni volta che lo strato data link della sorgente incontra cinque “1” consecutivi nei dati inserisce automaticamente un bit con valore 0 nel flusso in uscita. La destinazione quindi quando riceve cinque bit consecutivi con valore 1 seguiti da uno 0, automaticamente elimina lo 0.
 Con il bit stuffing il confine fra i due frame viene riconosciuto in modo inequivocabile tramite l'uso della sequenza flag.
- 
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.8]{res/img/14_BitStuffing.png}
@@ -125,16 +125,23 @@ Utilizzato anche in alcuni protocolli che prevedono un flusso continuo di dati, 
 
 \section{Numero di bit necessari per riconoscimento (correzione) degli errori di trasmissione?}
 
-I dati trasmessi nei collegamenti locali sono spesso soggetti ad errori, per la loro gestione sono state sviluppate due strategie di base: la prima si basa su una codifica a correzione d'errore mentre la seconda è una codifica a rilevazione d'errore.
-La prima introduce una ridondanza (in ciascun blocco trasmesso) tale da riuscire a ricostruire il messaggio in caso di anomalie. La seconda invece introduce ridondanza sufficiente solo a capire che c'è stato un errore, ma non di correggerlo.
-Un frame generalmente consiste di m bit di dati e r bit ridondanti per i controlli, la somma n=m+r è la lunghezza totale del frame chiamata codeword di n bit. Date due codeword, per capire quanti bit corrispondenti sono differenti bisogna effettuare l'OR esclusivo e contare il numero di bit a “1” nel risultato, questo numero è chiamato distanza di Hamming.
+I dati trasmessi nei collegamenti locali sono spesso soggetti ad errori, per la loro gestione sono state sviluppate due strategie di base:
+la prima si basa su una codifica a correzione d'errore mentre la seconda è una codifica a rilevazione d'errore.
+La prima introduce una ridondanza (in ciascun blocco trasmesso) tale da riuscire a ricostruire il messaggio in caso di anomalie.
+La seconda invece introduce ridondanza sufficiente solo a capire che c'è stato un errore, ma non di correggerlo.
+Un frame generalmente consiste di m bit di dati e r bit ridondanti per i controlli, la somma n=m+r è la lunghezza totale del frame chiamata codeword di n bit.
+Date due codeword, per capire quanti bit corrispondenti sono differenti bisogna effettuare l'OR esclusivo e contare il numero di bit a “1” nel risultato,
+questo numero è chiamato distanza di Hamming.
 \subsection{Bit necessari per rilevare un errore}
-Detto questo, per trovare d errori è necessaria una codifica con distanza d+1, quando la destinazione vede una codeword non valida riesce a determinare che c'è stato un errore, ma non a correggerlo.
+Detto questo, per trovare d errori è necessaria una codifica con distanza d+1,
+quando la destinazione vede una codeword non valida riesce a determinare che c'è stato un errore, ma non a correggerlo.
 \subsection{Bit necessari per rilevare e correggere un errore}
-Per correggere d errori è necessaria una codifica con distanza 2d+1, in tal modo codeword legali sono distanziate in modo tale che anche con d cambiamenti la codeword originale è sempre più vicina di ogni altra, può quindi essere determinata univocamente.
-Un semplice esempio di codifica a rilevazione d'errore si può realizzare aggiungendo un bit di parità ai dati, calcolato in modo che il numero di “1” nella codeword sia sempre pari (o dispari).
-Entrambe le codifiche trovano uso in diversi ambienti:
-
+Per correggere d errori è necessaria una codifica con distanza 2d+1,
+in tal modo codeword legali sono distanziate in modo tale che anche con d cambiamenti la codeword originale è sempre più vicina di ogni altra,
+può quindi essere determinata univocamente.
+Un semplice esempio di codifica a rilevazione d'errore si può realizzare aggiungendo un bit di parità ai dati,
+calcolato in modo che il numero di “1” nella codeword sia sempre pari (o dispari).
+Entrambe le codifiche trovano uso in diversi ambienti.
 
 \subsection{Pregi}
 Rilevare semplicemente l'errore permette di diminuire la quantità di bit dati.
@@ -145,17 +152,27 @@ La semplice rilevazione non permette la ricostruzione del dato, la rilevazione e
 
 \subsection{Ambiti d'uso}
 Strato data-link.\\
-Nelle reti wireless conviene utilizzare una codifica a correzione dell'errore, cosi da ricostruire il messaggio in casi d'errore (se si dovesse solo rilevare e richiedere un'altro invio, il rischio della presenza di nuovi errori sarebbe alta, quindi conviene usare questa).\\
+Nelle reti wireless conviene utilizzare una codifica a correzione dell'errore, cosi da ricostruire il messaggio in casi d'errore
+(se si dovesse solo rilevare e richiedere un'altro invio, il rischio della presenza di nuovi errori sarebbe alta, quindi conviene usare questa).\\
 Nelle LAN invece, in cui gli errori sono più sporadici, è più conveniente utilizzare spesso quella a rilevazione, con conseguente richiesta di re-invio.
 
 \section{Si descriva cos'è il CRC (Cycle Redundancy check). Si calcoli inoltre il CRC di 10011101 usando il polinomio generatore di $x^4+x+1$}
 
 \subsection{Cos'è?}
-Il CRC o Cycle Redundancy Check, è un metodo per il calcolo di somme di controllo, serve a individuare errori casuali nella trasmissione di dati (causati da interferenze, rumori di linea o distorsione). Non è utile invece nel caso di tentativi intenzionali di manomissione.
-Il CRC tratta le sequenze di bit come dei polinomi a coefficienti che possono assumere solo valori “0” o “1”. Un frame di k bit è visto come una lista di coefficienti per un polinomio con k termini che variano da $x^k-1$ a $x^0$. Questo polinomio è detto di grado k-1 e il coefficiente più alto è quello più a sinistra del polinomio (es 110001 ha 6 bit, quindi rappresenta un polinomio di $5^{\circ}$ grado con coefficienti 1,1,0,0,0 e 1: $x^5+x^4+x^0$.
+Il CRC o Cycle Redundancy Check, è un metodo per il calcolo di somme di controllo, serve a individuare errori casuali nella trasmissione di dati
+(causati da interferenze, rumori di linea o distorsione).
+Non è utile invece nel caso di tentativi intenzionali di manomissione.
+Il CRC tratta le sequenze di bit come dei polinomi a coefficienti che possono assumere solo valori “0” o “1”.
+Un frame di k bit è visto come una lista di coefficienti per un polinomio con k termini che variano da $x^k-1$ a $x^0$.
+Questo polinomio è detto di grado k-1 e il coefficiente più alto è quello più a sinistra del polinomio
+(es 110001 ha 6 bit, quindi rappresenta un polinomio di $5^{\circ}$ grado con coefficienti 1,1,0,0,0 e 1: $x^5+x^4+x^0$.
 
-Quando si utilizza una codifica di questo tipo, sorgente e destinazione devono mettersi d'accordo in anticipo su un polinomio generatore G(x). Che deve avere i bit di ordine più alto e più basso a “1”.
-Per poter calcolare il checksum di un frame di m bit, quest'ultimo dev'essere più lungo del polinomio generatore. L'idea è quella di aggiungere un checksum alla fine del frame in modo che il polinomio rappresentato dal frame con checksum sia divisibile per G(x). Quando la destinazione riceve il frame con il checksum e prova a dividerlo per G(x). Se c'è un resto vuol dire che c'è stato un errore di trasmissione.
+Quando si utilizza una codifica di questo tipo, sorgente e destinazione devono mettersi d'accordo in anticipo su un polinomio generatore G(x).
+Che deve avere i bit di ordine più alto e più basso a “1”.
+Per poter calcolare il checksum di un frame di m bit, quest'ultimo dev'essere più lungo del polinomio generatore.
+L'idea è quella di aggiungere un checksum alla fine del frame in modo che il polinomio rappresentato dal frame con checksum sia divisibile per G(x).
+Quando la destinazione riceve il frame con il checksum e prova a dividerlo per G(x).
+Se c'è un resto vuol dire che c'è stato un errore di trasmissione.
 \subsection{Esempio}
 Ora proviamo con l'esempio di un frame 10011101 con polinomio generatore $x^4+x+1$:
 Frame: 1 0 0 1 1 1 0 1 
@@ -175,11 +192,13 @@ Effettuo la divisione:
 Richiede conoscenze matematiche modeste, è semplice da realizzare ed ha un ottimo grado di rilevazione degli errori su linee con elevato rumore di fondo.
 
 \subsection{Difetti}
-Purtroppo è utile solo per errori causati da interferenze, rumore o distorsione. L'algoritmo diventa inutile di fronte a tentativi intenzionali di manomissione dei dati.
+Purtroppo è utile solo per errori causati da interferenze, rumore o distorsione.
+L'algoritmo diventa inutile di fronte a tentativi intenzionali di manomissione dei dati.
 
 \subsection{Ambiti d'uso}
 Strato data-link.\\
-Utilizzato per individuare errori casuali nella trasmissione di dati. Per i tentativi intenzionali di manutenzione è meglio utilizzare algoritmi di hash quali MD5 e SHA1.
+Utilizzato per individuare errori casuali nella trasmissione di dati.
+Per i tentativi intenzionali di manutenzione è meglio utilizzare algoritmi di hash quali MD5 e SHA1.
 
 \section{Descrivere il protocollo stop-and-wait, pregi e difetti}
 

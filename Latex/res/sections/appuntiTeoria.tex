@@ -220,7 +220,8 @@ Se da un lato è una limitazione non da poco, dall'altro permette di trasmettere
 Quando le antenne sono lontane, entra in gioco la curvatura della terra e sono quindi necessari dei ripetitori.
 Più sono in alto le antenne, maggiore è la distanza raggiungibile.
 
-Esiste un problema con le microonde. Anche se sono dirette, possono divergere e rifrangere sugli strati più bassi dell'atmosfera, arrivando fuorifase con le dirette, il che può annullare il segnale.
+Esiste un problema con le microonde. Anche se sono dirette, possono divergere e rifrangere sugli strati più bassi dell'atmosfera,
+arrivando fuorifase con le dirette, il che può annullare il segnale.
 L'effetto è detto multipath fading e può essere determinato dalle condizioni climatiche e dalla frequenza.
 La richiesta di spettro ha portato ad utilizzare frequenze più alte, ma queste hanno il problema di venire assorbite dall'acqua. 
 In entrambi i casi, la soluzione è interrompere la trasmissione in caso di pioggia e utilizzare altri mezzi.
@@ -384,8 +385,10 @@ Quando un telefono abbandona una cella perchè il segnale di sta affievolendo, l
 Il telefono è informato del cambiamento e se era in corso una chiamata viene forzato a passare su un altro canale. 
 Questo processo è detto \textbf{handoff}. Esistono due tipi:
 \begin{itemize}
-    \item soft handoff, dove la nuova stazione acquisisce la gestione del telefono prima di interrompere il segnale; non c'è perdita di continuità ma il telefono deve essere capace di gestire le due frequenze contemporanemante (solo la terza generazione di telefoni riesce)
-    \item hard handoff, la vecchia stazione rilascia il telefono prima che la nuova lo acquisisca; è un processo abbastanza veloce, ma la chiamata può venire interrotta se la stazione non è in grado di gestire il nuovo dispositivo
+    \item soft handoff, dove la nuova stazione acquisisce la gestione del telefono prima di interrompere il segnale;
+    non c'è perdita di continuità ma il telefono deve essere capace di gestire le due frequenze contemporanemante (solo la terza generazione di telefoni riesce)
+    \item hard handoff, la vecchia stazione rilascia il telefono prima che la nuova lo acquisisca;
+    è un processo abbastanza veloce, ma la chiamata può venire interrotta se la stazione non è in grado di gestire il nuovo dispositivo
 \end{itemize}
 AMPS usa 832 canali duplex composti da una coppia di simplex. 
 AMPS usa FDM (Frequency Division Multiplexing) per separare i canali.
@@ -521,7 +524,8 @@ Se viene ricevuto l'acknowledgement, viene ignorato il timer, altrimenti allo sc
 Per evitare doppioni, i frame hanno un numero di sequenza in modo che se la destinazione aveva già ricevuto il frame possa ignorarlo.
 
 \subsubsection{Controllo di flusso}
-Il controllo del flusso consiste nella gestione della velocità di trasmissione dei frame, in modo da non congestionare il destinatario se non riesce ad elaborare ciò che riceve abbastanza velocemente.
+Il controllo del flusso consiste nella gestione della velocità di trasmissione dei frame,
+in modo da non congestionare il destinatario se non riesce ad elaborare ciò che riceve abbastanza velocemente.
 
 \subsection{Rilevazione e correzione errori} % 3.2
 Gli errori di trasmissione è un problema difficile da evitare, in particolare per i collegamenti locali che sono ancora analogici.
@@ -535,27 +539,105 @@ I canali affidabili come la fibra utilizzano la rilevazione, mentre quelli più 
 Ma in cosa consiste un errore? \\
 Un frame è composta da m bit di dati e r bit ridondanti, con un totale di n bit.
 Gli n bit sono detti codeword. 
-Date le due parole, si possono confrontare lo XOR per vedere quanti bit sono differenti;
-il numero di bit indica la distanza di Hamming ed indica il numero di errori su singoli bit per convertire da una sequenza all'altra.
+Date le due parole, si possono confrontare con lo XOR per vedere quanti bit sono differenti;
+il numero di bit è detta la distanza di Hamming ed indica il numero di errori su singoli bit per convertire da una sequenza all'altra.
 
+La rilevazione ela correzione degli errori dipende dalla distanza di Hamming.
+Per trovare d errori è necessaria una codifica con d+1 di distanza;
+in questo modo riesce a rilevarli, ma non a corregerli.
+Per corregere d errori è invece necessaria una codifica con 2d+1 di distanza,
+in modo che anche con d cambiamenti, la codeword originale rimane la più vicina a quella modificata ed è ricavabile univocamente.
+
+Le codifiche di Hamming riescono a correggere solo errori singoli.
+Si riesce a corregere gli errori burst sfruttando un trucco, ovvero inviando i dati di una matrice per colonna invece che per riga.
 
 \subsubsection{Codifiche a rilevazione d'errore}
+Su canali più affidabili, la rilevazione basta in quanto gli errori sono meno frequenti e risulta più efficiente rimandare i dati danneggiati.
+Questo perchè maggiore è la grandezza del blocco, maggiore è il numero di bit di controllo richiesti.
 
+In alternativa alla tecnica della matrice, si usa la codifica polinomiale (CRC - Cycle Redundancy Check).
+Questa tecnica considera le sequenze di bit come polinomi a coeficienti con valori uguali a 0 o 1.
+Un frame di k bit è un polinomio di grado k-1 con k termini.\\
+Esempio: 110001 -> $1*x^5+1*x^4+0*x^3+0*x^2+0*x^1+1*x^0$ -> $x^5+x^4+1$\\
+
+Per utilizzare la codifica polinomiale, sorgente e destinazione devono definire un polinomio generatore G(x).
+I bit di ordine più alto e più basso devono essere uguali a 1.
+Il checksum di un frame è calcolabile se il polinomio relativo al frame è di grado maggiore (banalemente deve avere più bit) rispetto al polinomio generatore.
+Si aggiunge un checksum alla fine del frame in modo che il relativo polinomio sia divisibile per G(x).
+Se c'è un resto, significa che c'è stato un errore.
+
+Calcolare in checksum:
+\begin{enumerate}
+    \item dato il grado g di G(x), aggiungere g bit con valore zero in coda al frame, ottenendo il polinomio M(x)
+    \item fare la divisione M(x) / G(x)
+    \item sottrarre il resto dalla M(x); ne risulta il frame con il checksum pronto alla trasmissione con polinomio T(x)
+\end{enumerate}
+Divisione e sottrazione vanno effettuate in modulo 2: la sottrazione equivale allo XOR, mentre la divisione sono fatte come nel binario normale ma con le differenze in modulo 2.
+
+Questo metodo riesce a risolvere gli errori provocati da interferenza, rumore e distorsione.
 
 \subsection{Protocolli data link elementari} % 3.3
+Un frame è composto da 4 campi: kind, seq, ack, info.
+I primi 3 contengono informazioni di controllo e fanno parte dell'header, mentre info contiene i dati effettivi.
+Kind indica se ci sono dati nel frame. Seq contiene i numeri di sequenza. Ack contiene l'acknowledgement.
+
+Lo strato network passa un pacchetto con un'intestazione di tipo network allo strato data link, il quale pone il pacchetto nel campo info di un frame.
 
 \subsubsection{Simplex senza restrizioni}
+Protocollo in cui i dati sono trasferiti in una sola direzione (simplex) e non ci sono altre restrizioni
+(buffer infinito, strati pronti, tempo di elaborazione ignorabile, in canale non perde mai frame).
+E' chiaramente un protocollo non realistico, solo d'esempio.
+
+Il mittente invia i dati alla massima velocità possibile in un loop infinito.
+Nel loop viene preso il pacchetto dallo strato network, costruisce il frame e instrada il frame. 
+Il destinatario attende l'arrivo di un frame, salvato nel buffer;
+viene prelevato dal buffer e passato il contenuto del frame allo strato network, infine torna ad attendere.
 
 \subsubsection{Simplex stop-and-wait}
+In questo protocollo si assume il traffico simplex e l'assenza di errori, ma con la restrizione più realistica di una velocità di elaborazione non più infinita.
+Il problema da considerare quindi è la gestione del flusso, in modo che il mittente non inondi il ricevente con una velocità di trasmissione maggiore di quella di elaborazione.
+Se ci vuole un intervallo t per elaborare un frame, il mittente non dovrebbe trasmettere più di un frame per t.
+Se inoltre non ci sono meccanismi di buffer, il mittente non deve trasmettere il nuovo frame finchè il precedente non è stato prelevato dallo strato fisico o verrebbe sovrascritto.
+La soluzione al problema è l'utilizzo di un frame senza informazioni che viene rispedito al mittete quando il pacchetto è stato fatto passare allo strato network,
+in modo da notificare il mittente per l'invio di un nuovo frame.
+Il pacchetto funge da acknowledgement e blocca il mittente fino a quando non arriva il frame.
+Questi protocolli basati sull'attesa dell'acknowledgement sono detti \textbf{stop-and-wait}.
+Data la richiesta di far viaggiare i frame in entrambe le direzioni, è necessaria un'alternanza del flusso e un canale fisico half-duplex può bastare.
+
+Il mittente prende il pacchetto dallo strato network, costruisce il frame e instrada il frame. 
+A questo punto attende l'acknowledgement; quando lo riceve, manda un altro frame.
+Il destinatario invece processa il frame e prima di tornare in attesa manda il frame di acknowledgement al mittente.
 
 \subsubsection{Simplex per canali rumorosi}
+Protocollo per una situazione normale, sempre simplex, dove i frame possono essere danneggiati o persi.
+Se il frame è danneggiato, viene usato il checksum per verificare la correttezza.
+Per far pronte al problema della perdita di frame, sia dati, sia di acknowledgement, si utilizza un timer e il numero di sequenza dei frame.
+Il problema successivo è decidere quanti bit usare per il numero di sequenza.
+L'unica ambiguità possibile è tra il frame stesso e il successivo, quindi è sufficiente un bit.
 
+Il mittente prima memorizza in una variabile locale il numero di sequenza del successivo frame da inviare, poi crea il frame, lo instrada e fa partire il timer.
+Rimane in attesa: riceve un acknowledgement positivo, o un acknowledgement con problemi, o il scade il timer.
+Nel primo caso prende in carico il frame successivo, negli altri due viene rimandato il frame.
+Il destinatario riceve il frame, controlla il numero di sequenza: 
+se è valido, lo processa, lo passa allo strato network, ritorna l'acknowledgement e aggiorna la variabile del numero di sequenza.
 
 \subsection{Protocolli sliding window} % 3.4
+Questi protocolli sono utilizzati per le trasmissioni in entrambre le direzioni, full duplex.
+Si possono usare due canali separeti simplex, ma di solito quello di ritorno è sprecato; conviene usare un unico canale e gestire entrambe le direzioni.
+Una miglioria successiva è la tecnica del piggy-backing, ovvero quando arriva un frame dati, non viene restituito subito il frame di acknowledgement, 
+bensì viene aggiunto al frame di dati successivo passato dallo strato network, in modo da "risparmiare" un viaggio e sfruttare al meglio la banda.
+Infatti aggiungere il campo ack nell'intestazione è più conveniente rispetto a creare un intero frame con sua intestazione, checksum e acknowledgement.
+Il problema di questa tecnica è l'estendersi dell'attesa dell'acknowledgement.
+Per quanto tempo deve aspettare lo strato data link prima di mandare l'acknowledgement in maniera indipendente?
+
+I protocolli seguenti sono strettamente legati al buffer, in quanto il mittente avrà una "finestra d'invio", ovvero un insieme di frame che può inviare,
+e il destinatario ha una finestra di ricezione 
 
 \subsubsection{Sliding window a 1 bit}
 
+
 \subsubsection{Go back N}
+
 
 \subsubsection{Ripetizione selettiva}
 
