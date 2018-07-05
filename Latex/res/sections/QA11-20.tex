@@ -251,7 +251,8 @@ Utilizzato in molti protocolli di comunicazione che necessitano della conferma d
 \section{Si descriva la tecnica dello Sliding window}
 \subsection{Cos'è?}
 Sliding window è una classe di protocolli di controllo di flusso di dati.
-Una sliding window è formata da una finestra di invio e da una finestra di ricezione. La prima indica i frame che è autorizzata ad inviare, la seconda invece corrisponde all'insieme dei frame che può accettare.
+Una sliding window è formata da una finestra di invio e da una finestra di ricezione.
+La prima indica i frame che è autorizzata ad inviare, la seconda invece corrisponde all'insieme dei frame che può accettare.
 La finestra di invio contiene i frame da spedire, o spediti ma in attesa di ack, lo scopo è quello di mantenere nel buffer più frame, in modo da ritrasmetterli in caso di problemi. Se questo buffer è pieno, il livello data link costringe il livello network a sospendere la consegna di pacchetti. Quando si ottiene un ack il frame corrispondente esce dalla finestra lasciando posto ad altri.
 Analogamente, il destinatario mantiene una finestra corrispondente agli indici dei frame che possono essere accettati, se arriva un frame il cui indice è fuori dalla finestra questo viene scartato (senza invio dell'ack). Se l'indice è dentro la finestra, il frame viene accettato, viene spedito l'ack e si sposta in avanti la finestra.
 Le finestre di mittente e destinatario non devono avere necessariamente uguali dimensioni.
@@ -261,7 +262,9 @@ Le finestre di mittente e destinatario non devono avere necessariamente uguali d
 \includegraphics[scale=1]{res/img/19_SlidingWindow.png}
 \end{figure}
  
-Si noti che nel caso in cui abbiamo una finestra di dimensione massima uguale a 1 ci troviamo nel caso stop-and-wait, ovvero, dopo aver inviato un frame si attende l'ack corrispondente prima di inviarne ulteriori. In questo caso si mantiene l'ordine, con finestre più larghe questo non è più vero.
+Si noti che nel caso in cui abbiamo una finestra di dimensione massima uguale a 1 ci troviamo nel caso stop-and-wait, ovvero,
+dopo aver inviato un frame si attende l'ack corrispondente prima di inviarne ulteriori.
+In questo caso si mantiene l'ordine, con finestre più larghe questo non è più vero.
 
 \subsection{Pregi}
 Questa classe di protocolli permette di sfruttare al meglio la banda sia in entrata che in uscita, i veri pregi si hanno in base alle dimensioni delle finestre invio/ricezione implementate dai diversi protocolli che sfruttano questa tecnica.

@@ -631,27 +631,115 @@ Il problema di questa tecnica è l'estendersi dell'attesa dell'acknowledgement.
 Per quanto tempo deve aspettare lo strato data link prima di mandare l'acknowledgement in maniera indipendente?
 
 I protocolli seguenti sono strettamente legati al buffer, in quanto il mittente avrà una "finestra d'invio", ovvero un insieme di frame che può inviare,
-e il destinatario ha una finestra di ricezione 
+e il destinatario ha una "finestra di ricezione", ovvero un insieme di frame che può ricevere.
+Le due finistre non devono essere grandi uguali e possono avere dimensione variabili.
+Queste danno una maggior libertà di invio dei frame, ma il passaggio allo strato network deve comunque mantenere l'ordine.
+I numeri di sequenza nella finestra d'invio indica i frame trasmessi o in transito, che sono attesa dell'acknowledgement.
+Quando arriva un pacchetto dallo strato network il limite superiore aumenta di uno, mentre quando arriva un acknowledgement il limite inferiore aumenta di uno.
+Se la finestra di invio contiene n frame, il mittente dovrà avere almeno n buffer per mantenere i frame fino all'arrivo dell'acknowledgement.
 
 \subsubsection{Sliding window a 1 bit}
+Questo protocollo utilizza una finestra di un bit, risultando quindi simile al protocollo stop-and-wait.
+La differenza è che ora la trasmissione è full duplex.
+Di conseguenza può accadere che entrambi i computer vogliano mandare un pacchetto,
+creando ridondanza in quanto vengono mandati pacchetti duplicati senza che siano necessari.
 
+\subsubsection{Go back N e Ripetizione selettiva}
+Il tempo per trasmettere un frame sommato al tempo per ricevere l'acknowledgement a volte non è trascurabile (nei precedenti protocolli era considerato tale).
+Infatti si può arrivare a sprecare fino al 90\% di tempo durante il quale il sorgente rimane in attesa per inviare un nuovo pacchetto.
+Il problema deriva dalla richiesta di far attendere il sorgente.
+Con la tecnica detta pipelining si attenua il problema, 
+inviando n frame nell'intervallo totale di transito (dall'invio alla ricezione dell'ack) senza riempire completamente la finestra.
+Il numero di frame inviabili indica la grandezza della finestra.
+Maggiore è il ritardo di trasmissione, maggiore sarà la grandezza della finestra.
+Il prodotto tra banda e ritardo di trasmissione indica la capacità della pipeline.
+Usandola tutta, il sorgente opera a massima efficienza.
+Dati: 
+\begin{itemize}
+    \item c - capacità del canale
+    \item d - dimensione del frame
+    \item T - tempo totale di propagazione
+\end{itemize}
+l'utilizzo della linea è uguale a d/(d+cT).
+Se d<cT, l'efficienza sarà minore del 50\%.
 
-\subsubsection{Go back N}
+Con il pipelining, se dei frame vengono danneggiati o persi si verificano diversi problemi.
+Il destinatario non sa cosa fare con i frame seguenti a quello danneggiato.
+Per ripristinare gli errori ci sono due tecniche, una delle quali è il go back N.
 
+Questa tecnica richiede di scartare tutti i frame successivi a quello danneggiato senza mandare l'acknowledgement per questi.
+In particolare il sorgente manda tutto in sequenza, non sapendo se arrivano errati a destinazione, finchè non termina i frame della finestra.
+Quando scade il timer dell'acknowledgement che non sarà ricevuto, il mittente rimanda i frame in sequenza a partire da quello danneggiato,
+anche se i successivi erano corretti.
+Il destinatario invece, quando riceve il frame danneggiato si rifiuta di accettare tutti i successivi finchè non riceve quello con il numero di sequenza atteso.
+Di fatto questo protocollo utilizza una finestra di ricezione con 1 frame.
 
-\subsubsection{Ripetizione selettiva}
+L'altra tecnica per ripristinare gli errori è la ripetizione selettiva.
+In questo caso viene scartato solo il frame danneggiato, mentre i successivi corretti vengono messi in un buffer.
+Quando il sorgente va in timeout rimanda il frame danneggiato.
+Il destinatario lo riceve e passa allo strato network il frame ricevuto più tutti quelli nel buffer, mantenendo l'ordine corretto e ritornando l'ack.
+In particolare, quando il ricevente trova un frame danneggiato, viene mandato un NAK, un acknowledgement negativo.
+Il NAK migliora le prestazioni in quanto triggera il sorgente a rimandare il pacchetto prima che scada il timer.
+Se venisse perso il NAK, ci sarebbe comunque il timer del sorgente.
+Questo protocollo utilizza una finestra di ricezione maggiore di 1.
+La dimensione massima della finestra dovrebbe essere uguale alla metà della sequenza dei numeri;
+invece il numero di buffer della destinazione deve essere uguale alla dimensione della finestra.
 
+I due approcci dipendono molto dall'uso della banda e del buffer. 
+Il primo si basa sulla banda, dovendo rimandare tutto, il secondo sul buffer, dato che salva i frame corretti in attesa di quello mancante.
 
 \subsection{Esempi di protocolli} % 3.6
 
 \subsubsection{HDLC - High-level Data Link Control}
+Questo protocollo è orientato ai bit e utilizza il bit stuffing.
+Il frame di questo protocollo ha il campo address, control, data e checksum.
+Adress indica il terminale; control è usato per i numeri di sequenza; 
+data contiene le informazioni; checksum è il codice di ridondanza.
+Il frame è delimitato dal flag 01111110.
+[...]
 
 \subsubsection{PPP - protocollo punto a punto}
+Il PPP è un protocollo data link usato da internet.
+Tra le caratteristiche ci principali ci sono:
+\begin{itemize}
+    \item metodo di framing
+    \item protocollo per la gestione della connessione - LCP (Link Control Protocol)
+    \item una modalità per negoziare le opzioni dello strato network in modo indipendente dalla sua implementazione
+\end{itemize}
 
+Il frame PPP assomiglia a quello HDLC, tuttavia è orientato ai caratteri, quindi usa il byte stuffing.
+Il flag usato è sempre quello di HDLC; i caratteri di escape vengono aggiunti su tutto il frame (non solo sui dati)
+dopo il calcolo del checksum e vengono tolti in ricezione prima del ricalcolo del checksum.
+Ha il campo address sempre impostato a 11111111 per indicare che tutte le stazioni devono accettarlo;
+segue il campo control che di default vale 00000011.
+Dato che questi campi sono costanti, LCP permette di omettere questi campi nella configurazione.
+Il campo protocol indica il tipo di pacchetto contenuto nel campo payload.
+L'ultimo campo contiene il checksum.
+[...]
 
 \newpage
 \section{Capitolo 4 - Sottostrato MAC}
+Il sottostrato MAC riguarda i canali multiaccesso, ovvero i canali usati delle reti broadcast.
+C'è bisogno di regolamentare l'accesso al canale in qualche modo.
 
+\subsection{Il problema dell'assegnazione del canale} % 4.1
+
+\subsection{Protocolli ad accesso multiplo} % 4.2
+
+\subsection{Ethernet} % 4.3
+
+\subsection{LAN Wireless} % 4.4
+
+\subsection{Commutazione nello strato data link} % 4.7
+
+% Capitolo 4, tutto tranne:
+
+% la sezione 4.2.5 Wavelength Division Multiple Access Protocols
+% la sezione 4.3.9 IEEE 802.2: Logical Link Control
+% la sezione 4.4.4 The 802.11 Frame Structure
+% la sezione 4.5 Broadband Wireless
+% la sezione 4.6 Bluetooth
+% la sottosezione 4.7.6 Virtual LANs
 
 \newpage
 \section{Capitolo 5 - Strato network}
