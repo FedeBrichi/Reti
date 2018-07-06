@@ -1,15 +1,20 @@
 \section{Si descriva cos'è la tecnica del selective repeat}
 
-Il problema di ricezione dell’ack per ogni frame inviato limitava di molto l’utilizzo della banda e rallentava le comunicazioni. Per ovviare a questo problema viene usata la tecnica di pipelining. Si decide quindi di inviare più frame prima di ricevere i vari ack aumentando di parecchio l’utilizzo della linea. Tuttavia, sorge un problema: cosa succede nel caso in cui si perdano dei frames? Per il ripristino degli errori in presenza di pipelining sono disponibili due approcci base: selective repeat e go back-n.
+Il problema di ricezione dell’ack per ogni frame inviato limitava di molto l’utilizzo della banda e rallentava le comunicazioni.
+Per ovviare a questo problema viene usata la tecnica di pipelining.
+Si decide quindi di inviare più frame prima di ricevere i vari ack aumentando di parecchio l’utilizzo della linea.
+Tuttavia, sorge un problema: cosa succede nel caso in cui si perdano dei frames?
+Per il ripristino degli errori in presenza di pipelining sono disponibili due approcci base: selective repeat e go back-n.
 \subsection{Cos'è?}
-Con il selective repeat, quando viene ricevuto un frame in errore viene scartato, mentre i frame buoni ricevuti successivamente vengono salvati in un buffer; quando la sorgente va in timeout, solo il frame più vecchio senza ACK viene ritrasmesso. Se quel frame arriva correttamente, la destinazione può passare in sequenza allo strato network tutti i frame presenti nel buffer.
+Con il selective repeat, quando viene ricevuto un frame in errore viene scartato, mentre i frame buoni ricevuti successivamente vengono salvati in un buffer;
+quando la sorgente va in timeout, solo il frame più vecchio senza ACK viene ritrasmesso.
+Se quel frame arriva correttamente, la destinazione può passare in sequenza allo strato network tutti i frame presenti nel buffer.
 
 La ripetizione selettiva può inviare dei NACK (Not acknowledgement) quando trova un errore, così da stimolare la ritrasmissione prima dello scadere del timer.
 La ripetizione selettiva corrisponde ad avere una finestra di ricezione maggiore di 1.
 
-Go back-n e il selective repeat hanno diverse conseguenze in termini di uso di banda e di spazio di buffer nello strato data link. Si può utilizzare un approccio o l'altro in base a quale risorsa è più scarsa.
-
-
+Go back-n e il selective repeat hanno diverse conseguenze in termini di uso di banda e di spazio di buffer nello strato data link.
+Si può utilizzare un approccio o l'altro in base a quale risorsa è più scarsa.
 
 \begin{figure}[H]
 \centering
@@ -20,16 +25,21 @@ Go back-n e il selective repeat hanno diverse conseguenze in termini di uso di b
 Aumentano di molto le performance, soprattutto grazie ai NACK che stimolano la ritrasmissione prima dello scadere del timer.
 
 \subsection{Difetti}
-Essendo una ricezione non sequenziale c'è il rischio che gli intervalli della prima finestra si sovrappongano con la successiva, e se Murphy attacca, si rischia di inviare allo strato network un pacchetto fallato. (è difficilotta da buttare giù vedi pag 226 del libro.).
+Essendo una ricezione non sequenziale c'è il rischio che gli intervalli della prima finestra si sovrappongano con la successiva, e se Murphy attacca,
+si rischia di inviare allo strato network un pacchetto fallato. (è difficilotta da buttare giù vedi pag 226 del libro.).
 
 \subsection{Ambiti d'uso}
 Utilizzato in base alla disponibilità delle risorse, finestra di ricezione maggiore di 1.
 
 \section{Descrivere la differenza tra ALOHA e ALOHA-SLOTTED}
 \subsection{Cos'è ALOHA?}
-ALOHA è un protocollo di rete per garantire le funzionalità di accesso multiplo al mezzo di trasmissione dati condiviso tra più utenti. Esistono due tipi di reti: quelle che utilizzano le connessioni punto-punto e quelle che usa canali broadcast; questo protocollo viene utilizzato per le seconde.
+ALOHA è un protocollo di rete per garantire le funzionalità di accesso multiplo al mezzo di trasmissione dati condiviso tra più utenti.
+Esistono due tipi di reti: quelle che utilizzano le connessioni punto-punto e quelle che usa canali broadcast;
+questo protocollo viene utilizzato per le seconde.
 
-Inventato negli anni ’70 nelle Hawaii, l’idea di fondo è di consentire agli utenti di trasmettere ogni volta che hanno dati da inviare. Questo naturalmente genera collisioni, tuttavia poiché i canali broadcast danno la possibilità di verificare se il frame trasmesso è stato ricevuto correttamente o no, la stazione trasmittente ascolta il canale e determina il successo o insuccesso della trasmissione.
+Inventato negli anni ’70 nelle Hawaii, l’idea di fondo è di consentire agli utenti di trasmettere ogni volta che hanno dati da inviare.
+Questo naturalmente genera collisioni, tuttavia i canali broadcast danno la possibilità di verificare se il frame trasmesso è stato ricevuto correttamente o no;
+la stazione trasmittente ascolta il canale e determina il successo o insuccesso della trasmissione.
 Le stazioni attendono un tempo variabile prima di provare a ritrasmettere un frame non andato a buon fine.
 Il successo dell’ALOHA puro è di circa 18\%.
 
@@ -44,15 +54,17 @@ Protocollo di livello MAC, questo protocollo non è attualmente utilizzato.
 Creato tuttavia per l'utilizzo nelle connessioni di tipo broadcast, in cui il mezzo trasmissivo è condiviso da più di due punti.
 
 \subsection{Cos'è ALOHA Slotted?}
-Il protocollo Slotted ALOHA aggiunge al protocollo sopracitato la divisione del tempo in intervalli discreti, chiamati slot. Ogni stazione viene vincolata a cominciare la propria trasmissione solo all’inizio di uno slot temporale, se una stazione è pronta ad un certo istante, dovrà necessariamente attendere l’inizio dello slot successivo.
+Il protocollo Slotted ALOHA aggiunge al protocollo sopracitato la divisione del tempo in intervalli discreti, chiamati slot.
+Ogni stazione viene vincolata a cominciare la propria trasmissione solo all’inizio di uno slot temporale,
+se una stazione è pronta ad un certo istante, dovrà necessariamente attendere l’inizio dello slot successivo.
 
 Lo svantaggio di questo protocollo è la necessità di un meccanismo di sincronizzazione che indichi alle varie stazioni quando possono cominciare la trasmissione.
 Questa divisione in slot migliora il grado di successo del doppio rispetto all’ALOHA puro, circa 36\%.
 
 Questi risultati non dovrebbero sorprendere, in quanto con stazioni che trasmettono a piacimento è molto facile incorrere in collisioni.
 
-%Subito dopo l’invenzione dell'accesso ad Internet via cavo, 
-Questi protocolli caddero in disuso, fino a quando non si presentò il problema di allocare un canale condiviso da più utenti in competizione, di conseguenza slotted ALOHA tornò ad essere utilizzato.
+Questi protocolli caddero in disuso, fino a quando non si presentò il problema di allocare un canale condiviso da più utenti in competizione
+(ad esempio dopo l’invenzione dell'accesso ad Internet via cavo), di conseguenza slotted ALOHA tornò ad essere utilizzato.
 
 \subsubsection{Pregi}
 Migliora l'ALOHA puro, aumentando il grado di successo di circa il doppio.
@@ -74,18 +86,29 @@ Protocollo di livello MAC, utilizzato nelle connessioni broadcast per condivider
 
 \section{Si illustri il CSMA (Carrier Sense Multiple Access), indicandone pregi e difetti}
 
-I protocolli ALOHA e le sue varianti permettevano di inviare dati ogniqualvolta si voleva, limitando però le percentuali di successo. Per migliorare i risultati di accesso multiplo ad un mezzo di trasmissione condiviso, vengono implementati protocolli in cui le stazioni rimangono in ascolto di una portante e si comportano di conseguenza. Questi protocolli sono chiamati protocolli con rilevamento della portante.
+I protocolli ALOHA e le sue varianti permettevano di inviare dati ogniqualvolta si voleva, limitando però le percentuali di successo.
+Per migliorare i risultati di accesso multiplo ad un mezzo di trasmissione condiviso, vengono implementati protocolli in cui le stazioni rimangono in ascolto di una portante e si comportano di conseguenza. Questi protocolli sono chiamati protocolli con rilevamento della portante.
 \subsection{Cos'è?}
-Il CSMA è una tecnica di trasmissione dati che si basa su questi principi. Ogni dispositivo prima di avviare la trasmissione dei dati deve verificare se altri nodi stanno trasmettendo sul canale, rilevando la portante. Se il canale è libero iniziano a trasmettere, altrimenti attendono un tempo arbitrario prima di riprovare.
+Il CSMA è una tecnica di trasmissione dati che si basa su questi principi.
+Ogni dispositivo prima di avviare la trasmissione dei dati deve verificare se altri nodi stanno trasmettendo sul canale, rilevando la portante.
+Se il canale è libero iniziano a trasmettere, altrimenti attendono un tempo arbitrario prima di riprovare.
 Esistono diverse versioni di CSMA:
 \begin{itemize}
-\item	CSMA 1-persistente: è il primo tra i protocolli CSMA, ha la particolarità di inviare con probabilità 1 sul canale in caso di nessun rilevamento. Questo migliora sicuramente ALOHA puro, tuttavia l’ingordigia di inviare non appena si libera il canale non rende immuni dalle collisioni, che potrebbero accadere in caso di stazioni che controllano nello stesso momento un canale vuoto e inviano contemporaneamente.
-\item	CSMA non persistente: prima di trasmettere ogni stazione controlla il canale. Se lo trova libero inizia ad inviare i dati, ma se il canale è occupato la stazione non esegue un controllo continuo per trasmettere subito il proprio frame; invece attende per un intervallo casuale prima di ripetere l’algoritmo. Questo meccanismo permette di utilizzare meglio il canale ma allunga i ritardi.
-\item	CSMA p-persistente: questa variante si applica su canali divisi in intervalli temporali. Quando è pronta a trasmettere, ogni stazione controlla il canale. Se lo trova libero, trasmette subito con una probabilità p, e rimanda fino all’intervallo successivo con probabilità q=1-p. Se anche quell’intervallo risulta libero la stazione trasmette oppure rimanda un’altra volta. Il processo si ripete finché il frame non è stato trasmesso.
+\item	CSMA 1-persistente: è il primo tra i protocolli CSMA, ha la particolarità di inviare con probabilità 1 sul canale in caso di nessun rilevamento.
+Questo migliora sicuramente ALOHA puro, tuttavia l’ingordigia di inviare non appena si libera il canale non rende immuni dalle collisioni, che potrebbero accadere in caso di stazioni che controllano nello stesso momento un canale vuoto e inviano contemporaneamente.
+\item	CSMA non persistente: prima di trasmettere ogni stazione controlla il canale.
+Se lo trova libero inizia ad inviare i dati, ma se il canale è occupato la stazione non esegue un controllo continuo per trasmettere subito il proprio frame;
+invece attende per un intervallo casuale prima di ripetere l’algoritmo. Questo meccanismo permette di utilizzare meglio il canale ma allunga i ritardi.
+\item	CSMA p-persistente: questa variante si applica su canali divisi in intervalli temporali.
+Quando è pronta a trasmettere, ogni stazione controlla il canale.
+Se lo trova libero, trasmette subito con una probabilità p, e rimanda fino all’intervallo successivo con probabilità q=1-p.
+Se anche quell’intervallo risulta libero la stazione trasmette oppure rimanda un’altra volta. Il processo si ripete finché il frame non è stato trasmesso.
 \end{itemize}
 Queste varianti migliorano enormemente il tasso di successo rispetto ad ALOHA e ALOHA-slotted.
 
-Un ulteriore miglioramento si ottiene consentendo ad ogni stazione di annullare la propria trasmissione in caso di collisione. Se due stazioni iniziano a trasmettere contemporaneamente, invece di completare la trasmissione dei relativi frame, ormai danneggiati, terminano bruscamente la trasmissione. La terminazione rapida dei frame danneggiati risparmia tempo e banda, questa variante è chiamata CSMA/CD ed è ampiamente utilizzata nelle LAN Ethernet.
+Un ulteriore miglioramento si ottiene consentendo ad ogni stazione di annullare la propria trasmissione in caso di collisione.
+Se due stazioni iniziano a trasmettere contemporaneamente, invece di completare la trasmissione dei relativi frame, ormai danneggiati, terminano bruscamente la trasmissione.
+La terminazione rapida dei frame danneggiati risparmia tempo e banda, questa variante è chiamata CSMA/CD ed è ampiamente utilizzata nelle LAN Ethernet.
 
 \begin{figure}[H]
 \centering

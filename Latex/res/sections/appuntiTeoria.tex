@@ -723,8 +723,69 @@ Il sottostrato MAC riguarda i canali multiaccesso, ovvero i canali usati delle r
 C'è bisogno di regolamentare l'accesso al canale in qualche modo.
 
 \subsection{Il problema dell'assegnazione del canale} % 4.1
+Come assegnare un singolo canale broadcast tra diversi utenti in competizione?
+
+\subsubsection{Assegnazione statica}
+Di solito per condividere un canale tra più utenti si usa il multiplexing a divisione di frequenza FDM.
+La banda viene suddivisa in parti uguali le quali sono assegnate agli utenti. 
+Ognuno ha una proprio frequenza, quindi non c'è interferenza tra loro.
+FDM funziona bene se non ci sono troppi utenti e se il numero è abbastanza costante.
+Se non lo è, ci sono dei problemi. 
+Se gli utenti sono minori della divisione della banda, ci sarà uno spreco;
+se sono di più, alcuni utenti non riusciranno a comunicare.
+
+In generale, un'assegnazione statica è poco efficitente perchè anche mantenendo costanti gli utenti,
+quando non usano il canale quella banda rimane inutilizzata.
+Anche con TDM la situazione non cambia molto.
+
+\subsubsection{Assegnazione dinamica}
+Ci sono 5 premesse riguardo il problmea dell'assegnazione del canale.
+\begin{itemize}
+    \item Modello della stazione: n stazioni indipendenti che generano frame in trasmissione;
+    quando viene generato un frame, la stazione attende finchè non viene spedito
+    \item Presupposto del canale singolo: un solo canale per trasmettere e ricevere
+    \item Presupposto della collisione: due frame trasmessi assieme di sovrappongono creando distorsione e rendendo il frame non valido;
+    le stazioni possono rilevare questo evento detto collisione e richiedere la ritrasmissione del frame
+    \item Tempo continuo e Tempo diviso in intervalli: nel primo caso la trasmissione può avvenire in qualsiasi istante,
+    mentre nel secondo il tempo è diviso in slot e la trasmissione di un frame coincide sempre con l'inizio di un intervallo
+    \item Occupazione del canale verificabile o meno: le stazioni possono o meno verificare se un canale è occupato;
+    se possono verificare, la trasmissione dipende dall'esito, se non possono mandano il frame a priori
+\end{itemize}
 
 \subsection{Protocolli ad accesso multiplo} % 4.2
+
+\subsubsection{Aloha}
+Aloha è un sistema sviluppato inizialemente per colegare le isole della Hawaii, basato su una trasmissione radio broadcast con singolo canale.
+Ne esistono due versioni.
+
+\paragraph{Aloha puro}
+L'idea di base è quello di consentire agli utenti di trasmettere ogni qual volta ne avessero bisogno.
+Anche se ci sono collisioni, la proprietà di feedback della trasmissione broadcast permette al trasmettitore di scoprire se il frame è danneggiato.
+Se non è possibile ascoltare il canale, è necessario un sistema di acknowledgement.
+Se il frame è stato distrutto, il trasmettitore attenderà per un tempo \textbf{casuale} prima di ritrasmettere il frame altrimenti si ripeterà la collisione.
+I sistemi con un canale condiviso dove si possono generare conflitti si dicono sistemi a contesa.
+
+I frame trasmessi sono tutti della stessa lunghezza e vengono inviati completamente a caso. 
+Se anche un solo bit va in collisione, entrambi i due frame vanno buttati.
+Non c'è modo di capire se c'è stato un conflitto parziale o totale.
+
+\paragraph{Aloha slotted}
+Alcuni anni dopo venne proposta l'alternativa slotted Aloha,
+la quale permette di duplicare la capacità del sistema dividendo il tempo in intervalli discreti, dove ogni intervallo corrisponde un frame.
+In questo sistema non viene inviato un frame in un momento a caso, ma solo all'inizio dell'intervallo successivo.
+Questa soluzione riduce le collisioni, ma richiede un meccanismo di sincronizzazione per gestire l'invio dei frame solo all'inizio di un intervallo.
+
+Questa tecnica fu rispolverata quando fu inventato l'accesso a internet via cavo, dovendo gestire un canale condiviso.
+
+\subsubsection{Protocolli ad accesso multiplo con rilevamento della portante}
+
+
+\subsubsection{Protocolli senza collisione}
+
+\subsubsection{Protocolli a contesa limitata}
+
+\subsubsection{Protocolli LAN Wireless}
+
 
 \subsection{Ethernet} % 4.3
 
