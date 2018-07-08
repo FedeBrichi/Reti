@@ -110,7 +110,7 @@ Usando questi valori, si può modellare il comportamento del segnale e analizzar
 
 Fourier afferma che una funzione periodica con periodo T può essere costruita come la somma di un numero n di seni e coseni.
 Da ciò deriva la serie di Fourier, una formula che permette di ricostruire la suddetta funzione periodica. 
-Nel contesto delle reti, un segnale che ha durata finita può essere immaginato come un pattern che viene ripetuto con l'intervallo T e 2T identico all’intervallo 0 a T.
+Nel contesto delle reti, un segnale che ha durata finita può essere immaginato come un pattern che viene ripetuto con l'intervallo T e 2T identico all'intervallo 0 a T.
 In questo modo, conoscendo periodo e ampiezza è possibile ricostruire la funzione del segnale, permettendo un analisi e modellazione più facile del segnale.
 Il problema è che i mezzi di trasmissione perdono parte della potenza del segnale, generando una distorsione.
 Un cavo riesce a trasmettere frequenze senza attenuazione in un intervallo che va da 0 a $f_c$ (frequenza di cutoff).
@@ -210,7 +210,7 @@ Queste onde sono omnidirezionali, cioè si espandono in tutte le direzioni, quin
 Le onde radio sono soggette a interferenze da motori e da altri dispositivi elettrici.
 
 A bande basse (VLF, LF, MF), le onde radio seguono il terreno e si possono ricevere fino a 1000km.
-Le stazioni radio AM usamo le MF che permettono di attraversare facilemente gli edifici.
+Le stazioni radio AM usamo le MF che permettono di attraversare facilmente gli edifici.
 Le bande alte (HF, VHF) sfruttano i rimbalzi contro la ionosfera per ottenere trasmissioni a distanze maggiori.
 
 \subsubsection{Trasmissioni a microonde}
@@ -235,7 +235,7 @@ Sono stati stipulati degli accordi per gestire le frequenze utilizzabili (Come? 
 \subsubsection{Infrarossi}
 Queste onde sono utilizzate per la comunicazione a cortoraggio (esempio i telecomandi).
 \`E un sistema economico ma che non attraversa gli ostacoli solidi.
-Tuttavia questa limitazione torna comoda in determinate situazioni perchè non riuscendo ad attraversare i muri non crea interferenze.
+Tuttavia questa limitazione torna comoda in determinate situazioni perché non riuscendo ad attraversare i muri non crea interferenze.
 
 \subsubsection{Trasmissioni a onde luminose}
 La trasmissione utilizzando laser è unidirezionale e richiede quindi due laser e due rilevatori.
@@ -269,7 +269,7 @@ Il ricevente farà la conversione inversa.
 Il segnale analogico viene trasmesso tramite la variazione di tensione, quindi il segnale ricevuto non sarà mai identico, il che può determinare errori.
 I problemi sono 3:
 \begin{itemize}
-    \item attenuazione, rappresenta la perdita di energia causata dalla propagazione del segnale e dipende dalla frequanza
+    \item attenuazione, rappresenta la perdita di energia causata dalla propagazione del segnale e dipende dalla frequenza
     \item distorsione, il segnale si modifica a causa della differenza di velocità con cui si propagano i componenti di Fourier attraverso il cavo
     \item rumore, cioè l'energia indesiderata generata da sorgenti esterne al trasmettitore
 \end{itemize}
@@ -374,19 +374,19 @@ Seconda versione: IMTS, usa due frequenze, una per trasmettere e una per ricever
 AMPS è il sistema telefonico mobile avanzato da cui deriva la versione digitale D-AMPS.
 Un'area geografica è divisa in celle di 10-20Km, ognuna delle quali utilizza frequenze diverse da quelle vicine.
 Il vantaggio di questa organizzazione è che celle vicine (ma non quelle adiacenti) possono usare le stesse frequenze, a differenza del IMTS che si estendeva per 100Km.
-Si ottiene quindi una maggiore capacità del sistema e ridecendo la grandezza delle celle si riesce ad aumentare ulteriormente la capacità, richiedendo anche meno potenza per i trasmettitori.
+Si ottiene quindi una maggiore capacità del sistema e riducendo la grandezza delle celle si riesce ad aumentare ulteriormente la capacità, richiedendo anche meno potenza per i trasmettitori.
 Il principale problema è trovare una posizione elevata per le antenne base, che sono gestite dalla stazione base, di solito al centro di ogni cella.
 La stazione è composta da un computer e un trasmettitore/ricevitore connesso all'antenna.
 Le stazioni sono collegate a dei commutatori per il mobile, cioè il MTSO (Mobile Telephone Switching Office).
 Se la rete è piccola si collegano allo stesso commutatore, altrimenti si crea una gerarchia a livelli simile alla rete telefonica cablata.
 Viene utilizzata la commutazione di pacchetto.
 
-Quando un telefono abbandona una cella perchè il segnale di sta affievolendo, la stazione base verifica la potenza del segnale delle celle adiacenti e trasferisce la gestione del dispositivo.
+Quando un telefono abbandona una cella perché il segnale di sta affievolendo, la stazione base verifica la potenza del segnale delle celle adiacenti e trasferisce la gestione del dispositivo.
 Il telefono è informato del cambiamento e se era in corso una chiamata viene forzato a passare su un altro canale. 
 Questo processo è detto \textbf{handoff}. Esistono due tipi:
 \begin{itemize}
     \item soft handoff, dove la nuova stazione acquisisce la gestione del telefono prima di interrompere il segnale;
-    non c'è perdita di continuità ma il telefono deve essere capace di gestire le due frequenze contemporanemante (solo la terza generazione di telefoni riesce)
+    non c'è perdita di continuità ma il telefono deve essere capace di gestire le due frequenze contemporaneamente (solo la terza generazione di telefoni riesce)
     \item hard handoff, la vecchia stazione rilascia il telefono prima che la nuova lo acquisisca;
     è un processo abbastanza veloce, ma la chiamata può venire interrotta se la stazione non è in grado di gestire il nuovo dispositivo
 \end{itemize}
@@ -415,10 +415,10 @@ La versione digitale utilizza le stesse frequenze di AMPS, quindi vengono divisi
 La ripartizione può cambiare dinamicamente in base al tipo di dispositivi presenti nella cella. 
 Sta al MTSO della cella la gestione della distribuzione.
 
-Per gestire l'aumemento di carico, è stata prevista una nuova banda di frequenza. 
+Per gestire l'aumento di carico, è stata prevista una nuova banda di frequenza. 
 
 Il segnale vocale viene raccolto dal microfono, digitalizzato e compresso dal \textit{vocoder}.
-Questo processo è molto importante per la telefonia mobile con D-AMPS perchè offre un ottimo miglioramento utilizzando il TDM. 
+Questo processo è molto importante per la telefonia mobile con D-AMPS perché offre un ottimo miglioramento utilizzando il TDM. 
 [...]
 
 \paragraph{GSM}
@@ -441,11 +441,11 @@ uno è EDGE, un GSM con un bit in più per baud. Il bit in più porta anche a pi
 L'altra proposta è GPRS, una rete a pacchetti costruita sopra D-AMPS e GSM.
 Questa permette di inviare/ricevere pacchetti IP in una cella vocale;
 vengono riservati alcuni slot temporali al traffico di pacchetti e la stazione base definisce il numero e la posizione degli slot.
-Gli slot disponibili sono divisi in canali logici, la stazione base determina l’associazione tra i canali logici e time slot.
+Gli slot disponibili sono divisi in canali logici, la stazione base determina l'associazione tra i canali logici e time slot.
 Un canale logico è usato per scaricare i pacchetti dalla stazione base nella stazione mobile e ogni pacchetto indica il destinatario.
 
 Per inviare un pacchetto IP, una stazione mobile chiede uno o più slot inviando una richiesta alla stazione base.
-Se la richiesta arriva senza problemi, la stazione comunica all’apparecchio mobile la frequenza e gli slot che dovrà utilizzare per trasmettere il pacchetto.
+Se la richiesta arriva senza problemi, la stazione comunica all'apparecchio mobile la frequenza e gli slot che dovrà utilizzare per trasmettere il pacchetto.
 Una volta arrivato alla stazione base, il pacchetto è trasferito su Internet attraverso una connessione via cavo.
 
 \newpage
@@ -509,7 +509,7 @@ ovvero viene inserito un carattere di escape prima di ogni occorrenza nel frame 
 lo strato data link di destinazione rimuoverà gli escape.
 
 \paragraph{Bit stuffing}
-Il Byte stuffing è limitato perchè è legato a caratteri di 8 bit, ma se si usano codifiche diverse risulta un problema.
+Il Byte stuffing è limitato perché è legato a caratteri di 8 bit, ma se si usano codifiche diverse risulta un problema.
 
 Con la nuova tecnica è possibile usare sia un numero arbitrario di bit, sia codifiche varie.
 Ogni frame comincia e finisce con il gruppo di bit 01111110, di fatto un flag byte. 
@@ -544,7 +544,7 @@ il numero di bit è detta la distanza di Hamming ed indica il numero di errori s
 
 La rilevazione ela correzione degli errori dipende dalla distanza di Hamming.
 Per trovare d errori è necessaria una codifica con d+1 di distanza;
-in questo modo riesce a rilevarli, ma non a corregerli.
+in questo modo riesce a rilevarli, ma non a correggerli.
 Per corregere d errori è invece necessaria una codifica con 2d+1 di distanza,
 in modo che anche con d cambiamenti, la codeword originale rimane la più vicina a quella modificata ed è ricavabile univocamente.
 
@@ -553,7 +553,7 @@ Si riesce a corregere gli errori burst sfruttando un trucco, ovvero inviando i d
 
 \subsubsection{Codifiche a rilevazione d'errore}
 Su canali più affidabili, la rilevazione basta in quanto gli errori sono meno frequenti e risulta più efficiente rimandare i dati danneggiati.
-Questo perchè maggiore è la grandezza del blocco, maggiore è il numero di bit di controllo richiesti.
+Questo perché maggiore è la grandezza del blocco, maggiore è il numero di bit di controllo richiesti.
 
 In alternativa alla tecnica della matrice, si usa la codifica polinomiale (CRC - Cycle Redundancy Check).
 Questa tecnica considera le sequenze di bit come polinomi a coeficienti con valori uguali a 0 o 1.
@@ -597,8 +597,8 @@ viene prelevato dal buffer e passato il contenuto del frame allo strato network,
 In questo protocollo si assume il traffico simplex e l'assenza di errori, ma con la restrizione più realistica di una velocità di elaborazione non più infinita.
 Il problema da considerare quindi è la gestione del flusso, in modo che il mittente non inondi il ricevente con una velocità di trasmissione maggiore di quella di elaborazione.
 Se ci vuole un intervallo t per elaborare un frame, il mittente non dovrebbe trasmettere più di un frame per t.
-Se inoltre non ci sono meccanismi di buffer, il mittente non deve trasmettere il nuovo frame finchè il precedente non è stato prelevato dallo strato fisico o verrebbe sovrascritto.
-La soluzione al problema è l'utilizzo di un frame senza informazioni che viene rispedito al mittete quando il pacchetto è stato fatto passare allo strato network,
+Se inoltre non ci sono meccanismi di buffer, il mittente non deve trasmettere il nuovo frame finché il precedente non è stato prelevato dallo strato fisico o verrebbe sovrascritto.
+La soluzione al problema è l'utilizzo di un frame senza informazioni che viene rispedito al mittente quando il pacchetto è stato fatto passare allo strato network,
 in modo da notificare il mittente per l'invio di un nuovo frame.
 Il pacchetto funge da acknowledgement e blocca il mittente fino a quando non arriva il frame.
 Questi protocolli basati sull'attesa dell'acknowledgement sono detti \textbf{stop-and-wait}.
@@ -622,8 +622,8 @@ Il destinatario riceve il frame, controlla il numero di sequenza:
 se è valido, lo processa, lo passa allo strato network, ritorna l'acknowledgement e aggiorna la variabile del numero di sequenza.
 
 \subsection{Protocolli sliding window} % 3.4
-Questi protocolli sono utilizzati per le trasmissioni in entrambre le direzioni, full duplex.
-Si possono usare due canali separeti simplex, ma di solito quello di ritorno è sprecato; conviene usare un unico canale e gestire entrambe le direzioni.
+Questi protocolli sono utilizzati per le trasmissioni in entrambe le direzioni, full duplex.
+Si possono usare due canali separati simplex, ma di solito quello di ritorno è sprecato; conviene usare un unico canale e gestire entrambe le direzioni.
 Una miglioria successiva è la tecnica del piggy-backing, ovvero quando arriva un frame dati, non viene restituito subito il frame di acknowledgement, 
 bensì viene aggiunto al frame di dati successivo passato dallo strato network, in modo da "risparmiare" un viaggio e sfruttare al meglio la banda.
 Infatti aggiungere il campo ack nell'intestazione è più conveniente rispetto a creare un intero frame con sua intestazione, checksum e acknowledgement.
@@ -668,10 +668,10 @@ Il destinatario non sa cosa fare con i frame seguenti a quello danneggiato.
 Per ripristinare gli errori ci sono due tecniche, una delle quali è il go back N.
 
 Questa tecnica richiede di scartare tutti i frame successivi a quello danneggiato senza mandare l'acknowledgement per questi.
-In particolare il sorgente manda tutto in sequenza, non sapendo se arrivano errati a destinazione, finchè non termina i frame della finestra.
+In particolare il sorgente manda tutto in sequenza, non sapendo se arrivano errati a destinazione, finché non termina i frame della finestra.
 Quando scade il timer dell'acknowledgement che non sarà ricevuto, il mittente rimanda i frame in sequenza a partire da quello danneggiato,
 anche se i successivi erano corretti.
-Il destinatario invece, quando riceve il frame danneggiato si rifiuta di accettare tutti i successivi finchè non riceve quello con il numero di sequenza atteso.
+Il destinatario invece, quando riceve il frame danneggiato si rifiuta di accettare tutti i successivi finché non riceve quello con il numero di sequenza atteso.
 Di fatto questo protocollo utilizza una finestra di ricezione con 1 frame.
 
 L'altra tecnica per ripristinare gli errori è la ripetizione selettiva.
@@ -693,7 +693,7 @@ Il primo si basa sulla banda, dovendo rimandare tutto, il secondo sul buffer, da
 \subsubsection{HDLC - High-level Data Link Control}
 Questo protocollo è orientato ai bit e utilizza il bit stuffing.
 Il frame di questo protocollo ha il campo address, control, data e checksum.
-Adress indica il terminale; control è usato per i numeri di sequenza; 
+Address indica il terminale; control è usato per i numeri di sequenza; 
 data contiene le informazioni; checksum è il codice di ridondanza.
 Il frame è delimitato dal flag 01111110.
 [...]
@@ -734,15 +734,15 @@ Se non lo è, ci sono dei problemi.
 Se gli utenti sono minori della divisione della banda, ci sarà uno spreco;
 se sono di più, alcuni utenti non riusciranno a comunicare.
 
-In generale, un'assegnazione statica è poco efficitente perchè anche mantenendo costanti gli utenti,
+In generale, un'assegnazione statica è poco efficiente perché anche mantenendo costanti gli utenti,
 quando non usano il canale quella banda rimane inutilizzata.
 Anche con TDM la situazione non cambia molto.
 
 \subsubsection{Assegnazione dinamica}
-Ci sono 5 premesse riguardo il problmea dell'assegnazione del canale.
+Ci sono 5 premesse riguardo il problema dell'assegnazione del canale.
 \begin{itemize}
     \item Modello della stazione: n stazioni indipendenti che generano frame in trasmissione;
-    quando viene generato un frame, la stazione attende finchè non viene spedito
+    quando viene generato un frame, la stazione attende finché non viene spedito
     \item Presupposto del canale singolo: un solo canale per trasmettere e ricevere
     \item Presupposto della collisione: due frame trasmessi assieme di sovrappongono creando distorsione e rendendo il frame non valido;
     le stazioni possono rilevare questo evento detto collisione e richiedere la ritrasmissione del frame
@@ -755,7 +755,7 @@ Ci sono 5 premesse riguardo il problmea dell'assegnazione del canale.
 \subsection{Protocolli ad accesso multiplo} % 4.2
 
 \subsubsection{Aloha}
-Aloha è un sistema sviluppato inizialemente per colegare le isole della Hawaii, basato su una trasmissione radio broadcast con singolo canale.
+Aloha è un sistema sviluppato inizialmente per collegare le isole della Hawaii, basato su una trasmissione radio broadcast con singolo canale.
 Ne esistono due versioni.
 
 \paragraph{Aloha puro}
@@ -787,28 +787,84 @@ Questa tecnica fu rispolverata quando fu inventato l'accesso a internet via cavo
 \subsubsection{Protocolli LAN Wireless}
 
 
-\subsection{Ethernet} % 4.3
+\subsection{Ethernet} % 4.3 TUTTO tranne 439
 
-\subsection{LAN Wireless} % 4.4
+\subsection{LAN Wireless} % 4.4 TUTTO tranne 444
 
-\subsection{Commutazione nello strato data link} % 4.7
-
-% Capitolo 4, tutto tranne:
-
-% la sezione 4.2.5 Wavelength Division Multiple Access Protocols
-% la sezione 4.3.9 IEEE 802.2: Logical Link Control
-% la sezione 4.4.4 The 802.11 Frame Structure
-% la sezione 4.5 Broadband Wireless
-% la sezione 4.6 Bluetooth
-% la sottosezione 4.7.6 Virtual LANs
+\subsection{Commutazione nello strato data link} % 4.7 TUTTO tranne 476
 
 \newpage
 \section{Capitolo 5 - Strato network}
 
+\subsection{Architettura dello strato network}
+
+\subsection{Algoritmi di routing} % tutto tranne Dijkstra in 522, 525, 528 a 5211
+
+\subsubsection{Principio di ottimalità}
+
+\subsubsection{Routing basato sul percorso più breve}
+
+\subsubsection{Flooding}
+
+\subsubsection{Routing basato sul vettore delle distanze}
+
+\subsubsection{Routing basato sullo stato dei collegamenti} % no elaborazione nuovi percorsi
+
+\subsubsection{Routing gerarchico}
+
+\subsubsection{Routing broadcast}
+
+\subsection{Algoritmi per il controllo della congestione} 
+
+\subsection{Qualità del servizio}
+
+\subsubsection{Requisiti}
+
+\subsubsection{Tecniche per una buona qualità}
+
+\paragraph{Sovradimensionamento}
+
+\paragraph{Utilizzo dei buffer}
+
+\paragraph{Traffic shaping}
+
+\paragraph{Leaky bucket}
+
+\paragraph{Token bucket}
+
+\subsection{Collegamento tra reti}
+
+\subsubsection{Differenze tra le reti}
+
+\subsubsection{Connessione tra le reti}
+
+\subsubsection{Circuiti virtuali concatenati}
+
+\subsubsection{Collegamento tra reti senza connessione}
+
+\subsubsection{Routing in una internetwork}
+
+\subsection{Lo strato network in internet}
+
+\subsubsection{Il protocollo IP}
+
+\subsubsection{Gli indirizzi IP}
+
+\subsubsection{Protocolli di controllo internet}
+
+% no rarp bootp si dhcp
+
+\subsubsection{OSPF}
+
+\subsubsection{BGP}
+
+\subsubsection{Internet multicasting}
+
+\subsubsection{IPv6}
 
 \newpage
 \section{Capitolo 6 - Strato trasporto}
-Il livello di trasporto si basa sul livelo di rete per fornire il trasporto dei dati tra due macchine secondo il livello di affidabilità desiderato e indipendentemente dalle reti fisiche. 
+Il livello di trasporto si basa sul livello di rete per fornire il trasporto dei dati tra due macchine secondo il livello di affidabilità desiderato e indipendentemente dalle reti fisiche. 
 
 \subsection{Richiesta connessione e protocollo Three-way Handshake}
 
@@ -816,31 +872,32 @@ Il Three-way handshake è un protocollo che entra in gioco quando si deve stabil
 Infatti stabilire una connessione è un'operazione tutt'altro che facile.
 Al normale "percorso" CONNECTION REQUEST - CONNECTION ACCEPTED, la rete può perdere, ritardare, corrompere o duplicare i pacchetti, creando diversi problemi.
 
-
-
 \subsection{Rilascio della connessione}
 
 \subsection{Introduzione all'UDP}
 
 \subsection{TCP}
 
-Introduzione
-
-Modello di servizio di TCP
-
-Protocollo TCP
-
-Intestazione TCP
-
-Connessione TCP
-
-Rilascio connessione TCP
+\subsubsection{Introduzione}
 
 
+\subsubsection{Modello di servizio di TCP}
+
+
+\subsubsection{Protocollo TCP}
+
+
+\subsubsection{Intestazione TCP}
+
+
+\subsubsection{Connessione TCP}
+
+
+\subsubsection{Rilascio connessione TCP}
 
 
 \newpage
-\section{Capitolo 7 - Strato applicazione} % SOLO DNS
+\section{Capitolo 7 - Strato applicazione}
 
 Lo strato applicazione e dove si trovano effettivamente le applicazioni.
 Ci sono comunque dei protocolli di supporto per permettere alle applicazioni di funzionare.
@@ -881,64 +938,51 @@ Il server del DNS non è unico, altrimenti verrebbe sovraccaricato. Quindi i nom
 \newpage
 \section{Capitolo 8 - Sicurezza}
 
+\subsection{Crittografia} % 8.1
 
+\subsubsection{Introduzione alla crittografia}
 
+\subsubsection{Cifrari a sostituzione}
 
+\subsubsection{Due principi crittografici fondamentali}
 
+\subsection{Algoritmi a chiave simmetrica} % 8.2
 
+\subsubsection{DES}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{AES}
 
-% Argomenti:
+\subsubsection{Modalità di cifratura}
 
-% Capitolo 1, tutto tranne le sezioni da 1.5 a 1.9 incluse. % OK %
-% Capitolo 2, tutto tranne:
+\paragraph{Modalità ECB}
 
-% la sottosezione Wireless Local Loops di 2.5.3
-% la sottosezione SONET/SDH di 2.5.4
-% la sezione 2.7 Cable Television
+\paragraph{Modalità stream cipher}
 
-% Capitolo 3, tutto esclusi tutti i listati in C, e la sezione 3.5 Protocol Verification
-% Capitolo 4, tutto tranne:
+\subsection{Algoritmi a chiave pubblica} % 8.3 - TUTTO
 
-% la sezione 4.2.5 Wavelength Division Multiple Access Protocols
-% la sezione 4.3.9 IEEE 802.2: Logical Link Control
-% la sezione 4.4.4 The 802.11 Frame Structure
-% la sezione 4.5 Broadband Wireless
-% la sezione 4.6 Bluetooth
-% la sottosezione 4.7.6 Virtual LANs
+\subsection{Message digest} % 8.4.3 (partire da 8.4)
 
-% Capitolo 5, tutto tranne:
+\subsubsection{MD5}
 
-% nella sezione 5.2.2, la descrizione dell'algoritmo di Dijkstra (incluso il listato)
-% la sottosezione Computing the New Routes di 5.2.5
-% dalla sezione 5.2.8 Multicast Routing alla sezione 5.2.11 Node Lookup in Peer-to-Peer Networks
-% la sottosezione The Warning Bit di 5.3.4
-% la parte di 5.4.2 da Resource Reservation in poi
-% dalla sezione 5.4.3 Integrated Services alla sezione 5.4.5 Label Switching and MPLS
-% la sezione 5.5.5 Tunneling
-% la sezione 5.5.7 Fragmentation
-% la descrizione di RARP e BOOTP nella sottosezione RARP, BOOTP, and DHCP
-% la sezione 5.6.7 Mobile IP
+\subsubsection{SHA-1}
 
-% Capitolo 6, le seguenti parti:
+\subsection{Sicurezza delle comunicazioni} % 8.6
 
-% il three-way handshake nella sezione 6.2.2 Connection Establishment
-% la sezione 6.2.3 Connection Release
-% la sezione 6.4.1 Introduction to UDP
-% dalla sezione 6.5.1 Introduction to TCP alla sezione 6.5.6 TCP Connection Release
+\subsubsection{IPsec} % 8.6.1
 
-% Capitolo 7, le seguenti parti:
-% la sezione 7.1 DNS - The Domain Name System  % OK %
+\subsubsection{Firewall} % 8.6.2
 
-% Capitolo 8, le seguenti parti:
+\subsubsection{Sicurezza wireless} % 8.6.4
 
-% la sezione 8.1 Cryptography. tranne le sottosezioni transposition ciphers (8.1.3) e Quantum Cryptography (in 8.1.4)
-% la sezione 8.2 Symmetric-Key Algorithms, tranne i cipher mode di tipo Block Chaining, Feedback, e Counter nella sottosezione Cipher Modes (8.2.3)
-% la sezione 8.3 Public-Key Algorithms
-% la sottosezione 8.4.3 Message Digests
-% la sottosezione 8.6.1 IPSec nella versione ESP (Encapsulating Security Payload)
-% la sottosezione 8.6.2 Firewalls
-% la sottosezione 8.6.4. Wireless Security, tranne la parte Bluetooth Security
-% il replay attack (sottosezione 8.7.3)
-% il DNS Spoofing (sottosezione 8.9.2), tranne la parte Self-Certifying Names
+\paragraph{802.11}
+
+\paragraph{WAP 2.0}
+
+\subsection{Replay attack} % 8.7.3 (conviene guardare da 8.7)
+
+\subsection{Sicurezza del naming} % 8.9.2
+
+\subsubsection{DNS spoofing}
+
+\subsubsection{DNS sicuro}
+
