@@ -803,10 +803,30 @@ In questo protocollo, quando una stazione inizia la trasmissione e rileva la col
 dopo un intervallo di tempo casuale ritenta la trasmissione.
 In questo modo si risparmia tempo e banda. Viene molto usato nel sottostrato MAC delle LAN.
 
-
-
+Piccola nota: nessun protocollo del sottostrato MAC garantisce consegna affidabile.
+Potrebbero non esserci collisioni, ma il ricevitore potrebbe comunque copiare in frame non correttamente.
 
 \subsubsection{Protocolli senza collisione}
+Nei seguenti protocolli si presuppone che ci siano N stazioni identificate da un indirizzo che va da 0 a N-1 e che il ritardo sia trascurabile.
+Questi protocolli risolvono la contesa senza creare collisioni.
+
+\paragraph{Protocollo a mappa di bit elementare}
+In questo protocollo, ogni periodo di contesa è composto da N intervalli.
+Ogni stazione indicherà tramite un bit se deve trasmettere un frame. 
+Il bit viene posto nel rispettivo intervallo in base all'indirizzo della stazione (stazione 0 in 0, stazione N-1 in N-1).
+Al termine degli N intervalli, tutte le stazioni sono a conoscenza di chi ha bisogno di trasmettere e lo fanno secondo l'ordine dell'indirizzo.
+Essendo prestabilito l'ordine, non avverranno collisioni.
+Al termine della fase di trasmissione, ci sarà un nuovo periodo di contesa dove si ripeterà il processo di "prenotazione".
+Ogni stazione può porre il proprio bit "pronto" solo nel suo intervallo e può farlo se ha effettivamente il frame preparato.
+Se la stazione diventa pronta ma il suo intervallo è passato, dovrà attendere la prossima fase di contesa.
+
+Questo tipo di protocolli sono detti protocolli a prenotazione.
+
+\paragraph{Conteggio binario}
+Il problema del metodo della mappa è la richiesta del bit di controllo: se ci sono tante stazioni, sono richiesti tanti bit (uno per stazione).
+Un'alternativa è quella di utilizzare indirizzi binari per le stazioni.
+
+
 
 \subsubsection{Protocolli a contesa limitata}
 
