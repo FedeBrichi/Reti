@@ -96,7 +96,6 @@ Il libro e il corso utilizza un modello ibrido a 5 livelli:
 \end{enumerate}
 
 \newpage
-
 \section{Capitolo 2 - Strato fisico}
 
 L'obiettivo dello strato fisico è quello di trasportare i bits da una macchina ad un'altra.
@@ -778,6 +777,33 @@ Questa soluzione riduce le collisioni, ma richiede un meccanismo di sincronizzaz
 Questa tecnica fu rispolverata quando fu inventato l'accesso a internet via cavo, dovendo gestire un canale condiviso.
 
 \subsubsection{Protocolli ad accesso multiplo con rilevamento della portante}
+Con i protocolli Aloha si hanno molte collisioni.
+Se invece le stazioni rimangono in ascolto di una portante è possibile migliorare le prestazioni.
+
+\paragraph{CSMA persistente e non}
+Un esempio di questi protocolli è il CSMA 1-persistente.
+Una stazione prima di trasmettere ascolta il canale per sapere se è occupato.
+Se lo è attende e appena si libera manda un frame;
+in caso di collisione la stazione rimane in attesa di un intervallo casuale per poi rimandare il frame.
+1-persistente indica che la stazione trasmette con probabilità 1 quando il canale è libero (cioè lo fa sempre).
+Il problema è che il ritardo di propagazione potrebbe creare l'illusione di avere un canale libero,
+quando in verità il canale è già stato occupato ma il segnale non ha ancora raggiunto la stazione che ne richiede l'utilizzo.
+Anche con ritardo zero potrebbe verificarsi una collisione in quanto due stazioni potrebbero attendere contemporaneamente.
+Questo protocollo risulata migliore dell'Aloha puro.
+
+Un altro protocollo è detto CSMA non persistente, il quale se trova il canale occupato non rimane subito in attesa, bensì riprova dopo un intervallo casuale.
+Si ha un migliore utilizzo del canale ma aumeta i ritardi.
+
+Esiste anche il CSMA p-persistente, dove p indica la probabilità di trasmettere nel canale se è libero.
+A differenza dell 1-persistente, la probabilità sarà minore di 1, quindi potrebbe non trasmettere subito e rimandare a più tardi.
+
+\paragraph{CSMA con rilevamento delle collisioni}
+Esiste un miglioramento dei CSMA persistenti, con un protocollo detto CSMA/CD (collision detection).
+In questo protocollo, quando una stazione inizia la trasmissione e rileva la collisione, termina subito la trasmissione;
+dopo un intervallo di tempo casuale ritenta la trasmissione.
+In questo modo si risparmia tempo e banda. Viene molto usato nel sottostrato MAC delle LAN.
+
+
 
 
 \subsubsection{Protocolli senza collisione}
