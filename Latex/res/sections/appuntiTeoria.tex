@@ -789,13 +789,13 @@ in caso di collisione la stazione rimane in attesa di un intervallo casuale per 
 Il problema è che il ritardo di propagazione potrebbe creare l'illusione di avere un canale libero,
 quando in verità il canale è già stato occupato ma il segnale non ha ancora raggiunto la stazione che ne richiede l'utilizzo.
 Anche con ritardo zero potrebbe verificarsi una collisione in quanto due stazioni potrebbero attendere contemporaneamente.
-Questo protocollo risulata migliore dell'Aloha puro.
+Questo protocollo risulta migliore dell'Aloha puro.
 
 Un altro protocollo è detto CSMA non persistente, il quale se trova il canale occupato non rimane subito in attesa, bensì riprova dopo un intervallo casuale.
-Si ha un migliore utilizzo del canale ma aumeta i ritardi.
+Si ha un migliore utilizzo del canale ma aumenta i ritardi.
 
 Esiste anche il CSMA p-persistente, dove p indica la probabilità di trasmettere nel canale se è libero.
-A differenza dell 1-persistente, la probabilità sarà minore di 1, quindi potrebbe non trasmettere subito e rimandare a più tardi.
+A differenza del 1-persistente, la probabilità sarà minore di 1, quindi potrebbe non trasmettere subito e rimandare a più tardi.
 
 \paragraph{CSMA con rilevamento delle collisioni}
 Esiste un miglioramento dei CSMA persistenti, con un protocollo detto CSMA/CD (collision detection).
@@ -825,15 +825,70 @@ Questo tipo di protocolli sono detti protocolli a prenotazione.
 \paragraph{Conteggio binario}
 Il problema del metodo della mappa è la richiesta del bit di controllo: se ci sono tante stazioni, sono richiesti tanti bit (uno per stazione).
 Un'alternativa è quella di utilizzare indirizzi binari per le stazioni.
+Una stazione che vuole trasmettere lo comunica agli altri tramite il proprio indirizzo, spedito sottoforma di stringa partendo dal bit più a sinistra.
+Dato che gli indirizzi sono tutti lunghi uguali, i bit nella stessa posizione sono elaborati tramite OR: 
+se il risultato è un 1, tutte le stazioni con bit 0 si arrendono;
+poi si passa al confronto del bit successivo con le stazioni rimanenti e se risulta uno 0 si passa al bit successivo,
+se un 1, si arrendono quelle con lo 0 e si prosegue, finché non rimane una stazione e sarà quella che spedirà il frame.
+Questo protocollo è detto conteggio binario e chiaramente introduce un livello di priorità tra le stazioni (max priorità l'indirizzo più grande),
+che in base alle situazioni può essere vantaggioso o meno.
 
-
+Al momento è un protocollo inutilizzato nonostante la semplicità.
 
 \subsubsection{Protocolli a contesa limitata}
+Meglio i protocolli a contesa o senza collisioni?
+Il primo è preferibile per il basso ritardo quando il carico è leggero, ma al crescere del carico peggiora l'efficienza.
+Il secondo funziona all'opposto.
+
+I protocolli a contesa limitata si pongono a metà strada tra i due.
+Questi protocolli dividono le stazioni in gruppi (anche non esclusivi) e in ogni gruppo le stazioni competono tra loro per un determinato intervallo:
+il gruppo 0 per l'intervallo 0, il gruppo 1 per l'1, e così via.
+Il trucco sta nel ripartire le stazioni nel modo ottimale.
+La soluzione migliore è quella di assegnare dinamicamente in base al carico.
+
+\paragraph{Adaptive Tree Walk}
+Questo metodo sfrutta gli alberi binari.
+Nel primo intervallo di contesa (0), tutte le stazioni tentano di acquisire il controllo. 
+Se non riescono perché c'è una collisione, le stazioni vengono divise in due gruppi e 
+nel successivo intervallo (1) provano ad ottenere il canale quelle del secondo nodo.
+Se la trasmissione avviene con successo, l'intervallo successivo (2) va al nodo 3, altrimenti si suddivide il 2 in due sottogruppi e così via.
+
+A carico elevato si dovrebbe iniziare già a livelli più bassi dell'albero.
 
 \subsubsection{Protocolli LAN Wireless}
+Esempio di LAN wireless: un ufficio con stazioni base (o access point) sparsi e collegate tra loro tramite cavi.
+Regolando la potenza del segnale attorno a 3-4 metri, si ottiene una situazione dove le stanze sono considerabili come delle celle.
+Una cella ha un unico canale che copre tutta la banda ed è disponibile a tutte le stazioni.
+Nel caso della LAN wireless il problema non è il trasmettitore bensì il ricevente.
+Infatti considerando delle stazioni con portata limitata, dove A raggiunge B, B raggiunge C, ma A e C non comunicano direttamente,
+potrebbe accadere che A cerca di comunicare con B, mentre C che non sente A pensa sia tutto libero e cerca di comunicare con B. 
+Il risultato è che A e C creeranno una collisione, danneggiando i frame.
+Questo \textbf{problema} è detto \textbf{della stazione nascosta}.
+All'inverso, se B trasmette ad A e C controlla la banda portante per trasmettere a D, siccome rileva la trasmissione di B pensa che anche D sia occupato.
+In questo caso di dice \textbf{problema della stazione esposta}. 
 
+\paragraph{MACA e MACAW}
+MACA (Multiple Access with Collision Avoidance) è uno dei primi protocolli per LAN wireless.
+Il trasmettitore invita il ricevitore ad inviare un piccolo frame per indicare che alle stazioni vicine che è occupato, 
+in modo da poter inviare subito dopo il frame dati effettivo.
+In particolare:
+A vuole trasmettere a B; manda un RTS (request to send) a B che contiene la lunghezza del frame dati in arrivo;
+B risponde con un CTS (clear to send) che contiene la lunghezza dei dati, copiata dal RTS.
+In questo modo A può mandare il frame quando ha ricevuto la CTS.
+
+Le stazioni vicine ad A che ricevono RTS devono stare in silenzio per attendere che CTS arrivi ad A.
+Viceversa, le stazioni vicine a B che ricevono CTS devono stare in silenzio per permettere la trasmissione del frame dati.
+
+In caso di collisione verrà effettuato un secondo invio con intervallo di tempo casuale.
+
+Esiste poi la versione migliorata MACA per wireless, ovvero MACAW.
+In questo protocollo è stato introdotto un frame ack dopo la trasmissione dati avvenuta con successo,
+ed è stata aggiunta la possibilità di bloccare le stazioni vicine che stanno mandando un RTS quando ce n'è già uno in viaggio verso la stessa destinazione.
 
 \subsection{Ethernet} % 4.3 TUTTO tranne 439
+
+
+
 
 \subsection{LAN Wireless} % 4.4 TUTTO tranne 444
 
