@@ -990,12 +990,24 @@ Questo cavo è economico, semplice da installare, ma supporta solo segmenti di 1
 \newpage
 \section{Capitolo 6 - Strato trasporto}
 Il livello di trasporto si basa sul livello di rete per fornire il trasporto dei dati tra due macchine secondo il livello di affidabilità desiderato e indipendentemente dalle reti fisiche. 
+L'obiettivo finale è fornire un servizio efficiente, efficace ed affidabile ai suoi utenti.
+Per fare ciò usa i servizi forniti dallo strato di rete. L'hardware/software usato per svolgere il lavoro è detto \textbf{entità di trasporto}.
+
+Per molti aspetti lo strato trasporto può sembrare simile a quello network, ma il fatto è che questo strato è essenziale per garantire affidabilità che lo strato network, basato sulla rete, non può dare. 
+
+Grazie alle primitive fornite dallo strato, i programmatori possono scrivere codice senza preoccuparsi della sottorete.
+
+In seguito verrà usato TPDU (transport protocol data unit) per indicare i messaggi inviati da un'entità di trasporto ad un'altra. 
+Quindi, riprendendo gli altri "contenitori" degli altri strati, avremo TPDU dentro un pacchetto, il quale è dentro un frame
+(trasporto -> network -> datalink).
+Ogni carico utile di ogni livello ha la propria intestazione. 
 
 \subsection{Richiesta connessione e protocollo Three-way Handshake}
 
 Il Three-way handshake è un protocollo che entra in gioco quando si deve stabilire una connessione.
 Infatti stabilire una connessione è un'operazione tutt'altro che facile.
 Al normale "percorso" CONNECTION REQUEST - CONNECTION ACCEPTED, la rete può perdere, ritardare, corrompere o duplicare i pacchetti, creando diversi problemi.
+
 
 \subsection{Rilascio della connessione}
 
