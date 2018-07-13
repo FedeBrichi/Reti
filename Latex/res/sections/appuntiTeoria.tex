@@ -904,19 +904,143 @@ come per il precedente, dal nome si sa che opera a 10Mps con segnali a banda bas
 In questo caso le connessioni sono fatte mediante connettori BNC che formano giunzioni a T; sono più facili da usare e più affidabili.
 Questo cavo è economico, semplice da installare, ma supporta solo segmenti di 185 metri e un massimo di 30 macchine.
 
+I guasti sono un problema per le connessioni cablate; per questo esistono tecniche per rintracciare i guasti,
+come la TDR (Time Domain Reflectometry), la quale usa un impulso per vedere se è tutto apposto.
+Se ci sono guasti o ostacoli si genera un eco che torna indietro e cronomentrando il tempo di ricezione dell'eco è possibile identificare la distanza dell'origine dell'eco.
 
+Dal problema del tracciamento guasti, si è passati all'utilizzo di hub; le stazioni sono collegate agli hub tramite doppini non condivisi.
+Questo hub non elabora il traffico.
+Questa configurazione permette di aggiungere e rimuovere stazioni facilmente ed ha una facile individuazione le interruzioni della linea.
+Tuttavia i cavi che partono dall'hub possono raggiungere solo i 100/200 metri.
+Nonostante questo è diventato uno stardard per la facilità di gestione e per l'uso dei cablaggi presistenti.
+Lo schema presentato è detto 10Base-T.
 
-
+Un altro tipo di cavi è il 10Base-F che utilizza le fibre ottiche.
+Questa alternativa è costosa a causa del prezzo di connettori e terminatori, ma è immune alle interferenze e permette i collegamenti a lunghe distanze (1km).
 
 \subsubsection{La codifica Manchester}
+Utilizzare una codifica binaria corretta è un problema non indifferente, perchè vanno scelti valori che non possono creare ambiguità.
+Deve essere ben chiaro quando si ha l'inizio e la fine di un bit.
+Esistono due tecniche: la codifica di Manchester e la codifica di Manchester differenziale.
 
-\subsubsection{Il protocollo del sottostrato Ethernet}
+La prima utilizza un periodo di bit diviso in due intervalli uguali, dove l'1 binario è identificato da un picco di tensione nel primo intervello e un livello basso nel secondo intervallo.
+Lo zero binario è l'opposto.
+Il cambio di tensione in mezzo al periodo di bit permette al ricevitore di sincronizzarsi con il trasmettitore;
+tuttavia occupa il doppio della banda rispetto alla codifica elementare.
+
+La codifica di Manchester differenziale è un'alternativa dove un 1 binario è identificato dall'assenza di cambio di tensione tra un periodo di bit e un altro,
+mentre se avviene una transizione identifica uno zero.
+Questa codifica è più complessa ma ha una maggiore immunità ai rumori.
+Tuttavia Ethernet usa la Manchester base.
+
+\subsubsection{Il protocollo del sottostrato MAC Ethernet}
+Esistono due varianti di frame: quello DIX Ethernet e quello dello standard IEEE.
+Lo standard apporta solo delle piccole modifiche a due campi (type diventa lenght, preamble viene ridotto),
+tuttavia DIX aveva già preso piede a tal punto che pochi erano disposti a passare al nuovo standard.
+Tuttavia il campo type prima della creazione dello standard era sempre maggiore di 1500,
+quindi se è più corto viene considerato come campo lenght dello standard.
+Con questo compromesso si riuscì ad usare entrambi i frame.
+
+Più nello specifico, il frame DIX è composto da:
+\begin{itemize}
+    \item preamble
+    \item indirizzo di destinazione
+    \item indirizzo d'origine
+    \item type
+    \item dati
+    \item riempimento
+    \item checksum
+\end{itemize}
+Preamble è di 8 byte e contiene lo schema di bit 10101010.
+
+I due indirizzi sono di 6 byte. In particolare l'indirizzo di destinazione ha il bit più a sinistra che identifica un indirizzo ordinario (0) o un indirizzo di gruppo (1).
+Con l'indirizzo di gruppo è possibile far ascoltare a molte stazioni un singolo indirizzo e tutte lo ricevono (trasmissione multicast).
+Se l'indirizzo è composto da soli 1 è riservato alla trasmissione broadcast.
+
+Type di 2 byte indica al ricevitore cosa fare con quel frame.
+
+I dati raggiungono i 1500 byte di massimo; è inoltre necessario che il frame in totale sia lungo almeno 64 byte, per distinguere dai frame danneggiati.
+Inoltre la lunghezza minima serve per dare il tempo di impedire la trasmissione di un frame quando viene rilevata la possibilità di collisione.
+Maggiore è la velocità della rete, maggiore deve essere la lunghezza minima del frame.
+
+Il checksum di 4 byte e contiene il checksum CRC per rilevare (ma non correggere) gli errori.
+
+\subsubsection{Algoritmo di backoff esponenziale binario}
+L'algoritmi di backoff esponenziale binario è utilizzato per gestire l'attesa casuale dopo una collisione. 
+\`E stato scelto perchè si adatta in base al numero di stazioni che tentano di trasmettere.
+L'algoritmo assicura un basso ritardo quando si hanno poche collisioni e una gestione accettabile quando avvengono molte collisioni. 
+
+L'algoritmo procede in questo modo: 
+dopo una collisione il tempo viene diviso in intervalli lunghi quanto il tempo di propagazione di andata e ritorno nel caso peggiore (2t);
+ogni stazione aspetta 0 o 1 intervalli temporali prima di riprovare;
+se due stazioni collidono perchè usano lo stesso intervallo, aumenta la scelta degli intervalli casuali (0, 1, 2, 3);
+ad ogni passo si continua ad aumentare il numero di intervalli d'attesa, che andrà da 0 a $2^i-1$, dove i indica il numero di collisioni.
+L'algoritmo ha come tetto massimo 10 collisioni, per un totale di 1023 intervalli. Se ci sono ancora collisioni, a 16 viene lanciato un errore.
+
+\subsubsection{Prestazioni di Ethernet}
+[...]
+
+\subsubsection{Ethernet commutata}
+Al crescere del numero di stazioni, il traffico aumenta e l'aumento della velocità non basta a risolvere il problema.
+La soluzione è lo switch (commutatore), che ha da 4 a 32 schede di linea, le quali hanno da 1 a 8 connettori, di solito collegati a doppini 10base-T verso i computer.
+
+Una stazione che vuole trasmettere un frame Ethernet, prima invia un frame standard allo switch, il quale controlla se la destinazione è collegata alla stessa scheda di linea.
+Se è nella stessa scheda, passa il frame direttamente, altrimenti viene passato alla scheda corretta.
+
+Problema: se due macchine trasmettono sulla stessa scheda? \\
+Ci sono due possibilità.
+Se la scheda è costruita con le porte che formano una LAN locale, le collisioni vengono rilevate e gestite come in una rete CSMA/CD.
+In questo modo è possibile una sola trasmissione per scheda, ma più trasmissioni in parallelo su schede diverse.
+Ogni scheda costituisce il proprio dominio di collisione.
+
+La seconda possibilità prevede un buffer per ogni porta che memorizza i frame in arrivo.
+Quando ottiene tutto il pacchetto può controllare se il destinatario è nella stessa scheda o se serve spostarlo nella scheda appropriata.
+Ogni porta è un dominio di collisione separato, quindi non ci sono collisioni.
+
+\subsubsection{Fast Ethernet}
 
 
+\subsubsection{Gigabit Ethernet}
+
+
+\subsubsection{Retrospettiva su Ethernet}
+Punti vincenti: semplicità e flessibilità.
+
+Semplice si traduce in affidabile, economico e facile da mantenere.
+Flessibile in quanto funziona con TCP/IP ed è in grado di evolversi dove serve.
 
 \subsection{LAN Wireless} % 4.4 TUTTO tranne 444
 
+
+\subsubsection{La pila di protocolli 802.11}
+
+
+\subsubsection{Lo strato fisico di 802.11}
+
+
+\subsubsection{Il protocollo del sottostrato MAC di 802.11}
+
+
+\subsubsection{Servizi}
+
+
 \subsection{Commutazione nello strato data link} % 4.7 TUTTO tranne 476
+
+
+\subsubsection{Bridge tra due 802}
+
+
+\subsubsection{Internetworking locale}
+
+
+\subsubsection{Bridge spanning tree}
+
+
+\subsubsection{Bridge remoti}
+
+
+\subsubsection{Ripetitori, hub, bridge, switch, router, gateway}
+
 
 \newpage
 \section{Capitolo 5 - Strato network}
