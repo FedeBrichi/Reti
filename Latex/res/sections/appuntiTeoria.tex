@@ -825,7 +825,7 @@ Questo tipo di protocolli sono detti protocolli a prenotazione.
 \paragraph{Conteggio binario}
 Il problema del metodo della mappa è la richiesta del bit di controllo: se ci sono tante stazioni, sono richiesti tanti bit (uno per stazione).
 Un'alternativa è quella di utilizzare indirizzi binari per le stazioni.
-Una stazione che vuole trasmettere lo comunica agli altri tramite il proprio indirizzo, spedito sottoforma di stringa partendo dal bit più a sinistra.
+Una stazione che vuole trasmettere lo comunica agli altri tramite il proprio indirizzo, spedito sotto forma di stringa partendo dal bit più a sinistra.
 Dato che gli indirizzi sono tutti lunghi uguali, i bit nella stessa posizione sono elaborati tramite OR: 
 se il risultato è un 1, tutte le stazioni con bit 0 si arrendono;
 poi si passa al confronto del bit successivo con le stazioni rimanenti e se risulta uno 0 si passa al bit successivo,
@@ -855,7 +855,7 @@ Se la trasmissione avviene con successo, l'intervallo successivo (2) va al nodo 
 
 A carico elevato si dovrebbe iniziare già a livelli più bassi dell'albero.
 
-\subsubsection{Protocolli LAN Wireless}
+\subsubsection{Protocolli LAN Wireless}\label{problemiStazioni}
 Esempio di LAN wireless: un ufficio con stazioni base (o access point) sparsi e collegate tra loro tramite cavi.
 Regolando la potenza del segnale attorno a 3-4 metri, si ottiene una situazione dove le stanze sono considerabili come delle celle.
 Una cella ha un unico canale che copre tutta la banda ed è disponibile a tutte le stazioni.
@@ -906,13 +906,13 @@ Questo cavo è economico, semplice da installare, ma supporta solo segmenti di 1
 
 I guasti sono un problema per le connessioni cablate; per questo esistono tecniche per rintracciare i guasti,
 come la TDR (Time Domain Reflectometry), la quale usa un impulso per vedere se è tutto apposto.
-Se ci sono guasti o ostacoli si genera un eco che torna indietro e cronomentrando il tempo di ricezione dell'eco è possibile identificare la distanza dell'origine dell'eco.
+Se ci sono guasti o ostacoli si genera un eco che torna indietro e cronometrando il tempo di ricezione dell'eco è possibile identificare la distanza dell'origine dell'eco.
 
 Dal problema del tracciamento guasti, si è passati all'utilizzo di hub; le stazioni sono collegate agli hub tramite doppini non condivisi.
 Questo hub non elabora il traffico.
 Questa configurazione permette di aggiungere e rimuovere stazioni facilmente ed ha una facile individuazione le interruzioni della linea.
 Tuttavia i cavi che partono dall'hub possono raggiungere solo i 100/200 metri.
-Nonostante questo è diventato uno stardard per la facilità di gestione e per l'uso dei cablaggi presistenti.
+Nonostante questo è diventato uno standard per la facilità di gestione e per l'uso dei cablaggi presistenti.
 Lo schema presentato è detto 10Base-T.
 
 Un altro tipo di cavi è il 10Base-F che utilizza le fibre ottiche.
@@ -966,14 +966,14 @@ Maggiore è la velocità della rete, maggiore deve essere la lunghezza minima de
 Il checksum di 4 byte e contiene il checksum CRC per rilevare (ma non correggere) gli errori.
 
 \subsubsection{Algoritmo di backoff esponenziale binario}
-L'algoritmi di backoff esponenziale binario è utilizzato per gestire l'attesa casuale dopo una collisione. 
-\`E stato scelto perchè si adatta in base al numero di stazioni che tentano di trasmettere.
+L'algoritmo di backoff esponenziale binario è utilizzato per gestire l'attesa casuale dopo una collisione. 
+\`E stato scelto perché si adatta in base al numero di stazioni che tentano di trasmettere.
 L'algoritmo assicura un basso ritardo quando si hanno poche collisioni e una gestione accettabile quando avvengono molte collisioni. 
 
 L'algoritmo procede in questo modo: 
 dopo una collisione il tempo viene diviso in intervalli lunghi quanto il tempo di propagazione di andata e ritorno nel caso peggiore (2t);
 ogni stazione aspetta 0 o 1 intervalli temporali prima di riprovare;
-se due stazioni collidono perchè usano lo stesso intervallo, aumenta la scelta degli intervalli casuali (0, 1, 2, 3);
+se due stazioni collidono perché usano lo stesso intervallo, aumenta la scelta degli intervalli casuali (0, 1, 2, 3);
 ad ogni passo si continua ad aumentare il numero di intervalli d'attesa, che andrà da 0 a $2^i-1$, dove i indica il numero di collisioni.
 L'algoritmo ha come tetto massimo 10 collisioni, per un totale di 1023 intervalli. Se ci sono ancora collisioni, a 16 viene lanciato un errore.
 
@@ -998,10 +998,46 @@ Quando ottiene tutto il pacchetto può controllare se il destinatario è nella s
 Ogni porta è un dominio di collisione separato, quindi non ci sono collisioni.
 
 \subsubsection{Fast Ethernet}
+Nonostante l'aumentare della velocità, l'utente non è mai soddisfatta. 
+Vennero allora proposte due LAN ottiche su topologie ad anello: FDDI e Fibre Channel.
+Non ebbero molto successo, ma aprirono la strada ad una maggiore velocità.
+Lo standard infatti decise di mantenere il 802.3 ma con velocità superiore, in modo da mantenere la compatibilità con le LAN esistenti.
+Venne così creato Fast Ethernet (o anche il poco usato 802.3u). 
+Di fatto la differenza sta nel tempo di bit ridotto da 100 a 10 nanosecondi.
+Per questa versione era tollerata solo l'architettura 10base-T. Con quali cavi?\\
+Il doppino cat-3 era una prima scelta data la sua diffusione, tuttavia non riusciva a trasportare 200 Megabaud (ovvero 100 Mbps con codifica Manchester) per 100 metri, come richiesto dal 10Base-T.
+Venne quindi permesso il cat-3, ma consigliato il cat-5 e la fibra ottica. Abbiamo quindi, rispettivamente, 100Base-T4, 100Base-TX, 100Base-FX, con le ultime due full duplex a 100Mbps.
 
+Lo schema Cat 3 necessita di 4 doppini: uno in ricezione, uno in trasmissione e gli altri due si adeguano alla direzione di trasmissione.
+I segnali trasmessi sono ternari, cioè possono contenere 0,1 o 2. 
+In questo modo si riesce a raggiungere la velocità obiettivo di 100 Mbps. Questo schema è chiamato 8B/6T.
+
+Il modello basato sul Cat 5 è più semplice ed utilizza solo due doppini, uno in ricezione e uno in trasmissione.
+In questo caso viene usato uno schema chiamato 4B/5B.
+Questo sistema è full duplex, ovvero le stazioni possono trasmettere e ricevere contemporaneamente a 100 Mbps.
+
+Il modello che utilizza la fibra ottica usa due cavi multimodali, uno per direzione.
+Quindi il sistema è full duplex con 100 Mbps in ogni direzione e può raggiungere 2 km tra stazione e hub.
+Per i modelli 100Base-T è possibile utilizzare sia switch che hub;
+invece il modello a fibra ottica consente solo lo switch dove ogni cavo collegato crea un dominio di collisione verso se stesso. 
 
 \subsubsection{Gigabit Ethernet}
-
+Dopo la Fast Ethernet iniziarono a lavorare su una Ethernet ancora più veloce, ovvero la gigabit Ethernet.
+Anche in questo caso si puntava ad avere una trasmissione più veloce mantenendo la compatibilità con le versioni precedenti.
+Le configurazioni gigabit Ethernet sono tutte punto a punto, di conseguenza ogni stazione è collegata ad un solo hub e switch.
+Sono supportate sia il full duplex che l'half duplex.
+Quella normale è la full duplex, utilizzata quando c'è uno switch centrale collegato al computer alle stazioni del perimetro.
+Tutte le linee hanno buffer e non è possibile avere quel collisioni, quindi non è necessario controllare se il canale è già utilizzato e di conseguenza non si utilizza il protocollo CSMA/CD. 
+Si utilizza la half duplex quando i computer sono collegati ad un hub; 
+in questo caso le collisioni sono ancora possibili quindi si utilizza il protocollo CSMA/CD.
+Data la velocità di trasmissione, un frame è trasmesso così velocemente da limitare la distanza a 25 metri.
+Questo è inaccettabile, di conseguenza sono state aggiunte due funzionalità dallo standard.
+La prima è chiamata \textbf{Carrier extension}, aggiunge i dati di riempimento dopo il frame normale e viene rimosso quando viene ricevuto. 
+Essendo una modifica hardware non sono richiesti cambiamenti al software. 
+La seconda funzionalità è detta \textbf{Frame bursting} e permette di inviare una sequenza concatenata di più frame in una sola trasmissione;
+se non viene raggiunta la dimensione di 512 Byte, viene compensata dal metodo sopracitato;
+in questo modo si arriva ad un raggio di 200 metri un valore già più accettabile.
+Esistono 4 tipi di configurazione che utilizzano cavi diversi: 1000Base-SX/LX/CX/T, le prime due con fibra, le ultime due con diversi tipi di doppini.
 
 \subsubsection{Retrospettiva su Ethernet}
 Punti vincenti: semplicità e flessibilità.
@@ -1011,36 +1047,96 @@ Flessibile in quanto funziona con TCP/IP ed è in grado di evolversi dove serve.
 
 \subsection{LAN Wireless} % 4.4 TUTTO tranne 444
 
-
 \subsubsection{La pila di protocolli 802.11}
-
+I protocolli utilizzati dalle varianti 802 sono tutti simili.
+Lo strato fisico è simile a quello OSI, lo strato datalink è suddiviso in due o più sottostrati.
+In 802.11 il sottostrato MAC gestisce l'allocazione del canale, il sottostrato LLC nasconde le differenze tra le varianti di 802 in modo da renderle indistinguibili allo strato network.
 
 \subsubsection{Lo strato fisico di 802.11}
-
+[...]
 
 \subsubsection{Il protocollo del sottostrato MAC di 802.11}
+Il sottostrato MAC di 802.11 si differenzia leggermente da quello di 802.3, in quanto l'ambiente wireless complica le cose.
+Per esempio ci sono i problemi della stazione esposta e della stazione nascosta (§\ref{problemiStazioni}).
+Inoltre le trasmissioni sono quasi tutte hal duplex.
+Per questi motivi non viene utilizzato CSMA/CD, bensì una variante detta CSMA/CA, ovvero Collision Avoidance.
+
+In particolare, 802.11 supporta due modalità operative: 
+DCF (Distributed Coordination Function), che non utilizza nessun controllo centrale,
+e PCF, dove invece la stazione base controlla l'intera cella.
+
+Quando viene usato DCF, si usa CSMA/CA che controlla sia il canale fisico, sia quello virtuale.
+
+Questo protocollo rileva la portante prima della trasmissione e usa il backoff esponenziale dopo le collisioni, 
+a differenza di CSMA/CD, il backoff di partenza è casuale e non attende una collisione per essere settato.
+
+[...]
 
 
 \subsubsection{Servizi}
+Lo standard definisce 9 servizi che ogni LAN wireless deve fornire, 5 di distribuzione e 4 di stazione.
+Quelli di distribuzione riguardano l'appartenenza alla cella e l'interazione con le altre celle, mentre quelli di stazione si occupano delle attività dentro la cella.
+I servizi sono:
+\begin{itemize}
+\item Associazione - utilizzato dalle stazioni mobili per collegarsi alle stazioni base
+\item Separazione - si interrompe la relazione tra le due stazioni
+\item Riassociazione - la stazione mobile cambia la stazione base preferita (es: per cambiare cella)
+\item Distribuzione - indica come saranno instradati i frame verso la destinazione
+\item Integrazione - traduce dal formato 802.11 al formato richiesto dalla destinazione
+\item Autenticazione - solo le stazioni autenticate possono trasmettere i dati
+\item Invalidamento - invalida una stazione precedentemente autenticata che vuole lasciare la stazione
+\item Riservatezza - le informazioni devono essere cifrate
+\item Trasferimento dati - per il trasferimento
+\end{itemize}
 
 
 \subsection{Commutazione nello strato data link} % 4.7 TUTTO tranne 476
+\`E possibile connettere più LAN tramite dispositivi detti bridge, che operano nello strato data link.
+I bridge esaminano gli indirizzi dello strato datalink per l'instradamento senza esaminare il carico utile, permettendo di trasportare diversi tipi di pacchetto.
+I router all'opposto instradano in base agli indirizzi del pacchetto.
 
+Alcuni motivi per creare LAN differenti che vengono poi connesse tra loro sono:
+\begin{itemize}
+\item rendere indipendenti le LAN dei dipartimenti diversi
+\item collegare aziende su edifici diversi, lontani tra loro
+\item suddividere una LAN logica in più LAN fisiche per gestire meglio il carico
+\item per collegare più LAN suddivise per i limiti di distanza (es: 2,5 Km in caso di Ethernet)
+\item per garantire una maggiore affidabilità in caso di nodi difettosi
+\item per ottenere una maggiore sicurezza dell'azienda
+\end{itemize}
 
 \subsubsection{Bridge tra due 802}
-
+Come funziona un bridge?
+Un pacchetto dallo strato di rete viene passato allo strato LLC che aggiunge l'intestazione relativa,
+poi passa al sottostrato MAC dove viene aggiunta la sua intestazione, per esempio 802.11;
+infine giunge allo strato fisico fino ad arrivare alla stazione base, dove viene rilevata la richiesta di passaggio tra due LAN di tipi diversi.
+Il passaggio avviene tramite il bridge, che "traduce" il frame risalendo gli strati del bridge, fino a riscendere per passare allo strato fisico della seconda LAN.
+Purtroppo non è così banale, in quanto ci sono diversi problemi.
+Ad esempio i formati dei frame differiscono, richiedendo una conversione particolare;le due LAN possono trasmettere a velocità diverse;
+inoltre c'è la diversa lunghezza dei frame in base al tipo di 802; un'altra questione è la sicurezza, in quanto alcune versioni supportano la crittografia, mentre altri no; infine la qualità del servizio, che viene garantito in modi diversi.
 
 \subsubsection{Internetworking locale}
-
+Come già accennato, i bridge possono essere usati per connettere LAN anche dello stesso tipo.
+In questo caso, i bridge accettano tutti i frame in arrivo, ma scartano quelli che appartengono già alla stessa LAN,
+ovvero quei frame che non hanno bisogno di attraversare il bridge per cambiare LAN.
+Nel decidere dove e se inoltrarli, il bridge utilizza l'indirizzo di destinazione e lo confronta con una tabella delle destinazioni.
+Appena creata la connessione le tabelle sono vuote e il bridge manda il frame a tutte le LAN tranne a quella di input;
+con il tempo riesce a riempire la tabella con gli indirizzi corretti e potrà inviare solo alla LAN che contiene la stazione richiesta.
+Questo è detto algoritmo di apprendimento all'indietro.
+In particolare la costruzione avviene salvando gli indirizzi della sorgente, memorizzando in che LAN si trova.
 
 \subsubsection{Bridge spanning tree}
-
+Per aumentare l'affidabilità è possibile collegare più LAN con bridge paralleli, tuttavia questo crea anelli nella topologia.
+Per evitare il problema, viene costruito uno spanning tree, un grafico ad albero che evita i percorsi ad anello.
 
 \subsubsection{Bridge remoti}
-
+Delle LAN distanti possono essere connesse tra loro tramite bridge remoti,
+ovvero una coppia di bridge che sono in comunicazione tra loro tramite una linea punto a punto.
 
 \subsubsection{Ripetitori, hub, bridge, switch, router, gateway}
-
+Nonostante la funzione simile, vale la pena confrontare ripetitori, hub, bridge, switch, router, gateway.
+Innanzitutto, operano su strati diversi:
+ripetitori e hub nel fisico, bridge e switch nel data link, router nel network, gateway nel trasporto e applicazioni (due tipi diversi).
 
 \newpage
 \section{Capitolo 5 - Strato network}
@@ -1131,31 +1227,120 @@ Ogni carico utile di ogni livello ha la propria intestazione.
 Il Three-way handshake è un protocollo che entra in gioco quando si deve stabilire una connessione.
 Infatti stabilire una connessione è un'operazione tutt'altro che facile.
 Al normale "percorso" CONNECTION REQUEST - CONNECTION ACCEPTED, la rete può perdere, ritardare, corrompere o duplicare i pacchetti, creando diversi problemi.
+In particolare, l'esistenza dei duplicati ritardati è il nodo centrale del problema e può essere affrontato in diversi modi.
+Una possibilità è l'utilizzo di indirizzi di trasporto monouso oppure si può assegnare ad ogni connessione un identificatore inserito in ogni TDPU.
+Entrambe le possibilità hanno diversi problemi.
 
+La soluzione è cercare di distruggere i pacchetti obsoleti rimasti in circolo, impostando una durata massima di vita del pacchetto.
+Il valore massimo di durata può essere prefissato utilizzando una o più tecniche tra le seguenti:
+\begin{itemize}
+\item progettazione di sottoreti limitate che impediscono ai pacchetti di essere ripetuti ciclicamente
+\item inserimento di un contatore di salti in ogni pacchetto che viene decrementato ad ogni salto e se raggiunge lo zero viene scartato
+\item applicazione di un contrassegno temporale in ogni pacchetto; verrà scartato se diventa troppo vecchio secondo un tempo stabilito
+\end{itemize}
+Oltre al pacchetto, anche i suoi acknoledgment devono essere distrutti.
+Consideriamo quindi un valore T che indica il tempo dopo il quale si può essere certi che tutte le tracce del pacchetto sono scomparse (sia pacchetto che acknoledgement).
+La sorgente etichetta i segmenti con numeri di sequenza che non verranno riutilizzati per T secondi.
+In questo modo ci sarà un unico pacchetto con quel numero di sequenza in sospeso.
+
+Nel caso di malfunzionamento, è possibile far rimanere le entità inattive per T secondi in modo da far scadere gli eventuali segmenti vecchi, così da essere sicuri di non usare numeri di sequenza già utilizzati.
+Tuttavia su reti complesse non conveniva, quindi fu proposto un orologio per ogni host implementato come contatore binario che abbia tanti bit quanti quelli del numero di sequenza.
+Quando viene instaurata la connessione, i k bit di ordine più basso dell'orologio sono usati come primo numero di sequenza, quindi ogni connessione inizia con numeri diversi.
+Una volta stabilito il primo numero di sequenza, si può utilizzare un qualsiasi protocollo sliding window.
+
+Il metodo dell'orologio risolve il problema dei segmenti duplicati, ma non c'è modo si ricordare i numeri tra una connessione e l'altra, quindi non sappiamo se un segmento di richiesta di connessione sia duplicato o meno.
+La soluzione è il three-way handshake che richiede la verifica reciproca da parte dei peer utilizzando tre messaggi.
+Il primo host manda la richiesta di connessione con un numero di sequenza x; l'host 2 risponde con un ack che conferma x e contiene il suo numero di sequenza iniziale. L'host 1 allora invia il primo segmento dati e conferma a sua volta la scelta del numero di sequenza iniziale dell'host 2.
+Nel caso di richiesta di connessione duplicata, l'host 2 reagisce normalmente, ma al terzo messaggio l'host 1 rifiuta il tentativo di connessione.
+Se invece si hanno sia la richiesta che l'ack ritardati, l'host 2 reagisce normalmente restituendo il numero y, successivamente l'host riceve il secondo segmento ritardato che ha però un ack su un numero diverso da y, per cui capisce che è un duplicato.
 
 \subsection{Rilascio della connessione}
+Il rilascio della connessione è più semplice e può essere simmetrico o asimmetrico.
+In quello asimmetrico, una delle due parti interrompe la connessione; è improvviso e può far perdere di dati.
+Il rilascio simmetrico tratta la connessione come se fosse composta da due connessioni separate unidirezionali, quindi le rilascia separatamente.
+In questo caso, anche se una delle due parti ha inviato il pacchetto DISCONNECT, può continuare a ricevere dati.
+
+Anche per il rilascio conviene usare il three-way handshake, anche se in questo caso non è infallibile.
+Ogni messaggio passa la richiesta di disconnessione e il ricevente deve confermare con una richiesta di rilascio; infine il primo risponde con l'ack.
+in questo caso, ogni messaggio ha un timer per triggerare la rispedizione nel caso qualcosa vada storto.
 
 \subsection{Introduzione all'UDP}
+UDP (User Datagram Protocol) è un protocollo di trasporto senza connessione, permette cioè di inviare datagrammi IP senza dover stabilire una connessione.
+UDP trasmette segmenti con un'intestazione di 8 byte seguita dal carico utile.
+L'intestazione contiene le porte dell'origine e della destinazione.
+Il campo UDP lenght include l'intestazione e i dati, mentre UDP checksum contiene il checksum.
+
+UDP non si occupa del controllo del flusso, degli errori o della ritrasmissione.
+
+Questo protocollo è particolarmente utile per il multimediale (streaming) e per le situazioni client/server,
+dove è richiesta una risposta breve ad una breve richiesta al server.
+Se non viene ricevuta la risposta, allora va in timeout e riprova.
+Questo tipo di utilizzo viene effettuato dal DNS.
 
 \subsection{TCP}
 
 \subsubsection{Introduzione}
-
+TCP (Transport Control Protocol) è un protocollo di trasporto creato per fornire affidabilità per un internetwork inaffidabile.
+Un internetwork ha diversi parametri che possono variare e TCP cerca di adattarsi dinamicamente.
+Un'entità di trasporto TCp riceve i dati dell'utente, li suddivide in pezzi di dimensione massima uguale a 64KB e invia ogni pezzo in un datagramma 
+IP autonomo.
+Nel ricevente i datagrammi vengono usati per ricostruire il flusso di byte originali. 
+TCP ha il compito di segnalare gli errori, richiedere la ritrasmissione e riordinare i datagrammi se non sono nell'ordine corretto.
 
 \subsubsection{Modello di servizio di TCP}
+Il servizio TCP è ottenuto creando punti finali da parte del mittente e ricevente, ovvero i socket.
+Ogni socket ha un indirizzo composto dall'indirizzo IP dell'host e da un numero di 16 bit locale all'host, che indica la porta.
+Per avere un servizio è necessario stabilire una connessione tra i due socket.
 
+Un socket supporta più connessioni alla volta e una connessione è identificata dalla coppia dei due socket utilizzati.
+
+I numeri di porta inferiori a 1024 sono le well-known ports, porte speciali dedicate ai servizi standard.
+
+Tutte le connessioni TCP sono full-duplex punto a punto. Non supporta né il broadcsting, né il multicasting.
+
+Una connessione TCP è un flusso di byte e non di messaggi, quindi un messaggio può essere trasmesso spezzato in blocchi di byte più piccoli o con altri messaggi. 
+
+TCP ha la capacità di decidere se inviare subito i dati ricevuti da un'applicazione o se salvarli in un buffer per raggrupparli e inviarli insieme ad altri.
+L'applicazione può avere però richieste particolare e chiedere che sia spedito subito tramite il flag PUSH.
 
 \subsubsection{Protocollo TCP}
+Una funzionalità importante del protocollo è il fatto che ogni byte ha un proprio numero di sequenza a 32bit.
 
+I dati vengono scambiati sotto forma di segmenti.
+Un segmento consiste di un'intestazione di 20 byte seguita da 0 (ack) o più byte di dati.
+Sta a TCP decidere la grandezza massima dei segmenti e può decidere se dividere o combinare i messaggi.
+Il limite superiore però è di 65615 byte, che deve starci nel carico utile di IP.
+Ogni rete ha un MTU (Maximum Transfert Unit) e il segmento deve stare sotto la soglia.
+Di solito è di 1500 byte.
+
+Le entità TCP usano il protocollo sliding window.
 
 \subsubsection{Intestazione TCP}
-
+L'intestazione di un segmento è di 20 byte.
+Due campi sono dedicati alla porta d'origine e a quella di destinazione.
+I campi \textit{numero di sequenza} e \textit{numero di acknowledgement} svolgono le solite funzioni.
+Il campo \textit{lunghezza dell'header TCP} indica quante parole di 32 bit sono contenute nell'intestazione; 
+è necessario perchè il campo options ha una lunghezza variabile.
+Seguono 6 bit inutilizzati e 6 bit per 6 flag, come URG (puntatore urgente), ACK (acknowledgement è valido), PSH (push), RST (reimposta la connessione), SYN (stabilisce una connessione), FIN (rilascia la connessione).
+Il campo successivo \textit{window size} indica la dimensione della finestra per lo sliding window e in particolare quanti byte possono essere inviati a partire da quello che ha ricevuto l'acknowledgement.
+Seguono il campo checksum e l'urgent pointer.
+Una volta finita l'intestazione, sono presenti il campo \textit{options} per opzioni aggiuntive e i dati effettivi.
 
 \subsubsection{Connessione TCP}
+Le connessioni vengono stabilite secondo il three-way handshake.
+Un host richiede la connessione inviando un segmento con bit SYN a 1 e ACK a 0 e attende la risposta.
+L'host ricevente controlla se alla porta indicata nel frame è in ascolto; in caso negativo risponde rifiutando la connessione, 
+altrimenti risponde con un segmento di acknoledge per dare il via libera al primo host, che manda il segmento di dati.
 
+Se due host tentano una connessione sugli stessi socket, solo una delle due andrà a buon fine in quanto i socket sono identificativi della connessione.
 
 \subsubsection{Rilascio connessione TCP}
+Il rilascio avviene in maniera simmetrica, dove ogni parte può inviare un segmento con il bit FIN impostato per dire che ha finito di trasmettere e può essere chiusa la connessione.
+Nel senso opposto può continuare la trasmissione finché non termina e viene rilasciata del tutto la connessione.
 
+Per rilasciare la connessione servirebbero 4 segmenti (2 FIN e 2 ACK), ma è possibile raggruppare il primo ACK con il secondo FIN in modo da averne solo tre.
+
+Se ad un FIN non arriva la risposta, un timer rilascia la connessione nella direzione del FIN inviato.
 
 \newpage
 \section{Capitolo 7 - Strato applicazione}
@@ -1200,8 +1385,11 @@ Il server del DNS non è unico, altrimenti verrebbe sovraccaricato. Quindi i nom
 \section{Capitolo 8 - Sicurezza}
 
 \subsection{Crittografia} % 8.1
+Quando si parla di crittografia vanno distinti due termini: cifrario, ovvero la trasformazione carattere per carattere del messaggio, e codice, che rimpiazza ogni parola con un'altra parola (non più usati).
 
 \subsubsection{Introduzione alla crittografia}
+Un messaggio da cifrare è detto testo in chiaro e sono trasformati in testo cifrato da un funzione secondo una chiave di cifratura.
+
 
 \subsubsection{Cifrari a sostituzione}
 
