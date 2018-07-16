@@ -1389,13 +1389,42 @@ Quando si parla di crittografia vanno distinti due termini: cifrario, ovvero la 
 
 \subsubsection{Introduzione alla crittografia}
 Un messaggio da cifrare è detto testo in chiaro e sono trasformati in testo cifrato da un funzione secondo una chiave di cifratura.
+Decifrare è l'operazione legittima di lettura dei dati, traducendoli nel messaggio originale, mentre decriptare è l'attività di decifrazione da parte dell'intruso.
 
+Secondo il principio di Kerckhoff, tutti gli algoritmi di cifratura devono essere pubblici e solo le chiavi sono segrete.
+Infatti di solito cercare di tenere nascosto l'algoritmo non è produttivo, mentre averlo pubblico può portare a collaborazioni e miglioramenti.
+
+Dato che la segretezza sta nella chiave, la sua lunghezza è la parte fondamentale.
+Più è lunga, più è difficile da decriptare.
 
 \subsubsection{Cifrari a sostituzione}
+Il cifrario a sostituzione sostituisce una o più lettere con una o più lettere.
+Uno dei cifrari più antichi è quello di Cesare, che effettuava uno slittamento dell'alfabeto di 3 lettere: A diventa D, B diventa E, ecc.
+In generale, si può usare questo metodo usando una chiave k per spostare di k lettere l'alfabeto.
+Questa cifratura è detta sostituzione monoalfabetica.
+
+Il passaggio successivo è stato far cambiare la corrispondenza lettera in chiaro e lettera cifrata in maniera più casuale.
+La chiave è la stringa che corrisponde all'intero alfabeto.
+
+Anche se questo sistema sembra sicuro per il gran numero di combinazioni, 
+più testo cifrato si ha a disposizione e più facile è decriptare il testo grazie alle proprietà statistiche dei linguaggi.
+Basterà usare diagrammi o trigrammi più comuni (coppie o triple di lettere), o cercare di individuare una parola che è probabile che sia presente.
+
+\subsubsection{Blocchi monouso}
+[...]
 
 \subsubsection{Due principi crittografici fondamentali}
+I due principi crittografici fondamentali sono la ridondanza e l'attualità.
+Il primo principio afferma che tutti i messaggi cifrati devono contenere una qualche forma di ridondanza, cioè un'informazione non necessaria al messaggio.
+Questo per evitare che gli intrusi possano creare dati casuali con il rischio che vengano interpretati come validi.
+La ridondanza però renderebbe più facile decriptare: quindi difende contro gli intrusi attivi, ma meno da quelli passivi. 
+
+Il secondo principio afferma che è necessario avere la possibilità di verificare che ogni messaggio ricevuto sia attuale, recente, in modo da poter prevenire attacchi di tipo ripetizione, 
+dove un intruso manda messaggi vecchi spacciandoli per nuovi.
 
 \subsection{Algoritmi a chiave simmetrica} % 8.2
+Questi algoritmi usano la stessa chiave per cifrare e decifrare.
+Gli algoritmi possono essere implementati in software o hardware (es: P-box, scatola di permutazione con input a 8 bit).
 
 \subsubsection{DES}
 
