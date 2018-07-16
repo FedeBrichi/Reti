@@ -1427,16 +1427,70 @@ Questi algoritmi usano la stessa chiave per cifrare e decifrare.
 Gli algoritmi possono essere implementati in software o hardware (es: P-box, scatola di permutazione con input a 8 bit).
 
 \subsubsection{DES}
+DES (Data Encryption Standard) cifra il testo in chiaro in blocchi di 64 bit che generano 64 bit di testo cifrato.
+Utilizza una chiave a 56 bit e ha 19 stadi, dove nel primo viene fatta la trasposizione dei 64 bit di testo in chiaro,
+indipendentemente dalla chiave, mentre nell'ultimo stadio avviene l'inverso del primo. 
+Quelli intermedi hanno la stessa funzione, ma parametrizzati da diverse funzioni della chiave.
+Ogni stadio intermedio prende due ingressi a 32 bit e produce due uscite a 32 bit:
+quello di sinistra è la copia dell'originale di destra, mentre quello di destra è lo XOR tra i bit di sinistra, quelli di destra e della chiave di stadio.
+
+Quando IBM si rese finalmente conto che la chiave di cifratura era troppo corta, decise di usare una cifratura tripla.
+Vengono usate due chiavi e tre stadi: nel primo il testo in chiaro viene cifrato con DES usando la chiave $K_1$, nel secondo viene usato DES in modalità di decifrazione usando $K_2$, infine un'altra cifratura con chiave $K_1$.
+Questa alternativa migliorata è detta \textbf{triplo DES}.
+
+Domanda 1: perchè solo 2 chiavi e non 3? Perchè i 112 bit erano ritenuti sufficienti, mentre 168 avrebbe richiesto molto lavoro senza vantaggi effettivi.\\
+Domanda 2: perchè cifra-decripta-cifra e non cifra-cifra-cifra? Il motivo è per mantenere la compatibilità con i sistemi che usavano un solo DES, ponendo $K_1=K_2$.
 
 \subsubsection{AES}
+AES (Advanced Encryption Standard) è lo standard successivo a DES.
+Questo algoritmo è un cifrario simmetrico a blocchi, con struttura interamente pubblica (DES non lo era), supporta chiavi fino a 256 bit, è implementabile sia via software, sia hardware e doveva essere pubblicato senza vincoli.
+
+Questo algoritmo deriva da un concorso pubblico;
+ci furono diverse proposte e alla fine quella definita vincitrice fu quella di Rijndael.
+
+AES definisce che la dimensione del blocco doveva essere di 128 bit, mentre quella della chiave poteva essere di 128 o 256 bit.
+Ci sono quindi le versioni 128/128 e 128/256, ma già la prima è sufficientemente sicura.
+
+Come DES, AES usa sostituzioni e permutazioni in diversi round (10 a 128 bit) e a differenza di DES le operazioni coinvolgono byte interi.
+
+AES opera utilizzando matrici di 4x4 byte chiamate stati (states). Quando l'algoritmo ha blocchi di 128 bit in input, la matrice State ha 4 righe e 4 colonne; se il numero di blocchi in input diventa di 32 bit più lungo, viene aggiunta una colonna allo State, e così via fino a 256 bit. In pratica, si divide il numero di bit del blocco in input per 32 e il quoziente specifica il numero di colonne.
+
+C'è un passaggio iniziale:\\
+AddRoundKey – Ogni byte della tabella viene combinato con la chiave di sessione, la chiave di sessione viene calcolata dal gestore delle chiavi.
+Successivamente per cifrare sono previsti diversi round o cicli di processamento: ogni round (fase) dell'AES (eccetto l'ultimo) consiste dei seguenti quattro passaggi:
+\begin{itemize}
+\item SubBytes – Sostituzione non lineare di tutti i byte che vengono rimpiazzati secondo una specifica tabella.
+\item ShiftRows – Spostamento dei byte di un certo numero di posizioni dipendente dalla riga di appartenenza.
+\item MixColumns – Combinazione dei byte con un'operazione lineare, i byte vengono trattati una colonna per volta.
+\item AddRoundKey – Ogni byte della tabella viene combinato con la chiave di sessione, la chiave di sessione viene calcolata dal gestore delle chiavi.
+\end{itemize}
+
+Il numero di round o cicli di processamento/elaborazione crittografica dei quattro passaggi precedenti è 10 con l'ultimo round che salta il passaggio MixColumns. A seguito la descrizione di ogni singolo passaggio.
+
+La fase di decifratura non è identica a quella di cifratura dal momento che gli step sono eseguiti in ordine inverso. Tuttavia, si può definire un cifrario inverso equivalente ai passi dell'algoritmo usato per la cifratura, usando la funzione inversa a ogni step e un different key schedule. Funziona siccome il risultato non cambia quando si scambiano la fase di SubBytes con quella di ShiftRows, e quella di MixColumns con una fase aggiuntiva di AddRoundKey.
+
+L'algoritmo è molto sicuro e veloce; nell'implementazione hardware riesce ad essere anche più veloce.
 
 \subsubsection{Modalità di cifratura}
+I cifrari a blocchi sono "ripetitivi", nel senso che dato un testo in chiaro e una chiave, l'output sarà sempre uguale.
+Questo può essere un problema per la sicurezza.
 
 \paragraph{Modalità ECB}
+Dato un testo in chiaro, con DES viene suddiviso in blocchi da 8 byte fino a raggiungere l'ultimo, che eventualmente viene riempito per raggiungere la grandezza richiesta.
+Questa tecnica è nota come ECB (Electronic Code Book).
+Anche se i blocchi sono cifrati, è possibile manipolare il "libro" dei blocchi sapendo il contesto, senza il bisogno di decriptarli.
 
 \paragraph{Modalità stream cipher}
+La modalità stream cipher cifra un vettore di inizializzazione per ottenere un blocco in uscita;
+questo blocco viene cifrato per ottenere un secondo blocco in uscita, e così via.
+La sequenza di blocchi è detta keystream e viene utilizzata come un blocco monouso e utilizzata in XOR con il testo in chiaro per ottenere il testo cifrato.
+
+L'uso ripetuto dello stesso keystream espone il testo cifrato ad attacchi di keystream riutilizzato.
 
 \subsection{Algoritmi a chiave pubblica} % 8.3 - TUTTO
+Gli algoritmi a chiave pubblica sono stati proposti per risolvere un problema: le chiavi sono il punto primario, vanno distribuite ma senza lasciare che un intruso possa ottenerle.
+Questi nuovi algoritmi propongono di usare chiave di cifratura e decifratura diversi e non deducibili tra loro, e di rendere la chiave di cifratura pubblica insieme all'algoritmo.
+
 
 \subsection{Message digest} % 8.4.3 (partire da 8.4)
 
