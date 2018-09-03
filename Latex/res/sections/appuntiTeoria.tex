@@ -65,7 +65,7 @@ Un servizio è considerato affidabile se riceve sempre tutti i pacchetti e di so
 La conferma tuttavia rallenta le prestazioni del servizio, quindi è necessario valutare nei singoli casi se ne vale la pena: 
 ad esempio in un servizio di streaming è più importante la velocità per un servizio più fluido piuttosto che l'affidabilità per una qualità migliore dell'audio/video.
 
-Un esempio di primitive di un servizio orientato alla connessione sono: Listen, Connect, Accept, Receive, Send, Disconnect.
+Un esempio di primitive di un servizio orientato alla connessione sono: \texttt{Listen, Connect, Accept, Receive, Send, Disconnect}.
 
 \subsection{Modelli di reti}
 Esistono due architetture di rete principali utilizzate come modello: OSI e TCP/IP. \\
@@ -322,21 +322,45 @@ Quelli liberi per i dati di solito vengono distribuiti secondo il provider tra u
 
 \subsection{Linee e multiplexing}
 Le aziende telefoniche hanno organizzato il sistema per utilizzare un unico collegamento fisico sia per la banda larga che per quella stretta.
-Per fare ciò viene utilizzato il multiplexing, che si distingue in due tipologie:
+Per fare ciò viene utilizzato il multiplexing, che si distingue in due tipologie di base:
 \begin{itemize}
     \item FDM: Frequency division multiplexing, dove lo spettro è diviso in bande di frequenza e ogni utente ha a disposizione solo alcune parti
     \item TDM: Time division multiplexing, dove la banda viene scambiata per intero tra gli utenti per breve tempo
 \end{itemize}
 
 \subsubsection{Multiplexing a divisione di frequenza}
-[...]
+Prendiamo un esempio con tre canali con filtri che limitano la banda utilizzabile a 3100Hz;
+quando i canali sono uniti in multiplexing, gli viene assegnata più banda per mantenere separati i canali: in questo caso 4000Hz.
+Prima dell'unione però vengono aumentate le frequenza in modo diverso, in modo da distinguere i canali e evitare che si sovrappongano quando vengono uniti.
+
+Gli schemi di FDM sono parzialmente standardizzati.
+Di solito usa 12 canali a 4000Hz uniti in multiplexing nella banda da 60 a 108 kHz.
+Questa unità è detta gruppo. Si possono raggruppare in multiplexing diversi gruppi, creando supergruppi (5 gruppi) o mastergroup (5 supergruppi).
 
 \subsubsection{Multiplexing a divisione di lunghezza d'onda}
-Questo multiplexing è utilizzato per i canali in fibra ottica.
-[...]
+Questo multiplexing (WDM) è utilizzato per i canali in fibra ottica, dove viene divisa la lunghezza d'onda.
+Più fibre ottiche che trasportano energia a lunghezza d'onda diversa si uniscono in un'unica fibra condivisa nel combinatore ottico;
+al termine del cavo condiviso uno splitter divide i segnali in base alla lunghezza d'onda.
+
+Basandosi su un sistema ottico completamente passivo, è più affidabile di FDM.
 
 \subsubsection{Multiplexing a divisione di tempo}
-[...]
+Poiché i cavi in rame sono ancora molto utilizzati, si deve mettere da parte WDM. 
+FDM richiede collegamenti elettrici analogici e non può essere controllata da computer.
+Invece TDM può essere gestita interamente da dispositivi elettronici digitali ma può essere usata solo per dati digitali.
+Di conseguenza la centrale locale deve fare le conversioni analogico-digitale tramite un dispositivo detto codec,
+il quale elabora 8000 campioni al secondo, la velocità ottimale secondo il teorema di Nyquist.
+Ogni campione è quantizzato in un numero di 8 bit.
+Questa tecnica è detta PCM (Pulse Code Modulation). 
+
+Quando viene ricreato il segnale analogico, il risultato può non essere esattamente lo stesso a causa della quantizzazione.
+Per ridurre l'errore i livelli di quantizzazione vengono distanziati secondo una scala logaritmica che assegna più bit ai segnali con bassa ampiezza e meno a quelli più ampi.
+
+Nord America e Giappone usano il metodo della portante T1, mentre gli altri paesi usano la portante E1.
+T1 ha 24 canali vocali in multiplexing che a turno spediscono 8 bit nel flusso in uscita.
+
+Per la modulazione delta vai a §\ref{deltaMod}.
+
 
 \subsection{Commutazione (\textit{Switching})}
 
@@ -370,10 +394,11 @@ Ultima differenza riguarda l'addebito: per il circuito dipende da tempo e distan
 Prima versione: sistema telefonico per auto, che usava un pulsante per attivare il trasmettitore e disattivare il ricevitore. Quindi una sola direzione alla volta.\\
 Seconda versione: IMTS, usa due frequenze, una per trasmettere e una per ricevere. La frequenza disponibile era limitata, quindi richiedeva del tempo per avere la linea libera.
 
-AMPS è il sistema telefonico mobile avanzato da cui deriva la versione digitale D-AMPS.
+\textbf{AMPS} è il sistema telefonico mobile avanzato da cui deriva la versione digitale D-AMPS.
 Un'area geografica è divisa in celle di 10-20Km, ognuna delle quali utilizza frequenze diverse da quelle vicine.
 Il vantaggio di questa organizzazione è che celle vicine (ma non quelle adiacenti) possono usare le stesse frequenze, a differenza del IMTS che si estendeva per 100Km.
 Si ottiene quindi una maggiore capacità del sistema e riducendo la grandezza delle celle si riesce ad aumentare ulteriormente la capacità, richiedendo anche meno potenza per i trasmettitori.
+
 Il principale problema è trovare una posizione elevata per le antenne base, che sono gestite dalla stazione base, di solito al centro di ogni cella.
 La stazione è composta da un computer e un trasmettitore/ricevitore connesso all'antenna.
 Le stazioni sono collegate a dei commutatori per il mobile, cioè il MTSO (Mobile Telephone Switching Office).
@@ -384,9 +409,9 @@ Quando un telefono abbandona una cella perché il segnale di sta affievolendo, l
 Il telefono è informato del cambiamento e se era in corso una chiamata viene forzato a passare su un altro canale. 
 Questo processo è detto \textbf{handoff}. Esistono due tipi:
 \begin{itemize}
-    \item soft handoff, dove la nuova stazione acquisisce la gestione del telefono prima di interrompere il segnale;
+    \item \textbf{soft handoff}, dove la nuova stazione acquisisce la gestione del telefono prima di interrompere il segnale;
     non c'è perdita di continuità ma il telefono deve essere capace di gestire le due frequenze contemporaneamente (solo la terza generazione di telefoni riesce)
-    \item hard handoff, la vecchia stazione rilascia il telefono prima che la nuova lo acquisisca;
+    \item \textbf{hard handoff}, la vecchia stazione rilascia il telefono prima che la nuova lo acquisisca;
     è un processo abbastanza veloce, ma la chiamata può venire interrotta se la stazione non è in grado di gestire il nuovo dispositivo
 \end{itemize}
 AMPS usa 832 canali duplex composti da una coppia di simplex. 
@@ -406,31 +431,55 @@ Una volta che la richiesta raggiunge la stazione, questa comunica con il MTSO ch
 Quando trovato, viene trasmesso il numero nel canale di controllo e il telefono passa al canale vocale in attesa di risposta.
 
 \subsubsection{Seconda generazione - voce digitale}
-Per la seconda generazione sono utilizzati 4 sistemi qui esposti.
+Per la seconda generazione si passa al digitale e sono utilizzati 4 sistemi qui esposti.
 
 \paragraph{D-AMPS}
-\`E la seconda generazione di AMPS, orientata al digitale. 
-La versione digitale utilizza le stesse frequenze di AMPS, quindi vengono divisi i canali tra digitali e analogici.
+\`E la seconda generazione di AMPS, orientata al digitale, e viene usata principalmente negli Stati Uniti e in Giappone.
+La versione digitale utilizza le stesse frequenze di AMPS, quindi vengono divisi i canali tra digitali e analogici, permettendo la compatibilità di dispositivi di entrambe le generazioni.
+
 La ripartizione può cambiare dinamicamente in base al tipo di dispositivi presenti nella cella. 
 Sta al MTSO della cella la gestione della distribuzione.
 
 Per gestire l'aumento di carico, è stata prevista una nuova banda di frequenza. 
 
 Il segnale vocale viene raccolto dal microfono, digitalizzato e compresso dal \textit{vocoder}.
-Questo processo è molto importante per la telefonia mobile con D-AMPS perché offre un ottimo miglioramento utilizzando il TDM. 
-[...]
+Questo processo è molto importante per la telefonia mobile con D-AMPS perché offre un ottimo miglioramento utilizzando il TDM,
+tramite il quale tre utenti possono condividere una singola coppia di frequenze. 
+
+Una differenza tra AMPS e D-AMPS sta nella gestione dell'handoff: 
+dato che un cellulare per un terzo del tempo non trasmette perché è il turno degli altri dispositivi in multiplexing, 
+ha il tempo di valutare la qualità del servizio e se sta degrandando avvisa il MTSO che cambia la stazione di base.
+Questa tecnica è detta MAHO, ovvero Mobile Assisted HandOff.
 
 \paragraph{GSM}
-[...]
+GSM (Global System for Mobile communications) viene utilizzato dal resto del mondo ed è in parte simile a D-AMPS:
+sistemi cellulari, che usano il FDM con trasmissione su una frequenza e ricezione su una più alta;
+inoltre per ogni coppia di frequenze è utilizzato il TDM.
+I canali di GSM però sono più ampi e contengono 8 utenti, quindi risulta più veloce di D-AMPS e con una maggior qualità della voce.\\
+GSM ha un multiframe con diversi canali di controllo. Ad esempio:
+\begin{itemize}
+\item canale di controllo broadcast è un flusso di dati che annuncia identità e stato del canale della stazione base
+\item canale di controllo dedicato aggiorna la posizione, registrare il terminale nella rete e configurare la chiamata
+\item canale di controllo comune, diviso in 3 sottocanali:
+\begin{itemize}
+\item canale di paging annuncia le chiamate in arrivo
+\item canale ad accesso casuale permette agli utenti di ottenere uno slot sul canale di controllo dedicato
+\item canale di assegnazione dell'accesso annuncia lo slot assegnato
+\end{itemize}
+\end{itemize}
 
 \paragraph{CDMA}
-[...]
+CDMA (Code Division Multiple Access) è completamente diverso dai precedenti: 
+non punta a dividere l'intervallo di frequenze, bensì permette ad una stazione di ottenere tutto lo spettro per quanto tempo vuole.
+Le trasmissioni multiple sono separate secondo la teoria della codifica.
+
+
 
 \paragraph{PDC}
 Usato solo in Giappone, non approfondito.
 
 \subsubsection{Terza generazione - voce e dati digitali}
-Per la terza generazione si puntava ad un'unica tecnologia per semplificare la diffusione e lo sviluppo del dispositivi che dovevano utilizarla.
+Per la terza generazione si puntava ad un'unica tecnologia per semplificare la diffusione e lo sviluppo del dispositivi che dovevano utilizzarla.
 Ci sono state diverse proposte e dopo una selezione rimasero due possibilità: W-CDMA e CDMA2000.
 Il primo utilizzava una modulazione a spettro distribuito a sequenza diretta, pensato per interagire con GSM, in modo da poter entrare nelle celle di quest'ultimo senza perdere le chiamate.
 La seconda proposta si basava anch'essa sulla modulazione a spettro distribuito a sequenza diretta, ma non punta all'interazione con GSM. 
@@ -1055,23 +1104,34 @@ In 802.11 il sottostrato MAC gestisce l'allocazione del canale, il sottostrato L
 \subsubsection{Lo strato fisico di 802.11}
 [...]
 
-\subsubsection{Il protocollo del sottostrato MAC di 802.11}
+\subsubsection{Il protocollo del sottostrato MAC di 802.11}\footnote{NdR: parte poco chiara e incompleta}
 Il sottostrato MAC di 802.11 si differenzia leggermente da quello di 802.3, in quanto l'ambiente wireless complica le cose.
 Per esempio ci sono i problemi della stazione esposta e della stazione nascosta (§\ref{problemiStazioni}).
-Inoltre le trasmissioni sono quasi tutte hal duplex.
+Inoltre le trasmissioni sono quasi tutte half duplex, quindi non può trasmettere e rimanere in ascolto sulla stessa frequenza contemporaneamente.
 Per questi motivi non viene utilizzato CSMA/CD, bensì una variante detta CSMA/CA, ovvero Collision Avoidance.
 
 In particolare, 802.11 supporta due modalità operative: 
 DCF (Distributed Coordination Function), che non utilizza nessun controllo centrale,
-e PCF, dove invece la stazione base controlla l'intera cella.
+e PCF (Point Coordination Function), dove invece la stazione base controlla l'intera cella.
 
 Quando viene usato DCF, si usa CSMA/CA che controlla sia il canale fisico, sia quello virtuale.
 
-Questo protocollo rileva la portante prima della trasmissione e usa il backoff esponenziale dopo le collisioni, 
+Questo protocollo rileva la portante prima della trasmissione e usa il backoff esponenziale dopo le collisioni;
 a differenza di CSMA/CD, il backoff di partenza è casuale e non attende una collisione per essere settato.
 
-[...]
 
+Le reti wireless sono rumorose e inaffidabili.
+Per risolvere i problemi dei canali rumorosi, 802.11 ammette la frammentazione dei frame.
+Ogni frammento ha un proprio checksum, sono numerati e ricevono l'ack secondo stop-and-wait.
+Quando viene acquisito un canale, più frammenti possono essere mandati insieme in un burst.
+Questa tecnica aumenta l'efficienza perché permette di reinviare solo i frammenti danneggiati.
+
+Nel caso di PCF, l'ordine di trasmissione è controllato dalla centrale base, quindi non avvengono collisioni.
+La stazione base trasmette in broadcast un frame di segnalazione con il quale indica i parametri di sistema e invita le stazioni a registrarsi al servizio di interrogazione.
+
+Dato che la batteria può essere un problema nei dispositivi wireless, la stazione base può obbligare quella mobile ad andare in sospensione.
+Mentre è disattivata la stazione mobile, la base deve memorizzare in un buffer i dati diretti alla stazione sospesa.
+Viene riattivata dall'utente o dalla stazione base.
 
 \subsubsection{Servizi}
 Lo standard definisce 9 servizi che ogni LAN wireless deve fornire, 5 di distribuzione e 4 di stazione.
