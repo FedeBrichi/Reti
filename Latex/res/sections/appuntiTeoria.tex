@@ -473,7 +473,24 @@ CDMA (Code Division Multiple Access) è completamente diverso dai precedenti:
 non punta a dividere l'intervallo di frequenze, bensì permette ad una stazione di ottenere tutto lo spettro per quanto tempo vuole.
 Le trasmissioni multiple sono separate secondo la teoria della codifica.
 
+Ogni tempo bit è suddiviso in m intervalli detti chip (di solito sono 64 o 128 chip). 
+Ogni stazione ha un codice m-bit univoco detto sequenza di chip;
+per inviare un 1 viene spedita la sequenza, mentre per uno 0 viene mandato il complemento a 1 della propria sequenza.
 
+Durante ogni tempo bit, una stazione può inviare un 1, uno 0, o rimanere in silenzio.
+Si ipotizza che i chip delle stazioni siano sincronizzati.
+Se più stazioni trasmettono contemporaneamente, i segnali si sommano e si ottiene una sequenza di chip derivata dalla somma delle sequenze.
+Il ricevitore calcola il prodotto interno normalizzato della sequenza ricevuta per ottenere i dati inviati, distinti dagli altri.
+Per farlo deve conoscere la sequenza di chip del trasmettitore.
+
+
+
+
+Idealmente la capacità di un sistema CDMA potrebbe essere grande, in pratica i limiti fisici diminuiscono la capacità possibile.
+Innanzitutto è impossibile che tutti i chip siano sincronizzati.
+Inoltre il ricevitore dovrebbe conoscere il trasmettitore, ma non è così semplice. 
+
+CDMA opera su una banda di 1.25 MHz (più di metodi precedenti), ma riesce ad ospitare molti più utente con un'ampiezza di banda per utente superiore a GSM.
 
 \paragraph{PDC}
 Usato solo in Giappone, non approfondito.
