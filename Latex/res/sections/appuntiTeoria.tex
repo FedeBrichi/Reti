@@ -448,7 +448,7 @@ tramite il quale tre utenti possono condividere una singola coppia di frequenze.
 
 Una differenza tra AMPS e D-AMPS sta nella gestione dell'handoff: 
 dato che un cellulare per un terzo del tempo non trasmette perché è il turno degli altri dispositivi in multiplexing, 
-ha il tempo di valutare la qualità del servizio e se sta degrandando avvisa il MTSO che cambia la stazione di base.
+ha il tempo di valutare la qualità del servizio e se sta degradando avvisa il MTSO che cambia la stazione di base.
 Questa tecnica è detta MAHO, ovvero Mobile Assisted HandOff.
 
 \paragraph{GSM}
@@ -473,7 +473,7 @@ CDMA (Code Division Multiple Access) è completamente diverso dai precedenti:
 non punta a dividere l'intervallo di frequenze, bensì permette ad una stazione di ottenere tutto lo spettro per quanto tempo vuole.
 Le trasmissioni multiple sono separate secondo la teoria della codifica.
 
-Ogni tempo bit è suddiviso in m intervalli detti chip (di solito sono 64 o 128 chip). 
+Ogni tempo bit è suddiviso in \textit{m} intervalli detti chip (di solito sono 64 o 128 chip). 
 Ogni stazione ha un codice m-bit univoco detto sequenza di chip;
 per inviare un 1 viene spedita la sequenza, mentre per uno 0 viene mandato il complemento a 1 della propria sequenza.
 
@@ -496,13 +496,16 @@ CDMA opera su una banda di 1.25 MHz (più di metodi precedenti), ma riesce ad os
 Usato solo in Giappone, non approfondito.
 
 \subsubsection{Terza generazione - voce e dati digitali}
-Per la terza generazione si puntava ad un'unica tecnologia per semplificare la diffusione e lo sviluppo del dispositivi che dovevano utilizzarla.
+Per la terza generazione si puntava ad un'unica tecnologia per semplificare la diffusione e lo sviluppo dei dispositivi che dovevano utilizzarla.
 Ci sono state diverse proposte e dopo una selezione rimasero due possibilità: W-CDMA e CDMA2000.
-Il primo utilizzava una modulazione a spettro distribuito a sequenza diretta, pensato per interagire con GSM, in modo da poter entrare nelle celle di quest'ultimo senza perdere le chiamate.
-La seconda proposta si basava anch'essa sulla modulazione a spettro distribuito a sequenza diretta, ma non punta all'interazione con GSM. 
+Il primo utilizzava una modulazione a spettro distribuito a sequenza diretta, pensato per interagire con GSM, in modo da poter entrare nelle celle di quest'ultimo senza perdere le chiamate. L'Unione Europea spinse su questo e lo chiamò UMTS.
+La seconda proposta si basava anch'essa sulla modulazione a spettro distribuito a sequenza diretta, ma non punta all'interazione con GSM.
+Inoltre ha altre differenze con W-CDMA, come la frequenza di frammento, tempo di frame, spettro e sincronizzazioni diversi.
+Entrambi i metodi usavano una banda di 5MHz.
 
 Nel frattempo alcuni operatori proposero alcuni schemi detti \textit{2.5G}; 
-uno è EDGE, un GSM con un bit in più per baud. Il bit in più porta anche a più errori.
+uno è EDGE, un GSM con un bit in più per baud. Il bit in più porta anche a più errori, per cui viene dedicata più banda per la correzione d'errori.
+
 L'altra proposta è GPRS, una rete a pacchetti costruita sopra D-AMPS e GSM.
 Questa permette di inviare/ricevere pacchetti IP in una cella vocale;
 vengono riservati alcuni slot temporali al traffico di pacchetti e la stazione base definisce il numero e la posizione degli slot.
@@ -1465,7 +1468,7 @@ Il server del DNS non è unico, altrimenti verrebbe sovraccaricato. Quindi i nom
 Quando si parla di crittografia vanno distinti due termini: cifrario, ovvero la trasformazione carattere per carattere del messaggio, e codice, che rimpiazza ogni parola con un'altra parola (non più usati).
 
 \subsubsection{Introduzione alla crittografia}
-Un messaggio da cifrare è detto testo in chiaro e sono trasformati in testo cifrato da un funzione secondo una chiave di cifratura.
+Un messaggio da cifrare è detto testo in chiaro ed è trasformato in testo cifrato da una funzione secondo una chiave di cifratura.
 Decifrare è l'operazione legittima di lettura dei dati, traducendoli nel messaggio originale, mentre decriptare è l'attività di decifrazione da parte dell'intruso.
 
 Secondo il principio di Kerckhoff, tutti gli algoritmi di cifratura devono essere pubblici e solo le chiavi sono segrete.
@@ -1477,7 +1480,7 @@ Più è lunga, più è difficile da decriptare.
 \subsubsection{Cifrari a sostituzione}
 Il cifrario a sostituzione sostituisce una o più lettere con una o più lettere.
 Uno dei cifrari più antichi è quello di Cesare, che effettuava uno slittamento dell'alfabeto di 3 lettere: A diventa D, B diventa E, ecc.
-In generale, si può usare questo metodo usando una chiave k per spostare di k lettere l'alfabeto.
+In generale, si può usare questo metodo usando una chiave \textit{k} per spostare di \textit{k} lettere l'alfabeto.
 Questa cifratura è detta sostituzione monoalfabetica.
 
 Il passaggio successivo è stato far cambiare la corrispondenza lettera in chiaro e lettera cifrata in maniera più casuale.
@@ -1488,35 +1491,49 @@ più testo cifrato si ha a disposizione e più facile è decriptare il testo gra
 Basterà usare diagrammi o trigrammi più comuni (coppie o triple di lettere), o cercare di individuare una parola che è probabile che sia presente.
 
 \subsubsection{Blocchi monouso}
-[...]
+Il blocco monouso (one time pad) permette di costruire un cifrario imbattibile: 
+\begin{enumerate}
+\item Si genera una chiave formata da una stringa di bit casuali
+\item Si converte il testo in chiaro in una stringa di bit, per esempio secondo il codice ASCII
+\item Si calcola lo XOR delle due stringhe per ottenere il testo cifrato
+\end{enumerate}
+Il risultato non è decriptabile perché in un testo grande ogni lettera comparirà con la stessa frequenza ed è immune a tutti gli attacchi.
+
+Nonostante sia ottimo a livello teorico, nella pratica ha diversi svantaggi.
+La chiave per esempio non è possibile impararla a memoria, quindi entrambi i comunicanti devono averne una copia.
+Inoltre la lunghezza della chiave limita la quantità di dati che può essere trasmessa.
+Infine, se venisse persa la sincronizzazione tra i due comunicanti a causa di caratteri persi o aggiunti per errore, il resto dei dati sarebbe illeggibile.
 
 \subsubsection{Due principi crittografici fondamentali}
 I due principi crittografici fondamentali sono la ridondanza e l'attualità.
+
 Il primo principio afferma che tutti i messaggi cifrati devono contenere una qualche forma di ridondanza, cioè un'informazione non necessaria al messaggio.
 Questo per evitare che gli intrusi possano creare dati casuali con il rischio che vengano interpretati come validi.
 La ridondanza però renderebbe più facile decriptare: quindi difende contro gli intrusi attivi, ma meno da quelli passivi. 
 
-Il secondo principio afferma che è necessario avere la possibilità di verificare che ogni messaggio ricevuto sia attuale, recente, in modo da poter prevenire attacchi di tipo ripetizione, 
-dove un intruso manda messaggi vecchi spacciandoli per nuovi.
+Il secondo principio afferma che è necessario avere la possibilità di verificare che ogni messaggio ricevuto sia attuale, recente, in modo da poter prevenire attacchi di tipo ripetizione, dove un intruso manda messaggi vecchi spacciandoli per nuovi.
 
 \subsection{Algoritmi a chiave simmetrica} % 8.2
 Questi algoritmi usano la stessa chiave per cifrare e decifrare.
-Gli algoritmi possono essere implementati in software o hardware (es: P-box, scatola di permutazione con input a 8 bit).
+Gli algoritmi possono essere implementati in software o hardware (es: P-box, scatola di permutazione con input a 8 bit, o S-box, scatola di sostituzione).
 
-\subsubsection{DES}
+\subsubsection{DES singolo e triplo}
 DES (Data Encryption Standard) cifra il testo in chiaro in blocchi di 64 bit che generano 64 bit di testo cifrato.
 Utilizza una chiave a 56 bit e ha 19 stadi, dove nel primo viene fatta la trasposizione dei 64 bit di testo in chiaro,
 indipendentemente dalla chiave, mentre nell'ultimo stadio avviene l'inverso del primo. 
 Quelli intermedi hanno la stessa funzione, ma parametrizzati da diverse funzioni della chiave.
+
 Ogni stadio intermedio prende due ingressi a 32 bit e produce due uscite a 32 bit:
-quello di sinistra è la copia dell'originale di destra, mentre quello di destra è lo XOR tra i bit di sinistra, quelli di destra e della chiave di stadio.
+quello di sinistra è la copia dell'originale di destra, mentre quello di destra è lo XOR tra i bit di sinistra, quelli risultanti da una funzione che ha 
+come parametri i bit di destra e della chiave di stadio.
+
+\`E possibile rafforzare il DES con la tecnica dello sbiancamento, la quale effettua lo XOR di ogni blocco dati del testo in chiaro con una chiave casuale a 64bit all'entrata e all'uscita del DES. 
 
 Quando IBM si rese finalmente conto che la chiave di cifratura era troppo corta, decise di usare una cifratura tripla.
 Vengono usate due chiavi e tre stadi: nel primo il testo in chiaro viene cifrato con DES usando la chiave $K_1$, nel secondo viene usato DES in modalità di decifrazione usando $K_2$, infine un'altra cifratura con chiave $K_1$.
-Questa alternativa migliorata è detta \textbf{triplo DES}.
-
-Domanda 1: perchè solo 2 chiavi e non 3? Perchè i 112 bit erano ritenuti sufficienti, mentre 168 avrebbe richiesto molto lavoro senza vantaggi effettivi.\\
-Domanda 2: perchè cifra-decripta-cifra e non cifra-cifra-cifra? Il motivo è per mantenere la compatibilità con i sistemi che usavano un solo DES, ponendo $K_1=K_2$.
+Questa alternativa migliorata è detta \textbf{triplo DES}.\\
+Domanda 1: perché solo 2 chiavi e non 3? Perché i 112 bit erano ritenuti sufficienti, mentre 168 avrebbe richiesto molto lavoro senza vantaggi effettivi.\\
+Domanda 2: perché cifra-decripta-cifra e non cifra-cifra-cifra? Il motivo è per mantenere la compatibilità con i sistemi che usavano un solo DES, ponendo $K_1=K_2$.
 
 \subsubsection{AES}
 AES (Advanced Encryption Standard) è lo standard successivo a DES.
@@ -1530,7 +1547,10 @@ Ci sono quindi le versioni 128/128 e 128/256, ma già la prima è sufficientemen
 
 Come DES, AES usa sostituzioni e permutazioni in diversi round (10 a 128 bit) e a differenza di DES le operazioni coinvolgono byte interi.
 
-AES opera utilizzando matrici di 4x4 byte chiamate stati (states). Quando l'algoritmo ha blocchi di 128 bit in input, la matrice State ha 4 righe e 4 colonne; se il numero di blocchi in input diventa di 32 bit più lungo, viene aggiunta una colonna allo State, e così via fino a 256 bit. In pratica, si divide il numero di bit del blocco in input per 32 e il quoziente specifica il numero di colonne.
+AES opera utilizzando matrici di 4x4 byte chiamate stati (states).
+Quando l'algoritmo ha blocchi di 128 bit in input, la matrice State ha 4 righe e 4 colonne;
+se il numero di blocchi in input diventa di 32 bit più lungo, viene aggiunta una colonna allo State, e così via fino a 256 bit.
+In pratica, si divide il numero di bit del blocco in input per 32 e il quoziente specifica il numero di colonne.
 
 C'è un passaggio iniziale:\\
 AddRoundKey – Ogni byte della tabella viene combinato con la chiave di sessione, la chiave di sessione viene calcolata dal gestore delle chiavi.
@@ -1542,9 +1562,11 @@ Successivamente per cifrare sono previsti diversi round o cicli di processamento
 \item AddRoundKey – Ogni byte della tabella viene combinato con la chiave di sessione, la chiave di sessione viene calcolata dal gestore delle chiavi.
 \end{itemize}
 
-Il numero di round o cicli di processamento/elaborazione crittografica dei quattro passaggi precedenti è 10 con l'ultimo round che salta il passaggio MixColumns. A seguito la descrizione di ogni singolo passaggio.
+Il numero di round o cicli di processamento/elaborazione crittografica dei quattro passaggi precedenti è 10 con l'ultimo round che salta il passaggio MixColumns.
 
-La fase di decifratura non è identica a quella di cifratura dal momento che gli step sono eseguiti in ordine inverso. Tuttavia, si può definire un cifrario inverso equivalente ai passi dell'algoritmo usato per la cifratura, usando la funzione inversa a ogni step e un different key schedule. Funziona siccome il risultato non cambia quando si scambiano la fase di SubBytes con quella di ShiftRows, e quella di MixColumns con una fase aggiuntiva di AddRoundKey.
+La fase di decifratura non è identica a quella di cifratura dal momento che gli step sono eseguiti in ordine inverso.
+Tuttavia, si può definire un cifrario inverso equivalente ai passi dell'algoritmo usato per la cifratura, usando la funzione inversa a ogni step e un different key schedule.
+Funziona siccome il risultato non cambia quando si scambiano la fase di SubBytes con quella di ShiftRows, e quella di MixColumns con una fase aggiuntiva di AddRoundKey.
 
 L'algoritmo è molto sicuro e veloce; nell'implementazione hardware riesce ad essere anche più veloce.
 
@@ -1553,45 +1575,190 @@ I cifrari a blocchi sono "ripetitivi", nel senso che dato un testo in chiaro e u
 Questo può essere un problema per la sicurezza.
 
 \paragraph{Modalità ECB}
-Dato un testo in chiaro, con DES viene suddiviso in blocchi da 8 byte fino a raggiungere l'ultimo, che eventualmente viene riempito per raggiungere la grandezza richiesta.
+Dato un testo in chiaro, con DES viene suddiviso in blocchi da 8 byte fino a raggiungere l'ultimo, che eventualmente viene riempito per raggiungere la grandezza richiesta, e vengono cifrati con la stessa chiave.
 Questa tecnica è nota come ECB (Electronic Code Book).
 Anche se i blocchi sono cifrati, è possibile manipolare il "libro" dei blocchi sapendo il contesto, senza il bisogno di decriptarli.
 
 \paragraph{Modalità stream cipher}
-La modalità stream cipher cifra un vettore di inizializzazione per ottenere un blocco in uscita;
+Un blocco può venire danneggiato per un errore di trasmissione su un bit e in alcune applicazioni questo è inaccettabile.
+La modalità stream cipher cerca di risolvere questo problema cifrando un vettore di inizializzazione per ottenere un blocco in uscita;
 questo blocco viene cifrato per ottenere un secondo blocco in uscita, e così via.
-La sequenza di blocchi è detta keystream e viene utilizzata come un blocco monouso e utilizzata in XOR con il testo in chiaro per ottenere il testo cifrato.
+La sequenza di blocchi cifrati è detta keystream e viene utilizzata come un blocco monouso e utilizzata in XOR con il testo in chiaro per ottenere il testo cifrato.
 
+Il keystream dipende solo dalla chiave e dal vettore di inizializzazione, quindi non è sensibile agli errori di trasmissione del testo cifrato e permette la decifrazione generando lo stesso keystream. Un errore nel testo cifrato trasmesso genera un errore solo nel testo decifrato.
+
+Non si deve mai usare la stessa coppia chiave-vettore, altrimenti si genera lo stesso keystream.
 L'uso ripetuto dello stesso keystream espone il testo cifrato ad attacchi di keystream riutilizzato.
 
 \subsection{Algoritmi a chiave pubblica} % 8.3 - TUTTO
 Gli algoritmi a chiave pubblica sono stati proposti per risolvere un problema: le chiavi sono il punto primario, vanno distribuite ma senza lasciare che un intruso possa ottenerle.
-Questi nuovi algoritmi propongono di usare chiave di cifratura e decifratura diversi e non deducibili tra loro, e di rendere la chiave di cifratura pubblica insieme all'algoritmo.
+Questi nuovi algoritmi propongono di usare chiavi di cifratura e decifratura diversi e non deducibili tra loro, e di rendere la chiave di cifratura pubblica insieme all'algoritmo.
 
+\subsubsection{RSA}
+RSA è un algoritmo a chiave pubblica ancora piuttosto solido, il cui principale svantaggio è l'uso di chiavi di almeno 1024 bit che lo rende un algoritmo lento.
 
-\subsection{Message digest} % 8.4.3 (partire da 8.4)
+L'algoritmo usa dei parametri pre calcolati.
+Presi due numeri primi di 1024 bit, \textit{p} e \textit{q}, vengono calcolati i prodotti $n=p*q$ e $z=(p-1)*(q-1)$. 
+Poi viene scelto un numero primo \textit{d} rispetto a \textit{z} e viene calcolato \textit{e} in modo che $e*d=1 \mod z$.
+Il testo in chiaro viene poi diviso in blocchi di \textit{k} bit in modo che ogni messaggio sia compreso tra 0 e \textit{n} e $2^k < n$.
+Per cifrare P viene calcolato $C=P^e(\mod n)$, mentre per decifrare $P=C^d (\mod n)$.
+Quindi la chiave pubblica consiste nella coppia (e, n) mentre quella privata in (d, n).
+
+Questo metodo è considerato sicuro per la difficoltà nel fattorizzare numeri molto grandi.
+Tuttavia, data la lentezza dell'algoritmo, viene usato principalmente per distribuire le chiavi piuttosto che per grandi dati.
+
+\subsection{Firme digitali} % 8.4
+Nei documenti cartacei la firma ha un ruolo centrale. 
+Anche in quelli digitali serve un modo per firmare i documenti e deve soddisfare alcune condizioni:
+\begin{itemize}
+\item il destinatario può dichiarare l'identità del mittente
+\item il mittente non può ripudiare il contenuto del messaggio
+\item il destinatario non può falsificare i messaggi del mittente
+\end{itemize}
+Un metodo è quello delle firme a chiave simmetrica, dove un'autorità affidabile e riconosciuta fa da intermediario.
+Quando un utente A manda un messaggio a B, nel mezzo viene ricevuto, decifrato e inoltrato dall'autorità centrale che conferma l'identità del mittente.
+Il problema è che l'entità di mezzo in questo modo può leggere i messaggi.
+
+Un altro metodo è quello delle firme a chiave pubblica. 
+Un utente A manda un messaggio P come $E_B(D_A(P))$ e l'utente B riesce ad ottenere il messaggio e a dimostrare che è un messaggio di A mostrando $D_A(P)$.
+Questo funziona se la chiave segreta rimane tale e se non viene cambiata (che è lecito), altrimenti invalida la firma.
+
+\subsubsection{Message digest} % 8.4.3 (partire da 8.4)
+Un problema dei metodi di firma è il cercare di mettere assieme autenticazione e segretezza.
+Esiste una tecnica che punta solo sull'autenticazione e usa una funzione di hash detta message digest. 
+La funzione riceve il testo in chiaro e calcola una stringa di bit a lunghezza fissa;
+deve essere facile calcolare MD(P) da P, ma impossibile calcolare P da MD(P).
+Inoltre MD(P) dovrebbe essere univoco, quindi lungo almeno 128 bit, e se cambia 1 bit di input cambia totalmente il risultato.
+
+Message digest è più rapido di cifrare l'intero testo con chiave pubblica e fa risparmiare nei costi di trasporto,
+quindi è utile negli algoritmi di firma digitale.
+Ad esempio prendendo il metodo delle firme a chiave simmetrica, l'intermediario al posto del messaggio decifrato calcola il message digest. 
+Funziona anche con i sistemi a chiave pubblica.
+
+Esistono diverse funzioni di message digest, tra cui MD5 e SHA-1.
 
 \subsubsection{MD5}
+Questa funzione mescola i bit d'ingresso in modo che ogni bit uscito sia influenzato da tutti i bit d'ingresso.
+Il messaggio viene riempito fino a raggiungere la lunghezza di 448 bit (in modulo di 512) a cui vengono aggiunti 64 bit per indicare la lunghezza originale.
+Vengono elaborati i blocchi di 512 bit:
+ad ogni iterazione (x4) il blocco viene alterato usando un buffer di 128 bit inizializzato con un valore prefissato.
+Alla fine dei blocchi, il contenuto del buffer è il message digest.
+
+Al momento è un metodo ancora sicuro e funzionante.
 
 \subsubsection{SHA-1}
+Questa funzione elabora i blocchi da 512 bit ma produce una stringa più lunga di MD5, ovvero di 160 bit.
+
+Anche qui il messaggio viene allungato finché non diventa multiplo di 512 e viene effettuato aggiungendo il bit 1 seguito da n bit 0.
+La lunghezza originale viene indicata da un numero a 64 bit messo in OR con gli ultimi bit di ordine più basso.
+L'algoritmo usa 5 variabili di 32 bit dove viene accumulato l'hash (con un procedimento che non verrà descritto qui).
+
+Spesso si utilizza SHA-1 assieme a RSA in questo modo:
+\begin{enumerate}
+\item il testo in chiaro dell'utente A viene sia spedito all'utente B, sia processato da SHA-1
+\item l'hash risultante da SHA-1 viene processato nell'algoritmo di RSA con la chiave privata dell'utente A
+\item l'hash firmato risultante viene passato all'utente B
+\item l'utente B calcola l'hash SHA-1 del testo in chiaro e usa la chiave pubblica di A sull'hash firmato: se combaciano i due hash il messaggio è valido
+\end{enumerate}
 
 \subsection{Sicurezza delle comunicazioni} % 8.6
-
 \subsubsection{IPsec} % 8.6.1
+Dopo una lunga disputa sul dove porre la sicurezza della rete, si è optato per lo strato network con IPsec (IP security).
+Questo mette a disposizione diversi servizi, resi disponibili su richiesta (es. pagando): segretezza, integrità dei dati, protezione dagli attacchi ripetizione, tutti servizi basati sulla crittografia a chiave simmetrica per motivi di performance.
+Inoltre permette diverse granularità (due host, due router, altro..) e rende disponibili diversi algoritmi, in quanto basarsi su un solo algoritmo può creare problemi in casi di vulnerabilità future.
+
+IPsec è orientato alla connessione, in quanto servono le chiavi.
+Nel contesto IPsec una connessione è detta Security Association.
+SA è una connessione simplex; se serve un traffico sicuro in due direzioni, servono due SA.
+Ogni SA ha un identificatore di sicurezza trasportato da pacchetti che viaggiano sulla connessione sicura.
+
+Ci sono due modalità disponibili di IPsec:
+\begin{itemize}
+\item modalità trasporto, dove l'intestazione IPsec viene inserita dopo quella di IP.
+\item modalità tunnel, dove il pacchetto IP viene incapsulato in un nuovo pacchetto IP con un'intestazione diversa; è utile quando il tunnel arriva in una destinazione diversa da quella finale, per esempio una macchina con gateway sicuro. Inoltre permette una difesa parziale dall'analisi del traffico (chi sta mandando pacchetti, dove e quanti). Il problema di questa modalità è che aumenta la dimensione del pacchetto.
+\end{itemize}
+
+L'intestazione della modalità trasporto è detta AH (Authentication Header), che garantisce il controllo dell'integrità, la sicurezza dagli attacchi di ripetizione, ma non la segretezza in quanto non permette la cifratura.
+Nell'intestazione, il campo Next header field memorizza il valore originale del campo Protocol di IP, mentre il campo Payload length contiene il numero di word nell'intestazione -2.
+Security parameters index identifica la connessione e sequence number indica il numero attribuito ai pacchetti inviati in una SA, diverso da quello originale (evita l'attacco di tipo ripetizione).
+L'ultimo campo è Authentication data che contiene la firma digitale del payload (serve per controllare l'integrità).
+L'algoritmo per la firma è deciso quando viene stabilita la SA.
+Per motivi di performance, viene usata la crittografia a chiave simmetrica per il calcolo della firma;
+la chiave è definita in fase di connessione.
+Una tecnica per calcolare la firma è HMAC (Hashed Message Authentication Code), nella quale viene calcolato l'hash sui contenuti del pacchetto e della chiave.
+\`E più veloce di SHA-1 + RSA.
+
+Un'intestazione alternativa è ESP (Encapsulating Security Payload), con due word da 32 bit che costituiscono i campi security parameters index e sequence number, similmente a AH.
+Può esserci una terza word con il vettore di inizializzazione se i dati sono cifrati.
+Anche ESP permette di usare HMAC, ma non viene messo nell'intestazione, bensì in coda al campo payload, permettendo migliori prestazioni nelle implementazioni hardware.
+ESP fa tutto quello che fa AH e di più, oltre che in maniera più efficiente.
 
 \subsubsection{Firewall} % 8.6.2
+Un'altra fonta di sicurezza per le reti è il firewall, usato per esempio nelle LAN aziendali.
+Di fatto il traffico di rete viene fatto passare attraverso un unico "cancello" che controlla i dati prima di farli passare,
+ad esempio due router con filtri dei pacchetti.
+Questi router filtrano i pacchetti che non soddisfano certi criteri e vengono scartati, mentre gli altri passano.
+Spesso i router con i filtri hanno tabelle con sorgenti e destinazioni accettate o rifiutate.
+Per quando bloccare l'entrata sia più fattibile, magari bloccando determinate porte, controllare l'uscita è più complesso.
+Inoltre le connessione UDP sono molto difficili da controllare, quindi spesso vengono bloccate in partenza.
+
+La seconda parte del firewall è il gateway appicativo, il quale non guarda i pacchetti ma bensì funziona sulle applicazioni (es: mail).
+
+Purtroppo il firewall non è perfetto. Un utente malevolo può inserire un indirizzo di sorgente falso per aggirare il firewall in entrata.
+In uscita, spacciare informazioni è più facile grazie alle immagini che non essendo testuali, sono più difficili da controllare.
+
+Infine c'è un problema non gestibile tramite firewall: gli attacchi DoS. 
+In questi attacchi, l'utente manda una grande quantità di pacchetti legittimi per sovraccaricare il servizio,
+per esempio, mandando molte richieste di connessione ma senza portarle avanti: in questo modo il servizio attaccato risponde e rimane in attesa della connessione, inutilmente.
+
+Esiste una versione peggiore, il DDoS, ovvero quando l'intruso è già penetrato in diverse macchine e fa partire un attacco DoS simultaneo contro un servizio:
+aumenta il potere di fuoco e diminuisce la possibilità di essere scoperto.
 
 \subsubsection{Sicurezza wireless} % 8.6.4
+Quando si introduce il wireless in una rete, la vulnerabilità aumenta.
 
 \paragraph{802.11}
+Lo standard 802.11 usa il protocollo per la sicurezza chiamato WEP (Wired Equivalent Privacy) per lo strato data link.
+Ogni stazione stabilisce una chiave segreta condivisa con la stazione base.
+WEP usa lo stream cipher basato sull'algoritmo RC4 che genera un keystream che applicato in XOR al testo in chiaro genera quello cifrato.
+Il testo in chiaro è composto dal payload e il suo checksum calcolato con CRC-32 polinomiale. 
+Il vettore di inizializzazione IV viene mandato con il testo cifrato, in modo che il ricevente possa usare la coppia chiave-IV per decifrare il testo.
+Purtroppo non è un metodo sicuro in quanto presenta diverse vulnerabilità.
 
 \paragraph{WAP 2.0}
+Supporta l'uso di IPsec nello strato network, usa TLS (?) in quello di trasporto.
 
-\subsection{Replay attack} % 8.7.3 (conviene guardare da 8.7)
+\subsection{Replay attack} % 8.7.3 
+Il replay-attack è una forma di attacco di rete che consiste nell'impossessarsi di una credenziale di autenticazione comunicata da un host ad un altro, e riproporla successivamente simulando l'identità dell'emittente.
+In genere l'azione viene compiuta da un attaccante che s'interpone tra i due lati comunicanti.
+
+Questo attacco permette operazioni fraudolente come falsa autenticazione e/o transazioni duplicate, senza dover necessariamente decriptare la password, ma soltanto ritrasmettendola in un tempo successivo.
+
+A differenza dell'attacco di tipo man in the middle che opera sempre in tempo reale, il replay attack può operare anche in modo asincrono quando la comunicazione originale è terminata.
+
+Per esempio, si verifica un replay-attack quando Mallory intercetta la comunicazione tra Alice, che si sta autenticando con Bob, e si spaccia, agli occhi di Bob, per Alice.
+Quando Bob chiede a Mallory (convinto di parlare con Alice) una chiave d'autenticazione, Mallory prontamente invia quella di Alice, instaurando così la comunicazione.
+
+Esistono diverse contromisure.
+Si possono usare token di sessione generati pseudocasualmente:
+Bob invia ad Alice uno di questi token usa e getta che Alice utilizza per criptare la propria chiave da inviare a Bob (per esempio con una funzione di hashing che calcola il message digest della chiave concatenata con il token).
+Bob effettua lo stesso calcolo e controlla che il suo risultato corrisponda con quello di Alice.
+Mallory non può fare granché anche se ha catturato tale token di sessione, perché alla prossima comunicazione Alice e Bob si accorderanno con un altro token.
+I token vanno memorizzati per sempre perché Mallory potrebbe attaccare anche anni dopo se non è stato memorizzato.
+
+Un'altra contromisura è quella di utilizzare una marca temporale e di far sì che questa sia inserita nel corpo del messaggio criptato.
 
 \subsection{Sicurezza del naming} % 8.9.2
 
 \subsubsection{DNS spoofing}
+Il DNS spoofing è una tecnica che consiste nell'installare un indirizzo IP falso in un server DNS.
+Per fare ciò, l'utente malevolo manda una query ad server DNS per ottenere un certo indirizzo, ma si crea anche la risposta in modo che venga salvata nel server.
+Questo è possibile perchè utilizzando UDP il server DNS non ha modo di sapere chi gli fornisce la risposta.
+Il nuovo indirizzo viene salvato se non è presente nel server, altrimenti l'utente malevolo deve solo attendere che l'informazione scada, in modo da rimpiazzarla.
+Una volta inserito il nuovo indirizzo, può ingannare l'utente bersaglio mostrando una pagina a sua scelta, magari una versione modificata della pagina obiettivo che permetta di carpire informazioni.
 
-\subsubsection{DNS sicuro}
+Perché lo spoofing funzioni, l'invasore deve conoscere e utilizzare un indirizzo IP di un server top level DNS, i quali però sono pubblici e facilmente falsificabili, e conoscere il numero di sequenza.
+L'invasore può ottenere "facilmente" il numero se sono utilizzati sequenzialmente.
 
+Esiste il progetto DNSsec che lavora sulla sicurezza del DNS, ma non è ancora diffuso.
+Utilizza la crittografia a chiave pubblica. [...]
