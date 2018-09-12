@@ -1220,72 +1220,542 @@ ripetitori e hub nel fisico, bridge e switch nel data link, router nel network, 
 
 \newpage
 \section{Capitolo 5 - Strato network}
+Lo strato network si occupa del trasporto dei pacchetti da origine a destinazione, passando tra i vari router, a differenza di quello data link che si occupa dei frame.
+Lo strato deve scegliere il percorso migliore, evitando sovraccarichi o sprechi, e deve gestire i problemi che derivano dalla presenza della sorgente e della destinazione su diverse reti. 
 
-\subsection{Architettura dello strato network}
+\subsection{Architettura dello strato network} % 5.1
 
-\subsection{Algoritmi di routing} % tutto tranne Dijkstra in 522, 525, 528 a 5211
+\subsubsection{Commutazione di pacchetto store-and-forward}
+Dati due host collegati a diversi router, quando devono comunicare viene inviato un pacchetto al router più vicino, 
+il quale lo slava finché non arriva completo.
+Dopo che è stato verificato il checksum, viene inviato al router successivo secondo un certo percorso fino ad arrivare alla destinazione.
+Questo meccanismo è detto commutazione store-and-forward.
+
+\subsubsection{Servizi forniti allo strato di trasporto}
+I servizi forniti allo strato di trasporto devono essere indipendenti dalla tecnologia del router e lo strato di trasporto non deve essere influenzato dal numero, tipo e topologia dei router.
+
+La questione principale è: dovrebbe essere un servizio senza connessione o orientato alla connessione?
+
+\paragraph{Implementazione del servizio senza connessione}
+In questo caso i pacchetti sono inoltrati e instradati indipendentemente l'uno dagli altri.
+I pacchetti sono chiamati datagrammi e la sottorete è detta a datagrammi.
+
+Dato un messaggio da spedire tra due host, il messaggio all'origine viene diviso in pacchetti se troppo lungo e vengono inviati uno alla volta al primo router.
+Il router ha una tabella che elenca dove vanno inviati i pacchetti in base alla destinazione.
+Come già detto, vengono archiviati per calcolare il checksum, poi ogni pacchetto viene inoltrato al router successivo secondo quanto indicato nella tabella.
+Il router di passaggio indicato nella tabella può variare, per esempio in base al traffico rilevato; 
+l'aggiornamento della tabella avviene tramite gli algoritmi di routing.
+Passando da router a router i pacchetti giungeranno l'host di destinazione che potrà ricomporre il messaggio.
+
+\paragraph{Implementazione del servizio orientato alla connessione}
+Nel servizio orientato alla connessione va stabilito il percorso prima di inviare i pacchetti.
+La connessione è detta CV (circuito virtuale) e la sottorete a circuito virtuale.
+
+A differenza del precedente, quando è stabilita la connessione il percorso è fisso e salvato nelle tabelle dei router.
+Il percorso è usato per tutti i pacchetti del messaggio.
+Ogni pacchetto ha un identificatore che indica il CV a cui appartiene. 
+Alla fine della connessione, viene chiuso il CV.
+
+Quando due host hanno lo stesso identificatore di connessione e giungono ad un router, quest'ultimo ha il potere di cambiare il numero di connessione del traffico in uscita per risolvere il conflitto.
+
+\subsubsection{Sottoreti a circuito virtuale vs a datagramma}
+Quale dei due servizi è meglio?\\
+Nel CV, un pacchetto può usare il numero di circuito al posto dell'indirizzo di destinazione, che può portare ad un risparmio di banda.
+
+A livello di qualità del servizio, CV offre un servizio migliore perché definendo a priori strada e banda, ha tutto prefissato ed evita problemi di congestione.
+
+Se un router va in crash, tutti i CV che passano per quel router vengono terminati, mentre nel datagramma viene cambiato il percorso.
+
+\subsection{Algoritmi di routing} % 5.2
+Gli algoritmi di routing definiscono l'instradamento dei pacchetti.
+Nella sottorete a datagrammi la decisione va fatta per ogni pacchetto, mentre nel CV viene fatto solo nel momento in cui viene stabilita la connessione (in questo caso detto anche routing di sessione).
+
+Va distinto l'inoltro e l'instradamento:
+il primo è la gestione del pacchetto in un router secondo la tabella di routing, in cui viene cercata la linea adatta; 
+il secondo è il processo di riempimento e aggiornamento della tabella.
+
+Un algoritmo di routing dovrebbe avere le seguenti proprietà:
+precisione, semplicità, robustezza, stabilità, imparzialità e ottimizzazione.
+
+Gli algoritmi si possono distinguere in due classi:
+\begin{itemize}
+\item adattivi, cambiano le decisioni in base al traffico e alle modifiche della topologia (datagrammi)
+\item non adattivi, non basano le decisioni sul traffico o sulla topologia; il percorso viene calcolato in anticipo ed è fisso (CV)
+\end{itemize}
 
 \subsubsection{Principio di ottimalità}
+\`E possibile calcolare il percorso più breve con il principio di ottimalità.
+Dal principio deriva l'albero sink tree, che rappresenta le distanze tra i router in base alla distanza dei nodi e delle foglie dalla radice, che rappresenta il router di partenza.
+Nella pratica il sink tree può non essere la soluzione "definitiva" a causa di possibili imprevisti, guasti, ecc.
 
 \subsubsection{Routing basato sul percorso più breve}
+Un tipo di routing è quello basato sul cammino minimo.
+Ci sono diversi algoritmi per calcolarlo, per esempio quello di Dijkstra.
+Questo algoritmo è statico.
 
 \subsubsection{Flooding}
+Il flooding è un altro algoritmo statico.
+Questo algoritmo invia il pacchetto in tutte le linee tranne quella di arrivo.
+Chiaramente genera molti pacchetti duplicati, che sono da gestire.
+Una possibilità è quelli di usare un contatore di salti che viene decrementato ad ogni inoltro: se arriva a zero viene scartato.
+Il valore iniziale dovrebbe essere dovrebbe essere la distanza origine-destinazione, se conosciuta.
+In alternativa è possibile tracciare con un numero di sequenza il passaggio dei pacchetti: quando passa un pacchetto viene salvato in una tabella il numero di sequenza, in modo da scartare le sue successive occorrenze.
+
+Una variante è il flooding selettivo, dove il pacchetto viene mandato solo nelle linee nella direzione "giusta"
+
+Per quanto sia uno spreco, il flooding può essere ottimo per la sua robustezza in determinati contesti, ad esempio quello militare dove si potrebbero perdere molti router in poco tempo;
+oppure se va aggiornato un sistema di database distribuito;
+un'altra possibilità è nelle rete wireless, dove tutti i messaggi possono essere ricevuti da tutte le altre stazioni.
 
 \subsubsection{Routing basato sul vettore delle distanze}
+Gli algoritmi basati sul vettore delle distanze sono di tipo dinamico.
+Spesso prendono il nome dell'algoritmo che usano, come Bellman-Ford.
+Ciascun router ha una tabella di routing indicizzata da ogni router della sottorete, con una voce per ogni router.
+Questa indica la linea preferita per quella destinazione e una metrica per quella destinazione: distanza in salti, lunghezza della coda, tempo come ritardo.
+Questi dati sono continuamente aggiornati scambiando informazioni con i router vicini.
+
+Il principale difetto di questo metodo è il fatto che per raggiungere la risposta corretta per il percorso migliore, ci può mettere molto tempo.
+In particolare il problema è il conteggio all'infinito\footnote{NdR: spiegato male}, ovvero quando le tabelle continuano a venire aggiornate, ma la distanza incrementa sempre di più.
+
+Inoltre l'algoritmo non tiene conto della banda.
+
+Per questi due problemi, venne rimpiazzato dal routing basato sullo stato dei collegamenti.
 
 \subsubsection{Routing basato sullo stato dei collegamenti} % no elaborazione nuovi percorsi
+Un altro algoritmo dinamico è quello basato sullo stato dei collegamenti,
+Si basa su 5 punti che deve fare ogni router:
+\begin{itemize}
+\item scoprire i vicini e i loro indirizzi di rete
+\item misurare il ritardo o il costo di ogni vicino
+\item costruire un pacchetto con tutte le info raccolte
+\item inviare il pacchetto agli altri
+\item elaborare il percorso più breve verso tutti gli altri router
+\end{itemize}
+Innanzitutto il router invia un pacchetto HELLO per capire chi ha nelle vicinanze e in router devono rispondere identificandosi con un nome unico globalmente.
+Se tra dei router c'è una LAN, questa viene considerata come un nodo artificiale della rete.
+
+Per misurare il ritardo dei router vicini viene usato un pacchetto ECHO, al quale devono rispondere subito.
+Tempo di andata + ritorno diviso due e si ottiene il ritardo stimato.
+
+Una volta ottenute le info di scambio, viene creato il pacchetto dove è indicata l'identità del trasmittente, un numero di sequenza, un'età e la lista dei vicini con il relativo ritardo.
+I pacchetti possono essere costruiti periodicamente o quando accade un evento significativo.
+
+La distribuzione di questi pacchetti è un punto cruciale, perché può creare inconsistenza.
+Viene utilizzato il flooding con numero di sequenza che viene incrementato per ogni nuovo pacchetto inviato.
+I router tengono traccia delle coppie router sorgente-sequenza;
+se arriva un pacchetto di info, viene confrontato: se è nuovo viene inoltrato a tutte le linee tranne quella d'arrivo, se è duplicato o vecchio i dati vengono scartati.\\
+I problemi di questo metodo sono vari.
+I numeri di sequenza devono essere lunghi per evitare ripetizioni.
+Se un router si blocca, perde traccia dei numeri di sequenza.
+Se il numero di sequenza è danneggiato, possono essere saltati altri pacchetti leciti (per esempio arriva un numero di sequenza più grande).
 
 \subsubsection{Routing gerarchico}
+Le tabelle crescono man mano che aumenta la rete, il che consuma memoria, cpu e banda.
+Si deve quindi utilizzare un routing gerarchico, dove i router sono divisi in regioni:
+i router conoscono solo le info del routing all'interno della regione.
+Per reti grandi, le regioni non bastano e vengono fatti altri raggruppamenti a livelli.
+All'interno di una regione è presente un router che fa da ponte e riesce a comunicare con altre regioni.
+
+Il risparmio di spazio tutta via aumenta la lunghezza dei percorsi.
 
 \subsubsection{Routing broadcast}
+A volte può servire trasmettere un pacchetto a molti/tutti host.
+Per fare ciò si usa una trasmissione broadcast. 
+Per attuare questa trasmissione ci sono diversi modi:
+inviare a tutti un pacchetto distinto, sprecando banda;
+utilizzo del flooding, ma genera troppi pacchetti e spreca banda.
 
-\subsection{Algoritmi per il controllo della congestione} 
+Una terza tecnica è il multidestination routing, un algoritmo nel quale un pacchetto ha la lista di tutte le destinazioni.
+Un router riceve un pacchetto, controlla la lista, duplica il pacchetto e lo inoltra in base a ogni destinazione indicata.
+Ad ogni inoltro le destinazioni vengono consumate, finchè non diventa un pacchetto normale con un'unica destinazione.
 
-\subsection{Qualità del servizio}
+Una quarta possibilità usa lo spanning tree, un albero che contiene tutti i router, senza cicli.
+In questo modo un router sa quali linee appartengono all'albero e può inviare il pacchetto in tutte le linee dello spanning tree tranne quella di ingresso.
+Ottimo utilizzo della banda e poche copie inutili, ma deve conoscere lo spanning tree (non sempre possibile).
+
+L'ultimo algoritmo usa il reverse path forwarding:
+quando un pacchetto arriva ad un router, viene controllato se è arrivato dalla linea usata di solito per comunicare con il sorgente;
+se si, significa che è già nel percorso migliore e che è la prima copia, e viene inoltrato in tutte le linee tranne quella d'arrivo, se non lo è viene scartato.
+Il metodo è facile da implementare e abbastanza efficiente.
+
+\subsection{Algoritmi per il controllo della congestione} % 5.3
+La congestione è un problema che si presenta quando ci sono troppo pacchetti in una sottorete, che sorpassano la capacità di trasporto.
+Di solito i pacchetti in più vengono persi.
+
+La congestione può verificarsi quando si crea coda ma non c'è abbastanza memoria per mantenere tutti in coda, oppure se il processore è troppo lento e non riesce a gestire il carico.
+
+C'è differenza tra controllo del flusso e controllo della congestione.
+Quello della congestione punta ad assicurare che la sottorete sia in grado a trasportare il traffico immesso, mentre quello del flusso gestisce il traffico punto a punto tra sorgente e destinazione.
+
+\subsubsection{Principi del controllo della congestione}
+Al problema del controllo ci sono due gruppi di possibili soluzioni:
+quelle a ciclo aperto, che puntano su una soluzione che una volta in atto non esegue correzioni in corsa e non tiene conto dello stato attuale della rete;
+le soluzioni a ciclo chiuso controllano dinamicamente il sistema per verificare quando e dove si presenta la congestione, in modo da eseguire le manovre correttive nei punti dove è possibile farlo.
+
+Nel ciclo chiuso ci sono diversi modi per valutare la congestione: numero di pacchetti scartati, lunghezza della coda, ritardo, pacchetti ritrasmessi perché scaduti, ecc.
+Poi comunica il problema; la cosa più ovvia è riferirlo alla sorgente (ma esistono altre alternative).
+La soluzione che può venire intrapresa è ridurre il carico o aumentare le risorse.
+
+\subsubsection{Prevenire la congestione}
+I metodi a ciclo aperto servono a ridurre la possibilità di congestione, non a risolverla.
+Questi lavorano su più livelli: trasporto, network, data link.
+
+Lo strato data link deve gestire principalmente la ritrasmissione dei pacchetti scaduti e gli acknowledgement. 
+Per esempio la ripetizione selettiva è migliore del metodo go-back-n.
+Gli acknowledgement possono generare traffico aggiuntivo, quindi va gestito.
+
+Lo strato network è influente nella scelta tra sottorete a circuito virtuale o a datagrammi, in quanto molti algoritmi di controllo della congestione funzionano solo nella prima.
+
+\subsubsection{Controllo nelle sottoreti a circuito virtuale}
+Una tecnica per gestire una congestione dinamicamente è il controllo di ammissione, quale, quando è rilevata la congestione, impedisce di impostare nuovi circuiti virtuali.
+Semplice e facile da implementare.
+Un'alternativa è creare circuiti virtuali che aggirano la congestione, se possibile.
+Un'altra possibilità è quella di prenotare le risorse quando viene stabilito il circuito virtuale, in modo da essere sicuri che vada a buon fine;
+se non sono disponibili, aspetta.
+
+\subsubsection{Controllo nelle sottoreti a datagrammi}
+Un router può tenere sotto controllo le linee di output, associando ad ogni linea una variabile da 0 a 1.0 che indica quanto è utilizzata la linea.
+Quando il valore si avvicina alla soglia, il router controlla se il pacchetto in arrivo è diretto ad una linea in allarme, se lo è esegue le manovre correttive.
+
+\paragraph{Choke packet}
+Questo metodo invia un pacchetto (choke packet appunto) al sorgente per farlo rallentare, contenente la destinazione.
+Il pacchetto originale viene etichettato per indicare che ha generato un choke packet, poi viene inoltrato.
+Il sorgente deve rallentare di una certa percentuale e per un po' deve ignorare altri choke packet, dato che è probabile che ne arrivino altri da pacchetti instradati verso la stessa destinazione.
+La velocità di solito viene dimezzata per ogni choke packet e ripristinata successivamente gradualmente.
+
+Il principale problema è la gestione a lunghe distanze o ad alte velocità: il choke packet provoca una reazione lenta nel sorgente in questi casi.
+La soluzione è la variante hop-by-hop, nel quale il choke packet ha effetto ad ogni salto all'indietro, rallentando ogni router nel percorso e dicendogli di salvare nel buffer i dati in arrivo.
+In questo modo i router successivi hanno un sollievo dal punto di vista del carico, mentre quello corrispondente al punto dove è arrivato il choke packet sposta il peso delle operazione sul buffer, che mette in coda.
+In questo modo mentre il choke packet risale il percorso fino al sorgente, si ha un sollievo graduale e permette di non perdere nessun pacchetto. 
+Chiaramente va a pesare sul buffer dei router precedenti nel percorso.
+
+\subsubsection{Load shedding}
+La soluzione finale quando i precedenti metodi non funzionano è il load shedding, il quale elimina il carico in più.
+Ma quali pacchetti eliminare?\\
+C'è la strategia wine, che elimina i pacchetti più recenti, o quella milk che elimina i più vecchi.
+La scelta dipende dal contesto.
+La cosa migliore è utilizzare un sistema di priorità dei pacchetti. 
+Ovviamente tutti vorrebbero il massimo della priorità.
+L'incentivo può essere economico (bassa priorità, basso costo), oppure un patto durante la creazione del circuito virtuale (il CV viene creato ma i pacchetti in eccesso prendono bassa priorità).
+
+Una congestione va gestita appena rilevata, altrimenti blocca tutto.
+Esiste l'algoritmo RED (Random Early Detection) che scarta i pacchetti prima che tutto il buffer sia pieno.
+Questa tecnica è utilizzabile solo nelle reti cablate, dove il problema principale è l'esaurirsi del buffer e non gli errori di trasmissione.
+Quindi conviene scartare prima che vadano persi, in questo modo la sorgente non riceve l'ack e rispedisce il pacchetto.
+Per fare ciò si base sulla lunghezza media delle code; se supera la lunghezza di guardia, inizia la manovra correttiva.
+In particolare, la sorgente sa che se sono persi i pacchetti è a causa della congestione, quindi oltre a tornare il pacchetto rallenta la velocità di trasmissione.
+
+\subsubsection{Controllo del jitter}
+In alcune trasmissioni la costanza del tempo di transito è fondamentale.
+La variazione è detta jitter.
+L'intervallo di tempo del jitter deve essere minimo.
+Un router può controllare e limitare il jitter confrontando i tempi di arrivo di un pacchetto;
+se è in anticipo, l'ho fa aspettare, se in ritardo, cerca di trasmetterlo subito.
+
+\subsection{Qualità del servizio} % 5.4
 
 \subsubsection{Requisiti}
+Un flusso di pacchetti da sorgente a destinazione è chiamato flusso.
+Le esigenze di un flusso hanno quattro parametri, che determinano la Qualità del Serzizio (QoS): affidabilità, ritardo, jitter e banda.
 
 \subsubsection{Tecniche per una buona qualità}
 
 \paragraph{Sovradimensionamento}
+Una possibilità è quella di garantire molto spazio di buffer e banda al router per facilitare il transitare dei pacchetti.
+Il problema ovviamente è il costo elevato. 
 
 \paragraph{Utilizzo dei buffer}
+Si può utilizzare un buffer nel dispositivo ricevente dove memorizzare il flusso prima di essere consegnati.
+Permette di eliminare il jitter, aumentando però il ritardo.
+La tecnica è utile per i servizi video/musicali, es. YouTube.
 
 \paragraph{Traffic shaping}
+La tecnica traffic shaping serve a rendere più uniforme il traffico lato server, regolando la velocità media della trasmissione dei dati.
+Quando viene impostata una connessione, viene definito il modello di traffico tramite un accordo tra utente e sottorete: service level agreement.
+Se l'utente rispetta l'accordo, l'operatore telefonico manderà i dati in modo veloce.
+Il traffic policing è il controllo sul traffico, per vedere se sta venendo rispettato l'accordo.
 
 \paragraph{Leaky bucket}
+Questo algoritmo si basa sull'idea di un secchio con un buco sul fondo;
+non importa con che velocità vengono trasmessi i pacchetti, esiste una coda finita nella quale vengono messi in attesa i pacchetti, i quali vengono processati a velocità costante (1 per ciclo di clock	), regolando così il flusso prima di essere immessi nella rete.
+Se arrivano la coda è piena, i pacchetti successivi vengono scartati.
+Funziona sia lato hw, sia sw; di per sè è facile da implementare.
+Se i pacchetti hanno dimensione variabile, conviene usare come unità di misura processata un determinato blocco di bit, raggruppando così più pacchetti.
 
 \paragraph{Token bucket}
+Il token bucket cerca di risolvere una limitazione dell'algoritmo precedente, nel quale la velocità è fissa.
+Vengono aggiunti dei token generati ad ogni clock.
+Un pacchetto può venire trasmesso se ha un token a disposizione da distruggere.
+Questo permette di avere dei burst di dati trasmessi, con un massimo uguale a \textit{n}, che equivale alla capacità del "secchio".
+In questo modo, gli host inattivi accumulano token per trasmissioni successive.
+Inoltre token bucket spreca i token, ma non i pacchetti: se non ci sono token, si ferma.
 
-\subsection{Collegamento tra reti}
+Esiste una variante che conta i byte per token invece che i pacchetti.
+
+Il problema è la capacità di inviare un grande burst di dati; va quindi limitato adeguatamente il numero di token.
+
+\subsection{Collegamento tra reti} % 5.5
+Le reti collegate tra loro sono di tipo diverso e usano protocolli diversi per strato.
+Probabilmente non verrà mai unificato in un unico tipo.
 
 \subsubsection{Differenze tra le reti}
+Le reti possono differire sotto vari aspetti, ma sono le differenze nello strato network che rendono difficile l'attraversamento di reti diverse.
+Alcune differenze che possono creare problemi:
+passare da una rete orientata alla connessione ad una senza connessione,
+l'utilizzo di protocolli diversi, la diversa dimensione dei pacchetti, la diversa qualità del servizio, 
+il controlle degli errori, del flusso e delle congestioni.
 
 \subsubsection{Connessione tra le reti}
+Nello strato network due reti sono collegate tramite router.
+A volte il router può gestire protocolli diversi e in questo caso viene detto router multiprotocollo.
+
+Confrontando un collegamento a livello data link e uno a livello network, ci sono diverse differenze:
+nel datalink, viene utilizzato lo switch, nel quale viene guardato l'indirizzo MAC del frame per trovare la destinazione;
+nel network, la comunicazione avviene tramite due router collegati punto a punto, uno dei quali estrae il pacchetto dal frame, esamina l'indirizzo e lo confronta con la tabella di routing e mandato nel secondo router, dove viene messo in un frame per la seconda rete.
+
+La differenza principale tra i due è che nello strato network gli switch ignorano il protocollo dello strato network utilizzato, mentre i router si.
 
 \subsubsection{Circuiti virtuali concatenati}
+Come già detto, esistono reti orientate alla connessione, che usano i circuiti virtuali, e quelle senza connessione, che usano i datagrammi.
+Nella rete a circuiti virtuali concatenati, quando è connessa con altre reti lontane viene costruito un circuito virtuale tra i router delle due reti con un gateway (router multiprotocollo) di mezzo, che fa da intermediario.
+Il processo si ripete se deve attraversare più sottoreti per giungere a destinazione.
+Quando un pacchetto giunge ad un gateway, viene inoltrato e convertito al formato usato dalla rete successiva.
+La sequenza di circuiti virtuali è impostata dalla sorgente e tutti i pacchetti devono attraversare la stessa sequenza di gateway.
+Questa tecnica va bene quando si hanno circa le stesse proprietà di qualità del servizio.
 
 \subsubsection{Collegamento tra reti senza connessione}
+In questo caso ci sono sempre i gateway tra le sottoreti, ma ogni pacchetto può seguire una strada diversa in base al traffico.
+Questo metodo può ottenere più banda ma non ha garanzia di ordine d'arrivo dei pacchetti.
+
+Notare che le conversioni del formato di pacchetto nel router multiprotocollo è fattibile se sono due formati simili;
+se differiscono troppo.
+Un secondo problema sono gli indirizzi di destinazione, che possono essere di formato diverso e quindi non comprensibili.
 
 \subsubsection{Routing in una internetwork}
+Il routing in una internetwork si complica rispetto la singola sottorete.
+Di fatto all'interno di una rete viene usato un protocollo di gateway interno, mentre tra le reti un protocollo di gateway esterno.
+Infatti ogni rete è indipendente dalle altre e spesso viene denominata Autonomous System (AS).
+Nel concreto un pacchetto giunge al router multiprotocollo, il quale poi decide verso quale rete instradarlo.
 
-\subsection{Lo strato network in internet}
+\subsection{Lo strato network in internet} % 5.6
+La rete di internet è in insieme di sottoreti o AS connessi tra loro.
+La "colla" di fondo è il protocollo dello strato network chiamato IP (Internet Protocol).
 
-\subsubsection{Il protocollo IP}
+\subsubsection{Il protocollo IPv4}
+Un datagramma IP ha il seguente formato:
+\begin{itemize}
+\item intestazione, di 20 byte fissi + parte opzionale variabile; i campi sono:
+\begin{itemize}
+\item versione, il quale indica la versione del protocollo usato, permettendo di sviluppare e passare a nuove versioni (es. IPv4 a IPv6)
+\item IHL indica la lunghezza dell'intestazione espressa in numero di parole da 32 bit
+\item type of service distingue le varie classi di servizio e i parametri del QoS
+\item total lenght indica la lunghezza totale del datagramma (intestazione + testo)
+\item identification indica a quale datagramma appartiene il frammento arrivato
+\item DF (don't fragment) indica di non frammentare il datagramma perchè la destinazione non riuscirebbe a ricostruirlo
+\item MF (more fragments) indica che è un frammento e deve ancora arrivare l'ultimo pezzo, che avrà il bit del campo a zero
+\item Fragment offset indica la posizione del frammento nel datagramma
+\item time to live limita la vita di un pacchetto, in modo da non lasciare un pacchetto in giro per la rete per troppo tempo
+\item protocol indica il processo di trasporto, come TCP o UDP
+\item header checksum verifica l'intestazione e viene ricalcolato ad ogni salto
+\item source e destination address che indicano l'indirizzo sorgente e di destinazione
+\item option che indica diverse opzioni aggiuntive
+\end{itemize}
+\item testo
+\end{itemize}
 
 \subsubsection{Gli indirizzi IP}
+Ogni host e router ha un indirizzo IP univoco che indica l'indirizzo di rete e il numero di host. 
+Gli indirizzi sono lunghi 32 bit e si riferiscono ad una scheda di rete più che al singolo host, ovvero se un host ha più schede necessità di più indirizzi.
+
+Per molti decenni gli indirizzi IP erano divisi in 5 categorie dette classi, dove ogni classe rappresentava un formato diverso;
+ora non è più usato questo indirizzamento per classi, ma viene ancora usato nella letteratura informatica, quindi in sintesi:
+\begin{itemize}
+\item A, B, C - rete + host in diverse lunghezze 
+\item D - Per indirizzi multicast
+\item E - Riservata per usi futuri
+\end{itemize}
+Le classi supportano rispettivamente un massimo di:
+\begin{itemize}
+\item 128 reti con 16 milioni di host (A)
+\item 16.384 reti e 64.000 host (B)
+\item 2 milioni di reti e 256 host (C)
+\end{itemize}
+
+Gli indirizzi usano la notazione decimale a punti: 0.0.0.0 il minimo, 255.255.255.255 il massimo.
+Già da questo si può notare che il numero è limitato, il che crea problemi in un universo di reti sempre più in espansione.
+Esistono dei valori che hanno un significato specifico, come lo 0 che indica la rete o l'host corrente, o il 127 che è usato in loopback, per simulare pacchetti in arrivo e che non escono dalla rete.
+
+\paragraph{Sottoreti}
+Tutti gli host di una rete devono avere lo stesso numero di rete, ma è un problema quando le reti crescono.
+La rete viene quindi divisa in più sottoreti e viene vista esternamente come una unica.
+
+Se venisse utilizzato l'indirizzamento a classi, creare e gestire la tabella di routing del router centrale che collega le sottoreti sarebbe oneroso.
+Quindi viene modificato l'indirizzo di classe B togliendo alcuni bit dal numero di host per usarli come numero di sottorete. 
+Per usare le sottoreti il router principale ha bisogno della maschera di sottorete, che indica il punto di demarcazione tra numero di rete, sottorete e host. 
+Questa divisione è solo interna alla rete e non viene vista al di fuori, quindi può essere gestita autonomamente.
+La notazione della maschera può essere decimale a punti o con \texttt{/numero} che indica la lunghezza della maschera di sottorete.
+
+Come vengono elaborati i pacchetti IP dai router? 
+Ogni router ha una tabella con gli indirizzi IP \textit{rete-0} e \textit{questa rete-host};
+indicano come raggiungere reti lontane e come raggiungere quelle locali.
+Quando un pacchetto è ricevuto, cerca la destinazione nella tabella: 
+se è una rete distante viene inoltrato, se è locale viene inviato all'host.
+Se non viene trovato l'indirizzo, viene inoltrato ad un router con tabelle più dettagliate.
+Questa tecnica riduce di molto la grandezza delle tabelle.
+
+Utilizzando la divisione in sottoreti, chiaramente cambiano le tabelle di routing, dove le voci diventano
+\textit{questa rete-sottorete-0} e \textit{questa rete-questa sottorete-host}.
+Quindi un router su una sottorete k sa come raggiungere le altre sottoreti e come raggiungere gli host della sottorete k.
+
+\paragraph{CIDR}
+Un problema di IP è che si stanno esaurendo gli indirizzi.
+Il principale colpevole è l'indirizzo di classe B che è un buon compromesso tra A e C, quindi venne molto usato, però in molti casi rimane troppo grande e risulta uno spreco e la C sarebbe bastata, ma questo tipo avrebbe appesantito di molto le tabelle di routing.
+
+La soluzione usata al momento è CIDR (Classless Interdomain Routing), il quale assegna gli indirizzi IP rimanenti in blocchi, ignorando le classi.
+Questo però complica l'inoltro:
+prima l'indirizzo IP estratto da un pacchetto veniva letto per capire di che classe era, poi attraverso una diramazione a 16 percorsi in base alla classe veniva letto il numero di rete e cercata la voce nella tabella per inoltrare il pacchetto nella linea giusta;
+nel CIDR invece ogni voce della tabella ha una maschera di 32 bit, quindi una linea è composta da \textit{indirizzo IP-maschera di sottorete-linea di output}.
+Quando giunge un pacchetto, viene estratto l'indirizzo IP di destinazione, viene mascherato e confrontato con la tabella di routing;
+viene scelta la linea della tabella con il valore della maschera (se ci sono più voci uguali ma di lunghezza diversa, viene presa la maschera più lunga) e viene inoltrato nella linea indicata.
+
+\paragraph{NAT}
+Anche il NAT esiste per il problema riguardante il numero di indirizzi, che è limitato ma non sufficiente a coprire il numero crescente di dispositivi.
+Un ISP ha un numero limitato di host a cui può offrire servizio e utenti commerciali con molti computer sempre accesi "consumano" la disponibilità.
+Inoltre la diffusione di ADSL pone degli IP fissi per quel determinato cliente, che può essere potenzialmente sempre connesso (e potenzialmente anche con più dispositivi, tutti con IP diverso), limitando ulteriormente la disponibilità di indirizzi IP.
+La soluzione a lungo termine è il passaggio alla versione successiva di IP, che usa indirizzi a 128 bit, ma è un processo molto lungo e lento.
+
+Invece la soluzione attualmente adottata è il NAT (Network Address Translation), nel quale viene associato un solo indirizzo IP (o un numero limitato) ad ogni rete locale;
+all'interno della rete ogni dispositivo ha un suo indirizzo IP, ma quando un pacchetto deve uscire, viene tradotto dal dispositivo NAT nell'indirizzo IP assegnatogli.
+Spesso il dispositivo NAT è accoppiato al firewall.
+
+Il problema principale del metodo è l'arrivo di un pacchetto.
+Come capire a quale indirizzo interno deve arrivare?
+Per fare ciò viene usata l'intestazione dei carichi utili TCP e UDP, in quanto modificare l'indirizzo IP non era fattibile.
+In particolare viene usato il campo porta sorgente/destinazione, sempre presenti nei carichi utili.
+Quando un pacchetto è in uscita, l'indirizzo sorgente è tradotto nell'indirizzo IP assegnato, mentre il campo porta sorgente ottiene un indice che punta alla riga della tabella corrispondente del NAT, che contiene le coppie \textit{indirizzo IP-porta}.
+Quando arriva il pacchetto, viene estratto l'indice nel campo porta sorgente, cercata la voce nella tabella e tradotto l'indirizzo IP nell'indirizzo locale.
+
+Obiezioni contro NAT:
+\begin{itemize}
+\item viola il modello gerarchico di IP (un dispositivo, un indirizzo IP)
+\item trasforma la rete internet da senza connessione a orientata alla connessione, perchè deve mantenere le informazioni
+\item viola la stratificazione dei protocolli, che li rende indipendenti tra loro
+\item i processi possono usare qualcosa che non sia TCP o UDP
+\item la lunghezza del campo porta sorgente limita il numero di macchine associate ad un indirizzo IP
+\end{itemize}
 
 \subsubsection{Protocolli di controllo internet}
+Esistono diversi protocolli di controllo Internet
 
-% no rarp bootp si dhcp
+\paragraph{ICMP}
+I router monitorano Internet e con ICMP (Internet Control Message Protocol) notificano se succede qualcosa di anomalo.
+Questo protocollo definisce una serie di messaggi di controllo incapsulati in pacchetti IP.
+Alcuni esempi (non approfondito):
+\begin{itemize}
+\item Destination unreachable
+\item Time Exceeded
+\item Parameter problem
+\item Source quench
+\item Redirect
+\item ECHO
+\end{itemize}
+
+\paragraph{ARP}
+Ogni scheda di rete ha un proprio indirizzo di 48 bit univoco; le schede inviano i frame in base a questi indirizzi e non sanno niente degli indirizzi IP.
+Come avviene l'associazione indirizzi strato data link e indirizzi IP?
+L'uso di un file di configurazione è impensabile, quindi si usa il protocollo ARP (Address Resolution Protocol), nel quale un host manda un pacchetto broadcast è chiede chi è il proprietario di un certo indirizzo IP, recuperato per esempio tramite il DNS.
+Il proprietario dell'indirizzo risponde, riuscendo così a fare l'associazione dell'indirizzo IP al relativo indirizzo Ethernet.
+
+\paragraph{DHCP}
+Esiste il problema inverso, ovvero associare un indirizzo Ethernet ad un indirizzo IP.
+Per fare ciò si usa il protocollo DHCP (Dynamic Host Configuration Protocol), il quale si basa su un server che assegna gli indirizzi IP.
+Ogni LAN deve avere un agente di inoltre al server DHCP, il quale gestisce le trasmissioni DHCP e comunica con il server.
 
 \subsubsection{OSPF}
+Come già detto, internet è un insieme di reti dove il routing interno è gestito indipendentemente, e quello esterno è univoco.
+Conviene però cercare di porre uno standard, e qui si presenta OSPF (Open shortest path first), che sostituisce gli algoritmi basati sul vettore delle distanze e sullo stato dei collegamenti.
+
+I principi su cui è stato creato l'algoritmo sono:
+\begin{itemize}
+\item l'algoritmo deve esere aperto
+\item deve supportare diverse metriche (distanza, ritardo ecc)
+\item doveva essere dinamico ed adattarsi alla situazione
+\item doveva supportare il routing in base al tipo di servizio usando il relativo campo IP \textit{type of service}, e questo era una novità
+\item doveva bilanciare il carico, suddividendolo tra le linee
+\item doveva supportare i sistemi gerarchici
+\item doveva presentare un minimo di sicurezza
+\item doveva provvedere a gestire i router collegati tramite tunnel
+\end{itemize}
+
+Sono supportate tre tipi di connessioni e reti:
+\begin{itemize}
+\item punto a punto tra due router
+\item reti multiaccesso con trasmissione broadcast
+\item reti multiaccesso senza broadcast
+\end{itemize}
+
+L'intero insieme di reti, router, linee è rappresentato da un grafico orientato, con i costi negli archi.
+Il percorso più breve viene calcolato in base al peso negli archi.
+
+Se una AS è troppo grande viene suddivisa in aree (delle "sottoreti") e ogni AS ha un'area dorsale a cui sono collegate tutte le aree.
+I router che collegano due aree devono avere la tabella che mappa entrambe le aree.
+
+Tre tipi di percorsi: interni all'area, conosce già il percorso più breve;
+tra aree, dove sorgente -> dorsale -> area destinazione -> destinazione;
+
 
 \subsubsection{BGP}
+Tra AS invece, si utilizza il protocollo BGP (Border gateway protocol).
+Nel caso delle AS c'è la politica di mezzo, quindi serve una sorta di "dogana".
+I criteri sono configurati manualmente.
+[...]
 
 \subsubsection{Internet multicasting}
+Tramite gli indirizzi di classe D, IP supporta il multicasting, ovvero la trasmissione di un pacchetto a più riceventi.
+I 28 bit sono usati per identificare i gruppi;
+quando vengono trasmessi i pacchetti, non c'è nessuna garanzia di consegna.
+
+Gli indirizzi di gruppo possono essere temporanei (vanno creati) o permanenti (sempre presenti e impostati).
+
+Il routing viene effettuato usando strutture spanning tree.
+
 
 \subsubsection{IPv6}
+IPv6 è la versione successiva a IPv4 (esiste anche il 5, ma non viene usato).
+Questa versione è una soluzione a lungo termine (perché tutta la rete va adattata) al problema del numero di indirizzi (e non solo).
+
+Gli obiettivi di IPv6:
+\begin{itemize}
+\item supportare più host
+\item ridurre la dimensione delle tabelle di routing
+\item semplificare il protocollo
+\item renderlo più sicuro
+\item supportare più tipi di servizio
+\item aiutare il multicast
+\item dare la possibilità ad un host di spostarsi senza cambiare indirizzo
+\item permettere un'evoluzione futura
+\item compatibilità tra protocolli vecchi e nuovi
+\end{itemize}
+IPv6 non è compatibile con il 4, ma lo è con i protocolli ausiliari, come TCP, UDP, DNS, ecc.
+
+IPv6 ha indirizzi più lunghi, ha un'intestazione più semplice (7 campi), un miglior supporto per le opzioni, più attento alla QoS e più sicuro (anche se in seguito la sicurezza di IPv4 è stata migliorata e non è così grande la differenza).
+
+\paragraph{L'intestazione principale}
+L'intestazione da 7 campi.
+Version indica la versione e ha sempre 6.
+Traffic class è usato per i pacchetti che trasportano dati in tempo reale, ma è ancora in perfezionamento il suo uso.
+Flow label, sperimentale, pone dei requisiti alla connessione tra sorgente e destinazione.
+Payload lenght indica la lunghezza del carico, senza contare l'intestazione.
+Next header contiene i campi opzionali usati da IPv4 per mantenere la compatibilità.
+Hop limit indica dopo quanti salti un pacchetto viene scartato.
+Infine i due campi indirizzo della sorgente e della destinazione.
+la notazione dell'indirizzo cambia: 8 gruppi da 4 cifre esadecimali.
+
+\paragraph{Intestazione estesa}
+L'intestazione estesa contiene dei campi che potrebbero servire in alcune situazioni (che erano in IPv4), per essere compatibile con i protocolli che usavano quei campi.
+
+\paragraph{Controversie}
+[...]
 
 \newpage
 \section{Capitolo 6 - Strato trasporto}
