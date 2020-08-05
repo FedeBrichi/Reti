@@ -1,31 +1,35 @@
-\section{Cos’è un cifrario a sostituzione? E a trasposizione?}
+\section{Cos'è un cifrario a sostituzione? E a trasposizione?}
 
 Le reti inizialmente venivano utilizzate da ricercatori universitari per scambiarsi e-mail, e dalle aziende per condividere le stampanti, di conseguenza la sicurezza aveva un ruolo marginale.
 
 Oggi le reti sono utilizzate da milioni di persone per fare acquisti, lavorare con la banca o per documenti importanti. Questo fa diventare la sicurezza qualcosa di fondamentale e ricercato in quanto sempre più persone malintenzionate cercano di rubare dati sensibili.
 La crittografia serve a rendere un messaggio non comprensibile/leggibile a persone non autorizzate a leggerlo.
 \subsection{Cos'è il cifrario a sostituzione}
-Per cifrare un messaggio ci sono diverse tecniche, una di queste è il \textbf{cifrario a sostituzione} (per cifrario s’intende una trasformazione carattere per carattere, senza considerare la struttura linguistica del messaggio). Uno dei cifrari più antichi che si conoscono è il cifrario di Cesare.
+Per cifrare un messaggio ci sono diverse tecniche, una di queste è il \textbf{cifrario a sostituzione} (per cifrario s'intende una trasformazione carattere per carattere, senza considerare la struttura linguistica del messaggio). Uno dei cifrari più antichi che si conoscono è il cifrario di Cesare. Il suo funzionamento cosiste nella sostituzione delle singole lettere dell'alfabeto "shiftate" di k posizioni. 
+
+Putroppo il cifrario a sostituzione puo' essere decifrato facilmente: l'attacco si basa sulla statistica del linguaggio naturale, dove un certo gruppo di lettere sono ripetute piu' volte (per esempio in italiano le vocali sono ripetute molto spesso all'interno delle parole).
 \subsection{Cos'è il cifrario a trasposizione}
 Il sistema generale sta nel sostituire appunto un carattere/coppie di lettere/sillabe/ecc con altre.
 Un altro tipo di cifrario è il \textbf{cifrario a trasposizione} che riordina le lettere senza mascherarle come fa il cifrario a sostituzione.
 
-Un esempio è la trasposizione colonnare che funziona come segue: tramite una parola chiave si numerano le colonne, il testo in chiaro va disposto di seguito sulle colonne. Successivamente si ordinano le colonne in base alla parola chiave, ad ogni lettera viene dato un valore dipendente dal valore della lettera nell’alfabeto, successivamente si riscrive per colonne il testo cifrato.
+Un esempio è la trasposizione colonnare che funziona come segue: tramite una parola chiave si numerano le colonne (alfabeticamente numerate), il testo in chiaro va disposto di seguito sulle colonne. Successivamente si ordinano le colonne in base alla parola chiave, ad ogni lettera viene dato un valore dipendente dal valore della lettera nell'alfabeto, successivamente si riscrive per colonne il testo cifrato.
+
+Purtoppo il cifrario a trasposizione e' vulnerabile: per decifrarlo si puo' provare a indovinare il numero di colonne oppure si possono riconoscere alcune parole all'interno di esso (cosa che poi facilita la decifrazione). Succeccivamente, essendo il testo "mescolato", si procede con la ricostruzione del messaggio in chiaro.
 
 \subsection{Differenze tra i due}
-Le differenze sostanziali tra i due è che nel cifrario a sostituzione l’ordine rimane invariato ma le lettere vengono mascherate, in quello a trasposizione le lettere non vengono mascherate e il testo viene mescolato (secondo opportuni criteri).
+Le differenze sostanziali tra i due è che nel cifrario a sostituzione l'ordine rimane invariato ma le lettere vengono mascherate, in quello a trasposizione le lettere non vengono mascherate e il testo viene mescolato (secondo opportuni criteri).
 
 \section{Si descriva il block cipher}
 \subsection{Cos'è}
 Block cipher è un algoritmo a chiave simmetrica (tecnica di cifratura in cui la chiave è la stessa sia per la crittazione sia per la decrittazione) operante su un gruppo di bit di lunghezza finita organizzati in un blocco.
-Questo tipo di algoritmi sono composti da due parti, una che cifra (E) e un’altra che decifra ($E_1$).
-Dati n bit in entrata in blocco, l’algoritmo cifra n bit in blocco.
+Questo tipo di algoritmi sono composti da due parti, una che cifra (E) e un'altra che decifra ($E_1$).
+Dati n bit in entrata in blocco, l'algoritmo cifra n bit in blocco.
 Per eseguire la crittazione e la decrittazione è possibile implementarli tramite semplici circuiti elettrici, come ad esempio la P-box (scatola di permutazione) o la S-box (scatole di sostituzione).
 \subsection{P-box}
-La P-box permette di trasporre 8 bit, se un input è lineare 01234567, l’output è 24506713, ovviamente la P-box lavora alla velocità della luce, in quanto non sono necessari calcoli, però è necessario conoscere la chiave di cifratura (ossia come sono disposti i collegamenti interni della P-box).
+La P-box permette di trasporre 8 bit, se un input è lineare 01234567, l'output è 24506713, ovviamente la P-box lavora alla velocità della luce, in quanto non sono necessari calcoli, però è necessario conoscere la chiave di cifratura (ossia come sono disposti i collegamenti interni della P-box).
 \subsection{S-box}
 la S-box invece è un altro tipo di circuito che sostituisce il numero di bit del messaggio, mescolandoli.
-Se il messaggio in entrata ha m bit, l’output è da n. Ad esempio si ha un input di 8 bit, l’output sarà da 3 bit permutati dagli 8, servirà poi una S-box per decifrare il messaggio e tornare agli 8 bit originali. 
+Se il messaggio in entrata ha m bit, l'output è da n. Ad esempio si ha un input di 8 bit, l'output sarà da 3 bit permutati dagli 8, servirà poi una S-box per decifrare il messaggio e tornare agli 8 bit originali. 
 
 
 \begin{figure}[H]
@@ -41,7 +45,7 @@ Singolarmente questi metodi non sono molto affidabili, S-box è molto vulnerabil
 \subsection{Ambiti d'uso}
 Utilizzati in crittografia per cifrare blocchi di dati (a differenza degli algoritmi di flusso che cifrano un solo elemento alla volta).
 
-\section{Si descriva l’algoritmo DES e triplo DES}
+\section{Si descriva l'algoritmo DES e triplo DES}
 \subsection{Cos'è DES?}
 DES (Data Encryption Standard) è un algoritmo di cifratura scelto come standard, prima dal governo degli Stati Uniti e successivamente è diventato di utilizzo internazionale.
 
@@ -50,13 +54,13 @@ DES è un perfetto esempio di cifrario a blocchi, è un algoritmo che prende in 
 
 DES è formato da 19 stadi distinti:
 \begin{itemize}
-\item	il primo traspone semplicemente i 64 bit di testo in chiaro, l’ultimo fa il contrario.
+\item	il primo traspone semplicemente i 64 bit di testo in chiaro, l'ultimo fa il contrario.
 \item	Il penultimo stadio scambia i 32 bit più a sinistra con i 32 più a destra.
 \item	Gli altri 16 stadi sono funzionalmente identici, ma sono parametrizzati da funzioni diverse della chiave.
 \end{itemize}
 
 \subsection{Cos'è Triplo-DES?}
-Per migliorare la complessità dell’algoritmo viene implementato un nuovo metodo chiamato triplo DES. Nel triplo DES vengono utilizzate due chiavi e tre stadi. Nel primo stadio il testo viene cifrato con il sopracitato DES usando la chiave $K_1$, nel secondo stadio DES viene usato in modalità di decifrazione usando la chiave $K_2$. Infine, un’ultima cifratura viene fatta con $K_1$. È un metodo Encrypt Decrypt Encrypt (EDE). Il metodo EDE è stato scelto in quanto risulta compatibile con i computer che usano la cifratura singola, semplicemente impostando $K_1=K_2$.
+Per migliorare la complessità dell'algoritmo viene implementato un nuovo metodo chiamato triplo DES. Nel triplo DES vengono utilizzate due chiavi e tre stadi. Nel primo stadio il testo viene cifrato con il sopracitato DES usando la chiave $K_1$, nel secondo stadio DES viene usato in modalità di decifrazione usando la chiave $K_2$. Infine, un'ultima cifratura viene fatta con $K_1$. È un metodo Encrypt Decrypt Encrypt (EDE). Il metodo EDE è stato scelto in quanto risulta compatibile con i computer che usano la cifratura singola, semplicemente impostando $K_1=K_2$.
 
 AES (Advanced Encryption Standard) sostituisce triplo DES (quindi anche DES).
 
@@ -82,9 +86,9 @@ Nell'ambito della crittografia, stanno cadendo in disuso a causa delle scarse pr
 
 \section{Counter Mode Cipher}
 \subsection{Causa della creazione}
-La maggior parte delle tecniche di cifratura hanno il problema di rendere impossibile l’accesso casuale ai dati. Questo è un problema quando ad esempio si va accede ad un file su disco in ordine non sequenziale (random), se il file è cifrato con il cipher block chaining (tecnica che cifra i blocchi basandosi sui blocchi precedenti) allora bisogna prima decifrare tutti i blocchi precedenti, questo può diventare inutilmente oneroso.
+La maggior parte delle tecniche di cifratura hanno il problema di rendere impossibile l'accesso casuale ai dati. Questo è un problema quando ad esempio si va accede ad un file su disco in ordine non sequenziale (random), se il file è cifrato con il cipher block chaining (tecnica che cifra i blocchi basandosi sui blocchi precedenti) allora bisogna prima decifrare tutti i blocchi precedenti, questo può diventare inutilmente oneroso.
 \subsection{Cos'è?}
-Per questo motivo è stata creata la modalità contatore. In questo caso il testo in chiaro non viene cifrato direttamente; si cifra invece un vettore d’inizializzazione (IV) con una costante (K), successivamente il risultato viene messo in XOR con il testo in chiaro. Si incrementa di 1 il vettore d’inizializzazione ad ogni blocco, diventa facile riuscire a decifrare un blocco in qualunque posizione esso si trovi, senza decifrare prima i suoi predecessori.
+Per questo motivo è stata creata la modalità contatore. In questo caso il testo in chiaro non viene cifrato direttamente; si cifra invece un vettore d'inizializzazione (IV) con una costante (K), successivamente il risultato viene messo in XOR con il testo in chiaro. Si incrementa di 1 il vettore d'inizializzazione ad ogni blocco, diventa facile riuscire a decifrare un blocco in qualunque posizione esso si trovi, senza decifrare prima i suoi predecessori.
 
 \begin{figure}[H]
 \centering
@@ -104,7 +108,7 @@ Utile ad esempio se si necessita di effettuare ricerche non sequenziali dei dati
 
 \section{Cipher block chaining}
 
-DES, triplo DES e AES, utilizzano un cifrario a sostituzione monoalfabetica che usa caratteri lunghi. Usando sempre la stessa chiave, ottenendo sempre blocchi di testo cifrato uguali (per testo in chiaro uguale), risulta semplice (con un po’ di forza bruta) compromettere la sicurezza dei blocchi cifrati con queste tecniche.
+DES, triplo DES e AES, utilizzano un cifrario a sostituzione monoalfabetica che usa caratteri lunghi. Usando sempre la stessa chiave, ottenendo sempre blocchi di testo cifrato uguali (per testo in chiaro uguale), risulta semplice (con un po' di forza bruta) compromettere la sicurezza dei blocchi cifrati con queste tecniche.
 \subsection{Cos'è?}
 Un modo per evitare questo problema è collegare tutti i blocchi cifrati in modo diverso, questa tecnica è chiamata Cipher block chaining.
 In questo metodo, ogni blocco di testo in chiaro è messo in XOR con il precedente blocco cifrato prima di eseguire la cifratura vera e propria.
@@ -132,7 +136,7 @@ Una variante dei cifrari a blocchi è stream cipher (cifrario di flusso).
 Questa tecnica sfrutta un vettore di inizializzazione (IV) e una chiave, cifrate insieme generano un keystream che è indipendente dal testo in chiaro, successivamente si può cifrare nuovamente il keystream con la chiave, un numero arbitrario di volte per ottenere keystream differenti, con la quale poi verrà cifrato il testo in XOR.
 Per la decrittazione viene eseguita generando lo stesso keystream dal lato del ricevente.
 
-Questa tecnica permette un’alta elasticità agli errori, in quanto la keystream non dipende dai dati e su di essa si basa la cifratura di ogni blocco, di conseguenza un errore nel testo in chiaro vale come un errore nel testo cifrato (problema che riguardava il cipher block chaining).
+Questa tecnica permette un'alta elasticità agli errori, in quanto la keystream non dipende dai dati e su di essa si basa la cifratura di ogni blocco, di conseguenza un errore nel testo in chiaro vale come un errore nel testo cifrato (problema che riguardava il cipher block chaining).
 
 Tuttavia, per utilizzare al meglio questa tecnica, IV e chiave non devono mai essere riutilizzati, altrimenti si genererebbe più volte lo stesso keystream, stessa cosa vale per la cifratura, non va mai utilizzato lo stesso keystream per cifrare un testo, altrimenti si viene esposti al problema del tipo keystream riutilizzato.
 
@@ -152,10 +156,10 @@ Utilizzato per cifrare dati in applicazioni in cui è necessario che un bit di e
 \section{RSA}
 \subsection{Causa della creazione}
 Un grosso problema del sistema crittografico è sempre stata la distribuzione delle chiavi. 
-È sempre stato assunto che le chiavi di cifratura e decifrazione fossero le stesse (o derivabili l’una dall’altra), e la chiave doveva essere distribuita a tutti gli utenti del sistema. Qualora un intruso riusciva a rubare una chiave, tutto il sistema andava a rotoli.
+È sempre stato assunto che le chiavi di cifratura e decifrazione fossero le stesse (o derivabili l'una dall'altra), e la chiave doveva essere distribuita a tutti gli utenti del sistema. Qualora un intruso riusciva a rubare una chiave, tutto il sistema andava a rotoli.
 
 Una variante per le chiavi simmetriche (stessa chiave per decifrare e cifrare) è stato dato dalle chiavi asimmetriche (o chiavi pubbliche/private).
-Questo sistema richiede che ogni utente sia in possesso di due chiavi, una pubblica per la cifratura e una privata per la decifratura, quella pubblica può essere condivisa al mondo, mentre quella privata dev’essere in possesso solo del proprietario.
+Questo sistema richiede che ogni utente sia in possesso di due chiavi, una pubblica per la cifratura e una privata per la decifratura, quella pubblica può essere condivisa al mondo, mentre quella privata dev'essere in possesso solo del proprietario.
 Cosi facendo chiunque può scrivere un messaggio cifrato a chi vuole, basta cifrarlo con la chiave pubblica della persona interessata, la persona interessata poi usera la sua chiave privata per decifrarlo.
 \subsection{Cos'è?}
 RSA è un algoritmo di crittografia che cerca di trovare un modo per generare queste chiavi, in modo da renderle impossibili da dedurre tramite calcoli.
@@ -168,7 +172,7 @@ Si basa su alcuni principi di teoria dei numeri che si possono riassumere in qua
 \item	Si trova e tale che e*d=1 mod z.
 \end{itemize}
 
-Si divide il testo in chiaro, P, in modo che 0$\leq$P<n. Per cifrare il messaggio P, calcoliamo C=$P^e$ (mod n). Per decifrare C calcoliamo P=$C^d$. Questo si può fare perché le funzioni di cifratura e decifrazione sono una l’inverso dell’altra.
+Si divide il testo in chiaro, P, in modo che 0$\leq$P<n. Per cifrare il messaggio P, calcoliamo C=$P^e$ (mod n). Per decifrare C calcoliamo P=$C^d$. Questo si può fare perché le funzioni di cifratura e decifrazione sono una l'inverso dell'altra.
 La chiave pubblica quindi consiste nella coppia (e,n) mentre quella privata consiste in (d, n).
 
 La sicurezza del metodo è basata sulla difficoltà di scomporre in fattori i numeri molto grandi.
@@ -182,42 +186,42 @@ Viene utilizzato per lo scambio dati con persone sconosciute.
 
 \section{Si descriva la tecnica di attacco “Birthday attack”}
 \subsection{Firme digitali}
-L’autenticità di molti documenti legali, finanziari ecc. è basata sulla presenza o assenza di una firma autografa autorizzata. Per questo esistono le firme digitali. Grazie a queste si può verificare l’autenticità di un documento. Queste firme si basano su protocolli crittografici comunemente utilizzati.
+L'autenticità di molti documenti legali, finanziari ecc. è basata sulla presenza o assenza di una firma autografa autorizzata. Per questo esistono le firme digitali. Grazie a queste si può verificare l'autenticità di un documento. Queste firme si basano su protocolli crittografici comunemente utilizzati.
 
 Per generare una firma digitale vengono utilizzate delle funzioni di hash, tra queste la funzione MD (message digest) che ha 4 importanti proprietà:
 \begin{itemize}
 \item	È facile calcolare MD(P) (P messaggio).
 \item	Da MD(P) è praticamente impossibile trovare P.
-\item	Dato P, nessuno è in grado di trovare P’ tale che MD(P’)=MD(P). (non è possibile trovare un testo la cui cifratura è uguale alla cifratura di un altro testo.
-\item	Se l’input cambia anche solo di 1 bit, l’output diventa completamente diverso.
+\item	Dato P, nessuno è in grado di trovare P' tale che MD(P')=MD(P). (non è possibile trovare un testo la cui cifratura è uguale alla cifratura di un altro testo.
+\item	Se l'input cambia anche solo di 1 bit, l'output diventa completamente diverso.
 \end{itemize}
 Grazie a queste proprietà la firma diventa estremamente sicura e può far da garante per documenti importanti.
 \subsection{Cos'è il birthday attack}
-Il birthday attack è un esempio per dimostrare che, per forzare una MD di m bit, bastano solamente $2^{m/2}$ operazioni. L’idea per quest’attacco viene da una tecnica che i professori di matematica usano spesso nei corsi di matematica: “Quanti studenti ci devono essere in una classe perché la probabilità che due persone abbiano lo stesso compleanno superi il 50\%?” (23).
+Il birthday attack è un esempio per dimostrare che, per forzare una MD di m bit, bastano solamente $2^{m/2}$ operazioni. L'idea per quest'attacco viene da una tecnica che i professori di matematica usano spesso nei corsi di matematica: “Quanti studenti ci devono essere in una classe perché la probabilità che due persone abbiano lo stesso compleanno superi il 50\%?” (23).
 Con 23 persone possiamo formare (23*22)/2=253 coppie differenti, ognuna ha probabilità 1/365 di essere quella buona, di conseguenza la percentuale di possibilità supera facilmente il 50\%.
 
-Generalizzando questa idea: Se c’è una funzione fra input e output con n valori di input e k possibili valori di output, ci sono n(n-1)/2 coppie di input. Se n(n-1)/2>k la possibilità di avere una coppia con lo stesso output è decisamente alta: Per avere due output uguali basta avere n>$\sqrt{k}$.
+Generalizzando questa idea: Se c'è una funzione fra input e output con n valori di input e k possibili valori di output, ci sono n(n-1)/2 coppie di input. Se n(n-1)/2>k la possibilità di avere una coppia con lo stesso output è decisamente alta: Per avere due output uguali basta avere n>$\sqrt{k}$.
 Tutto questo significa che un MD di 64 bit, può essere forzato, con buona probabilità, generando 232 messaggi e cercandone due con lo stesso MD.
 
 \section{Sicurezza in 802.11}
 \subsection{Cos'è?}
 Lo standard 802.11 (standard di trasmissione per le reti WLAN (Wireless LAN)) prescrive un protocollo per lo strato data link, questo protocollo è chiamato WEP (Wired Equivalent Privacy) il cui scopo è portare sulla LAN wireless la stessa sicurezza di quella cablata.
 \subsection{Come funziona}
-WEP utilizza uno stream cipher (cifratura di flusso a chiave simmetrica) basato sull’algoritmo RC4 per cifrare i dati e CRC-32 (controllo a ridondanza ciclica) per verificare l’integrità.
+WEP utilizza uno stream cipher (cifratura di flusso a chiave simmetrica) basato sull'algoritmo RC4 per cifrare i dati e CRC-32 (controllo a ridondanza ciclica) per verificare l'integrità.
 Nel WEP, RC4 è utilizzato per generare un keystream che viene applicato in XOR al testo in chiaro per produrre il testo cifrato. La keystream è generata partendo da un vettore di inizializzazione (IV), vettore che deve essere cambiato ad ogni invio per mantenere alta la sicurezza.
 Il suo funzionamento è il seguente:
 \begin{itemize}
 \item	Viene calcolato il checksum del payload utilizzando il CRC-32.
 \item	Il checksum viene aggiunto al payload per formare il testo in chiaro.
 \item	Al testo in chiaro (payload+checksum) viene applicato in XOR una parte del keystream pari alla sua lunghezza. Il risultato è il testo cifrato.
-\item	L’IV utilizzato per inizializzare il keystream RC4 viene inviato insieme al testo cifrato.
+\item	L'IV utilizzato per inizializzare il keystream RC4 viene inviato insieme al testo cifrato.
 Quando il destinatario riceve il pacchetto:
 \item	Estrae il payload cifrato.
-\item	Genera il keystream a partire dalla chiave segreta condivisa e l’IV ricevuto.
+\item	Genera il keystream a partire dalla chiave segreta condivisa e l'IV ricevuto.
 \item	Calcola lo XOR fra il testo cifrato e il keystream ottenendo il testo in chiaro
 \item	Verifica il checksum per vedere se ci sono state manomissioni.
 \end{itemize}
-Purtroppo, questo sistema non è molto affidabile, in quanto l’IV facilmente si ripete, generando il pericolo del riutilizzo del keystream e rendendo tutte le transazioni a rischio di letture indesiderate. WEP è stato già sostituito da nuovi sistemi più sicuri.
+Purtroppo, questo sistema non è molto affidabile, in quanto l'IV facilmente si ripete, generando il pericolo del riutilizzo del keystream e rendendo tutte le transazioni a rischio di letture indesiderate. WEP è stato già sostituito da nuovi sistemi più sicuri.
 
 \subsection{Pregi}
 Provvede una sicurezza basilare
@@ -228,16 +232,16 @@ Ormai obsoleto, viene sostituito da sistemi più sicuri.
 
 \section{Si descriva la sicurezza di Bluetooth}
 
-Rispetto a 802.11, Bluetooth ha un raggio d’azione considerevolmente minore, tuttavia necessita di un buon grado di sicurezza.
-La sicurezza in Bluetooth è divisa in 3 modalità diverse, che vanno da nessuna sicurezza a una completa sicurezza dei dati e controllo dell’integrità.
+Rispetto a 802.11, Bluetooth ha un raggio d'azione considerevolmente minore, tuttavia necessita di un buon grado di sicurezza.
+La sicurezza in Bluetooth è divisa in 3 modalità diverse, che vanno da nessuna sicurezza a una completa sicurezza dei dati e controllo dell'integrità.
 Generalmente la sicurezza bluetooth è tenuta disabilitata.
 \subsection{Livelli di sicurezza}
 La sicurezza Bluetooth inizia quando un nuovo dispositivo slave chiede un canale al master.
-Questo controllo viene effettuato tramite passkey, generalmente salvate in entrambi i dispositivi e scambiate al momento del collegamento. Altre volte è una chiave interna ad un dispositivo che va poi inserita all’interno di un altro sotto forma di numero decimale.
-Quando si stabilisce un canale, master e slave controllano se l’altro conosce la passkey, in caso affermativo negoziano se il canale dev’essere cifrato e/o se bisogna effettuare il controllo di integrità.
-La cifratura usa uno stream cipher (cifratura a flusso a chiave simmetrica) e per il controllo d’integrità usa Safer+ (altro cifrario a blocco con chiave simmetrica).
+Questo controllo viene effettuato tramite passkey, generalmente salvate in entrambi i dispositivi e scambiate al momento del collegamento. Altre volte è una chiave interna ad un dispositivo che va poi inserita all'interno di un altro sotto forma di numero decimale.
+Quando si stabilisce un canale, master e slave controllano se l'altro conosce la passkey, in caso affermativo negoziano se il canale dev'essere cifrato e/o se bisogna effettuare il controllo di integrità.
+La cifratura usa uno stream cipher (cifratura a flusso a chiave simmetrica) e per il controllo d'integrità usa Safer+ (altro cifrario a blocco con chiave simmetrica).
 
-Un altro problema di bluetooth è che autentica solo i dispositivi, e non gli utenti, quindi il furto di un dispositivo bluetooth lascia l’accesso a tutti i dati del proprietario precedente.
+Un altro problema di bluetooth è che autentica solo i dispositivi, e non gli utenti, quindi il furto di un dispositivo bluetooth lascia l'accesso a tutti i dati del proprietario precedente.
 Bluetooth implementa però la sicurezza anche in strati superiori al data link, tipo con password o PIN per completare la transazione.
 
 \subsection{Pregi}
@@ -249,14 +253,14 @@ Utilizzato nelle connessioni bluetooth.
 
 \section{La tecnica di attacco reflection attack}
 \subsection{Cos'è?}
-Il reflection attack è una tipologia di attacco informatico che sfrutta delle falle nei protocolli di autenticazione (servono per autenticare l’identità in caso di scambio di messaggi) cercando di simulare diverse entità.
+Il reflection attack è una tipologia di attacco informatico che sfrutta delle falle nei protocolli di autenticazione (servono per autenticare l'identità in caso di scambio di messaggi) cercando di simulare diverse entità.
 
-In questa tipologia di attacco sono necessari due interlocutori, A e B, e dev’essere aprire più conversazioni contemporaneamente con la vittima (B).
-C , il nostro malintenzionato, seguendo alcune procedure e scambi multipli riesce a simulare l’identità di A, imbrogliando B, e potenzialmente aver accesso a tutte le conoscenze private di A che conosce B. (immaginando che B sia una banca, C che finge di essere A, ha libero accesso ai suoi soldi, non è proprio una cosa carina).
+In questa tipologia di attacco sono necessari due interlocutori, A e B, e dev'essere aprire più conversazioni contemporaneamente con la vittima (B).
+C , il nostro malintenzionato, seguendo alcune procedure e scambi multipli riesce a simulare l'identità di A, imbrogliando B, e potenzialmente aver accesso a tutte le conoscenze private di A che conosce B. (immaginando che B sia una banca, C che finge di essere A, ha libero accesso ai suoi soldi, non è proprio una cosa carina).
 \subsection{Regole per evitarlo}
 Questo attacco porta a generare 4 regole per la buona riuscita di un protocollo di autenticazione:
 \begin{itemize}
-\item	Fare in modo che chi inizia l’autenticazione provi la sua identità prima che lo faccia chi risponde.
+\item	Fare in modo che chi inizia l'autenticazione provi la sua identità prima che lo faccia chi risponde.
 \item	Far si che entrambi gli interlocutori utilizzino chiavi differenti per provare la propria identità.
 \item	Far si che gli interlocutori usino (per le richieste) numeri presi da insiemi diversi.
 \item	Rendere il protocollo resistente a attacchi che coinvolgono una seconda sessione parallela.
@@ -265,9 +269,9 @@ Se anche una sola di queste regole viene meno, il protocollo può essere forzato
 
 \section{Replay attack}
 \subsection{Cos'è?}
-Il replay attack è una tipologia di attacco informatico che sfrutta le falle nei protocolli di autenticazione (servono per autenticare l’identità in caso di scambio di messaggi), cercando di simulare diverse identità e potenzialmente rubare dati.
+Il replay attack è una tipologia di attacco informatico che sfrutta le falle nei protocolli di autenticazione (servono per autenticare l'identità in caso di scambio di messaggi), cercando di simulare diverse identità e potenzialmente rubare dati.
 
-Simile all’attacco Man-in-the-middle il replay attack consiste nell'impossessarsi di una credenziale di autenticazione comunicata da un host ad un altro, e riproporla successivamente simulando l'identità dell'emittente. La differenza con il Man-in-the-middle sta nell’asincronia dell’operazione: mentre in MITM le operazioni avvengono in tempo reale, nel replay attack l’azione fraudolenta può essere eseguita anche a distanza di giorni.
+Simile all'attacco Man-in-the-middle il replay attack consiste nell'impossessarsi di una credenziale di autenticazione comunicata da un host ad un altro, e riproporla successivamente simulando l'identità dell'emittente. La differenza con il Man-in-the-middle sta nell'asincronia dell'operazione: mentre in MITM le operazioni avvengono in tempo reale, nel replay attack l'azione fraudolenta può essere eseguita anche a distanza di giorni.
 
 Un esempio si ha quando A invia una richiesta di bonifico alla propria banca (B), C intercetta i messaggi e li salva. Dopo un certo tempo C rispedisce gli stessi messaggi a B. B, credendo di parlare con A, esegue le istruzioni. 
 \subsection{Metodi per evitarlo}
@@ -278,16 +282,16 @@ Un secondo metodo è inserire dei nonce (numero casuale che ha un utilizzo unico
 \subsection{Cos'è?}
 Chiamato anche scambio di chiavi Diffie-Hellman, è un protocollo crittografico che consente a due entità di stabilire una chiave condivisa e segreta, utilizzando un canale di comunicazione pubblico (a rischio di attacchi), senza che le due parti si siano scambiate informazioni o si siano incontrate in precedenza.
 
-“A” e “B” devono mettersi d’accordo su due numeri grandi, n e g, in cui n e (n-1)/2 sono primi.
-Questi numeri possono essere pubblici, possono essere scelti entrambi da A o da B e poi riferiti all’altro in caso di necessità.
+“A” e “B” devono mettersi d'accordo su due numeri grandi, n e g, in cui n e (n-1)/2 sono primi.
+Questi numeri possono essere pubblici, possono essere scelti entrambi da A o da B e poi riferiti all'altro in caso di necessità.
 “A” e “B” ora scelgono due numeri grandi e li tengono segreti , x e y per comodità.
 A questo punto “A” inizia la conversazione inviando a “B” un messaggio contenente (n, g, $g^x$ mod n).
 “B” risponde inviando a sua volta un messaggio contenente $g^y$ mod n. 
 “A” prende il numero ricevuto da “B” e lo eleva alla x, mod n = $(g^y mod n)^x$ mod n. “B” fa una cosa simile per ottenere $(g^x mod n)^y$ mod n.
-A questo punto grazie alle regole dell’aritmetica entrambe le espressioni valgono $g^{xy}$ mod n. “A” e “B” utilizzano questa come chiave segreta condivisa.
+A questo punto grazie alle regole dell'aritmetica entrambe le espressioni valgono $g^{xy}$ mod n. “A” e “B” utilizzano questa come chiave segreta condivisa.
 Un possibile intruso non riuscirebbe a carpirla nemmeno se avesse ascoltato i messaggi in quanto non conosce le chiavi segrete di A e B.
 
-Il problema dell’algoritmo sta nel fatto che “B” non può effettivamente sapere che è “A” a inviare la tripla iniziale, a causa di ciò, l’algoritmo diventa facilmente vittima del man-in-the-middle, una persona C se si mette tra i due e ascolta le conversazioni può simulare di essere sia A che B.
+Il problema dell'algoritmo sta nel fatto che “B” non può effettivamente sapere che è “A” a inviare la tripla iniziale, a causa di ciò, l'algoritmo diventa facilmente vittima del man-in-the-middle, una persona C se si mette tra i due e ascolta le conversazioni può simulare di essere sia A che B.
 \subsection{Pregi}
 Scambio di chiavi sicuro in canale di comunicazione pubblico.
 \subsection{Difetti}
@@ -297,9 +301,9 @@ Algoritmo alla base di numerosi protocolli usati nelle telecomunicazioni che per
 
 \section{Attacco Man in the middle}
 \subsection{Cos'è?}
-L’attacco Man-in-the-middle, letterlamente l’attacco dell’uomo in mezzo, è un attacco crittografico nel quale l’attaccante è in grado di leggere, inserire o modificare a piacere i messaggi tra due interlocutori senza che nessuno dei due sospetti qualcosa.
+L'attacco Man-in-the-middle, letterlamente l'attacco dell'uomo in mezzo, è un attacco crittografico nel quale l'attaccante è in grado di leggere, inserire o modificare a piacere i messaggi tra due interlocutori senza che nessuno dei due sospetti qualcosa.
 
-L’attaccante dev’essere in grado di frapporsi tra le due parti e intercettare i messaggi, cosi facendo può simulare la risposta per entrambi.
+L'attaccante dev'essere in grado di frapporsi tra le due parti e intercettare i messaggi, cosi facendo può simulare la risposta per entrambi.
 Potenzialmente questo attacco è fattibile verso qualsiasi conversazione che utilizza chiave pubblica.
 
 
@@ -307,7 +311,7 @@ Un esempio del suo funzionamento è il seguente:
 \begin{itemize}
 \item	A e B vogliono comunicare.
 \item	A chiede a B la propria chiave pubblica, B la invia
-\item	La chiave di B viene intercettata da C, da qui inizia l’attacco.
+\item	La chiave di B viene intercettata da C, da qui inizia l'attacco.
 \item	C invia ad A una propria chiave pubblica, di cui conosce la chiave privata per decrittare, A riceve la chiave pubblica pensando sia di B.
 \item	A cifra i messaggi con la chiave di C (pensando sia di B) e invia i messaggi a B.
 \item	C intercetta i messaggi, li decifra, tiene una copia per se e li re-cifra (modificati se lo desidera) usando la chiave pubblica che B aveva inizialmente inviato ad A.
@@ -332,7 +336,7 @@ Il protocollo DNS invece ha il compito di trasformare un indirizzo letterale (ad
 Il DNS Spoofing si svolge quindi nel modo seguente: 
 \begin{itemize}
 \item	La vittima fa una DNS Query
-\item	L’attaccante la intercetta e risponde con una risposta falsa, diversa da quella che sarebbe stata fornita dal DNS.
+\item	L'attaccante la intercetta e risponde con una risposta falsa, diversa da quella che sarebbe stata fornita dal DNS.
 \end{itemize}
 Lo scopo dello spoofing è modificare la corrispondenza tra indirizzo IP e nome del sito contenuti nelle risposte.
 \subsection{Possibile soluzione}
@@ -343,3 +347,90 @@ Una possibile soluzione per rendersi conto di essere sotto attacco è di individ
 \includegraphics[scale=0.35]{res/img/65_DNSSpoofing.png}
 %\caption{Didascalia dellimmagine}
 \end{figure}
+
+\section{CIDR - Classless InterDomain Routing}
+Gli IP sono stati utilizzati intensamente per decenni. Hanno svolto il loro lavoro egregiamente, visto anche dalla crescita esponenziale di internet. Sfortunatamente, gli IP stanno diventando vittima della loro popolarita': si stanno eraurendo gli indirizzi.
+\subsection{Cos'e'?}
+Il problema e' che internet sta' esaurendo i propri indirizzi IP: la pratica di organizzare gli spazi degli indirizzi in classi, ne spreca milioni (Classi A,B,C). 
+
+La solutione utilizzata al problema, che ha rallentato l'esaurimento degli indirizzi IP, e' CIDR. L'idea base dietro CIDR e' di utilizzare gli indirizzi IP in blocchi di dimensioni variabili, senza considerare le classi: se si necessita di 4000 indirizzi, vengono rilasciati un pool di 4096 indirizzi, utilizzando una maschera che indica quale parte specifica la network e quale gli host. Pero' questa soluzione ha portato un nuovo problema: le tabelle di routing vengono complicate. Ogni valore della routing table e' estesa ad una maschera 32 bit, e con una singola routing table per tutta la rete: quando viene ricevuto un pacchetto, L'IP di destinazione viene estratto e cercato all'interno della tabella riga per riga.
+\subsection{Pregi}
+Consente una migliore gestione degli indirizzi ip evitando sprechi.
+\subsection{Difetti}
+complica le tabelle di routing.
+\subsection{Ambiti d'uso}
+utilizzato nella suddivisione senza sprechi degli indirizzi ip
+\section{NAT - Network Address Trasnlation}
+Gli IP sono stati utilizzati intensamente per decenni. Hanno svolto il loro lavoro egregiamente, visto anche dalla crescita esponenziale di internet. Sfortunatamente, gli IP stanno diventando vittima della loro popolarita': si stanno eraurendo gli indirizzi.
+\subsection{Cos'e'?}
+Gli ISP per risolvere il problema dello scarseggiamento degli indirizzi IPv4 hanno iniziato ad addottare la NAT, dato che sempre piu' utenti cominciavano ad essere online (e di conseguenza bloccando l'indirizzo IP assegnato dall'ISP) tutto il giorno. La soluzione migliore sarebbe stata quella di usare IPv6, ma dovendo subentrare un quick fix, la soluzione e' stata quella di creare una LAN all'interno dell'edificio (che sia una azienda o casa), dove tutti i pc e server sono connessi ad un router, creando una rete interna indipendente da internet. 
+
+A questo e' subentrato il problema dell'ambiguita' degli indirizzi IP, in quanto in internet un indirizzo IP deve essere univoco. A questo problema si e' pensato di riservare 3 gruppi di sottoreti per le LAN interne, una con maschera /8, una /10 e una /16, e di eliminare i suddetti range da internet.
+
+Il router , connesso all'ISP, tramite NAT trasforma i pacchetti con indirizzi interni, in pacchetti da inviare in internet con l'indirizzo ip assegnatogli dall'ISP. 
+
+Per quanto riguarda le risposte ricevute, la NAT per riconoscere chi e' il proprietario del pacchetto, e quindi fare la conversione da indirizzo esterno ad indirizzo interno, si serve degli header TCP/UDP nel campo "source port" e "destination port". Insieme, "source port" e "destination port", identificano il proprietario del pacchetto.
+
+In questo modo si e' riuscito a raggruppare sotto un unico indirizzo IP molteplici host.
+\subsection{Pregi}
+Permette di raggruppare sotto un unico indirizzo IP assegnato dall'ISP molteplici pc (o terminali) presenti un una sottorete locale.
+Soluzione adottata per contrastare l'esaurimento degli indirizzi
+\subsection{Difetti}
+viola il modello architetturale dell'IP, dato che molti indirizzi non sono piu' univoci (al mondo ci sono milioni di indirizzi 192.168.1.1).
+Potrebbero esserci conflitti con applicazioni in quanto alcune inseriscono l'indirizzo IP all'interno del body. (un esempio e' FTP, non funziona almeno che non si prendano delle precauzioni quando si utilizza la NAT)
+\subsection{Ambiti d'uso}
+Utilizzato all'interno dei router
+\section{ICMP - Internet Control Message Packet}
+\subsection{Cos'e'?}
+Il funzionamento di internet e' monitorato strettamente dai router. Quando accade qualcosa, vengono inviati pacchetti ICMP come metodi di avviso per i router. Ce ne sono vari tipi e sono utilizzati anche per testare le performace della connessione tra router. I pacchetti ICMP hanno vari tipi di messaggio, i piu' importanti sono:
+\begin{itemize}
+	\item Destinazione non raggiungibile (usato quando un router non riesce a localizzare la destinazione)
+	\item Tempo scaduto (il messaggio viene inviato quando il time to live TTL = 0)
+	\item echo, echo reply ("sei vivo?", "si, sono vivo")
+	\item timestamp request/reply ("sei vivo?", "si, sono vivo" ma con data, usato anche per testare le performace della linea)
+\end{itemize}
+\subsection{Pregi}
+Utilizzato per testare le performance della connessione
+\subsection{Difetti}
+alcuni pacchetti sono ormai obsoleti perche' la risoluzione al problema viene gestito meglio in altri livelli: source quench ("choke packet") ormai obsoleto perche' il problema della congestione della linea viene gestito meglio nel livello transport
+\subsection{Ambiti d'uso}
+Strato network
+\section{OTP - One Time Pad}
+\subsection{Cos'e'?}
+OPT e' una tecnica di criptazione che non puo' essere compromessa (a livello matematico): non importa quanta potenza coputazionale si impeghi, non si riuscira' a decifrare il messaggio. Consiste nell'uso di una sola volta di una chiave di lunghezza cauale, lunga quanto il testo, mai riusata interamente o in parte, e tenuta segreta. E' considerata indistruttibile perche' deriva dalla teoria dell'informazione: per ogni testo cifrato, anche se vengono provate tutte le possibili OTP in decrittazione, come risultato si avrebbe testi plausibili di lunghezza eguale, ma senza avere la possibilita' di riconoscere il testo originale perche' non se ne conosce il contesto (considerato indecifrabile a livello matematico. una persona tramite supposizioni ed eventi, che non fanno parte della matematica, potrebbero riuscire a dedurre il testo). 
+
+Un possibile utilizzo potrebbe essere stato lo spionaggio, ma OPT ha degli svantaggi. Cominciando dal fatto che la chiave non puo' essere memorizzata e di conseguenza si necessita che mittente e destinatario debbano avere una copia scritta della stessa, in piu' la quantita' di dati che possono essere trasmessi equivale al numero di chiavi in possesso (poiche' non possono essere riutilizzate). Inoltre se il mittende e il destinatario perdono la sincronizzazione delle chiavi, i messaggi diventano incomprensibili dal destinatario.
+\subsection{Pregi}
+Non decifrabile matematicamente
+\subsection{Difetti}
+Problema per lo scambio/sincronizzazione delle chiavi.
+\subsection{Ambiti d'uso}
+Attualmente non utilizzato per la sua scarsa praticabilita', utilizzato nella guerra fredda.
+\section{Attacchi ciphertext}
+\textit{*ci sono vari attacchi di questo tipo, ma per ora e' stato chiesto solo questo*}
+\subsection{ciphertext-only attack}
+Il ciphertext-only attack, conosciuto anche come ciphertext attack, e' un tipo di attacco crittanalitico dove l'attaccante ha accesso ai soli messaggi cifrati. 
+l'attacco viene considerato riuscito se il corrispondente messaggio in chiaro puo' essere dedotto, o ancora meglio, la chiave. E' considerato un successo anche la possibilità di ottenere qualunque tipo di informazione sul messaggio in chiaro come per esempio la lingua in cui e' scritto il messaggio o la sua struttura.\\
+Nell'era moderna un esempio puo' essere l'attacco brute force, dove viene provato a decifrare il testo con molteplici chiavi, fino a riuscire a trovare quella corretta
+\section{ECB - Electronic Code Block Mode}
+\textit{*ultima apparizione nel 2014, vedi pagina 745, oppure pag 575 pdf (entrambi libro versione inglese 4 edizione)* }
+\section{IPSec}
+La IETF (Internet Engineering Task Force) sapeva da anni che internet era carente nella sicurezza (La soluzione migliore sarebbe stata quella di rendere la criptazione e i check di integrita' end-to-end, quindi a livello applicazione, ma questo avrebbe richiesto la modifica dei programmi per renderli sicuri). A questo problema si e' pensato che la criptazione si potesse mettere tra il livello di applicazione e tra il livello di trasporto, cosi' da essere comunque end-to-end in modo tale che non fosse necessario modificare le applicazioni. Questa operazione di criptazione o autenticazione dei pacchetti deve essere fatta in modo trasparente all'utente, in modo tale da non coinvolgerlo nell'operazione. 
+Il risultato fu' IPSec. l'IPSec richiede che nel suo utilizzo ci sia un metodo di criptazione, ma e' stato scelto di lasciare la possibilita' di non utilizzare alcun algoritmo (null algorithm) perche' e' computazionalmente oneroso. Il design completo per IPSec e' un framework per multipli servizi, in  modo tale da essere indipendente dagli algoritmi utilizzati, cosi' che possa vivere anche se un dato algorimo risulta obsoleto o venga aggiunto. IPSec e' "connection oriented": una connessione in contesto IPSec viene chiamata SA (Security Association). SA e' una connessione simplex tra due host.\\ L'IPSec ha due parti principali:
+\begin{itemize}
+	\item Una parte descrive due nuovi header che posso essere aggiunti ai pacchetti che possono portare la security identifier, controllo di integrita' dei dati e altre informazioni
+	\item L'altra parte, ISAKMP (Internet Security Association and Key Management) si occupa dello stabilire le chiavi
+\end{itemize}
+E puo essere usato in due modi:
+\begin{itemize}
+	\item Transport mode: l'header IPSec e' inserito subito dopo l'header IP
+	\item Tunnel mode: l'intero pacchetto IP viene incapsulato nel corpo di un nuovo pacchetto IP con un nuovo header IP. Il nuovo header e' un AH (authentication header): provvede al controllo dell'inegrita' e alla sicurezza antireply, ma non alla segretezza (nessuna criptazione)
+\end{itemize}
+\subsection{Pregi}
+Essendo indipendente dagli algoritmi, il framework puo' vivere anche se un dato algoritmo diventa obsoleto o se ne vengono aggiunti di nuovi
+\subsection{Difetti}
+Nel caso della modalita' tunnel, il pacchetto IP ha un header in piu', incrementando la dimensione del pacchetto
+\subsection{Ambiti d'uso}
+Operante nel network layer.
+\section{HMAC - Hashed Message Authentication Code}
+Facente parte dell'AH (Authentication Header) dell'IPSec, e' un campo di lunghezza variabile che contiene la firma digitale del payload. Quando l'SA (security association: connessione simplex tra due endpoint in cui e' presente un identificatore di sicurezza) e' stabilita, viene stabilito quale algoritmo di firma verra' usato. Normalmente la crittografia a chiave pubblica non viene usata perche' i pacchetti devono essere spediti rapidamente. Siccome la connessione SA e' basata sullo scambio di una chiave per la crittazione simmetrica, la stessa viene utilizzata nella computazione della firma digitale. Un semplice modo e' calcolare l'hash del pacchetto piu' la chiave simmetrica. Uno schema come questo e' chiamato HMAC:  e' molto piu' veloce da calcolare che eseguire uno SHA-1 e poi eseguire il risultato nell'RSA. Tramite HMAC è possibile garantire sia l'integrità, sia l'autenticità di un messaggio. Una caratteristica di HMAC è il non essere legato a nessuna funzione di hash in particolare, questo per rendere possibile una sostituzione della funzione nel caso non fosse abbastanza sicura.

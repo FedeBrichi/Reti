@@ -23,7 +23,7 @@ Questa tecnica è comunemente utilizzata nelle trasmissioni televisive, radiofon
 \end{figure} 
 
 \subsubsection{Pregi}
-Più efficiente del TDM in quanto elimina la necessità degli intervalli di guardia.
+Più efficiente del FDM in quanto elimina la necessità degli intervalli di guardia.
 
 \subsubsection{Difetti}
 Necessita di un circuito di sincronizzazione temporale in ricezione per l'estrazione del time-slot di competenza.
@@ -80,7 +80,8 @@ Non esiste nessuna garanzia per la correttezza dei dati, i bit potrebbero essere
 Il modo per rinvenire questi errori è quello di suddividere il flusso dei bit in frame, per poi controllarli. Uno dei metodi di framing è quello di utilizzare un flag byte con il byte stuffing.
 
 Il byte stuffing prevede l'uso di un flag per delimitare l'inizio e la fine dei frame. In questo modo quando il destinatario perde la sincronizzazione può cercare il flag byte per trovare la fine del frame corrente. Due flag byte consecutivi indicano la fine di un frame e l'inizio del successivo.
-Per far si che un flag byte sia contenuto internamente ai dati, bisogna utilizzare un byte di escape (ESC) prima di ogni occorrenza “accidentale” del byte flag nei dati. Successivamente lo strato data link della destinazione provvederà a rimuovere i byte di escape prima di passare i dati allo strato network; se anche un carattere ESC si trova dentro i dati, va preceduto da un ulteriore carattere ESC.
+
+Un problema occorre quando vengono spediti dati che per potrebbero replicare il byte FLAG. A questo problema e' stata utilizzata l'implementazione del byte ESC, che precede una occorrenza “accidentale” del byte di FLAG o ESC (in pratica il flag ESC dice di ignorare il successivo byte e prenderlo come byte dati). Successivamente lo strato data link della destinazione provvederà a rimuovere i byte di escape prima di passare i dati allo strato network.
 
 
 \begin{figure}[H]
@@ -106,7 +107,7 @@ Non esiste nessuna garanzia per la correttezza dei dati, i bit potrebbero essere
 \subsection{Cos'è?}
 Per risolvere i problemi e le limitazioni provocate dal byte stuffing, viene sviluppata una nuova tecnica di framing, che prende il nome di bit stuffing, questa nuova tecnica permette di creare data frame che contengono sia un numero arbitrario di frame, sia codifiche di carattere con un numero arbitrario di bit.
 Ogni frame comincia e finisce con un gruppo speciale di bit “0111110” (flag byte). Ogni volta che lo strato data link della sorgente incontra cinque “1” consecutivi nei dati inserisce automaticamente un bit con valore 0 nel flusso in uscita. La destinazione quindi quando riceve cinque bit consecutivi con valore 1 seguiti da uno 0, automaticamente elimina lo 0.
-Con il bit stuffing il confine fra i due frame viene riconosciuto in modo inequivocabile tramite l'uso della sequenza flag.
+Con il bit stuffing il confine fra i due frame viene riconosciuto in modo inequivocabile tramite l'uso della sequenza flag. Inoltre se il ricevente perde traccia dei frame, quello che deve fare e' cercare il byte flag, dato che possono trovarsi sono all'interno del frame e mai all'interno dei dati.
 
 \begin{figure}[H]
 \centering
