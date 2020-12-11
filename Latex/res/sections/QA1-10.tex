@@ -1,20 +1,20 @@
 \section{Cosa si intende per serie di Fourier?}
 \subsection{Cos'è?}
-Un segnale che ha una durata finita può essere gestito immaginando semplicemente che esso ripeta infinite volte l’intero schema (intervallo T e 2T è identico all’intervallo 0 a T).
+Un segnale che ha una durata finita può essere gestito immaginando semplicemente che esso ripeta infinite volte l'intero schema (intervallo T e 2T è identico all'intervallo 0 a T).
 
-È possibile quindi rappresentare i segnali tramite funzioni, le quali permettono un’analisi e una modellazione più efficace.
+È possibile quindi rappresentare i segnali tramite funzioni, le quali permettono un'analisi e una modellazione più efficace.
 La Serie di Fourier non è altro che la scomposizione di un segnale in componenti sinusoidali (possibilmente infiniti).
 \begin{center}
 $g(t)=\frac{1}{2}c+\sum_{n=1}^\infty a_n sen(2\pi nft)+\sum_{n=1}^\infty b_n cos(2\pi nft)$ 
 \end{center}
 
-$f=1/T$ rappresenta la frequenza fondamentale, $a_n$  $b_n$  sono rispettivamente le ampiezze seno e coseno dell’n-esima armonica e \textit{c} rappresenta una costante.
+$f=1/T$ rappresenta la frequenza fondamentale, $a_n$  $b_n$  sono rispettivamente le ampiezze seno e coseno dell'n-esima armonica e \textit{c} rappresenta una costante.
 
 Su questo teorema si basano le reti e il passaggio dei dati tramite i mezzi di trasmissione;
 purtroppo nella pratica i mezzi di trasmissione attenuano in modo non uniforme i componenti della serie di Fourier, generando così una distorsione.
 Per ovviare a questa distorsione, le ampiezze fino ad una certa frequenza vengono trasmesse senza modifiche, da quella frequenza in poi vengono attenuate.
 
-L’intervallo di frequenze trasmesse senza una forte attenuazione è chiamato Banda Passante.
+L'intervallo di frequenze trasmesse senza una forte attenuazione è chiamato Banda Passante.
 Generalmente nella realtà viene indicata la banda passante compresa tra 0 e la frequenza dove la potenza è attenuata del 50\%.
 \subsection{Pregi}
 Un pregio sicuramente è il fatto che scomporre un segnale in più componenti permette uno studio più preciso del segnale.
@@ -27,9 +27,9 @@ Si passerà poi alle varie modulazioni per ovviare ai problemi dovuti alle atten
 
 \section{Bitrate e Baudrate}
 \subsection{Cosa sono?}
-Il \textbf{Bitrate} è la quantità di informazioni digitali che è trasferita o registrata nell’unita di tempo.
+Il \textbf{Bitrate} è la quantità di informazioni digitali che è trasferita o registrata nell'unita di tempo.
 Stiamo parlando quindi di velocità di trasmissione, espressa in bit/s.
-La velocità di trasmissione è anche detta Banda e dipende dal tipo di mezzo trasmissivo utilizzato e dalle sue condizioni fisiche al momento dell’uso.
+La velocità di trasmissione è anche detta Banda e dipende dal tipo di mezzo trasmissivo utilizzato e dalle sue condizioni fisiche al momento dell'uso.
 \\
 Il \textbf{Baudrate} invece rappresenta il numero di simboli che viene trasmesso in un secondo.
 Non va confusa con il sopracitato bitrate in quanto misurano unità differenti; infatti ad un simbolo corrisponde un numero di bit differente in base alle tecniche di modulazione utilizzate.
@@ -47,13 +47,13 @@ Queste metriche vengono utilizzate nelle reti wireless e cablate.
 I principali tipi di cavo utilizzato nelle telecomunicazioni sono: il doppino, il cavo coassiale e la fibra ottica. \\
 \subsection{Il doppino, cos'è?}
 
-È un cavo composto da due conduttori di rame isolati, spessi circa 1mm e avvolti uno intorno all’altro in una forma elicoidale.
-L’intreccio è utile per annullare i campi elettromagnetici generati dai due conduttori, i quali si annullano a vicenda.
+È un cavo composto da due conduttori di rame isolati, spessi circa 1mm e avvolti uno intorno all'altro in una forma elicoidale.
+L'intreccio è utile per annullare i campi elettromagnetici generati dai due conduttori, i quali si annullano a vicenda.
 Esistono diverse varietà di doppini, i più importanti per le telecomunicazioni sono gli UTP3 e UTP5 (UTP= Unshielded Twisted Pair, doppini non schermati).
 Le differenze tra i doppini di categoria 3 e categoria 5 sta nel numero di spire per centimetro: minor numero di spire per cm negli UTP3 e maggiore negli UTP5.
 Un maggior numero di spire permette di migliorare la qualità del segnale trasmesso su lunghe distanze, a scapito però della quantità di materiale necessario.
 Esistono anche categorie superiori, i quali gestiscono segnali con banda più ampia.  \\
-I doppini si possono utilizzare per trasmettere segnali analogici e digitali, l’ampiezza di banda dipende dal diametro del cavo e dalla distanza percorsa.
+I doppini si possono utilizzare per trasmettere segnali analogici e digitali, l'ampiezza di banda dipende dal diametro del cavo e dalla distanza percorsa.
 
 \begin{figure}[H]
 \centering
@@ -74,7 +74,7 @@ Vengono utilizzati prevalentemente nel sistema telefonico.
 È un cavo composto da un nucleo conduttore coperto da un rivestimento isolante, a sua volta circondato da un conduttore cilindrico,
 solitamente realizzato con una calza di conduttori sottili, che infine è avvolto da una guaina protettiva di plastica.
 La costruzione e la schermatura del cavo coassiale forniscono ampiezza di banda ed eccellente immunità al rumore.
-Ne esistono di due tipi, a 50$\Omega$ per le trasmissioni digitali e a 75$\Omega$ per quelle analogiche; non c’è una motivazione tecnica per questa distinzione. \\
+Ne esistono di due tipi, a 50$\Omega$ per le trasmissioni digitali e a 75$\Omega$ per quelle analogiche; non c'è una motivazione tecnica per questa distinzione. \\
 la banda disponibile dipende dalla qualità, dalla lunghezza del cavo e dal rapporto segnale-rumore del segnale dati.
 Per molti ambiti il cavo coassiale è stato sostituito dalla fibra ottica per i tratti più lunghi.
 
@@ -99,8 +99,8 @@ I cavi in fibra ottica sono il mezzo di trasmissione di questo sistema, che si b
 La fibra ottica è formata da un nucleo (core) di vetro, attraverso il quale si propaga la luce, ha uno spessore di 50 micron per le fibre multimodali mentre dagli 8 ai 10 micron per quelle monomodali.
 
 Il nucleo è avvolto da un rivestimento di vetro (cladding) che ha un indice di rifrazione più basso;
-ciò costringe la luce a rimanere nel nucleo. L’ultimo strato è formato da plastica e serve a proteggere il rivestimento.
-Generalmente le fibre sono raggruppate in fasci, protetti da un’ulteriore guaina più esterna.  
+ciò costringe la luce a rimanere nel nucleo. L'ultimo strato è formato da plastica e serve a proteggere il rivestimento.
+Generalmente le fibre sono raggruppate in fasci, protetti da un'ulteriore guaina più esterna.  
 
 \begin{figure}[H]
 \centering
@@ -137,7 +137,7 @@ Rispetto al cavo in rame classico, la fibra apporta diversi vantaggi:
 \end{itemize}
 
 \subsubsection{Ambiti d'uso}
-La fibra è molto utilizzata nelle LAN e nei sistemi di trasmissioni a lunga distanza.
+La fibra è molto utilizzata nelle MAN e nei sistemi di trasmissioni a lunga distanza.
 
 \section{Caratteristiche e confronto tra i vari tipi di satellite: GEO, MEO e LEO}\label{satelliti}
 
@@ -163,8 +163,8 @@ Esistono quindi 3 zone in cui i satelliti possono essere collocati:
 \subsection{Cosa sono?}
 \paragraph{GEO}
 GEO (Geostationary Earth Orbit), sono collocati nella fascia più alta, disposti con un intervallo di $2^{\circ}$ nel piano equatoriale,
-così da evitare interferenze. Di conseguenza c’è posto per “solo” 180 satelliti di questo tipo.
-La loro dimensione è importante e la gestione dell’allocazione degli slot orbitali è motivo di disputa tra paesi, stazioni televisive e militari.
+così da evitare interferenze. Di conseguenza c'è posto per “solo” 180 satelliti di questo tipo.
+La loro dimensione è importante e la gestione dell'allocazione degli slot orbitali è motivo di disputa tra paesi, stazioni televisive e militari.
 Per mantenere la loro posizione, sono dotatti di razzi motori che permettono manovre correttive; di solito il carburante per farlo basta per 10 anni.
 Oltre alla posizione anche le frequenze sono oggetto di dispute, perchè possono interferire con quelle degli utilizzatori delle microonde.
 Vengono quindi assegnate solo certe frequenze per i satelliti, ognuna con i loro problemi (meteo, affollamento e simili).
@@ -172,15 +172,14 @@ Vengono quindi assegnate solo certe frequenze per i satelliti, ognuna con i loro
 \paragraph{MEO}
 Tra le due fasce di Van Allen troviamo i satelliti MEO (Medium Earth Orbit); questi satelliti si spostano lentamente lungo la longitudine,
 impiegando 6 ore per compiere un giro attorno al pianeta. Attualmente non sono utilizzati per le telecomunicazioni, ma più per la navigazione.
-Rispetto al GEO, il MEO permette un ritardo di propagazione inferiore, tuttavia si perde la comodità del “punto fisso” garantito dal GEO, perché il MEO si sposta più velocemente.
+Rispetto al GEO, il MEO permette un ritardo di propagazione inferiore, tuttavia si perde la comodità del “punto fisso” garantito dal GEO, perché il MEO si sposta più velocemente. In questa fascia sono presenti i satelliti del servizio GPS.
 
 \paragraph{LEO}
-I LEO (Low Earth Orbit) sono i più bassi tra i tre tipi; si spostano molto velocemente, di conseguenza un sistema completo richiede l’utilizzo di molti satelliti di questo tipo.
-D’altra parte, le stazioni terrestri non hanno bisogno di molta energia per la comunicazione e i ritardi sono di pochi millisecondi.
-Questo tipo di satellite tratta prevalentemente trasmissione voce e servizi internet/GPS. \\
-
-Il sistema di comunicazione principale del futuro sarà quello terrestre basato su fibre ottiche, combinato con la rete radio cellulare.
-Tuttavia per alcune applicazioni specifiche i satelliti sono migliori.
+I LEO (Low Earth Orbit) sono i più bassi tra i tre tipi; si spostano molto velocemente, di conseguenza un sistema completo richiede l'utilizzo di molti satelliti di questo tipo. L'idea di base e' quella che quando un satellite esce dal suo campo operativo, un'altro satellite lo sostituisce. \\
+Un esempio di LEO e' Iriduim, un gruppo di 66 satelliti che girano attorno al globo, che fornisce servizi di voce, fax, data etc. ovunque nel mondo, mare e in volo compresi. Il suo tipo di funzionamento e' l'utilizzo per ogni satellite di celle chiamate spot beams. Ogni satellite ha diverse celle in modo tale che riescano a coprire quanta piu' superficie possibile, dato che il loro cono operativo e' relativamente ristretto poiche' orbitano ad una distanza relativamente bassa.\\
+Un'altro esempio di LEO e' Globalstar: a differenza di Iridium, oltre al minor numero di  satelliti, e' che la comunicazione tra due endpoint non viene gestita nello spazio, ma il segnale viene riportato sulla terra e ritrasmesso dalla stazione (piu' vicina al destinatario) al satellite. Questo permette di "scaricare" la complessita sulla terra, dove e' piu' facile da gestire. Inoltre l'utilizzo di grandi stazioni sulla terra permettono l'utilizzo di telefoni che emettono un segnale piu' debole.\\
+Se si vuole paragonare i satelliti alle comunicazioni via fibra, ci sono da considerare diversi aspetti: la fibra e' in grado di trasportare piu' dati rispetto ai satelliti, ma questa velocita' non e' garantita a tutti gli utenti; i satelliti a differenza della fibra offrono velocita' uguale in qualsiasi posto, e' necessario solamente una antenna dedicata per le comunicazioni. Un'altra nota a favore dei satelliti sono le comunicazioni broadcast, per esempio per i mercati finanziari: un solo satellite che comunica a broadcast puo' essere ricevuto simultaneamente da migliaia di utenti.\\
+Tuttavia il sistema di comunicazione principale del futuro non viene stabilito dai pregi della tecnologia ma bensi' dai costi operativi e dall'economia che esso porta. Attualmente si e' orientati verso la fibra.
 
 \subsection{Pregi}
 Sono di facile utilizzo, basta alzare un'antenna sul tetto di casa per ottenere una maggior ampiezza di banda.
@@ -194,13 +193,13 @@ Un sistema di satelliti è più costoso (?) rispetto alla fibra ottica.
 \subsection{Ambiti d'uso}
 Trovano applicazione in luoghi inospitali e privi di infrastrutture, trovano applicazione nelle trasmissioni broadcast e nelle comunicazioni mobile, dove quindi la fibra fatica ad arrivare.
 
-\section{Cos’è la modulazione di frequenza?}
+\section{Cos'è la modulazione di frequenza?}
 
-Durante l’invio di informazioni, il segnale può subire attenuazione, distorsione o venir disturbata dal rumore;
-questo porta ad evitare l’uso di un largo intervallo di frequenze.
+Durante l'invio di informazioni, il segnale può subire attenuazione, distorsione o venir disturbata dal rumore;
+questo porta ad evitare l'uso di un largo intervallo di frequenze.
 Sfortunatamente le onde quadre utilizzate nei segnali digitali utilizzano un ampio spettro di frequenza, e perciò sono soggette ad una forte attenuazione e alla distorsione.\\
 Questi effetti rendono adatta la trasmissione in banda base (DC) solo a velocità basse e distanze brevi.\\
-Per aggirare questi problemi viene usata la trasmissione AC, un tono continuo (portante d’onda sinusoidale) nell’intervallo compreso tra 1000 e 2000Hz,
+Per aggirare questi problemi viene usata la trasmissione AC, un tono continuo (portante d'onda sinusoidale) nell'intervallo compreso tra 1000 e 2000Hz,
 il quale permette la modulazione della sua ampiezza (AM), frequenza (FM) o fase.
 
 \begin{figure}[H]
@@ -208,9 +207,9 @@ il quale permette la modulazione della sua ampiezza (AM), frequenza (FM) o fase.
 \includegraphics[scale=1]{res/img/5_modulazione.png}
 \end{figure}
 \subsection{Cos'è?}
-La modulazione in frequenza non è altro che una tecnica di trasmissione utilizzata per trasmettere informazioni usando la variazione di frequenza dell’onda portante.
+La modulazione in frequenza non è altro che una tecnica di trasmissione utilizzata per trasmettere informazioni usando la variazione di frequenza dell'onda portante.
 Rispetto alla modulazione in ampiezza ha il vantaggio di essere molto meno sensibile ai disturbi e permette una trasmissione di miglior qualità.
-Ha inoltre un’efficienza energetica molto maggiore dato che la potenza del segnale modulato FM è esclusivamente quello della portante.
+Ha inoltre un'efficienza energetica molto maggiore dato che la potenza del segnale modulato FM è esclusivamente quello della portante.
 
 \subsection{Pregi}
 Permette di ridurre i problemi di attenuazione e distorsione della linea.
@@ -219,14 +218,12 @@ Necessita di circuiti complessi sia per la generazione del segnale sia per la su
 \subsection{Ambiti d'uso}
 Viene utilizzata soprattutto in ambito di broadcasting commerciale, è più usata della modulazione in ampiezza.
 
-\section{Cos’è la modulazione delta (delta modulation)?}\label{deltaMod}
+\section{Cos'è la modulazione delta (delta modulation)?}\label{deltaMod}
 \subsection{Cos'è?}
-La delta modulation è un metodo di digitalizzazione e compressione di un segnale analogico.
-Si basa sul fatto che il segnale cambia in modo relativamente lento rispetto alla frequenza di campionamento, ciò rende gran parte dell’informazione ridondante.
-
-Questo metodo prevede che ogni valore campionato differisca dal precedente di +1 o -1, sotto queste condizioni è possibile trasmettere un singolo bit che dice se il nuovo campione è maggiore o minore del precedente.
-
-Un problema si ha se il segnale cambia troppo rapidamente, in quel caso si perdono informazioni.
+Nel campo della digitalizzazione dei segnali analogici in ambito telefonico, sono presenti varie tecniche. Una di queste e' la delta modulation: un metodo di digitalizzazione e compressione di un segnale analogico.\\
+E' una variazione del \textbf{differential pulse code modulation}: il segnale analogico viene suddiviso in tramite unita' di tempo, e successivamente viene digitalizzato tramite la differenza di valore tra il valore precedente e quello successivo, questo tramite una scala di +-16 che viene espressa tramite 5 bit.\\
+La delta modulation si basa su questo principio, ma viene ridotto alla variazione rappresentata da 1 bit: se il segnale successivo e' piu' alto di quello precedente allora viene rappresentato da 1, altrimenti 0. Si basa sul fatto che il segnale cambia in modo relativamente lento rispetto alla frequenza di campionamento, ciò rende gran parte dell'informazione ridondante. 
+Se il cambiamento del segnale analogico e' troppo ampio, si ha una perdita di dati, ma in ambito telefonico (piu' precisamente nelle chiamate), questo non e' un problema.
 
 \begin{figure}[H]
 \centering
@@ -236,7 +233,7 @@ Un problema si ha se il segnale cambia troppo rapidamente, in quel caso si perdo
  \subsection{Pregi}
  Grazie a questa tecnica è possibile comprimere e digitalizzare il segnale analogico (e viceversa), con il risultato di gravare meno sulle linee e permettere comunicazioni più veloci (a discapito della precisione).
  \subsection{Difetti}
- --
+ Si possono creare problemi se il segnale cambia troppo velocemente perche' si perdono i dati.
  \subsection{Ambiti d'uso}
  Viene utilizzata nelle comunicazioni satellitari o nelle comunicazioni voce.
  
@@ -261,7 +258,7 @@ A ogni stazione attiva è assegnato uno slot temporale su una coppia di canali.
 
 Trasmissione e ricezione non avvengono nello stesso intervallo temporale perché GSM non è in grado di trasmettere e ricevere contemporaneamente.
 
-Il GSM introduce anche l’utilizzo della SIM card, in cui vengono memorizzati i dati descrittivi dell’abbonato e ha la funzione principale di fornire autenticazione ed autorizzazione all’utilizzo della rete.
+Il GSM introduce anche l'utilizzo della SIM card, in cui vengono memorizzati i dati descrittivi dell'abbonato e ha la funzione principale di fornire autenticazione ed autorizzazione all'utilizzo della rete.
 
 \subsection{Pregi}
 Interoperabilità tra reti diverse che fanno capo ad un unico standard internazionale.
@@ -280,15 +277,15 @@ Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da
 \end{itemize}
 \subsection{Cos'è?}
 Il CDMA tratta dei telefoni della seconda generazione: voce digitale.
-D-AMPS e GSM sono sistemi che utilizzano FDM e TDM per dividere lo spettro in canali e i canali in slot temporali. CDMA invece di dividere l’intero intervallo di frequenze assegnate in poche centinaia di canali a banda stretta, permette ad ogni stazione di trasmettere per tutto il tempo attraverso l’intero spettro di frequenza. Trasmissioni multiple simultanee sono separate usando la teoria della codifica. La capacità del CDMA è di riuscire a estrarre il segnale desiderato scartando tutto il resto.
+D-AMPS e GSM sono sistemi che utilizzano FDM e TDM per dividere lo spettro in canali e i canali in slot temporali. CDMA invece di dividere l'intero intervallo di frequenze assegnate in poche centinaia di canali a banda stretta, permette ad ogni stazione di trasmettere per tutto il tempo attraverso l'intero spettro di frequenza. Trasmissioni multiple simultanee sono separate usando la teoria della codifica. La capacità del CDMA è di riuscire a estrarre il segnale desiderato scartando tutto il resto.
 
 In CDMA, ogni tempo bit è suddiviso in m intervalli chiamati chip. In genere ci sono 64 o 128 chip per ogni bit. Ad ogni stazione è assegnato un codice di m-bit univoco chiamato sequenza di chip.
 Per trasmettere un bit 1, una stazione invia la sua sequenza di chip; per trasmettere un bit 0 la stazione invia il complemento a uno della propria sequenza di chip.
 Ogni stazione adotta una sequenza di chip univoca.
 
-CDMA rispetto a GSM e D-AMPS opera in una banda di 1,25MHz, permettendo agli utenti di avere un’ampiezza di banda considerevole.
+CDMA rispetto a GSM e D-AMPS opera in una banda di 1,25MHz, permettendo agli utenti di avere un'ampiezza di banda considerevole.
 Una sequenza di chip e il suo contrario sono a due a due ortogonali (il prodotto interno normalizzato è 0). Per generare queste sequenze di frammento ortogonali si utilizza un metodo noto come codici Walsh. 
-Se la sequenza di chip ricevuta è S e il ricevitore sta cercando di ascoltare una stazione la cui sequenza di chip è C, il prodotto interno normalizzato da calcolare è S*C; facendo i calcoli si possono eliminare i termini superflui grazie all’ortogonalità dei valori, estraendo correttamente il valore trasmesso da C. 
+Se la sequenza di chip ricevuta è S e il ricevitore sta cercando di ascoltare una stazione la cui sequenza di chip è C, il prodotto interno normalizzato da calcolare è S*C; facendo i calcoli si possono eliminare i termini superflui grazie all'ortogonalità dei valori, estraendo correttamente il valore trasmesso da C. 
 Ad esempio, A e C trasmettono 1, B trasmette 0. Il ricevitore vede la somma S=A+!B+C e calcola:
 \begin{center}
 $S*C=(A+!B+C)*C=A*C+B*C+C*C=0+0+1=1$
@@ -302,7 +299,7 @@ Provvede inoltre a garantire una maggior sicurezza rispetto ai predecessori, in 
 \subsection{Ambiti d'uso}
 Viene utilizzata nei telefoni di seconda generazione, come alternativa a D-AMPS e GSM.
 
-\section{Il GPRS: Cos’è? Pregi e difetti}
+\section{Il GPRS: Cos'è? Pregi e difetti}
 
 Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da una diversa tecnologia:
 \begin{itemize}
@@ -311,16 +308,16 @@ Esistono tre generazioni distinte di telefoni cellulari ognuna caratterizzata da
 \item Voce e dati digitali (Internet, posta elettronica ecc.)
 \end{itemize}
 \subsection{Cos'è?}
-GPRS è un’evoluzione tra la seconda e la terza generazione di telefoni cellulari.
+GPRS è un'evoluzione tra la seconda e la terza generazione di telefoni cellulari.
 È una rete a pacchetti costruita sopra D-AMPS e GSM.
 Questa permette alle stazioni mobili di inviare e ricevere pacchetti IP in una cella basata su un sistema vocale.
 
 Quando GPRS è operativo vengono riservate alcuni slot temporali posti su alcune frequenze, per il traffico di pacchetti.
-Gli slot disponibili sono divisi in canali logici, la stazione base determina l’associazione tra i canali logici e time slot.
+Gli slot disponibili sono divisi in canali logici, la stazione base determina l'associazione tra i canali logici e time slot.
 Un canale logico è usato per scaricare i pacchetti dalla stazione base nella stazione mobile e ogni pacchetto indica il destinatario.
 
 Per inviare un pacchetto IP, una stazione mobile chiede uno o più slot inviando una richiesta alla stazione base.
-Se la richiesta arriva senza problemi, la stazione comunica all’apparecchio mobile la frequenza e gli slot che dovrà utilizzare per trasmettere il pacchetto.
+Se la richiesta arriva senza problemi, la stazione comunica all'apparecchio mobile la frequenza e gli slot che dovrà utilizzare per trasmettere il pacchetto.
 Una volta arrivato alla stazione base, il pacchetto è trasferito su Internet attraverso una connessione via cavo.
 
 \subsection{Pregi}
@@ -333,16 +330,16 @@ GPRS aggiunge il supporto a PPP e IP.
 \`E una tecnologia a cavallo tra la seconda generazione e la terza generazione di telefoni cellulari.
 Viene utlizzata per scambi di pacchetti dati tramite celle basate su sistemi vocali.
 
-\section{Handoff cos’è e vari tipi}
+\section{Handoff cos'è e vari tipi}
 
-Nell’ambito della telefonia mobile, con “Handoff” si intende la procedura per la quale un terminale cambia il canale (frequenza e slot di tempo) che sta utilizzando durante una comunicazione.
+Nell'ambito della telefonia mobile, con “Handoff” si intende la procedura per la quale un terminale cambia il canale (frequenza e slot di tempo) che sta utilizzando durante una comunicazione.
 
-Un’area geografica è divisa in celle, al centro di ogni cella si trova una stazione base che comunica con tutti i telefoni che si trovano nella cella.
+Un'area geografica è divisa in celle, al centro di ogni cella si trova una stazione base che comunica con tutti i telefoni che si trovano nella cella.
 
-Quando un telefono mobile abbandona fisicamente una cella perché si accorge che il segnale si sta affievolendo, la stazione base di quella cella verifica il livello di potenza del segnale ricevuto dalle stazioni nelle celle adiacenti. A questo punto la stazione trasferisce la gestione dell’apparecchio alla cella che riceve il segnale più forte, ossia alla cella in cui ora si trova il telefono.
-Il telefono viene informato della nuova centrale di controllo e viene forzato al cambiamento, questo è l’handoff.
+Quando un telefono mobile abbandona fisicamente una cella perché si accorge che il segnale si sta affievolendo, la stazione base di quella cella verifica il livello di potenza del segnale ricevuto dalle stazioni nelle celle adiacenti. A questo punto la stazione trasferisce la gestione dell'apparecchio alla cella che riceve il segnale più forte, ossia alla cella in cui ora si trova il telefono.
+Il telefono viene informato della nuova centrale di controllo e viene forzato al cambiamento, questo è l'handoff.
 
-Esistono due tipi di handoff: il soft e l’hard handoff. Nel soft handoff il telefono è acquisito dalla nuova stazione di base prima di interrompere il segnale precedente, il vantaggio sta nel fatto che non vi è nessuna perdita di continuità, tuttavia il telefono deve riuscire a gestire più frequenze nello stesso momento (né i telefoni di prima generazione ne seconda sono in grado).
+Esistono due tipi di handoff: il soft e l'hard handoff. Nel soft handoff il telefono è acquisito dalla nuova stazione di base prima di interrompere il segnale precedente, il vantaggio sta nel fatto che non vi è nessuna perdita di continuità, tuttavia il telefono deve riuscire a gestire più frequenze nello stesso momento (né i telefoni di prima generazione ne seconda sono in grado).
 
 Nel caso di hard handoff la vecchia stazione di base rilascia il telefono prima che la nuova lo acquisisca. Se la nuova non è in grado di prendere il controllo del dispositivo (ad esempio se non è disponibile nessuna frequenza) il segnale viene interrotto bruscamente, con il risultato di terminazione brusca di una possibile chiamata.
 \subsection{Pregi}
